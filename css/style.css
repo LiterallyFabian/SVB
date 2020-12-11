@@ -91,9 +91,6 @@ header {
 	clear: both;
 	display: inline-block;
 	width: 100%;
-	background-color: #FFFFFF;
-	/* [disabled]min-width: 400px;
-*/
 	padding-bottom: 35px;
 	padding-top: 0px;
 	margin-top: -5px;
@@ -159,11 +156,9 @@ header {
 }
 
 .cards {
-	width: 100%;
-	height: auto;
-	max-width: 400px;
-	max-height: 200px;
-	opacity: 0.8;
+	object-fit: cover;
+  width: 320px;
+  height: 200px;
 }
 
 .intro .column p {

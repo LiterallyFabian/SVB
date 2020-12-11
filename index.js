@@ -31,26 +31,28 @@ connection.connect(function (e) {
         if (err) throw err;
         console.log(result);
     });
+
+    createPosts();
+});
+
+
+
+function createPosts() {
     connection.query("SELECT * FROM posts", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
-        createPosts(result);
+        console.log(`Creating ${result.length} news articles...`)
+        result.forEach(post => fs.readFile("posttemplate.html", 'utf8', function (err, data) {
+            if (err) {
+                return console.log(err);
+            }
+            var article = post.text.replace("\n", "<br>");
+            var file = data.replace("{{title}}", post.title).replace("{{author}}", post.author).replace("{{image}}", post.thumbnailPath).replace("{{article}}", article)
+            fs.writeFile(`articles/${post.url}.html`, file, function (err) {
+                if (err) return console.log(err);
+            });
+        }));
     });
-    
-});
-
-function createPosts(posts){
-console.log(`Creating ${posts.length} news articles...`)
-posts.forEach(post => fs.readFile("posttemplate.html", 'utf8', function(err, data){
-    if(err){
-        return console.log(err);
-    }
-    var article = post.text.replace("\n", "<br>");
-    var file = data.replace("{{title}}", post.title).replace("{{author}}", post.author).replace("{{image}}", post.thumbnailPath).replace("{{article}}", article)
-    fs.writeFile(`articles/${post.url}.html`, file, function (err) {
-        if (err) return console.log(err);
-     });
-}));
 }
 
 app.use(express.json());
@@ -107,7 +109,7 @@ app.post('/register', (req, res) => {
 
 //create news article
 app.post('/createpost', (req, res) => {
-console.log("post!");
+    console.log("post!");
     var title = req.body.title;
     var author = req.body.author;
     var text = req.body.text;
@@ -119,10 +121,11 @@ console.log("post!");
             connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}')`, function (err2, result2) {
                 if (err2) throw err2;
                 res.send(result);
-                console.log("yass!");
+                console.log("Post created!");
+                createPosts()
             });
         } else {
-            console.log("noo!");
+            console.log("Post failed!");
             res.send(result);
         }
     });
@@ -130,12 +133,12 @@ console.log("post!");
 
 app.post('/getposts', (req, res) => {
     connection.query("SELECT * FROM posts", function (err, result) {
-      if (err) throw err;
-      else {
-        res.send(result);
-      }
+        if (err) throw err;
+        else {
+            res.send(result);
+        }
     });
-  });
+});
 
 
 const hostname = '192.168.56.101';
