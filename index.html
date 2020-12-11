@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SVT</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  <link href="css/nav.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="js/article.js"></script>
+  <script src="js/insert.js"></script>
+  <script src="js/getCookie.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Main Container -->
+
+  <nav class="navigation">
+    <ul>
+      <a href="index.html"><img class="navlogo" src="images/logo.svg" alt="LOGO"></a>
+      <li><a href="index.html">Nyheter</a></li>
+      <li><a href=#pagewrap>Lokalt</a></li>
+      <li><a href=#video>Sport</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a v-bind:href="href">{{ status }}</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- Header -->
+  <div class="screamer">
+    <header class="screamer">
+      <h3 class="screamer_title">JUST NU</h3>
+      <h4 class="screamer_body">SENASTE NYTT OM CORONAVIRUSET</h4>
+      <a href="index.html">
+        <h4 class="screamer_readmore">LÄS MER <i class="fas fa-arrow-right"></i></h4>
+      </a>
+    </header>
+  </div>
+
+  <!-- Stats Gallery Section -->
+  <div class="gallery">
+    <div class="thumbnail"> <img src="images/bkg_06.jpg" alt="" width="2000" class="cards" /></a>
+      <a href="index.html">
+        <h4>Author</h4>
+        <p class="title">Article title</p>
+        <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+    </div></a>
+    <div class="thumbnail"> <img src="images/bkg_06.jpg" alt="" width="2000" class="cards" /></a>
+      <a href="index.html">
+        <h4>Author</h4>
+        <p class="title">Article title</p>
+        <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+    </div></a>
+    <div class="thumbnail"><img src="images/bkg_06.jpg" alt="" width="2000" class="cards" /></a>
+      <a href="index.html">
+        <h4>Author</h4>
+        <p class="title">Article title</p>
+        <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+    </div></a>
+    <div class="thumbnail"> <img src="images/bkg_06.jpg" alt="" width="2000" class="cards" /></a>
+      <a href="index.html">
+        <h4>Author</h4>
+        <p class="title">Article title</p>
+        <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+    </div></a>
+  </div>
+  <div class="gallery">
+    <div class="thumbnail"> <img src="images/bkg_06.jpg" alt="" width="2000" class="cards" /></a>
+      <a href="index.html">
+        <h4>Author</h4>
+        <p class="title">Article title</p>
+        <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+    </div></a>
+    <div class="thumbnail"> <img src="images/bkg_06.jpg" alt="" width="2000" class="cards" /></a>
+      <a href="index.html">
+        <h4>Author</h4>
+        <p class="title">Article title</p>
+        <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+    </div></a>
+    <div class="thumbnail"> <img src="images/bkg_06.jpg" alt="" width="2000" class="cards" /></a>
+      <a href="index.html">
+        <h4>Author</h4>
+        <p class="title">Article title</p>
+        <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+    </div></a>
+    <div class="thumbnail"> <img src="images/bkg_06.jpg" alt="" width="2000" class="cards" /></a>
+      <a href="index.html">
+        <h4>Author</h4>
+        <p class="title">Article title</p>
+        <p class="text_column">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.</p>
+    </div></a>
+
+  </div>
+  <!-- Footer Section -->
+  <footer id="contact">
+    <div class="button">KONTAKT</div>
+  </footer>
+  <!-- Copyrights Section -->
+  <div class="copyright">&copy;2020 - <strong>GRID</strong></div>
+  </div>
+  <!-- Main Container Ends -->
+
+
+  <script>
+    const Login = {
+      data() {
+        return {
+          status: "Logga in",
+          href: "login.html"
+        }
+
+      },
+      mounted: function trylogin() {
+        this.$nextTick(function () {
+          this.usercookie = getCookie("login")
+          if (this.usercookie.length > 0) {
+            var data = JSON.parse(this.usercookie);
+            this.username = data.username;
+            this.hash = data.password;
+            this.vue_autologin();
+          }
+        })
+      },
+      methods: {
+        async vue_autologin() {
+          console.log("start login");
+          var loginInfo;
+          await axios.post("/login", {
+            username: this.username,
+            password: this.hash
+          }).then(res => {
+            if (res.data[0].name != null) {
+              this.status = "Nytt inlägg";
+              this.href = "post.html"
+            }
+          })
+        },
+      }
+    }
+
+    Vue.createApp(Login).mount('.navigation')
+  </script>
+</body>
+
+</html>

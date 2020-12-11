@@ -1,0 +1,25 @@
+nav ul {
+    text-align: center;
+    padding: 1% 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 2%;
+}
+
+nav ul li a {                           /*4 länkarna i toppen*/
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: black;
+    text-decoration: none;
+}
+nav ul li a:hover {
+    color:#e02e3d;
+}
+nav ul li a:active {
+    color:#f02e3d;
+}
+.navlogo{
+    width: 10%;
+}
