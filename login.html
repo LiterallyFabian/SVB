@@ -8,14 +8,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.8.0/sha512.min.js"
         integrity="sha512-KUrAWA1oxsWKHBaA2mlZyRuR8zzzHHYgpDfkfPrT3FhlZ4YdXbXyE89VHI6WmWradSHtuZjLyLAMP2F7IWK4JQ=="
         crossorigin="anonymous"></script>
-        <script src="js/getCookie.js"></script>
+    <script src="js/getCookie.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
-<body>
+<body id="mountpls">
 
     <nav>
         <ul>
@@ -24,12 +24,12 @@
             <li><a href=#pagewrap>Lokalt</a></li>
             <li><a href=#video>Sport</a></li>
             <li><a href="kontakt.html">Kontakt</a></li>
-            <li><a href="login.html">Logga in</a></li>
+            <li><a v-bind:href="href">{{ navoption }}</a></li>
         </ul>
     </nav>
 
 
-    <div class="login_mainframe" id="mountpls">
+    <div class="login_mainframe">
         <div id="logo"><img src="img/pps.png" alt=""></div>
         <div class="login_formtable">
             <label class="label" for="username">Användarnamn</label>
@@ -52,6 +52,8 @@
                     username: "",
                     password: "",
                     status: "",
+                    navoption: "Logga in",
+                    href: "login.html",
                     usercookie: ""
                 }
 
@@ -69,34 +71,34 @@
             },
             methods: {
                 async vue_login() {
-                    console.log("start login");
-                    var loginInfo;
                     await axios.post("/login", {
                         username: this.username,
                         password: sha512(this.password)
                     }).then(res => {
                         if (res.data[0].name == null) {
                             this.status = "This account could not be found... that's pretty cringe ngl";
+                            this.href = "login.html";
+                            this.navoption = "Logga in"
                         } else {
-                            this.status = "Logged in!";
+                            this.status = "Välkommen till SVT!";
+                            this.href = "post.html";
+                            this.navoption = "Nytt inlägg"
                         }
                     })
                 },
                 async vue_autologin() {
-                    console.log("start login");
-                    var loginInfo;
                     await axios.post("/login", {
                         username: this.username,
                         password: this.hash
                     }).then(res => {
                         if (res.data[0].name != null) {
-                            this.status = "Welcome back, you can now post!";
+                            this.status = "Välkommen tillbaka, nu kan du skriva om corona!";
+                            this.href = "post.html";
+                            this.navoption = "Nytt inlägg"
                         }
                     })
                 },
                 async vue_signup() {
-                    console.log("start register");
-                    var loginInfo;
                     await axios.post("/register", {
                         username: this.username,
                         password: sha512(this.password),
@@ -104,9 +106,13 @@
                     }).then(res => {
                         if (res.data[0] == null) {
                             this.status = "Welcome to SajberSoft!";
+                            this.href = "post.html";
+                            this.navoption = "Nytt inlägg"
                         } else {
                             this.status =
                                 "This account could not be be created, use an original name lmao";
+                            this.href = "login.html";
+                            this.navoption = "Logga in"
                         }
                     })
                 }
