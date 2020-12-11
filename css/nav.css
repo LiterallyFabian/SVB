@@ -1,11 +1,12 @@
 nav ul {
     text-align: center;
     padding: 1% 0;
+    background-color: white;
 }
 
 nav ul li {
     display: inline;
-    margin: 2%;
+    margin: 3%;
 }
 
 nav ul li a {                           /*4 länkarna i toppen*/

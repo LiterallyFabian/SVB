@@ -45,7 +45,8 @@ posts.forEach(post => fs.readFile("posttemplate.html", 'utf8', function(err, dat
     if(err){
         return console.log(err);
     }
-    var file = data.replace("{{title}}", post.title).replace("{{author}}", post.author).replace("{{image}}", post.thumbnailPath).replace("{{article}}", post.text.replace("\n", "<br>"))
+    var article = post.text.replace("\n", "<br>");
+    var file = data.replace("{{title}}", post.title).replace("{{author}}", post.author).replace("{{image}}", post.thumbnailPath).replace("{{article}}", article)
     fs.writeFile(`articles/${post.url}.html`, file, function (err) {
         if (err) return console.log(err);
      });

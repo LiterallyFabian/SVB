@@ -2,82 +2,90 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SVT</title>
-  <link href="/css/style.css" rel="stylesheet" type="text/css">
-  <link href="/css/nav.css" rel="stylesheet" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/vue@next"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="/js/article.js"></script>
-  <script src="/js/insert.js"></script>
-  <script src="/js/getCookie.js"></script>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVT</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/nav.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/article.js"></script>
+    <script src="/js/insert.js"></script>
+    <script src="/js/getCookie.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <!-- Main Container -->
+    <!-- Main Container -->
 
-  <nav class="navigation">
-    <ul>
-      <a href="/index.html"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
-      <li><a href="/index.html">Nyheter</a></li>
-      <li><a href=#pagewrap>Lokalt</a></li>
-      <li><a href=#video>Sport</a></li>
-      <li><a href="/kontakt.html">Kontakt</a></li>
-      <li><a v-bind:href="href">{{ status }}</a></li>
-    </ul>
-  </nav>
+    <nav class="navigation">
+        <ul>
+            <a href="/index.html"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
+            <li><a href="/index.html">Nyheter</a></li>
+            <li><a href=#pagewrap>Lokalt</a></li>
+            <li><a href=#video>Sport</a></li>
+            <li><a href="/kontakt.html">Kontakt</a></li>
+            <li><a v-bind:href="href">{{ status }}</a></li>
+        </ul>
+    </nav>
+    <div class="article_body">
 
-<h1>Title: {{title}}</h1>
-<h2>By: {{author}}</h2>
-<p>{{article}}</p>
-<img src="{{image}}" alt="Image">
+        <img class="article_cover" src="{{image}}" alt="Image">
+        <h1>{{title}}</h1>
+        
+        <p>{{article}}
+        </p>
+        <br><br><hr>
+        <h5>Artikel publicerad av {{author}}</h5>
+        <p><i class="fas fa-envelope"></i> Hittat språk- eller faktafel i texten? Skriv och berätta.</p>
+
+        
 
 
-  <script>
-    const Login = {
-      data() {
-        return {
-          status: "Logga in",
-          href: "login.html"
+    </div>
+    <script>
+        const Login = {
+            data() {
+                return {
+                    status: "Logga in",
+                    href: "login.html"
+                }
+
+            },
+            mounted: function trylogin() {
+                this.$nextTick(function () {
+                    this.usercookie = getCookie("login")
+                    if (this.usercookie.length > 0) {
+                        var data = JSON.parse(this.usercookie);
+                        this.username = data.username;
+                        this.hash = data.password;
+                        this.vue_autologin();
+                    }
+                })
+            },
+            methods: {
+                async vue_autologin() {
+                    console.log("start login");
+                    var loginInfo;
+                    await axios.post("/login", {
+                        username: this.username,
+                        password: this.hash
+                    }).then(res => {
+                        if (res.data[0].name != null) {
+                            this.status = "Nytt inlägg";
+                            this.href = "post.html"
+                        }
+                    })
+                },
+            }
         }
 
-      },
-      mounted: function trylogin() {
-        this.$nextTick(function () {
-          this.usercookie = getCookie("login")
-          if (this.usercookie.length > 0) {
-            var data = JSON.parse(this.usercookie);
-            this.username = data.username;
-            this.hash = data.password;
-            this.vue_autologin();
-          }
-        })
-      },
-      methods: {
-        async vue_autologin() {
-          console.log("start login");
-          var loginInfo;
-          await axios.post("/login", {
-            username: this.username,
-            password: this.hash
-          }).then(res => {
-            if (res.data[0].name != null) {
-              this.status = "Nytt inlägg";
-              this.href = "post.html"
-            }
-          })
-        },
-      }
-    }
-
-    Vue.createApp(Login).mount('.navigation')
-  </script>
+        Vue.createApp(Login).mount('.navigation')
+    </script>
 </body>
 
 </html>
