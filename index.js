@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql2 = require('mysql2');
 const path = require('path');
+const fs = require('fs');
 const app = express();
 app.use(express.static(path.join(__dirname, '')));
 // Setup database connection parameter
@@ -33,10 +34,23 @@ connection.connect(function (e) {
     connection.query("SELECT * FROM posts", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
+        createPosts(result);
     });
+    
 });
 
-
+function createPosts(posts){
+console.log(`Creating ${posts.length} news articles...`)
+posts.forEach(post => fs.readFile("posttemplate.html", 'utf8', function(err, data){
+    if(err){
+        return console.log(err);
+    }
+    var file = data.replace("{{title}}", post.title).replace("{{author}}", post.author).replace("{{image}}", post.thumbnailPath).replace("{{article}}", post.text.replace("\n", "<br>"))
+    fs.writeFile(`articles/${post.url}.html`, file, function (err) {
+        if (err) return console.log(err);
+     });
+}));
+}
 
 app.use(express.json());
 app.use(express.static("/"));
@@ -112,6 +126,15 @@ console.log("post!");
         }
     });
 });
+
+app.post('/getposts', (req, res) => {
+    connection.query("SELECT * FROM posts", function (err, result) {
+      if (err) throw err;
+      else {
+        res.send(result);
+      }
+    });
+  });
 
 
 const hostname = '192.168.56.101';

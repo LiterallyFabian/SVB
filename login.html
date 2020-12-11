@@ -2,13 +2,13 @@
 
 <head>
     <title>SajberSoft</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/form.css">
-    <link rel="stylesheet" type="text/css" href="css/nav.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/form.css">
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.8.0/sha512.min.js"
         integrity="sha512-KUrAWA1oxsWKHBaA2mlZyRuR8zzzHHYgpDfkfPrT3FhlZ4YdXbXyE89VHI6WmWradSHtuZjLyLAMP2F7IWK4JQ=="
         crossorigin="anonymous"></script>
-    <script src="js/getCookie.js"></script>
+    <script src="/js/getCookie.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
@@ -19,18 +19,17 @@
 
     <nav>
         <ul>
-            <a href="index.html"><img class="navlogo" src="images/logo.svg" alt="LOGO"></a>
-            <li><a href="index.html">Nyheter</a></li>
+            <a href="/index.html"><img class="navlogo" src="images/logo.svg" alt="LOGO"></a>
+            <li><a href="/index.html">Nyheter</a></li>
             <li><a href=#pagewrap>Lokalt</a></li>
             <li><a href=#video>Sport</a></li>
-            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="/kontakt.html">Kontakt</a></li>
             <li><a v-bind:href="href">{{ navoption }}</a></li>
         </ul>
     </nav>
 
     <br><br>
     <div class="login_mainframe">
-        <div id="logo"><img src="img/pps.png" alt=""></div>
         <div class="login_formtable center">
             <label class="label" for="username">Användarnamn</label><br>
             <input class="textbox" type="text" v-model="username"><br>

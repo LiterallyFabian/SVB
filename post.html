@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SVT</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/form.css">
-    <link href="css/nav.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/form.css" rel="stylesheet" type="text/css">
+    <link href="/css/nav.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="js/article.js"></script>
-    <script src="js/insert.js"></script>
-    <script src="js/getCookie.js"></script>
+    <script src="/js/article.js"></script>
+    <script src="/js/insert.js"></script>
+    <script src="/js/getCookie.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
 </head>
@@ -25,11 +25,11 @@
 
     <nav class="navigation">
         <ul>
-            <a href="index.html"><img class="navlogo" src="images/logo.svg" alt="LOGO"></a>
-            <li><a href="index.html">Nyheter</a></li>
+            <a href="/index.html"><img class="navlogo" src="images/logo.svg" alt="LOGO"></a>
+            <li><a href="/index.html">Nyheter</a></li>
             <li><a href=#pagewrap>Lokalt</a></li>
             <li><a href=#video>Sport</a></li>
-            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="/kontakt.html">Kontakt</a></li>
             <li><a v-bind:href="href">{{ navoption }}</a></li>
         </ul>
     </nav>
@@ -46,7 +46,7 @@
             <textarea class="textbox articletextbox" type="text" v-model="text"></textarea><br>
 
             <label class="label">Omslagslänk</label><br>
-            <input class="textbox" type="text" v-model="thumbnailurl" placeholder="/omslag.png"><br>
+            <input class="textbox" type="text" v-model="thumbnailurl" placeholder="images/omslag.png"><br>
 
             <label class="label">Artikellänk</label><br>
             <input class="textbox" type="text" v-model="url" placeholder="/min-artikel"><br>
