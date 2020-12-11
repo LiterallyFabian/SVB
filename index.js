@@ -30,6 +30,10 @@ connection.connect(function (e) {
         if (err) throw err;
         console.log(result);
     });
+    connection.query("SELECT * FROM posts", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+    });
 });
 
 
@@ -69,7 +73,6 @@ app.post('/login', (req, res) => {
 
 //register new user
 app.post('/register', (req, res) => {
-    console.log('registerstart');
 
     var username = req.body.username;
     var password = req.body.password;
@@ -82,6 +85,29 @@ app.post('/register', (req, res) => {
                 res.send(result);
             });
         } else {
+            res.send(result);
+        }
+    });
+});
+
+//create news article
+app.post('/createpost', (req, res) => {
+console.log("post!");
+    var title = req.body.title;
+    var author = req.body.author;
+    var text = req.body.text;
+    var thumbnail = req.body.thumbnailurl;
+    var url = req.body.url;
+    connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
+        if (result.length == 0) {
+            console.log(`Creating news article ${title}, by ${author}`);
+            connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}')`, function (err2, result2) {
+                if (err2) throw err2;
+                res.send(result);
+                console.log("yass!");
+            });
+        } else {
+            console.log("noo!");
             res.send(result);
         }
     });

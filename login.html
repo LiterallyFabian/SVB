@@ -3,7 +3,7 @@
 <head>
     <title>SajberSoft</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/form.css">
     <link rel="stylesheet" type="text/css" href="css/nav.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.8.0/sha512.min.js"
         integrity="sha512-KUrAWA1oxsWKHBaA2mlZyRuR8zzzHHYgpDfkfPrT3FhlZ4YdXbXyE89VHI6WmWradSHtuZjLyLAMP2F7IWK4JQ=="
@@ -28,14 +28,14 @@
         </ul>
     </nav>
 
-
+    <br><br>
     <div class="login_mainframe">
         <div id="logo"><img src="img/pps.png" alt=""></div>
-        <div class="login_formtable">
-            <label class="label" for="username">Användarnamn</label>
-            <input class="textbox" type="text" v-model="username">
-            <label class="label" for="password">Lösenord</label>
-            <input class="textbox" type="password" v-model="password" autocomplete="off">
+        <div class="login_formtable center">
+            <label class="label" for="username">Användarnamn</label><br>
+            <input class="textbox" type="text" v-model="username"><br>
+            <label class="label" for="password">Lösenord</label><br>
+            <input class="textbox" type="password" v-model="password" autocomplete="off"><br>
             <button class="buttons" v-on:click="vue_login">Log in</button>
             <button class="buttons" v-on:click="vue_signup">Sign up</button>
         </div>
