@@ -3,11 +3,11 @@
 document.getElementById("navbar").innerHTML = `
 <nav class="navigation">
     <ul>
-    <a href="index.html"><img class="navlogo" src="images/logo.svg" alt="LOGO"></a>
-    <li><a href="index.html">Nyheter</a></li>
+    <a href="/index.html"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
+    <li><a href="/index.html">Nyheter</a></li>
     <li><a href=#pagewrap>Lokalt</a></li>
     <li><a href=#video>Sport</a></li>
-    <li><a href="kontakt.html">Kontakt</a></li>
+    <li><a href="/kontakt.html">Kontakt</a></li>
     <li><a v-bind:href="href">{{ status }}</a></li>
     </ul>
 </nav>
