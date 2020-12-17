@@ -1,3 +1,5 @@
+//Gets cookies saved in users browser
+
 function getCookie(cname) {
     var name = cname + "=j:";
     var ca = decodeURIComponent(document.cookie).split(';');

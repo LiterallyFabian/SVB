@@ -1,3 +1,5 @@
+//Creates cards for all articles in database and post them to the front page on load.
+
 class article {
     constructor(neg, author, text, thumbnailPath, url) {
         this.thumbnailPath = thumbnailPath;
