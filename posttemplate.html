@@ -21,71 +21,64 @@
 
 <body>
     <!-- Main Container -->
+    <div id="navbar">
+        <script src="js/navigationbar.js"></script>
 
-    <nav class="navigation">
-        <ul>
-            <a href="/index.html"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
-            <li><a href="/index.html">Nyheter</a></li>
-            <li><a href=#pagewrap>Lokalt</a></li>
-            <li><a href=#video>Sport</a></li>
-            <li><a href="/kontakt.html">Kontakt</a></li>
-            <li><a v-bind:href="href">{{ status }}</a></li>
-        </ul>
-    </nav>
-    <div class="article_body">
+        <div class="article_body">
 
-        <img class="article_cover" src="{{image}}" alt="Image">
-        <h1>{{title}}</h1>
-        
-        <p>{{article}}
-        </p>
-        <br><br><hr>
-        <h5>Artikel publicerad av {{author}}</h5>
-        <p><i class="fas fa-envelope"></i> Hittat språk- eller faktafel i texten? Skriv och berätta.</p>
+            <img class="article_cover" src="{{image}}" alt="Image">
+            <h1>{{title}}</h1>
 
-        
+            <p>{{article}}
+            </p>
+            <br><br>
+            <hr>
+            <h5>Artikel publicerad av {{author}}</h5>
+            <p><i class="fas fa-envelope"></i> Hittat språk- eller faktafel i texten? Skriv och berätta.</p>
 
 
-    </div>
-    <script>
-        const Login = {
-            data() {
-                return {
-                    status: "Logga in",
-                    href: "login.html"
-                }
 
-            },
-            mounted: function trylogin() {
-                this.$nextTick(function () {
-                    this.usercookie = getCookie("login")
-                    if (this.usercookie.length > 0) {
-                        var data = JSON.parse(this.usercookie);
-                        this.username = data.username;
-                        this.hash = data.password;
-                        this.vue_autologin();
+
+        </div>
+        <script>
+            const Login = {
+                data() {
+                    return {
+                        status: "Logga in",
+                        href: "login.html"
                     }
-                })
-            },
-            methods: {
-                async vue_autologin() {
-                    console.log("start login");
-                    var loginInfo;
-                    await axios.post("/login", {
-                        username: this.username,
-                        password: this.hash
-                    }).then(res => {
-                        if (res.data[0].name != null) {
-                            this.status = "Nytt inlägg";
-                            this.href = "post.html"
+
+                },
+                mounted: function trylogin() {
+                    this.$nextTick(function () {
+                        this.usercookie = getCookie("login")
+                        if (this.usercookie.length > 0) {
+                            var data = JSON.parse(this.usercookie);
+                            this.username = data.username;
+                            this.hash = data.password;
+                            this.vue_autologin();
                         }
                     })
                 },
+                methods: {
+                    async vue_autologin() {
+                        console.log("start login");
+                        var loginInfo;
+                        await axios.post("/login", {
+                            username: this.username,
+                            password: this.hash
+                        }).then(res => {
+                            if (res.data[0].name != null) {
+                                this.status = "Nytt inlägg";
+                                this.href = "post.html"
+                            }
+                        })
+                    },
+                }
             }
-        }
 
-        Vue.createApp(Login).mount('.navigation')
-    </script>
+            Vue.createApp(Login).mount('.navigation')
+        </script>
 </body>
 
 </html>
