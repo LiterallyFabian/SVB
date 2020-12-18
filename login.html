@@ -20,19 +20,19 @@
     <div id="navbar">
         <script src="/js/navigationbar.js"></script>
 
-    <br><br>
-    <div class="login_mainframe">
-        <div class="login_formtable center">
-            <label class="label" for="username">Användarnamn</label><br>
-            <input class="textbox" type="text" v-model="username"><br>
-            <label class="label" for="password">Lösenord</label><br>
-            <input class="textbox" type="password" v-model="password" autocomplete="off"><br>
-            <button class="buttons" v-on:click="vue_login">Log in</button>
-            <button class="buttons" v-on:click="vue_signup">Sign up</button>
-        </div>
-        <p>{{ status }}</p>
+        <br><br>
+        <div class="login_mainframe">
+            <div class="login_formtable center">
+                <label class="label" for="username">Användarnamn</label><br>
+                <input class="textbox" type="text" v-model="username"><br>
+                <label class="label" for="password">Lösenord</label><br>
+                <input class="textbox" type="password" v-model="password" autocomplete="off"><br>
+                <button class="buttons" v-on:click="vue_login">Log in</button>
+                <button class="buttons" v-on:click="vue_signup">Sign up</button>
+            </div>
+            <p>{{ message }}</p>
 
-    </div>
+        </div>
     </div>
 
     <script>
@@ -42,23 +42,11 @@
                     message: "",
                     username: "",
                     password: "",
-                    status: "",
                     navoption: "Logga in",
                     href: "login.html",
                     usercookie: ""
                 }
 
-            },
-            mounted: function x() {
-                this.$nextTick(function () {
-                    this.usercookie = getCookie("login")
-                    if (this.usercookie.length > 0) {
-                        var data = JSON.parse(this.usercookie);
-                        this.username = data.username;
-                        this.hash = data.password;
-                        this.vue_autologin();
-                    }
-                })
             },
             methods: {
                 async vue_login() {
@@ -67,23 +55,12 @@
                         password: sha512(this.password)
                     }).then(res => {
                         if (res.data[0].name == null) {
-                            this.status = "This account could not be found... that's pretty cringe ngl";
+                            this.message =
+                            "This account could not be found... that's pretty cringe ngl";
                             this.href = "login.html";
                             this.navoption = "Logga in"
                         } else {
-                            this.status = "Välkommen till SVT!";
-                            this.href = "post.html";
-                            this.navoption = "Nytt inlägg"
-                        }
-                    })
-                },
-                async vue_autologin() {
-                    await axios.post("/login", {
-                        username: this.username,
-                        password: this.hash
-                    }).then(res => {
-                        if (res.data[0].name != null) {
-                            this.status = "Välkommen tillbaka, nu kan du skriva om corona!";
+                            this.message = "Välkommen till SVT!";
                             this.href = "post.html";
                             this.navoption = "Nytt inlägg"
                         }
@@ -96,11 +73,11 @@
                         message: this.message
                     }).then(res => {
                         if (res.data[0] == null) {
-                            this.status = "Välkommen till SVT!";
+                            this.message = "Välkommen till SVT!";
                             this.href = "post.html";
                             this.navoption = "Nytt inlägg"
                         } else {
-                            this.status =
+                            this.message =
                                 "This account could not be be created, use an original name lmao";
                             this.href = "login.html";
                             this.navoption = "Logga in"
@@ -111,7 +88,7 @@
         }
 
 
-        Vue.createApp(LoginNote).mount('#mountpls')
+        Vue.createApp(LoginNote).mount('.login_mainframe')
     </script>
 </body>
 

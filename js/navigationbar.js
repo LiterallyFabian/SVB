@@ -8,7 +8,7 @@ document.getElementById("navbar").innerHTML = `
     <li><a href=#pagewrap>Lokalt</a></li>
     <li><a href=#video>Sport</a></li>
     <li><a href="/kontakt.html">Kontakt</a></li>
-    <li><a v-bind:href="href">{{ status }}</a></li>
+    <li><a v-bind:href="href">{{ navoption }}</a></li>
     </ul>
 </nav>
 `
@@ -16,7 +16,7 @@ document.getElementById("navbar").innerHTML = `
 const Login = {
     data() {
         return {
-            status: "Logga in",
+            navoption: "Logga in",
             href: "login.html"
         }
 
@@ -40,8 +40,8 @@ const Login = {
                 password: this.hash
             }).then(res => {
                 if (res.data[0].name != null) {
-                    this.status = "Nytt inlägg";
-                    this.href = "post.html"
+                    this.navoption = "Nytt inlägg"; //shown in navbar
+                    this.href = "/post.html" //redirect option for logged in user
                 }
             })
         },

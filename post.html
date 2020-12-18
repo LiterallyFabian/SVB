@@ -51,7 +51,7 @@
 
 
     <script>
-        const Login = {
+        const postCreation = {
             data() {
                 return {
                     title: "",
@@ -59,38 +59,12 @@
                     text: "",
                     thumbnailurl: "",
                     url: "",
-                    navoption: "Logga in",
-                    href: "login.html",
                     status: ""
                 }
 
             },
-            mounted: function trylogin() {
-                this.$nextTick(function () {
-                    this.usercookie = getCookie("login")
-                    if (this.usercookie.length > 0) {
-                        var data = JSON.parse(this.usercookie);
-                        this.username = data.username;
-                        this.hash = data.password;
-                        this.vue_autologin();
-                    }
-                })
-            },
             methods: {
-                async vue_autologin() {
-                    var loginInfo;
-                    await axios.post("/login", {
-                        username: this.username,
-                        password: this.hash
-                    }).then(res => {
-                        if (res.data[0].name != null) {
-                            this.navoption = "Nytt inlägg";
-                            this.href = "post.html"
-                        }
-                    })
-                },
                 async vue_createpost() {
-                    var loginInfo;
                     await axios.post("/createpost", {
                         title: this.title,
                         author: JSON.parse(this.usercookie).username,
@@ -106,7 +80,7 @@
             }
         }
 
-        Vue.createApp(Login).mount('#page')
+        Vue.createApp(postCreation).mount('.login_mainframe')
     </script>
 </body>
 
