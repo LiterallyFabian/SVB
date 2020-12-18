@@ -1,9 +1,9 @@
 //Creates cards for all articles in database and post them to the front page on load.
 
 class article {
-    constructor(neg, author, text, thumbnailPath, url) {
+    constructor(title, author, text, thumbnailPath, url) {
         this.thumbnailPath = thumbnailPath;
-        this.title = neg;
+        this.title = title;
         this.author = author;
         this.text = text;
         this.url = url;
@@ -20,7 +20,7 @@ class article {
 
         return `
         <div class="thumbnail"> <img src="${this.thumbnailPath}" alt="" width="2000" class="cards" /></a>
-        <a href="/articles/${this.url}.html">
+        <a href="/articles/${this.url.replace("/", "")}.html">
           <h4>${this.author}</h4>
           <p class="title">${this.title}</p>
           <p class="text_column">${preview}</p>

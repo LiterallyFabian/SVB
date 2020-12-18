@@ -157,8 +157,8 @@ header {
 
 .cards {
 	object-fit: cover;
-  width: 320px;
-  height: 200px;
+  width: 32em;
+  height: 20em;
 }
 
 .intro .column p {
