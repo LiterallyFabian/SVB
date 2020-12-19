@@ -27,61 +27,90 @@
         <script src="/js/navigationbar.js"></script>
 
 
-    <div class="login_mainframe">
-        <div id="logo"><img src="img/pps.png" alt=""></div>
-        <div class="login_formtable">
+        <div class="login_mainframe">
+            <div class="login_formtable">
 
-            <label class="label">Nyhetstitel</label><br>
-            <input class="textbox" type="text" v-model="title"><br>
+                <label class="label">Nyhetstitel</label><br>
+                <input class="textbox" type="text" v-model="title"><br>
 
-            <label class="label">Artikel</label><br>
-            <textarea class="textbox articletextbox" type="text" v-model="text"></textarea><br>
+                <label class="label">Artikel</label><br>
+                <textarea class="textbox articletextbox" type="text" v-model="text"></textarea><br>
 
-            <label class="label">Omslagslänk</label><br>
-            <input class="textbox" type="text" v-model="thumbnailurl" placeholder="images/omslag.png"><br>
+                <label class="label">Omslagslänk</label><br>
+                <input class="textbox" type="text" v-model="thumbnailPath" placeholder="images/omslag.png"><br>
 
-            <label class="label">Artikellänk</label><br>
-            <input class="textbox" type="text" v-model="url" placeholder="/min-artikel"><br>
+                <label class="label">Artikellänk</label><br>
+                <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1"><br>
 
-            <button class="submitbutton" v-on:click="vue_createpost">Skapa inlägg</button>
+                <button class="submitbutton" v-on:click="vue_createpost">{{ action }}</button>
+            </div>
+            <p>{{ status }}</p>
+
         </div>
-        <p>{{ status }}</p>
-
-    </div>
 
 
-    <script>
-        const postCreation = {
-            data() {
-                return {
-                    title: "",
-                    author: "",
-                    text: "",
-                    thumbnailurl: "",
-                    url: "",
-                    status: ""
-                }
+        <script>
+            const postCreation = {
+                data() {
+                    return {
+                        title: "",
+                        author: "",
+                        text: "",
+                        thumbnailPath: "",
+                        url: "",
+                        status: "",
+                        action: "Skapa inlägg",
+                        isEdit: 0
+                    }
 
-            },
-            methods: {
-                async vue_createpost() {
-                    await axios.post("/createpost", {
-                        title: this.title,
-                        author: JSON.parse(this.usercookie).username,
-                        text: this.text,
-                        thumbnailurl: this.thumbnailurl,
-                        url: this.url
-                    }).then(res => {
-                        if (res.data[0].name != null) {
-                            this.status = "Din post är uppe!";
+                },
+                mounted: function editpost() {
+                    this.$nextTick(function () {
+                        var url = new URL(window.location.href);
+                        var edit = url.searchParams.get("edit");
+                        if (edit != null) {
+                            this.url = edit;
+                            this.action = "Uppdatera inlägg";
+                            this.isEdit = 1;
+                            this.vue_fillpost();
                         }
+
                     })
                 },
+                methods: {
+                    async vue_createpost() {
+                        await axios.post("/createpost", {
+                            title: this.title,
+                            author: JSON.parse(getCookie("login")).username,
+                            text: this.text,
+                            thumbnailPath: this.thumbnailPath,
+                            url: this.url
+                        }).then(res => {
+                            if (res.data[0].name != null) {
+                                this.status = "Din post är uppe!";
+                            }
+                        })
+                    },
+                    async vue_fillpost() {
+                        await axios.post("/getarticle", {
+                            url: this.url
+                        }).then(res => {
+                            if (res.data[0].title == null) {
+                                this.status = "Article not found."
+                            } else {
+                                this.title = res.data[0].title;
+                                this.author = res.data[0].author;
+                                this.url = res.data[0].url;
+                                this.thumbnailPath = res.data[0].thumbnailPath;
+                                this.text = res.data[0].text;
+                            }
+                        })
+                    }
+                }
             }
-        }
 
-        Vue.createApp(postCreation).mount('.login_mainframe')
-    </script>
+            Vue.createApp(postCreation).mount('.login_mainframe')
+        </script>
 </body>
 
 </html>

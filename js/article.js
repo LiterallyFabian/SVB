@@ -14,23 +14,25 @@ class article {
     }
 
     generatePost() {
-        console.log(this);
         //cut text to prevent overflowing
         var preview = this.text.slice(0, 50);
 
         return `
-        <div class="thumbnail"> <img src="${this.thumbnailPath}" alt="" width="2000" class="cards" /></a>
-        <a href="/articles/${this.url.replace("/", "")}.html">
-          <h4>${this.author}</h4>
-          <p class="title">${this.title}</p>
-          <p class="text_column">${preview}</p>
-      </div></a>`;
+        <div class="thumb-box">
+        <a href="/articles/${this.url}.html">
+            <img src="${this.thumbnailPath}" alt="">
+           <span class="overlay-box">
+          <span class="author">${this.author}</span>
+          <span class="main-title">${this.title}</span>
+          <span class="description">${preview}</span>
+            </span>
+        </a>
+      </div>`;
     }
 }
 $.post( "/getposts", function( data ) {
     $.each(data, function(i, post){
         var articlez = new article(post.title, post.author, post.text, post.thumbnailPath, post.url)
-        console.log(articlez.post)
         $( ".gallery" ).append( $(articlez.post) );
     })
   });

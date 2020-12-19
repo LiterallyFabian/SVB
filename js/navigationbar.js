@@ -32,6 +32,7 @@ const Login = {
             }
         })
     },
+
     methods: {
         async vue_autologin() {
             console.log("start login");

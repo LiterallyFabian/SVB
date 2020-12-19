@@ -47,7 +47,7 @@ function createPosts() {
                 return console.log(err);
             }
             var article = post.text.replace("\n", "<br>");
-            var file = data.replace("{{title}}", post.title).replace("{{author}}", post.author).replace("{{image}}", post.thumbnailPath).replace("{{article}}", article)
+            var file = data.replace("{{title}}", post.title).replace("{{author}}", post.author).replace("{{image}}", post.thumbnailPath).replace("{{article}}", article).replace("{{url}}", post.url)
             fs.writeFile(`articles/${post.url}.html`, file, function (err) {
                 if (err) return console.log(err);
             });
@@ -107,26 +107,31 @@ app.post('/register', (req, res) => {
     });
 });
 
-//create news article
+//create news article, or updates if URL already exists
 app.post('/createpost', (req, res) => {
     console.log("post!");
     var title = req.body.title;
     var author = req.body.author;
     var text = req.body.text;
-    var thumbnail = req.body.thumbnailurl;
-    var url = req.body.url;
+    var thumbnail = req.body.thumbnailPath;
+    var url = req.body.url.replace("/", "");
     connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
+        console.log("a");
         if (result.length == 0) {
             console.log(`Creating news article ${title}, by ${author}`);
-            connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}')`, function (err2, result2) {
+            connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}')`, function (err2, result) {
                 if (err2) throw err2;
                 res.send(result);
                 console.log("Post created!");
                 createPosts()
             });
         } else {
-            console.log("Post failed!");
-            res.send(result);
+            connection.query(`UPDATE posts SET title = '${title}', author = '${author}', text = '${text}', thumbnailPath = '${thumbnail}' WHERE url = '${url}'`, function (err2, result) {
+                if (err2) throw err2;
+                res.send(result);
+                console.log("Post Updated!");
+                createPosts()
+            });
         }
     });
 });
@@ -139,6 +144,17 @@ app.post('/getposts', (req, res) => {
         }
     });
 });
+
+app.post('/getarticle', (req, res) => {
+    var url = req.body.url;
+    connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
+        if (err) throw err;
+        else {
+            res.send(result);
+        }
+    });
+});
+
 
 
 const hostname = '192.168.56.101';
