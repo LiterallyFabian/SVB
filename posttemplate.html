@@ -29,13 +29,13 @@
 
             <img class="article_cover" src="{{image}}" alt="Image">
             
-            <h1>{{title}} <a href="/post.html?edit={{url}}"><i class="far fa-edit"></i></a></h1>
+            <h1>{{title}} <a href="/post.html?edit={{url}}"><i class="far fa-edit"></i></a><a onClick="verifyDeletion()"><i class="far fa-trash-alt"></i></a></h1>
 
             <p>{{article}}
             </p>
             <br><br>
             <hr>
-            <h5>Artikel publicerad av {{author}}</h5>
+            <h5>Artikel publicerad av {{author}}{{author}}</h5>
             <p><i class="fas fa-envelope"></i> Hittat språk- eller faktafel i texten? Skriv och berätta.</p>
 
 
@@ -43,5 +43,33 @@
 
         </div>
 </body>
+<script>
+    function verifyDeletion(){
+        const postCreation = {
+                data() {
+                    return {
+                        url: ""
+                    }
+
+                },
+                methods: {
+                    async vue_deletepost() {
+                        await axios.post("/deletearticle", {
+                            url: window.location.pathname.replace("/articles/", "").replace(".html", "")
+                        }).then(res => {
+                            window.location.replace("/");
+                        })
+                    }
+                }
+            }
+
+            Vue.createApp(postCreation).mount('.article_body')
+        if(confirm("Vill du verkligen ta bort detta inlägg?")){
+            postCreation.methods.vue_deletepost()
+        }
+    }
+
+
+</script>
 
 </html>

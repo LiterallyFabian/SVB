@@ -155,6 +155,16 @@ app.post('/getarticle', (req, res) => {
     });
 });
 
+app.post('/deletearticle', (req, res) => {
+    var url = req.body.url;
+    connection.query(`DELETE FROM posts WHERE url = '${url}'`, function (err, result) {
+        if (err) throw err;
+        else {
+            res.send(result);
+        }
+    });
+});
+
 
 
 const hostname = '192.168.56.101';
