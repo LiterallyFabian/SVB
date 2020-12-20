@@ -20,7 +20,7 @@ class article {
         return `
         <div class="thumb-box">
         <a href="/articles/${this.url}.html">
-            <img src="${this.thumbnailPath}" alt="">
+            <div class="thumbnailfitter"><img src="${this.thumbnailPath}" alt=""></div>
            <span class="overlay-box">
           <span class="author">${this.author}</span>
           <span class="main-title">${this.title}</span>
@@ -30,9 +30,9 @@ class article {
       </div>`;
     }
 }
-$.post( "/getposts", function( data ) {
-    $.each(data, function(i, post){
+$.post("/getposts", function (data) {
+    $.each(data, function (i, post) {
         var articlez = new article(post.title, post.author, post.text, post.thumbnailPath, post.url)
-        $( ".gallery" ).append( $(articlez.post) );
+        $(".gallery").append($(articlez.post));
     })
-  });
+});
