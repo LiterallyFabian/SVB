@@ -161,6 +161,7 @@ app.post('/deletearticle', (req, res) => {
         if (err) throw err;
         else {
             res.send(result);
+            console.log(`Deleted article ${url}`)
         }
     });
 });
