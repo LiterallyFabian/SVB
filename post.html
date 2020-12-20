@@ -86,9 +86,9 @@
                             thumbnailPath: this.thumbnailPath,
                             url: this.url
                         }).then(res => {
-                            if (res.data[0].title != null) {
-                                this.status = "Din post är uppe!";
-                            }
+                            this.status = "Din post är uppe!";
+                            window.location.replace(`/articles/${this.url}.html`);
+
                         })
                     },
                     async vue_fillpost() {
