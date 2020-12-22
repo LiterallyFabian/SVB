@@ -283,6 +283,25 @@ footer {
 	background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.75));
 }
 
+h1 {
+	margin: 5px 0 0 0;
+	padding: 5px 0 0 0;
+}
+
+h6 {
+	margin: 2px 0 0 0;
+	padding: 0;
+}
+
+.tool {
+	color: rgba(0, 0, 0, 0.2);
+	padding: 0 5px 0 0;
+}
+
+.tool:hover {
+	color: rgba(0, 0, 0, 0.5);
+}
+
 .author {
 	font-size: 14px;
 	display: block;
@@ -328,4 +347,41 @@ footer {
 	margin-left: auto;
 	margin-right: auto;
 	width: 40%;
+}
+
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip .tooltiptext {
+	font-size: 16px;
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 1;
+	top: 150%;
+	left: 50%;
+	margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent black transparent;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
 }

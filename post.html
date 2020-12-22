@@ -58,6 +58,7 @@
                         text: "",
                         thumbnailPath: "",
                         url: "",
+                        date: new Date().toISOString().slice(0, 19).replace('T', ' '),
                         status: "",
                         action: "Skapa inlägg",
                         isEdit: 0
@@ -84,7 +85,8 @@
                             author: JSON.parse(getCookie("login")).username,
                             text: this.text,
                             thumbnailPath: this.thumbnailPath,
-                            url: this.url
+                            url: this.url,
+                            date: new Date().toISOString().slice(0, 19).replace('T', ' ')
                         }).then(res => {
                             this.status = "Din post är uppe!";
                             window.location.replace(`/articles/${this.url}.html`);

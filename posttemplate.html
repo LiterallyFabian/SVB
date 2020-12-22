@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SVT</title>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@next"></script>
@@ -28,9 +28,19 @@
         <div class="article_body">
 
             <img class="article_cover" src="{{image}}" alt="Image">
-            
-            <h1>{{title}} <a href="/post.html?edit={{url}}"><i class="far fa-edit"></i></a><a onClick="verifyDeletion()"><i class="far fa-trash-alt"></i></a></h1>
 
+            <h1>{{title}}
+                <div class="tools" style="display: inline;" v-if="true" id="hide">
+                    <div class="tooltip">
+                        <a href="/post.html?edit={{url}}"><i class="tool far fa-edit fa-sm">
+                                <span class="tooltiptext">Edit post</span></i></a></div>
+
+                    <div class="tooltip">
+                        <a onClick="verifyDeletion()"><i class="tool far fa-trash-alt fa-sm">
+                                <span class="tooltiptext">Delete post</span></i></a></div>
+                </div>
+            </h1>
+            <h6>{{date}}</h6>
             <p>{{article}}
             </p>
             <br><br>
@@ -44,32 +54,31 @@
         </div>
 </body>
 <script>
-    function verifyDeletion(){
-        const postCreation = {
-                data() {
-                    return {
-                        url: ""
-                    }
+    function verifyDeletion() {
+        const postDeletion = {
+            data() {
+                return {
+                    url: "",
+                    isHidden: JSON.parse(getCookie("isLoggedin"))
+                }
 
-                },
-                methods: {
-                    async vue_deletepost() {
-                        await axios.post("/deletearticle", {
-                            url: window.location.pathname.replace("/articles/", "").replace(".html", "")
-                        }).then(res => {
-                            window.location.replace("/");
-                        })
-                    }
+            },
+            methods: {
+                async vue_deletepost() {
+                    await axios.post("/deletearticle", {
+                        url: window.location.pathname.replace("/articles/", "").replace(".html", "")
+                    }).then(res => {
+                        window.location.replace("/");
+                    })
                 }
             }
+        }
 
-            Vue.createApp(postCreation).mount('.article_body')
-        if(confirm("Vill du verkligen ta bort detta inlägg?")){
-            postCreation.methods.vue_deletepost()
+        Vue.createApp(postDeletion).mount('.article_body')
+        if (confirm("Vill du verkligen ta bort detta inlägg?")) {
+            postDeletion.methods.vue_deletepost()
         }
     }
-
-
 </script>
 
 </html>

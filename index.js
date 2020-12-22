@@ -6,6 +6,7 @@ const mysql2 = require('mysql2');
 const path = require('path');
 const fs = require('fs');
 const app = express();
+const months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
 app.use(express.static(path.join(__dirname, '')));
 // Setup database connection parameter
 let connection = mysql2.createConnection({
@@ -47,7 +48,15 @@ function createPosts() {
                 return console.log(err);
             }
             var article = post.text.replace("\n", "<br>");
-            var file = data.replace("{{title}}", post.title).replace("{{author}}", post.author).replace("{{image}}", post.thumbnailPath).replace("{{article}}", article).replace("{{url}}", post.url)
+            var publishdate = new Date(post.date);
+            var publishtext = `${publishdate.getDate()} ${months[publishdate.getMonth()]} ${publishdate.getFullYear()}`;
+            var file = data
+                .replace("{{title}}", post.title)
+                .replace("{{author}}", post.author)
+                .replace("{{image}}", post.thumbnailPath)
+                .replace("{{article}}", article)
+                .replace("{{url}}", post.url)
+                .replace("{{date}}", publishtext)
             fs.writeFile(`articles/${post.url}.html`, file, function (err) {
                 if (err) return console.log(err);
             });
@@ -78,6 +87,9 @@ app.post('/login', (req, res) => {
                 password: password
             }
             res.cookie("login", user, {
+                expires: new Date(Date.now() + 3600000 * 24 * 7)
+            });
+            res.cookie("isLoggedin", true, {
                 expires: new Date(Date.now() + 3600000 * 24 * 7)
             });
             res.send(result);
@@ -115,18 +127,19 @@ app.post('/createpost', (req, res) => {
     var text = req.body.text;
     var thumbnail = req.body.thumbnailPath;
     var url = req.body.url.replace("/", "");
+    var date = req.body.date;
     connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
         console.log("a");
         if (result.length == 0) {
             console.log(`Creating news article ${title}, by ${author}`);
-            connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}')`, function (err2, result) {
+            connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}', '${date}')`, function (err2, result) {
                 if (err2) throw err2;
                 res.send(result);
                 console.log("Post created!");
                 createPosts()
             });
         } else {
-            connection.query(`UPDATE posts SET title = '${title}', author = '${author}', text = '${text}', thumbnailPath = '${thumbnail}' WHERE url = '${url}'`, function (err2, result) {
+            connection.query(`UPDATE posts SET title = '${title}', author = '${author}', text = '${text}', thumbnailPath = '${thumbnail}', date = '${date}' WHERE url = '${url}'`, function (err2, result) {
                 if (err2) throw err2;
                 res.send(result);
                 console.log("Post Updated!");

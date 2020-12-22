@@ -9,7 +9,7 @@ USE svt;
 
 CREATE TABLE users (name VARCHAR(20), hash VARCHAR(128));
 
-CREATE TABLE posts (title VARCHAR(30), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64));
+CREATE TABLE posts (title VARCHAR(30), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64), date DATETIME);
 ```
 
 ### Features
