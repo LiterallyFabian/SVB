@@ -8,6 +8,7 @@
   <title>SVT</title>
   <link href="css/style.css" rel="stylesheet" type="text/css">
   <link href="css/nav.css" rel="stylesheet" type="text/css">
+  <link href="css/screamer.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue@next"></script>
@@ -22,32 +23,29 @@
 <body>
   <!-- Main Container -->
   <div id="navbar">
-  <script src="/js/navigationbar.js"></script>
- 
+    <script src="/js/navigationbar.js"></script>
 
 
-  <!-- Header -->
-  <div class="screamer">
-    <header class="screamer">
-      <h3 class="screamer_title">JUST NU</h3>
-      <h4 class="screamer_body">SENASTE NYTT OM CORONAVIRUSET</h4>
-      <a href="/articles/corona.html">
-        <h4 class="screamer_readmore">LÄS MER <i class="fas fa-arrow-right"></i></h4>
-      </a>
-    </header>
-  </div>
 
-  <!-- Stats Gallery Section -->
-  <div class="gallery">
+    <article class="screamer"><a href="/articles/corona.html"
+        class="screamer_link">
+        <div class="screamer_prefix"><span class="screamer_prefix_text">Just nu</span></div>
+        <h1 class="screamer_title">Senaste nytt om coronaviruset</h1>
+        <div class="screamer_readmore"><span class="screamer_readmore_text">Läs mer <i class="fas fa-arrow-right"></i></span><span
+            class="screamer_readmore_icon"></span></div>
+      </a></article>
 
-  </div>
+    <!-- Stats Gallery Section -->
+    <div class="gallery">
 
-  <!-- Footer Section -->
-  <footer id="contact">
-    <div class="button">KONTAKT</div>
-  </footer>
-  <!-- Copyrights Section -->
-  <div class="copyright">&copy;2020 - <strong>GRID</strong></div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer id="contact">
+      <div class="button">KONTAKT</div>
+    </footer>
+    <!-- Copyrights Section -->
+    <div class="copyright">&copy;2020 - <strong>GRID</strong></div>
   </div>
   <!-- Main Container Ends -->
 
