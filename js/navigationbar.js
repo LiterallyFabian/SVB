@@ -1,17 +1,29 @@
 //Inserts a navigation bar to the site and automatically logs in or check the cookie.
 
 document.getElementById("navbar").innerHTML = `
-<nav class="navigation">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<nav class="navigation" id="topnav">
     <ul>
     <a href="/index.html"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
-    <li><a href="/index.html">Nyheter</a></li>
+    <li><a href="/index.html" class="active">Nyheter</a></li>
     <li><a href=#pagewrap>Lokalt</a></li>
     <li><a href=#video>Sport</a></li>
     <li><a href="/kontakt.html">Kontakt</a></li>
     <li><a v-bind:href="href">{{ navoption }}</a></li>
+    <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+    <i class="fa fa-bars"></i>
     </ul>
 </nav>
 `
+
+function toggleNav() {
+    var x = document.getElementById("topnav");
+    if (x.className === "navigation") {
+      x.className += " responsive";
+    } else {
+      x.className = "navigation";
+    }
+  }
 
 const Login = {
     data() {
