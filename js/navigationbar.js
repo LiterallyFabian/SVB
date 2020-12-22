@@ -17,7 +17,7 @@ const Login = {
     data() {
         return {
             navoption: "Logga in",
-            href: "login.html"
+            href: "/login.html"
         }
 
     },
