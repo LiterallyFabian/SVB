@@ -30,7 +30,7 @@
             <img class="article_cover" src="{{image}}" alt="Image">
 
             <h1>{{title}}
-                <div class="tools" style="display: inline;" v-if="true" id="hide">
+                <div class="tools" style="display: inline;" v-if="isHidden">
                     <div class="tooltip">
                         <a href="/post.html?edit={{url}}"><i class="tool far fa-edit fa-sm">
                                 <span class="tooltiptext">Edit post</span></i></a></div>
@@ -54,30 +54,32 @@
         </div>
 </body>
 <script>
+    
     function verifyDeletion() {
-        const postDeletion = {
-            data() {
-                return {
-                    url: "",
-                    isHidden: JSON.parse(getCookie("isLoggedin"))
-                }
+    const postDeletion = {
+        data() {
+            return {
+                url: ""//,
+                //isHidden: JSON.parse(getCookie("isLoggedin")).status
+            }
 
-            },
-            methods: {
-                async vue_deletepost() {
-                    await axios.post("/deletearticle", {
-                        url: window.location.pathname.replace("/articles/", "").replace(".html", "")
-                    }).then(res => {
-                        window.location.replace("/");
-                    })
-                }
+        },
+        methods: {
+            async vue_deletepost() {
+                await axios.post("/deletearticle", {
+                    url: window.location.pathname.replace("/articles/", "").replace(".html", "")
+                }).then(res => {
+                    window.location.replace("/");
+                })
             }
         }
+    }
 
-        Vue.createApp(postDeletion).mount('.article_body')
+    Vue.createApp(postDeletion).mount('.article_body')
         if (confirm("Vill du verkligen ta bort detta inlägg?")) {
             postDeletion.methods.vue_deletepost()
         }
+
     }
 </script>
 

@@ -86,10 +86,13 @@ app.post('/login', (req, res) => {
                 username: username,
                 password: password
             }
+            var login = {
+                status: true
+            }
             res.cookie("login", user, {
                 expires: new Date(Date.now() + 3600000 * 24 * 7)
             });
-            res.cookie("isLoggedin", true, {
+            res.cookie("isLoggedin", login, {
                 expires: new Date(Date.now() + 3600000 * 24 * 7)
             });
             res.send(result);
@@ -126,7 +129,7 @@ app.post('/createpost', (req, res) => {
     var author = req.body.author;
     var text = req.body.text;
     var thumbnail = req.body.thumbnailPath;
-    var url = req.body.url.replace("/", "");
+    var url = req.body.url.replace(/\//g, "");
     var date = req.body.date;
     connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
         console.log("a");
