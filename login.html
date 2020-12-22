@@ -30,7 +30,7 @@
             <input class="textbox" type="password" v-model="password" autocomplete="off"><br><br>
             <div class="g-recaptcha" data-sitekey="6LeorgwaAAAAAAeTjn3bosy7-zMr3Q90CuSUm72H"
                 style="display: inline-block;" data-callback="enableBtn"></div><br><br>
-            <button id="loginButton" class="loginbutton" v-on:click="vue_login">Log in</button>
+            <button id="loginButton" class="loginbutton" v-on:click="vue_login" disabled="disabled">Log in</button>
             <button id="signupButton" class="loginbutton" v-on:click="vue_signup" disabled="disabled">Sign up</button>
         </div>
         <p>{{ message }}</p>
@@ -40,6 +40,7 @@
     <script>
         function enableBtn() {
             document.getElementById("signupButton").disabled = false;
+            document.getElementById("loginButton").disabled = false;
         }
         const LoginNote = {
             data() {
