@@ -30,7 +30,7 @@ class article {
       </div>`;
     }
 }
-$.post("/getposts", function (data) {
+$.post("/post/getposts", function (data) {
     $.each(data, function (i, post) {
         var articlez = new article(post.title, post.author, post.text, post.thumbnailPath, post.url)
         $(".gallery").append($(articlez.post));

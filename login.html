@@ -56,7 +56,7 @@
             },
             methods: {
                 async vue_login() {
-                    await axios.post("/login", {
+                    await axios.post("/user/login", {
                         username: this.username,
                         password: sha512(this.password)
                     }).then(res => {
@@ -74,7 +74,7 @@
                     })
                 },
                 async vue_signup() {
-                    await axios.post("/register", {
+                    await axios.post("/user/register", {
                         username: this.username,
                         password: sha512(this.password),
                         message: this.message

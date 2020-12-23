@@ -66,7 +66,7 @@
         },
         methods: {
             async vue_deletepost() {
-                await axios.post("/deletearticle", {
+                await axios.post("/post/deletearticle", {
                     url: window.location.pathname.replace("/articles/", "").replace(".html", "")
                 }).then(res => {
                     window.location.replace("/");

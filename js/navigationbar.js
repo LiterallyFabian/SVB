@@ -48,7 +48,7 @@ const Login = {
     methods: {
         async vue_autologin() {
             console.log("start login");
-            await axios.post("/login", {
+            await axios.post("/user/login", {
                 username: this.username,
                 password: this.hash
             }).then(res => {
