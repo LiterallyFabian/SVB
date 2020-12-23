@@ -71,7 +71,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.get('/', (req, res) => {
-    res.sendFile('/home/fabian/svt/index.html')
+    res.sendFile('index.html')
 });
 
 //login
