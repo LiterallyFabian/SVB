@@ -15,24 +15,43 @@ class article {
 
     generatePost() {
         //cut text to prevent overflowing
-        var preview = this.text.slice(0, 50);
+        var preview = stripHtml(this.text).replace(/^(.{70}[^\s]*).*/, "$1") //cuts the text for max 150 characters, but keeps all words
+        if (!endsWithAny("!", "?", ".", " ", "\n"), preview) preview += "..."; //add dots if sentence isn't complete
 
         return `
-        <div class="thumb-box">
-        <a href="/articles/${this.url}.html">
-            <div class="thumbnailfitter"><img src="${this.thumbnailPath}" alt=""></div>
-           <span class="overlay-box">
-          <span class="author">${this.author}</span>
-          <span class="main-title">${this.title}</span>
-          <span class="description">${preview}</span>
-            </span>
-        </a>
-      </div>`;
+        <li>
+    <a href="/articles/${this.url}.html" class="inner">
+      <div class="li-img">
+        <img src="${this.thumbnailPath}" alt="thumbnail" />
+      </div>
+      <div class="li-text">
+        <h3 class="li-head">${this.title}</h3>
+        <div class="li-sub">
+          <p>${preview}</p>
+        </div>
+      </div>
+    </a>
+  </li>`;
     }
 }
+
 $.post("/post/getposts", function (data) {
     $.each(data, function (i, post) {
-        var articlez = new article(post.title, post.author, post.text, post.thumbnailPath, post.url)
-        $(".gallery").append($(articlez.post));
+        var articles = new article(post.title, post.author, post.text, post.thumbnailPath, post.url)
+        $(".img-list").append($(articles.post));
     })
 });
+
+function stripHtml(html) {
+    let tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+}
+
+function endsWithAny(suffixes, string) {
+    for (let suffix of suffixes) {
+        if (string.endsWith(suffix))
+            return true;
+    }
+    return false;
+}
