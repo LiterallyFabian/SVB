@@ -15,8 +15,8 @@ class article {
 
     generatePost() {
         //cut text to prevent overflowing
-        var preview = stripHtml(this.text).replace(/^(.{70}[^\s]*).*/, "$1") //cuts the text for max 150 characters, but keeps all words
-        if (!endsWithAny("!", "?", ".", " ", "\n"), preview) preview += "..."; //add dots if sentence isn't complete
+        var preview = shorten(stripHtml(this.text), 50)
+        
 
         return `
         <li>
@@ -55,3 +55,9 @@ function endsWithAny(suffixes, string) {
     }
     return false;
 }
+
+// Shorten a string to less than maxLen characters without truncating words.
+function shorten(str, maxLen, separator = ' ') {
+    if (str.length <= maxLen) return str;
+    return str.substr(0, str.lastIndexOf(separator, maxLen));
+  }
