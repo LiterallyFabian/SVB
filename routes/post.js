@@ -81,8 +81,8 @@ function createPosts() {
             var article = post.text;
 
             //Add images to article
-            var imageregex = /img\((https?:\/\/.*\.(?:png|jpg))\)/gi;
-            article =  article.replace(imageregex, `<div class="article_image"><img src="$1" alt="Image"></div>`)
+            var imageregex = /img([0-9]{1,3})\((https?:\/\/.*\.(?:png|jpg))\)/gi;
+            article =  article.replace(imageregex, `<div class="article_image"><img src="$2" alt="Image" style="width: $1%"></div>`)
 
             //Set variables on html page
             var publishdate = new Date(post.date);
