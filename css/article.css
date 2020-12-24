@@ -32,10 +32,10 @@
 
 .li-img img {
     float: left;
-    width:  100px;
+    width: 100px;
     height: 100px;
     object-fit: cover;
-  }
+}
 
 .li-text {
     display: table-cell;
@@ -50,7 +50,8 @@
 .li-sub {
     margin: 0;
 }
-.li-sub p{
+
+.li-sub p {
     overflow: hidden;
 }
 
@@ -102,4 +103,15 @@
         width: auto;
         /* this overrides the media queries */
     }
+}
+
+.article_image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+
+}
+
+pre{
+    font-family: 'Public Sans', sans-serif;
 }

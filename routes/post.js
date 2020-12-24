@@ -76,7 +76,15 @@ function createPosts() {
             if (err) {
                 return console.log(err);
             }
-            var article = post.text.replace("\n", "<br>");
+
+            //Create article text and fix new lines in it
+            var article = post.text;
+
+            //Add images to article
+            var imageregex = /img\((https?:\/\/.*\.(?:png|jpg))\)/gi;
+            article =  article.replace(imageregex, `<div class="article_image"><img src="$1" alt="Image"></div>`)
+
+            //Set variables on html page
             var publishdate = new Date(post.date);
             var publishtext = `${publishdate.getDate()} ${months[publishdate.getMonth()]} ${publishdate.getFullYear()}`;
             var file = data
@@ -86,8 +94,12 @@ function createPosts() {
                 .replace("{{article}}", article)
                 .replace("{{url}}", post.url)
                 .replace("{{date}}", publishtext)
+
+            //Save article as html page
             fs.writeFile(`articles/${post.url}.html`, file, function (err) {
                 if (err) return console.log(err);
+
+
             });
         }));
     });
