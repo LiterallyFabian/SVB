@@ -5,7 +5,7 @@ $(document).ready(function () {
     catcherWidth = 612 / 3;
     catcherHeight = 640 / 3;
     maxCatcherX = canvas.width - grid - catcherWidth;
-    catcherSpeed = 25;
+    catcherSpeed = 5;
     fruitSpeed = 0.035;
     lastTime = Date.now();
     fruits = [];
@@ -80,6 +80,19 @@ $(document).ready(function () {
         context.fillStyle = 'white';
         context.drawImage(catcherImage, catcher.x, catcher.y, catcher.width, catcher.height);
 
+        //move catcher
+        if (keyState[37] || keyState[65]){
+            catcher.x -= catcherSpeed;
+        }    
+        else if (keyState[39] || keyState[68]){
+            catcher.x += catcherSpeed;
+        }
+        if(keyState[16]) {
+            catcherSpeed = 10;
+        }
+        else{
+            catcherSpeed = 5;
+        }
 
         // draw walls
         context.fillStyle = '#0000003D';
@@ -87,20 +100,20 @@ $(document).ready(function () {
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
         score.text = `Accuracy: ${misses == 0 ? "100%" : `${Math.round(catches/(catches+misses)*100)}%`}`;
         score.update()
+
+        
     }
 
     //Player movements
-    document.addEventListener('keydown', function (e) {
+    var keyState = {};
+    window.addEventListener('keydown', function (e) {
+        keyState[e.keyCode || e.which] = true;
+    }, true);
+    window.addEventListener('keyup', function (e) {
+        keyState[e.keyCode || e.which] = false;
+    }, true);
 
-        // left arrow key
-        if (e.which === 37) {
-            catcher.x -= catcherSpeed;
-        }
-        // right arrow key
-        else if (e.which === 39) {
-            catcher.x += catcherSpeed;
-        }
-    })
+
     requestAnimationFrame(loop);
     score = new component("30px", "Consolas", "black", 30, 50, "text");
 

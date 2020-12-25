@@ -1,27 +1,32 @@
 var beatmap;
 audioLeadIn = 0;
 var fruitLines = [];
-fetch('/catch/song/ben10.osu')
+fetch('/catch/song/coolest.osu')
     .then(response => response.text())
     .then(data => {
         beatmap = data.split("\n")
     });
-var music = new Audio('/catch/song/ben10.mp3');
-setTimeout(processMap, 1000)
+var music = new Audio('/catch/song/coolest.mp3');
+setTimeout(processMap, 200)
 
 function processMap() {
     var foundObjects = false;
-    music.play();
+    
 
     //Get lines and offset from file
     beatmap.forEach(line => {
         if (!foundObjects) {
-            if (line.includes("AudioLeadIn")) audioLeadIn = line.split(":")[1];
+            if (line.includes("AudioLeadIn")) audioLeadIn = parseInt(line.split(":")[1], 10);
             else if (line.includes("[HitObjects]")) foundObjects = true;
         } else {
             fruitLines.push(line);
         }
     });
+
+    setTimeout(function () {
+        music.play();
+    }, audioLeadIn);
+
     //Get data from all fruit lines
     fruitLines.forEach(line => {
         line = line.split(",")
@@ -36,7 +41,7 @@ function processMap() {
             var diff = parseInt(Math.floor(Math.random() * 5) + 3);
             if (Math.random() > 0.5) diff = diff * -1;
             var sliderLength = parseInt(Math.round(line[7]));
-            var size = parseInt(Math.round(sliderLength / 19.5) * repeats);
+            var size = parseInt(Math.round(sliderLength / 50.5) * repeats);
             var where = 0;
             var left = false;
             if (diff < 0) left = false;
