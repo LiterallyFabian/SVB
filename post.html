@@ -33,13 +33,16 @@
                 <input class="textbox" type="text" v-model="title" maxlength="64" required><br>
 
                 <label class="label">Artikel</label><br>
-                <textarea class="textbox articletextbox" type="text" v-model="text" maxlength="2500" required></textarea><br>
+                <textarea class="textbox articletextbox" type="text" v-model="text" maxlength="2500"
+                    required></textarea><br>
 
                 <label class="label">Omslagslänk</label><br>
-                <input class="textbox" type="text" v-model="thumbnailPath" placeholder="images/omslag.png" maxlength="128" required><br>
+                <input class="textbox" type="text" v-model="thumbnailPath" placeholder="images/omslag.png"
+                    maxlength="128" required><br>
 
                 <label class="label">Artikellänk</label><br>
-                <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1" maxlength="64" required><br>
+                <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1"
+                    maxlength="64" required><br>
 
                 <button class="submitbutton" v-on:click="vue_createpost">{{ action }}</button>
             </div>
@@ -79,15 +82,13 @@
                 },
                 methods: {
                     async vue_createpost() {
-                        if(this.title == null || this.title == "") {
+                        if (this.title == null || this.title == "") {
                             this.status = "Ett fel uppstod: Skriv en titel lmao";
                             return;
-                        }
-                        else if(this.text == null || this.text == "") {
+                        } else if (this.text == null || this.text == "") {
                             this.status = "Ett fel uppstod: Skriv en artikel lmao";
                             return;
-                        }
-                        else if(this.url == null || this.url == "") {
+                        } else if (this.url == null || this.url == "") {
                             this.status = "Ett fel uppstod: Skriv en länk lmao";
                             return;
                         }
