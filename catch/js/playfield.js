@@ -85,7 +85,7 @@ $(document).ready(function () {
         context.fillStyle = '#0000003D';
         context.fillRect(0, 0, canvas.width, grid);
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
-        score.text = `Accuracy: ${misses == 0 ? "100%" : `${catches/(catches+misses)*100}%`}`;
+        score.text = `Accuracy: ${misses == 0 ? "100%" : `${Math.round(catches/(catches+misses)*100)}%`}`;
         score.update()
     }
 
