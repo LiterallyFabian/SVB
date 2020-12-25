@@ -22,11 +22,13 @@
 }
 
 .navigation ul li a:hover {
-    color: black;
+    color: white;
+    background-color: #e02e3d;
 }
 
 .navigation ul li a:active {
     color: #e02e3d;
+
 }
 
 .navlogo {
@@ -44,12 +46,7 @@
     font-size: 27px;
 }
 
-.navigation a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-/* Add an active class to highlight the current page */
+/* highlights current page */
 .navigation a.active {
     background-color: #e02e3d;
     color: white;
