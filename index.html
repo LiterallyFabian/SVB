@@ -28,19 +28,30 @@
 
 
 
-    <article class="screamer"><a href="/articles/corona.html"
-        class="screamer_link">
+
+    <article class="screamer"><a href="/articles/corona.html" class="screamer_link">
         <div class="screamer_prefix"><span class="screamer_prefix_text">Just nu</span></div>
         <h1 class="screamer_title">Senaste nytt om coronaviruset</h1>
-        <div class="screamer_readmore"><span class="screamer_readmore_text">Läs mer <i class="fas fa-arrow-right"></i></span><span
-            class="screamer_readmore_icon"></span></div>
+        <div class="screamer_readmore"><span class="screamer_readmore_text">Läs mer <i
+              class="fas fa-arrow-right"></i></span><span class="screamer_readmore_icon"></span></div>
       </a></article>
 
     <!-- Stats Gallery Section -->
-    <ul class="list img-list">
+    <div id="gallery" class="center">
+      <form method="post">
+        <select name='sorting_order' id="sorting_order" onchange='UpdateFeed()'>
+          <option value='new'>Nyast</option>
+          <option value='old'>Äldst</option>
+          <option value='alphabetical'>Titel</option>
+          <option value='reversealphabetical'>Titel (omvänd)</option>
+          <option value='long'>Längst</option>
+          <option value='short'>Kortast</option>
+        </select>
+      </form>
+      <ul class="list img-list">
 
-    </ul>
-
+      </ul>
+    </div>
     <!-- Footer Section -->
     <footer id="contact">
       <div class="button">KONTAKT</div>

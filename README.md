@@ -17,11 +17,12 @@ CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), t
 - [SHA512](https://www.npmjs.com/package/js-sha512) hashed passwords (client sided)
 - [reCAPTCHA v2](https://developers.google.com/recaptcha) for making new accounts (before schoolsoft)
 - Publish articles only if logged in
+- Sort articles on home feed
 - Edit already published articles (before twitter)
 - Articles regenerated after template at server start
 
 ### Upcoming
-- [ ] Homefeed
+- [ x ] Homefeed
 - [ ] Categories
 - [ ] User profile pages
 
