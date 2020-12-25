@@ -30,7 +30,7 @@
             <div class="login_formtable">
 
                 <label class="label">Nyhetstitel</label><br>
-                <input class="textbox" type="text" v-model="title" maxlength="64" required><br>
+                <input class="textbox" type="text" v-model="title" placeholder="Min artikel" maxlength="64" required><br>
 
                 <label class="label">Artikel</label><br>
                 <textarea class="textbox articletextbox" type="text" v-model="text" maxlength="2500"
@@ -42,7 +42,7 @@
 
                 <label class="label">Artikellänk</label><br>
                 <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1"
-                    maxlength="64" required><br>
+                    maxlength="64" required><br><br>
 
                 <button class="submitbutton" v-on:click="vue_createpost">{{ action }}</button>
             </div>
