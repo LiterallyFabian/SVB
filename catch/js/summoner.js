@@ -51,7 +51,7 @@ function processMap(thumbnail, audio) {
         //slider
         if (line.length > 7) {
             var repeats = parseInt(line[6]);
-            summonFruit(delay, parseInt(pos, 10), true);
+            summonFruit(delay, parseInt(pos, 10), 0);
 
             var diff = parseInt(Math.floor(Math.random() * 5) + 3);
             if (Math.random() > 0.5) diff = diff * -1;
@@ -73,18 +73,20 @@ function processMap(thumbnail, audio) {
 
                 var dropPos = position;
                 var dropDelay = (loop) * 40 + delay;
-                summonFruit(dropDelay, dropPos, false)
+                summonFruit(dropDelay, dropPos, 1)
 
             }
-            summonFruit(delay + (size + 1) * 40, pos + (where * diff), true)
+            summonFruit(delay + (size + 1) * 40, pos + (where * diff), 0)
         } else if (line[3] != "12") //large fruit
         {
-            summonFruit(delay, pos, true)
+            summonFruit(delay, pos, 0)
+        } else { //spinner
+            summonSpinner(delay, parseFloat(line[5]))
         }
 
 
     })
-    timingLines.forEach(line =>{
+    timingLines.forEach(line => {
         var data = line.split(",");
         toggleKiai(data[7] == 1, data[0]);
     })

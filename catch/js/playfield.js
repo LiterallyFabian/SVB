@@ -14,7 +14,7 @@ $(document).ready(function () {
     misses = 0;
     catches = 0;
     kiai = false;
-
+    spinner = false;
 
     catcherImage_idleL = document.getElementById('catcher-idleL');
     catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
@@ -29,6 +29,8 @@ $(document).ready(function () {
     catcherImage = catcherImage_idle;
     fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3')];
     dropletImage = document.getElementById('droplet');
+    bananaImage = document.getElementById('banana');
+
 
     catcher = {
         x: canvas.width / 2.5,
