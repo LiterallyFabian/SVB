@@ -28,9 +28,9 @@ function processMap(thumbnail, audio) {
         }
     });
 
-    setTimeout(function () {
+
         music.play();
-    }, audioLeadIn);
+
 
     //Get data from all fruit lines
     fruitLines.forEach(line => {
