@@ -22,7 +22,7 @@ CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), t
 - Articles regenerated after template at server start
 
 ### Upcoming
-- [ x ] Homefeed
+- [x]  Homefeed
 - [ ] Categories
 - [ ] User profile pages
 
