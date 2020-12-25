@@ -27,13 +27,13 @@ function fruit(x, id, large) {
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
     this.checkCollision = function () {
-        
+        if(this.x == 10000) return;
         if (collides(this, catcher)) {
             console.log("Player collected fruit")
             this.x = 10000;
             catches++;
         }
-        if(this.y > 900 && this.x != 10000){
+        if (this.y > 900 && this.x != 10000) {
             console.log("Player missed fruit")
             this.x = 10000;
             misses++;
@@ -43,6 +43,8 @@ function fruit(x, id, large) {
 
 
 summonFruit(0, 500, true);
+summonFruit(2000, 500, true);
+summonFruit(6400, 0, true);
 //double double bool
 function summonFruit(delay, pos, large) {
     setTimeout(function () {
@@ -50,6 +52,7 @@ function summonFruit(delay, pos, large) {
             fruits.push(new fruit(pos, fruits.length, large))
     }, delay);
 }
+
 function collides(obj1, obj2) {
     return obj1.x < obj2.x + obj2.width &&
         obj1.x + obj1.width > obj2.x &&
