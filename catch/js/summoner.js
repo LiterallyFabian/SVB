@@ -1,16 +1,22 @@
 var beatmap;
 audioLeadIn = 0;
 var fruitLines = [];
-fetch('/catch/song/ben10.osu')
-    .then(response => response.text())
-    .then(data => {
-        beatmap = data.split("\n")
-    });
-var music = new Audio('/catch/song/ben10.mp3');
 
-function processMap() {
+function startGame(map, thumbnail, audio) {
+
+    fetch(`/${map}`)
+        .then(response => response.text())
+        .then(data => {
+            beatmap = data.split("\n")
+        });
+        setTimeout(function () {
+            processMap(thumbnail, audio);
+        }, 250);
+}
+
+function processMap(thumbnail, audio) {
     var foundObjects = false;
-    
+    var music = new Audio(`/${audio}`);
 
     //Get lines and offset from file
     beatmap.forEach(line => {

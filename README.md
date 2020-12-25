@@ -10,6 +10,8 @@ USE svt;
 CREATE TABLE users (name VARCHAR(20), hash VARCHAR(128));
 
 CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64), date DATETIME);
+
+CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCHAR(128), thumbnail VARCHAR(128), length SMALLINT, creator VARCHAR(128));
 ```
 
 ### Features
