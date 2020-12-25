@@ -3,13 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/playfield.js"></script>
     <script src="js/fruits.js"></script>
     <script src="js/summoner.js"></script>
+    <script src="/js/getCookie.js"></script>
     <link rel="stylesheet" type="text/css" href="css/playfield.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     
     <title>svt!catch</title>
-
+    <div id="navbar">
+        <script src="/js/navigationbar.js"></script>
 
     <style>
     	
@@ -19,7 +24,7 @@
 
 <body>
 
-<canvas id="catchField" width="1200" height="900"></canvas>
+<canvas id="catchField" width="1100" height="855"></canvas>
 
 <img class="hide" id="catcher" src="img/catcher.png">
 <img class="hide" id="fruit1" src="img/orange.png">

@@ -2,6 +2,7 @@
 
 document.getElementById("navbar").innerHTML = `
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="/css/nav.css" rel="stylesheet" type="text/css">
 <nav class="navigation" id="topnav">
     <ul>
     <a href="/index.html"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
