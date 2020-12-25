@@ -24,15 +24,17 @@ function fruit(x, id, large) {
     }
     this.checkCollision = function () {
         if (this.x == 10000) return;
+        //catch
         if (collides(this, catcher)) {
-            console.log(`Player catched fruit`)
+            if (kiai) catcherImage = catcherImage_kiai;
+            else catcherImage = catcherImage_idle;
             this.x = 10000;
             catches++;
-            
 
-        }
-        if (this.y > 900 && this.x != 10000) {
-            console.log("Player missed fruit")
+
+        } //miss
+        else if (this.y > 900 && this.x != 10000) {
+            catcherImage = catcherImage_fail;
             this.x = 10000;
             misses++;
         }
@@ -48,6 +50,13 @@ function summonFruit(delay, pos, large) {
         fruits.push(new fruit(pos * 1.75, fruits.length, large))
         t0 = performance.now()
     }, parseInt(delay, 10) - 955);
+}
+
+function toggleKiai(kiaiOn, delay) {
+    setTimeout(function () {
+        kiai = kiaiOn;
+        console.log("toggled kiai" + delay)
+    }, parseInt(delay, 10));
 }
 
 function collides(obj1, obj2) {

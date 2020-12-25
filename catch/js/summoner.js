@@ -1,6 +1,7 @@
 var beatmap;
 audioLeadIn = 0;
 var fruitLines = [];
+var timingLines = [];
 
 function startGame(map, thumbnail, audio) {
 
@@ -9,27 +10,36 @@ function startGame(map, thumbnail, audio) {
         .then(data => {
             beatmap = data.split("\n")
         });
-        setTimeout(function () {
-            processMap(thumbnail, audio);
-        }, 250);
+    setTimeout(function () {
+        processMap(thumbnail, audio);
+    }, 250);
 }
 
 function processMap(thumbnail, audio) {
+    var foundTiming = false;
     var foundObjects = false;
     var music = new Audio(`/${audio}`);
 
     //Get lines and offset from file
     beatmap.forEach(line => {
-        if (!foundObjects) {
+        if (!foundTiming) {
             if (line.includes("AudioLeadIn")) audioLeadIn = parseInt(line.split(":")[1], 10);
-            else if (line.includes("[HitObjects]")) foundObjects = true;
+            else if (line.includes("[TimingPoints]")) foundTiming = true;
         } else {
-            fruitLines.push(line);
+            if (!foundObjects) {
+                if (line.split(",").length > 3) {
+                    timingLines.push(line);
+                } else {
+                    if (line.includes("[HitObjects]")) foundObjects = true;
+                }
+            } else {
+                fruitLines.push(line);
+            }
         }
     });
 
 
-        music.play();
+    music.play();
 
 
     //Get data from all fruit lines
@@ -73,6 +83,10 @@ function processMap(thumbnail, audio) {
         }
 
 
+    })
+    timingLines.forEach(line =>{
+        var data = line.split(",");
+        toggleKiai(data[7] == 1, data[0]);
     })
 
 }

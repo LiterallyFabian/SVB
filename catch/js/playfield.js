@@ -12,8 +12,13 @@ $(document).ready(function () {
     var score;
     misses = 0;
     catches = 0;
+    kiai = false;
 
-    catcherImage = document.getElementById('catcher');
+
+    catcherImage_idle = document.getElementById('catcher-idle');
+    catcherImage_kiai = document.getElementById('catcher-kiai');
+    catcherImage_fail = document.getElementById('catcher-fail');
+    catcherImage = catcherImage_idle;
     fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3')];
     dropletImage = document.getElementById('droplet');
 
