@@ -6,11 +6,13 @@ document.getElementById("navbar").innerHTML = `
 <nav class="navigation" id="topnav">
     <ul>
     <a href="/index.html"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
+    
     <li><a href="/index.html" class="active">Nyheter</a></li>
     <li><a href=#pagewrap>Lokalt</a></li>
     <li><a href=#video>Sport</a></li>
     <li><a href="/kontakt.html">Kontakt</a></li>
     <li><a v-bind:href="href">{{ navoption }}</a></li>
+    <li><a href="/catch/catch.html">svt!catch</a></li>
     <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
     <i class="fa fa-bars"></i>
     </ul>
