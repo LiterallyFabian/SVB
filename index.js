@@ -27,7 +27,6 @@ connection.connect(function (e) {
     post.createPosts();
 });
 
-
 app.use(express.json());
 app.use(express.static("/"));
 app.use(bodyParser.urlencoded({
