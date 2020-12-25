@@ -32,6 +32,7 @@ function fruit(x, id, large) {
             console.log(`Player catched fruit`)
             this.x = 10000;
             catches++;
+            
 
         }
         if (this.y > 900 && this.x != 10000) {

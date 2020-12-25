@@ -81,16 +81,14 @@ $(document).ready(function () {
         context.drawImage(catcherImage, catcher.x, catcher.y, catcher.width, catcher.height);
 
         //move catcher
-        if (keyState[37] || keyState[65]){
+        if (keyState[37] || keyState[65]) {
             catcher.x -= catcherSpeed;
-        }    
-        else if (keyState[39] || keyState[68]){
+        } else if (keyState[39] || keyState[68]) {
             catcher.x += catcherSpeed;
         }
-        if(keyState[16]) {
+        if (keyState[16]) {
             catcherSpeed = 10;
-        }
-        else{
+        } else {
             catcherSpeed = 5;
         }
 
@@ -101,7 +99,8 @@ $(document).ready(function () {
         score.text = `Accuracy: ${misses == 0 ? "100%" : `${Math.round(catches/(catches+misses)*100)}%`}`;
         score.update()
 
-        
+
+
     }
 
     //Player movements
@@ -115,6 +114,7 @@ $(document).ready(function () {
 
 
     requestAnimationFrame(loop);
+
     score = new component("30px", "Consolas", "black", 30, 50, "text");
 
 });

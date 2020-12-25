@@ -7,7 +7,6 @@ fetch('/catch/song/coolest.osu')
         beatmap = data.split("\n")
     });
 var music = new Audio('/catch/song/coolest.mp3');
-setTimeout(processMap, 200)
 
 function processMap() {
     var foundObjects = false;
