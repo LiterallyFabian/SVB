@@ -1,20 +1,24 @@
 $(document).ready(function () {
-    const canvas = document.getElementById("catchField");
-    const context = canvas.getContext("2d");
-    const grid = 5;
-    const catcherWidth = 612 / 3;
-    const catcherHeight = 640 / 3;
-    const maxCatcherX = canvas.width - grid - catcherWidth;
-    var catcherSpeed = 6;
-    var fruitSpeed = 6;
-    var lastTime = Date.now();
+    canvas = document.getElementById("catchField");
+    context = canvas.getContext("2d");
+    grid = 5;
+    catcherWidth = 612 / 3;
+    catcherHeight = 640 / 3;
+    maxCatcherX = canvas.width - grid - catcherWidth;
+    catcherSpeed = 25;
+    fruitSpeed = 0.035;
+    lastTime = Date.now();
+    fruits = [];
+    var score;
+    misses = 0;
+    catches = 0;
 
-    const catcherImage = document.getElementById('catcher');
-    const fruits = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3')];
-    const droplet = document.getElementById('droplet');
+    catcherImage = document.getElementById('catcher');
+    fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3')];
+    dropletImage = document.getElementById('droplet');
 
-    const catcher = {
-        x: 0,
+    catcher = {
+        x: canvas.width / 2.5,
         y: canvas.height * 0.77,
         width: catcherWidth,
         height: catcherHeight,
@@ -22,20 +26,25 @@ $(document).ready(function () {
         //velocity
         dy: 0
     };
-    const fruit = {
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        width: grid,
-        height: grid
-    };
 
-    // check for collision between two objects using axis-aligned bounding box (AABB)
-    // @see https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-    function collides(obj1, obj2) {
-        return obj1.x < obj2.x + obj2.width &&
-            obj1.x + obj1.width > obj2.x &&
-            obj1.y < obj2.y + obj2.height &&
-            obj1.y + obj1.height > obj2.y;
+    function component(width, height, color, x, y, type) {
+        this.type = type;
+        this.width = width;
+        this.height = height;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.x = x;
+        this.y = y;
+        this.update = function () {
+            if (this.type == "text") {
+                context.font = this.width + " " + this.height;
+                context.fillStyle = color;
+                context.fillText(this.text, this.x, this.y);
+            } else {
+                context.fillStyle = color;
+                context.fillRect(this.x, this.y, this.width, this.height);
+            }
+        }
     }
 
     // Calculates the factor by which something moved in a time sensitive manner
@@ -53,8 +62,12 @@ $(document).ready(function () {
         requestAnimationFrame(loop);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        // move catcher by velocity
-        catcher.x += catcher.dy * relativeSpeedMultiplier;
+        // add gravity to fruits 
+        fruits.forEach(fruit => {
+            fruit.newPos();
+            fruit.update();
+            fruit.checkCollision();
+        });
 
         // prevent paddles from going through walls
         if (catcher.x < grid) {
@@ -72,27 +85,23 @@ $(document).ready(function () {
         context.fillStyle = '#0000003D';
         context.fillRect(0, 0, canvas.width, grid);
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
+        score.text = `Accuracy: ${misses == 0 ? "100%" : `${catches/(catches+misses)*100}%`}`;
+        score.update()
     }
 
     //Player movements
     document.addEventListener('keydown', function (e) {
 
-        // up arrow key
+        // left arrow key
         if (e.which === 37) {
-            catcher.x -= 15;
+            catcher.x -= catcherSpeed;
         }
-        // down arrow key
+        // right arrow key
         else if (e.which === 39) {
-            catcher.x += 15;
+            catcher.x += catcherSpeed;
         }
     })
     requestAnimationFrame(loop);
+    score = new component("30px", "Consolas", "black", 30, 50, "text");
 
-    //double double bool
-    function summonFruit(delay, pos, large) {
-        setTimeout(function () {
-            if (large)
-                context.drawImage(sauce, leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height);
-        }, delay);
-    }
 });
