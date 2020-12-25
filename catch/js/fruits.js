@@ -4,9 +4,7 @@ function fruit(x, id, large) {
     this.x = x;
     this.y = -100;
     this.speedX = 0;
-    this.speedY = 0;
-    this.gravity = fruitSpeed;
-    this.gravitySpeed = 0;
+    this.speedY = 5;
     if (large) {
         this.sprite = fruitImages[Math.floor(Math.random() * fruitImages.length)];
         this.width = 80;
@@ -19,9 +17,7 @@ function fruit(x, id, large) {
 
     context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     this.newPos = function () {
-        this.gravitySpeed += this.gravity;
-        this.x += this.speedX;
-        this.y += this.speedY + this.gravitySpeed;
+        this.y += this.speedY;
     }
     this.update = function () {
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
@@ -50,7 +46,8 @@ function fruit(x, id, large) {
 function summonFruit(delay, pos, large) {
     setTimeout(function () {
         fruits.push(new fruit(pos * 1.75, fruits.length, large))
-    }, parseInt(delay, 10) - 1400);
+        t0 = performance.now()
+    }, parseInt(delay, 10) - 955);
 }
 
 function collides(obj1, obj2) {

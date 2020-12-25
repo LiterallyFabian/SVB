@@ -1,12 +1,12 @@
 var beatmap;
 audioLeadIn = 0;
 var fruitLines = [];
-fetch('/catch/song/coolest.osu')
+fetch('/catch/song/ben10.osu')
     .then(response => response.text())
     .then(data => {
         beatmap = data.split("\n")
     });
-var music = new Audio('/catch/song/coolest.mp3');
+var music = new Audio('/catch/song/ben10.mp3');
 
 function processMap() {
     var foundObjects = false;
