@@ -2,7 +2,8 @@ $(document).ready(function () {
     canvas = document.getElementById("catchField");
     context = canvas.getContext("2d");
     grid = 5;
-    catcherWidth = 612 / 3;
+    catcherWidthBase = 612 / 3;
+    catcherWidth = catcherWidthBase;
     catcherHeight = 640 / 3;
     maxCatcherX = canvas.width - grid - catcherWidth;
     catcherSpeed = 5;
@@ -15,9 +16,16 @@ $(document).ready(function () {
     kiai = false;
 
 
-    catcherImage_idle = document.getElementById('catcher-idle');
-    catcherImage_kiai = document.getElementById('catcher-kiai');
-    catcherImage_fail = document.getElementById('catcher-fail');
+    catcherImage_idleL = document.getElementById('catcher-idleL');
+    catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
+    catcherImage_failL = document.getElementById('catcher-failL');
+    catcherImage_idleR = document.getElementById('catcher-idleR');
+    catcherImage_kiaiR = document.getElementById('catcher-kiaiR');
+    catcherImage_failR = document.getElementById('catcher-failR');
+
+    catcherImage_fail = catcherImage_failR;
+    catcherImage_kiai = catcherImage_kiaiR;
+    catcherImage_idle = catcherImage_idleR;
     catcherImage = catcherImage_idle;
     fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3')];
     dropletImage = document.getElementById('droplet');
@@ -88,8 +96,14 @@ $(document).ready(function () {
         //move catcher
         if (keyState[37] || keyState[65]) {
             catcher.x -= catcherSpeed;
+            catcherImage_fail = catcherImage_failL;
+            catcherImage_kiai = catcherImage_kiaiL;
+            catcherImage_idle = catcherImage_idleL;
         } else if (keyState[39] || keyState[68]) {
             catcher.x += catcherSpeed;
+            catcherImage_fail = catcherImage_failR;
+            catcherImage_kiai = catcherImage_kiaiR;
+            catcherImage_idle = catcherImage_idleR;
         }
         if (keyState[16]) {
             catcherSpeed = 10;

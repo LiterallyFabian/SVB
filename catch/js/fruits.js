@@ -24,17 +24,20 @@ function fruit(x, id, large) {
     }
     this.checkCollision = function () {
         if (this.x == 10000) return;
-        //catch
-        if (collides(this, catcher)) {
+        var lastMiss = false;
+        if (lastMiss) {
+            catcherImage = catcherImage_fail;
+        } else {
             if (kiai) catcherImage = catcherImage_kiai;
             else catcherImage = catcherImage_idle;
+        }
+        //catch
+        if (collides(this, catcher)) {
             this.x = 10000;
             catches++;
-
-
         } //miss
         else if (this.y > 900 && this.x != 10000) {
-            catcherImage = catcherImage_fail;
+
             this.x = 10000;
             misses++;
         }
