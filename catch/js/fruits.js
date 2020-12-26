@@ -108,7 +108,7 @@ function toggleKiai(kiaiOn, delay) {
     setTimeout(function () {
         kiai = kiaiOn;
         if (kiaiOn) confetti.start();
-        console.log("toggled kiai" + delay)
+        else confetti.stop();
     }, delay);
 }
 window.setInterval(function () {
