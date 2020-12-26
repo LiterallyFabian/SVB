@@ -10,11 +10,13 @@ $(document).ready(function () {
     fruitSpeed = 0.035;
     lastTime = Date.now();
     fruits = [];
-    var score;
+    var scoreText;
+    score = 0;
     misses = 0;
     catches = 0;
     kiai = false;
     spinner = false;
+    combo = 0;
 
 
     catcherImage_idleL = document.getElementById('catcher-idleL');
@@ -118,8 +120,8 @@ $(document).ready(function () {
         context.fillStyle = '#0000003D';
         context.fillRect(0, 0, canvas.width, grid);
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
-        score.text = `Accuracy: ${misses == 0 ? "100%" : `${Math.round(catches/(catches+misses)*100)}%`}`;
-        score.update()
+        scoreText.text = `Accuracy: ${misses == 0 ? "100%" : `${Math.round(catches/(catches+misses)*100)}%`}  Score: ${score}  Combo: ${combo}`;
+        scoreText.update()
 
 
 
@@ -137,6 +139,6 @@ $(document).ready(function () {
 
     requestAnimationFrame(loop);
 
-    score = new component("30px", "Consolas", "black", 30, 50, "text");
+    scoreText = new component("30px", "Consolas", "black", 30, 50, "text");
 
 });

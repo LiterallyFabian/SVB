@@ -9,19 +9,23 @@ function fruit(x, id, size, hitsound) {
     this.speedY = 5;
     this.hitsound = -1;
     this.size = size;
+    this.score = 0;
     if (size == 0) { //normal fruit
         this.sprite = fruitImages[Math.floor(Math.random() * fruitImages.length)];
         this.width = 80;
         this.height = 80;
         this.hitsound = hitsound;
+        this.score = 300;
     } else if (size == 1) { //droplet
         this.sprite = dropletImage;
         this.width = 41;
         this.height = 51;
+        this.score = 50;
     } else if (size == 2) { //banana
         this.sprite = bananaImage;
         this.width = 70;
         this.height = 70;
+        this.score = 1000;
     }
     context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
 
@@ -46,7 +50,17 @@ function fruit(x, id, size, hitsound) {
             lastMiss = false;
             if (this.size != 2) {
                 catches++;
+                score += this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25));
+                console.log(this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25)));
             }
+            if (this.size == 0) {
+                combo++;
+                
+            }
+            if (this.size == 2) {
+                score += this.score;
+            }
+
 
             if (this.hitsound == -1 || this.hitsound == undefined) return;
             //clap
@@ -74,6 +88,7 @@ function fruit(x, id, size, hitsound) {
                 misses++;
                 lastMiss = true;
             }
+            if (this.size == 0) combo = 0;
         }
     }
 }
