@@ -43,8 +43,9 @@ function processMap(thumbnail, audio) {
         }
     });
 
-
-    music.play();
+    setTimeout(function () {
+        music.play()
+    }, 955)
 
 
     //Get data from all fruit lines

@@ -84,17 +84,17 @@ function fruit(x, id, size, hitsound) {
 function summonFruit(delay, pos, size, hitsound) {
     setTimeout(function () {
         fruits.push(new fruit(pos * 1.75, fruits.length, size, hitsound))
-    }, parseInt(delay, 10) - 955);
+    }, parseInt(delay, 10));
 }
 
 //double double bool
 function summonSpinner(start, stop) {
     setTimeout(function () {
         spinner = true;
-    }, parseInt(start, 10) - 955);
+    }, parseInt(start, 10));
     setTimeout(function () {
         spinner = false;
-    }, parseInt(stop, 10) - 955);
+    }, parseInt(stop, 10));
 }
 
 function toggleKiai(kiaiOn, delay) {
