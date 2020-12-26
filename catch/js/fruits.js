@@ -8,6 +8,7 @@ function fruit(x, id, size, hitsound) {
     this.speedX = 0;
     this.speedY = 5;
     this.hitsound = -1;
+    this.size = size;
     if (size == 0) { //normal fruit
         this.sprite = fruitImages[Math.floor(Math.random() * fruitImages.length)];
         this.width = 80;
@@ -64,8 +65,7 @@ function fruit(x, id, size, hitsound) {
             else if (this.hitsound == 0) {
                 hitsounds[0].currentTime = 0;
                 hitsounds[0].play();
-            } else console.log("FUCK " + this.hitsound)
-            console.log("PLAY");
+            }
         } //miss
         else if (this.y > 900 && this.x != 10000) {
 
