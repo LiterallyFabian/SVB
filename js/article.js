@@ -1,4 +1,4 @@
-//Creates cards for all articles in database and post them to the front page on load.
+//Creates cards for all articles or beatmaps in database and post them to the front page on load.
 
 class article {
     constructor(title, author, text, thumbnailPath, url, date) {

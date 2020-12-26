@@ -6,8 +6,9 @@ const mysql2 = require('mysql2');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-var post = require('./routes/post.js');
-var user = require('./routes/user.js');
+var route_post = require('./routes/post.js');
+var route_user = require('./routes/user.js');
+var route_catch = require('./routes/catch.js');
 app.use(express.static(path.join(__dirname, '')));
 
 connection = mysql2.createConnection({
@@ -24,7 +25,8 @@ connection.connect(function (e) {
 
     console.log('\nConnected to the MySQL server\n');
 
-    post.createPosts();
+    route_post.createPosts();
+    route_catch.clearDatabase();
 });
 
 app.use(express.json());
@@ -33,8 +35,9 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 
-app.use('/post', post);
-app.use('/user', user);
+app.use('/post', route_post);
+app.use('/user', route_user);
+app.use('/catch', route_catch);
 
 app.get('/', (req, res) => {
     res.sendFile('index.html')

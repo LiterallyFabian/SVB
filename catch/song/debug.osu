@@ -1,0 +1,66 @@
+osu file format v14
+
+[General]
+AudioFilename: audio.mp3
+AudioLeadIn: 0
+PreviewTime: -1
+Countdown: 0
+SampleSet: Normal
+StackLeniency: 0.7
+Mode: 0
+LetterboxInBreaks: 0
+WidescreenStoryboard: 0
+
+[Editor]
+DistanceSpacing: 1.2
+BeatDivisor: 2
+GridSize: 8
+TimelineZoom: 1
+
+[Metadata]
+Title:[A]ddiction
+TitleUnicode:[A]ddiction
+Artist:Reol
+ArtistUnicode:Reol
+Creator:LiterallyZoey
+Version:Test
+Source:
+Tags:
+BeatmapID:0
+BeatmapSetID:-1
+
+[Difficulty]
+HPDrainRate:5
+CircleSize:5
+OverallDifficulty:5
+ApproachRate:5
+SliderMultiplier:1.4
+SliderTickRate:1
+
+[Events]
+//Background and Video events
+//Break Periods
+//Storyboard Layer 0 (Background)
+//Storyboard Layer 1 (Fail)
+//Storyboard Layer 2 (Pass)
+//Storyboard Layer 3 (Foreground)
+//Storyboard Layer 4 (Overlay)
+//Storyboard Sound Samples
+
+[TimingPoints]
+645.914508365598,377.358490566038,4,1,0,100,1,0
+
+
+[HitObjects]
+100,123,2910,1,0,0:0:0:0:
+183,122,3287,1,0,0:0:0:0:
+350,124,3664,2,0,L|498:123,1,140
+488,291,4419,1,0,0:0:0:0:
+320,281,4796,1,0,0:0:0:0:
+151,276,5174,2,0,B|70:201|75:208,2,70
+101,115,5928,1,0,0:0:0:0:
+268,104,6306,1,0,0:0:0:0:
+428,151,6683,2,0,P|364:235|328:256,1,140
+167,261,7438,2,0,L|96:131,1,140
+260,88,8193,1,0,0:0:0:0:
+427,85,8570,1,0,0:0:0:0:
