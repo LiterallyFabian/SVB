@@ -16,6 +16,7 @@ $(document).ready(function () {
     kiai = false;
     spinner = false;
 
+
     catcherImage_idleL = document.getElementById('catcher-idleL');
     catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
     catcherImage_failL = document.getElementById('catcher-failL');

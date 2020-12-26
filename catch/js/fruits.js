@@ -46,6 +46,7 @@ function fruit(x, id, size, hitsound) {
             if (this.size != 2) {
                 catches++;
             }
+
             if (this.hitsound == -1 || this.hitsound == undefined) return;
             //clap
             else if (this.hitsound == 8 || this.hitsound == 10 || this.hitsound == 12 || this.hitsound == 14) {
@@ -84,7 +85,7 @@ function fruit(x, id, size, hitsound) {
 function summonFruit(delay, pos, size, hitsound) {
     setTimeout(function () {
         fruits.push(new fruit(pos * 1.75, fruits.length, size, hitsound))
-    }, parseInt(delay, 10));
+    }, delay);
 }
 
 //double double bool
@@ -98,10 +99,17 @@ function summonSpinner(start, stop) {
 }
 
 function toggleKiai(kiaiOn, delay) {
+    //stop confetti slightly before kiai stops
+    if (!kiaiOn) {
+        setTimeout(function () {
+            confetti.stop();
+        }, delay - 2000);
+    }
     setTimeout(function () {
         kiai = kiaiOn;
+        if (kiaiOn) confetti.start();
         console.log("toggled kiai" + delay)
-    }, parseInt(delay, 10));
+    }, delay);
 }
 window.setInterval(function () {
     if (spinner) fruits.push(new fruit(Math.floor(Math.random() * 1000) + 20, fruits.length, 2));

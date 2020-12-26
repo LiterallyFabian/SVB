@@ -4,6 +4,9 @@ var timingLines = [];
 
 hitsounds = [];
 
+function startDebug(){
+    startGame("./catch/song/debug.osu", "./catch/song/debug.jpg", "./catch/song/debug.mp3");
+}
 function startGame(map, thumbnail, audio) {
 
     fetch(`/${map}`)
@@ -20,6 +23,11 @@ function processMap(thumbnail, audio) {
     var foundTiming = false;
     var foundObjects = false;
     var music = new Audio(`/${audio}`);
+    document.getElementById('catchField').style.background =  `url('../${thumbnail}')`;
+    document.getElementById('catchField').style.backgroundSize =  `cover`;
+    document.getElementById('catchField').style.backgroundRepeat =  `no-repeat`;
+    document.getElementById('catchField').style.backgroundPosition =  `center center`;
+    
 
     //Get lines and offset from file
     beatmap.forEach(line => {
@@ -60,10 +68,10 @@ function processMap(thumbnail, audio) {
             var repeats = parseInt(line[6]);
             summonFruit(delay, parseInt(pos, 10), 0, hitsound);
 
-            var diff = parseInt(Math.floor(Math.random() * 5) + 3);
+            var diff = parseInt(Math.floor(Math.random() * 7) + 3);
             if (Math.random() > 0.5) diff = diff * -1;
             var sliderLength = parseInt(Math.round(line[7]));
-            var size = parseInt(Math.round(sliderLength / 50.5) * repeats);
+            var size = parseInt(Math.round(sliderLength / 19.5) * repeats);
             var where = 0;
             var left = false;
             if (diff < 0) left = false;

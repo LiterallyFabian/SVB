@@ -38,48 +38,51 @@ function clearDatabase() {
 function buildDatabase() {
     glob("catch/song/*.osu", {}, function (er, files) {
         files.forEach(beatmapPath => {
-            var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
-            var title;
-            var artist;
-            var difficulty;
-            var creator;
-            var foundObjects = false;
-            var length = 0;
-            //Set metadata
-            beatmap.forEach(line => {
-                if (!foundObjects) {
-                    if (line.startsWith("Title:")) title = line.split(":")[1];
-                    else if (line.startsWith("Artist:")) artist = line.split(":")[1];
-                    else if (line.startsWith("Version:")) difficulty = line.split(":")[1];
-                    else if (line.startsWith("Creator:")) creator = line.split(":")[1];
-                    else if (line.includes("[HitObjects]")) foundObjects = true;
+            if (beatmapPath != "catch/song/debug.osu") {
+                var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
+                var title;
+                var artist;
+                var difficulty;
+                var creator;
+                var foundObjects = false;
+                var length = 0;
+                //Set metadata
+                beatmap.forEach(line => {
+                    if (!foundObjects) {
+                        if (line.startsWith("Title:")) title = line.split(":")[1];
+                        else if (line.startsWith("Artist:")) artist = line.split(":")[1];
+                        else if (line.startsWith("Version:")) difficulty = line.split(":")[1];
+                        else if (line.startsWith("Creator:")) creator = line.split(":")[1];
+                        else if (line.includes("[HitObjects]")) foundObjects = true;
+                    } else {
+                        if (line.split(",").length > 1) length = parseInt(line.split(",")[2] / 1000);
+                    }
+
+                })
+                //Get thumbnail
+                var thumbnail;
+                if (fs.existsSync(beatmapPath.replace("osu", "jpg"))) {
+                    thumbnail = beatmapPath.replace("osu", "jpg")
                 } else {
-                    if (line.split(",").length > 1) length = parseInt(line.split(",")[2] / 1000);
+                    thumbnail = beatmapPath.replace("osu", "png");
                 }
+                console.log(`title ${title}\nartist ${artist}\ndifficulty ${difficulty}\n creator${creator}\nthumbnail${thumbnail}\n\n-----------`);
 
-            })
-            //Get thumbnail
-            var thumbnail;
-            if (fs.existsSync(beatmapPath.replace("osu", "jpg"))) {
-                thumbnail = beatmapPath.replace("osu", "jpg")
-            } else {
-                thumbnail = beatmapPath.replace("osu", "png");
+                var data = {
+                    title: title,
+                    artist: artist,
+                    difficulty: difficulty,
+                    thumbnail: thumbnail,
+                    length: length,
+                    creator: creator
+                }
+                connection.query(`INSERT INTO beatmaps SET ?`, data, function (err2, result) {
+                    if (err2) throw err2;
+                    console.log("Map created!");
+                });
             }
-            console.log(`title ${title}\nartist ${artist}\ndifficulty ${difficulty}\n creator${creator}\nthumbnail${thumbnail}\n\n-----------`);
-
-            var data = {
-                title: title,
-                artist: artist,
-                difficulty: difficulty,
-                thumbnail: thumbnail,
-                length: length,
-                creator: creator
-            }
-            connection.query(`INSERT INTO beatmaps SET ?`, data, function (err2, result) {
-                if (err2) throw err2;
-                console.log("Map created!");
-            });
         })
+
     })
 }
 
