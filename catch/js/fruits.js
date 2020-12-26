@@ -84,7 +84,7 @@ function fruit(x, id, size, hitsound) {
 //double double bool
 function summonFruit(delay, pos, size, hitsound) {
     setTimeout(function () {
-        fruits.push(new fruit(pos * 1.75, fruits.length, size, hitsound))
+        fruits.push(new fruit(pos * 1.75 + 200, fruits.length, size, hitsound))
     }, delay);
 }
 
@@ -112,7 +112,7 @@ function toggleKiai(kiaiOn, delay) {
     }, delay);
 }
 window.setInterval(function () {
-    if (spinner) fruits.push(new fruit(Math.floor(Math.random() * 1000) + 20, fruits.length, 2));
+    if (spinner) fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, fruits.length, 2));
 }, 60);
 
 function collides(obj1, obj2) {
