@@ -1,7 +1,8 @@
 var beatmap;
-audioLeadIn = 0;
 var fruitLines = [];
 var timingLines = [];
+
+hitsounds = [];
 
 function startGame(map, thumbnail, audio) {
 
@@ -23,7 +24,11 @@ function processMap(thumbnail, audio) {
     //Get lines and offset from file
     beatmap.forEach(line => {
         if (!foundTiming) {
-            if (line.includes("AudioLeadIn")) audioLeadIn = parseInt(line.split(":")[1], 10);
+            //set hitsounds
+            //normal whistle finish clap
+            if (line.includes("SampleSet: Normal") || line.includes("SampleSet: None")) hitsounds = [new Audio(`/catch/hitsounds/normal-hitnormal.wav`), new Audio(`/catch/hitsounds/normal-hitwhistle.wav`), new Audio(`/catch/hitsounds/normal-hitfinish.wav`), new Audio(`/catch/hitsounds/normal-hitclap.wav`)]
+            else if (line.includes("SampleSet: Soft")) hitsounds = [new Audio(`/catch/hitsounds/soft-hitnormal.wav`), new Audio(`/catch/hitsounds/soft-hitwhistle.wav`), new Audio(`/catch/hitsounds/soft-hitfinish.wav`), new Audio(`/catch/hitsounds/soft-hitclap.wav`)]
+            else if (line.includes("SampleSet: Drum")) hitsounds = [new Audio(`/catch/hitsounds/drum-hitnormal.wav`), new Audio(`/catch/hitsounds/drum-hitwhistle.wav`), new Audio(`/catch/hitsounds/drum-hitfinish.wav`), new Audio(`/catch/hitsounds/drum-hitclap.wav`)]
             else if (line.includes("[TimingPoints]")) foundTiming = true;
         } else {
             if (!foundObjects) {
@@ -47,11 +52,12 @@ function processMap(thumbnail, audio) {
         line = line.split(",")
         var pos = parseInt(line[0]);
         var delay = parseInt(line[2]);
+        var hitsound = parseInt(line[4]);
 
         //slider
         if (line.length > 7) {
             var repeats = parseInt(line[6]);
-            summonFruit(delay, parseInt(pos, 10), 0);
+            summonFruit(delay, parseInt(pos, 10), 0, hitsound);
 
             var diff = parseInt(Math.floor(Math.random() * 5) + 3);
             if (Math.random() > 0.5) diff = diff * -1;
@@ -76,10 +82,10 @@ function processMap(thumbnail, audio) {
                 summonFruit(dropDelay, dropPos, 1)
 
             }
-            summonFruit(delay + (size + 1) * 40, pos + (where * diff), 0)
+            summonFruit(delay + (size + 1) * 40, pos + (where * diff), 0, hitsound)
         } else if (line[3] != "12") //large fruit
         {
-            summonFruit(delay, pos, 0)
+            summonFruit(delay, pos, 0, hitsound)
         } else { //spinner
             summonSpinner(delay, parseFloat(line[5]))
         }
