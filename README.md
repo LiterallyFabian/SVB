@@ -27,6 +27,6 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
 - [x] Homefeed
 - [ ] Categories
 - [ ] User profile pages
-- [ ] osu! in javascript
+- [x] osu! in javascript
 
 
