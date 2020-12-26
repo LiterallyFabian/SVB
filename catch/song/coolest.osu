@@ -5,7 +5,7 @@ AudioFilename: audio.mp3
 AudioLeadIn: 0
 PreviewTime: 53100
 Countdown: 0
-SampleSet: Soft
+SampleSet: Drum
 StackLeniency: 0.7
 Mode: 2
 LetterboxInBreaks: 0
