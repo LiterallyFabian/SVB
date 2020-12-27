@@ -4,7 +4,8 @@
   "description": "A nice website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +16,8 @@
     "js-sha512": "^0.8.0",
     "mysql2": "^2.2.5",
     "path": "^0.12.7"
+  }, 
+  "engines":{
+    "node": "10.16.2"
   }
 }
