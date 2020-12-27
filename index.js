@@ -9,6 +9,7 @@ const app = express();
 var route_post = require('./routes/post.js');
 var route_user = require('./routes/user.js');
 var route_catch = require('./routes/catch.js');
+require('dotenv').config();
 app.use(express.static(path.join(__dirname, '')));
 
 connection = mysql2.createConnection({
