@@ -96,7 +96,7 @@ function createPosts() {
                 .replace("{{date}}", publishtext)
 
             //Save article as html page
-            fs.appendFile(`articles/${post.url}.html`, file, function (err) {
+            fs.appendFile(`/articles/${post.url}.html`, file, function (err) {
                 if (err) return console.log(err);
 
 
