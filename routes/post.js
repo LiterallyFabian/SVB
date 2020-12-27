@@ -88,15 +88,16 @@ function createPosts() {
             var publishdate = new Date(post.date);
             var publishtext = `${publishdate.getDate()} ${months[publishdate.getMonth()]} ${publishdate.getFullYear()}`;
             var file = data
-                .replace("{{title}}", post.title)
-                .replace("{{author}}", post.author)
-                .replace("{{image}}", post.thumbnailPath)
-                .replace("{{article}}", article)
-                .replace("{{url}}", post.url)
-                .replace("{{date}}", publishtext)
+                .replace(/{{title}}/g, post.title)
+                .replace(/{{author}}/g, post.author)
+                .replace(/{{image}}/g, post.thumbnailPath)
+                .replace(/{{article}}/g, article)
+                .replace(/{{url}}/g, post.url)
+                .replace(/{{date}}/g, publishtext)
+                .replace(/{{preview}}/g, shortenContent(article, 35))
 
             //Save article as html page
-            console.log(`dir: ${__dirname}\nfile: ${__filename}`)
+
             fs.writeFile(`articles/${post.url}.html`, file, function (err) {
                 if (err) return console.log(err);
 
@@ -104,6 +105,10 @@ function createPosts() {
             });
         }));
     });
+}
+function shortenContent(str, maxLen, separator = ' ') {
+    if (str.length <= maxLen) return str;
+    return str.substr(0, str.lastIndexOf(separator, maxLen));
 }
 
 module.exports = router;
