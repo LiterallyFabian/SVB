@@ -33,12 +33,24 @@
              typeof hitsoundsNormal !== "undefined" &&
              typeof hitsoundsSoft !== "undefined" &&
              typeof hitsoundsDrum !== "undefined" &&
-             music.readyState == 4) {
+             music.readyState == 4 &&
+             hs(hitsoundsNormal) &&
+             hs(hitsoundsSoft) &&
+             hs(hitsoundsDrum)
+         ) {
              processMap(thumbnail)
          } else {
-             setTimeout(waitForLoad, 250);
+             setTimeout(waitForLoad, 500);
          }
      }
+ }
+
+ function checkHitsounds(hs) {
+     if (typeof hs == "undefined") return false;
+     hs.forEach(h => {
+         if (h.readyState != 4) return false;
+     })
+     return true;
  }
 
 
