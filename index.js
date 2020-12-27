@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '')));
 
 connection = mysql2.createConnection({
     host: process.env.mysql_host || 'localhost',
-    user: process.env.mysql_username,
+    user: process.env.mysql_user,
     password: process.env.mysql_password,
     database: process.env.mysql_database
 });
