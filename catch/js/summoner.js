@@ -34,9 +34,9 @@
              typeof hitsoundsSoft !== "undefined" &&
              typeof hitsoundsDrum !== "undefined" &&
              music.readyState == 4 &&
-             hs(hitsoundsNormal) &&
-             hs(hitsoundsSoft) &&
-             hs(hitsoundsDrum)
+             checkHitsounds(hitsoundsNormal) &&
+             checkHitsounds(hitsoundsSoft) &&
+             checkHitsounds(hitsoundsDrum)
          ) {
              processMap(thumbnail)
          } else {
