@@ -12,10 +12,10 @@ var route_catch = require('./routes/catch.js');
 app.use(express.static(path.join(__dirname, '')));
 
 connection = mysql2.createConnection({
-    host: 'localhost',
-    user: 'fabian',
-    password: 'priya',
-    database: 'svt'
+    host: process.env.mysql_host || 'localhost',
+    user: process.env.mysql_host,
+    password: process.env.mysql_host,
+    database: process.env.mysql_database
 });
 
 connection.connect(function (e) {
