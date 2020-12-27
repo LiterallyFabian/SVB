@@ -79,7 +79,7 @@ function buildDatabase() {
                 }
                 connection.query(`INSERT INTO beatmaps SET ?`, data, function (err2, result) {
                     if (err2) throw err2;
-                    console.log(`Map "${title}" created! ${++i}/${files.length}`);
+                    console.log(`Map entry "${title}" created! ${++i}/${files.length-1}`);
                 });
             }
         })
