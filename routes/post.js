@@ -82,7 +82,7 @@ function createPosts() {
 
             //Add images to article
             var imageregex = /img([0-9]{1,3})\((https?:\/\/.*\.(?:png|jpg))\)/gi;
-            article =  article.replace(imageregex, `<div class="article_image"><img src="$2" alt="Image" style="width: $1%"></div>`)
+            article = article.replace(imageregex, `<div class="article_image"><img src="$2" alt="Image" style="width: $1%"></div>`)
 
             //Set variables on html page
             var publishdate = new Date(post.date);
@@ -96,7 +96,7 @@ function createPosts() {
                 .replace("{{date}}", publishtext)
 
             //Save article as html page
-            fs.writeFile(`articles/${post.url}.html`, file, function (err) {
+            fs.appendFile(`articles/${post.url}.html`, file, function (err) {
                 if (err) return console.log(err);
 
 
