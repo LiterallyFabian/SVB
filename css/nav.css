@@ -46,7 +46,6 @@
     font-size: 27px;
 }
 
-/* highlights current page */
 .navigation a.active {
     background-color: #e02e3d;
     color: white;

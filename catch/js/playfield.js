@@ -1,3 +1,4 @@
+spinner = false;
 $(document).ready(function () {
     canvas = document.getElementById("catchField");
     context = canvas.getContext("2d");
@@ -15,7 +16,6 @@ $(document).ready(function () {
     misses = 0;
     catches = 0;
     kiai = false;
-    spinner = false;
     combo = 0;
 
 
@@ -99,18 +99,18 @@ $(document).ready(function () {
         context.drawImage(catcherImage, catcher.x, catcher.y, catcher.width, catcher.height);
 
         //move catcher
-        if (keyState[37] || keyState[65]) {
+        if (keyState[37] || keyState[65] || keyState[103]) { //left arrow | a | num7
             catcher.x -= catcherSpeed;
             catcherImage_fail = catcherImage_failL;
             catcherImage_kiai = catcherImage_kiaiL;
             catcherImage_idle = catcherImage_idleL;
-        } else if (keyState[39] || keyState[68]) {
+        } else if (keyState[39] || keyState[68] || keyState[105]) { //right arrow | d | num9
             catcher.x += catcherSpeed;
             catcherImage_fail = catcherImage_failR;
             catcherImage_kiai = catcherImage_kiaiR;
             catcherImage_idle = catcherImage_idleR;
         }
-        if (keyState[16]) {
+        if (keyState[16] || keyState[220]) { //shift or §
             catcherSpeed = 10;
         } else {
             catcherSpeed = 5;

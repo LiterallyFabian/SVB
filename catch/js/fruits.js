@@ -55,7 +55,7 @@ function fruit(x, id, size, hitsound) {
             }
             if (this.size == 0) {
                 combo++;
-                
+
             }
             if (this.size == 2) {
                 score += this.score;
