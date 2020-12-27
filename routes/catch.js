@@ -37,6 +37,7 @@ function clearDatabase() {
 
 function buildDatabase() {
     glob("catch/song/*.osu", {}, function (er, files) {
+        var i = 0;
         files.forEach(beatmapPath => {
             if (beatmapPath != "catch/song/debug.osu") {
                 var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
@@ -66,7 +67,7 @@ function buildDatabase() {
                 } else {
                     thumbnail = beatmapPath.replace("osu", "png");
                 }
-                console.log(`title ${title}\nartist ${artist}\ndifficulty ${difficulty}\n creator${creator}\nthumbnail${thumbnail}\n\n-----------`);
+                //console.log(`title ${title}\nartist ${artist}\ndifficulty ${difficulty}\n creator ${creator}\nthumbnail ${thumbnail}\n\n-----------`);
 
                 var data = {
                     title: title,
@@ -78,7 +79,7 @@ function buildDatabase() {
                 }
                 connection.query(`INSERT INTO beatmaps SET ?`, data, function (err2, result) {
                     if (err2) throw err2;
-                    console.log("Map created!");
+                    console.log(`Map "${title}" created! ${++i}/${files.length}`);
                 });
             }
         })

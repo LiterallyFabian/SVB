@@ -96,6 +96,7 @@ function createPosts() {
                 .replace("{{date}}", publishtext)
 
             //Save article as html page
+            console.log(`dir: ${__dirname}\nfile: ${__filename}`)
             fs.writeFile(`articles/${post.url}.html`, file, function (err) {
                 if (err) return console.log(err);
 
