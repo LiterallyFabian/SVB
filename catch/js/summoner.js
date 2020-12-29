@@ -57,7 +57,7 @@
  function processMap(thumbnail) {
      var foundTiming = false;
      var foundObjects = false;
-     document.getElementById('catchField').style.background = `url('../${thumbnail}')`;
+     document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../${thumbnail}')`;
      document.getElementById('catchField').style.backgroundSize = `cover`;
      document.getElementById('catchField').style.backgroundRepeat = `no-repeat`;
      document.getElementById('catchField').style.backgroundPosition = `center center`;
