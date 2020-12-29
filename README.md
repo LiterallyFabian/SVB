@@ -7,7 +7,7 @@ CREATE DATABASE svt;
 
 USE svt;
 
-CREATE TABLE users (name VARCHAR(20), discriminator SMALLINT NOT NULL, access_token VARCHAR(30), refresh_token VARCHAR(30), avatar VARCHAR(128));
+CREATE TABLE users (name VARCHAR(128), discriminator SMALLINT NOT NULL, access_token VARCHAR(30), refresh_token VARCHAR(30), avatar VARCHAR(128), id VARCHAR(32), bio VARCHAR(512), banner VARCHAR(512));
 
 CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64), date DATETIME);
 

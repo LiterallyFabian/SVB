@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVT | Redigera profil</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/form.css" rel="stylesheet" type="text/css">
+    <link href="/css/nav.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/insert.js"></script>
+    <script src="/js/getCookie.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body id="page">
+    <!-- Main Container -->
+
+    <div id="navbar">
+        <script src="/js/navigationbar.js"></script>
+
+
+        <div class="login_mainframe">
+            <div class="login_formtable">
+
+                <label class="label">Användarnamn</label><br>
+                <input class="textbox" type="text" v-model="username" placeholder="" disabled><br>
+
+                <label class="label">Bio</label><br>
+                <textarea class="textbox articletextbox" v-model="bio" maxlength="512"
+                    :disabled="!canEdit"></textarea><br>
+
+                <label class="label">Banner</label><br>
+                <input class="textbox" type="text" v-model="banner" placeholder="https://imgur.com/image.png/"
+                    maxlength="512" :disabled="!canEdit"><br><br>
+
+
+                <button class="submitbutton" v-on:click="vue_saveprofile">Spara profil</button>
+            </div>
+            <p>{{ status }}</p>
+
+        </div>
+
+
+        <script>
+            const profileManagement = {
+                data() {
+                    return {
+                        username: "",
+                        bio: "",
+                        banner: "",
+                        status: "",
+                        canEdit: false
+                    }
+
+                },
+                mounted: function editpost() {
+                    this.$nextTick(function () {
+                        this.vue_fillprofile();
+
+                    })
+                },
+                methods: {
+                    async vue_saveprofile() {
+                        await axios.post("/auth/updateuser", {
+                            bio: this.bio,
+                            banner: this.banner,
+                            id: JSON.parse(getCookie("auth")).id
+                        }).then(res => {
+                            this.status = "Din profil är uppdaterad!";
+                            window.location.replace(
+                                `/profile.html?user=${JSON.parse(getCookie("auth")).id}`);
+
+                        })
+                    },
+                    async vue_fillprofile() {
+                        var cookie = getCookie("auth");
+                        if (cookie.length > 0) {
+                            await axios.post("/auth/getuser", {
+                                id: JSON.parse(getCookie("auth")).id
+                            }).then(res => {
+                                if (res.data[0].name == null) {
+                                    this.status = "Kunde inte hitta användare."
+                                } else {
+                                    this.username = `${res.data[0].name}#${res.data[0].discriminator}`;
+                                    this.bio = res.data[0].bio;
+                                    this.banner = res.data[0].banner;
+                                    this.canEdit = JSON.parse(getCookie("auth")).id == res.data[0].id;
+                                }
+                            })
+                        } else {
+                            this.status = "Du är inte inloggad.";
+                        }
+                    }
+                }
+            }
+
+            Vue.createApp(profileManagement).mount('.login_mainframe')
+        </script>
+</body>
+
+</html>

@@ -13,7 +13,7 @@ document.getElementById("navbar").innerHTML = `
     <li><a href="/catch/catch.html">svt!catch</a></li>
     <li><a href="/kontakt.html">Kontakt</a></li>
     <li><a v-bind:href="href">{{ navoption }}</a></li>
-    <li><a v-bind:href="profilehref" v-if="loggedIn">Min profil ({{ username }})</a></li>
+    <li><a v-bind:href="profilehref" v-if="loggedIn">{{ username }}</a></li>
     <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
     <i class="fa fa-bars"></i>
 </nav>
@@ -35,7 +35,7 @@ const Login = {
             username: "",
             //dev: https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=http%3A%2F%2F192.168.56.101%3A3000%2Fauth&response_type=code&scope=identify
             //prod: https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth%2F&response_type=code&scope=identify
-            href: "https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=http%3A%2F%2F192.168.56.101%3A3000%2Fauth&response_type=code&scope=identify",
+            href: "https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth%2F&response_type=code&scope=identify",
             profilehref: "",
             loggedIn: false
         }
@@ -47,6 +47,7 @@ const Login = {
             if (this.usercookie.length > 0) {
                 var data = JSON.parse(this.usercookie);
                 this.access_token = data.access_token;
+                this.id = data.id;
                 this.vue_autologin();
             } else {
                 console.log("No access token found, can not log in automatically.")
@@ -58,15 +59,15 @@ const Login = {
         async vue_autologin() {
             console.log("Tries to login from saved access token...");
             await axios.post("/auth/verify", {
-                access_token: this.access_token
+                access_token: this.access_token,
+                id: this.id
             }).then(res => {
-                console.log(res);
                 if (res.data[0].name != null) {
                     this.navoption = "Skapa artikel"; //shown in navbar
                     this.href = "/post.html" //redirect option for logged in user
-                    this.profilehref = "/profile?user=" + res.data[0].id
+                    this.profilehref = "/profile.html?user=" + res.data[0].id
                     this.loggedIn = true;
-                    this.username = res.data[0].name;
+                    this.username = res.data[0].name + "#" + res.data[0].discriminator;
                 }
             })
         },

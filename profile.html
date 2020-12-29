@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <title>SVT</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.8.0/sha512.min.js"
+        integrity="sha512-KUrAWA1oxsWKHBaA2mlZyRuR8zzzHHYgpDfkfPrT3FhlZ4YdXbXyE89VHI6WmWradSHtuZjLyLAMP2F7IWK4JQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="/js/getCookie.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body id="body">
+
+    <div id="navbar"></div>
+    <script src="/js/navigationbar.js"></script>
+    <div id="page">
+        <div id="banner" class="hero-image">
+            <div class="hero-text">
+                <img :src="avatar" alt="profile picture"></img>
+                <h1>{{ username }}#{{ discriminator }}</h1>
+                <div v-if="id == myID">
+                    <a href="/editprofile.html"><i class="editprofile far fa-edit fa-sm">
+                        </i></a></div>
+                <p>{{ bio }}</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="application/javascript">
+    const postCreation = {
+        data() {
+            return {
+                username: "Invalid User",
+                discriminator: "0000",
+                bio: "you messed up!",
+                banner: "",
+                id: "",
+                myID: "-1",
+                avatar: "https://i.imgur.com/K0eS3Pi.png",
+                isOwn: false
+            }
+
+        },
+        mounted: function fillProfile() {
+            this.$nextTick(function () {
+                var url = new URL(window.location.href);
+                var id = url.searchParams.get("user");
+                if (id != null) {
+                    this.id = id;
+                    this.vue_getuser();
+                }
+
+            })
+        },
+        methods: {
+            async vue_getuser() {
+                await axios.post("/auth/getuser", {
+                    id: this.id
+                }).then(res => {
+                    if (res.data[0].name != null) {
+                        this.username = res.data[0].name;
+                        this.discriminator = res.data[0].discriminator;
+                        this.bio = res.data[0].bio;
+                        document.getElementById('banner').style.background =
+                            `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
+                        document.getElementById('banner').style.backgroundSize = `cover`;
+                        document.getElementById('banner').style.backgroundRepeat = `no-repeat`;
+                        document.getElementById('banner').style.backgroundPosition =
+                            `center center`;
+                        this.avatar = res.data[0].avatar + "?size=128"
+                        if (getCookie("auth").length > 0) this.myID = JSON.parse(getCookie("auth")).id;
+                    }
+                })
+            }
+        }
+    }
+    Vue.createApp(postCreation).mount('#page')
+</script>
+
+</html>
