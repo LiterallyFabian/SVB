@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
             client_id: '793179363029549057',
             client_secret: 'KLveuO3qbqYO2feBMFfBx5iyn-sDeD8r',
             grant_type: 'authorization_code',
-            redirect_uri: 'https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth&response_type=code&scope=identify',
+            redirect_uri: 'https://svt.sajber.me/auth',
             code: urlObj.query.code,
             scope: 'identify',
         };
