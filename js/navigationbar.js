@@ -13,51 +13,60 @@ document.getElementById("navbar").innerHTML = `
     <li><a href="/catch/catch.html">svt!catch</a></li>
     <li><a href="/kontakt.html">Kontakt</a></li>
     <li><a v-bind:href="href">{{ navoption }}</a></li>
+    <li><a v-bind:href="profilehref" v-if="loggedIn">Min profil ({{ username }})</a></li>
     <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
     <i class="fa fa-bars"></i>
-    </ul>
 </nav>
 `
 
 function toggleNav() {
     var x = document.getElementById("topnav");
     if (x.className === "navigation") {
-      x.className += " responsive";
+        x.className += " responsive";
     } else {
-      x.className = "navigation";
+        x.className = "navigation";
     }
-  }
+}
 
 const Login = {
     data() {
         return {
             navoption: "Logga in",
-            href: "/login.html"
+            username: "",
+            //dev: https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=http%3A%2F%2F192.168.56.101%3A3000%2Fauth&response_type=code&scope=identify
+            //prod: https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth%2F&response_type=code&scope=identify
+            href: "https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=http%3A%2F%2F192.168.56.101%3A3000%2Fauth&response_type=code&scope=identify",
+            profilehref: "",
+            loggedIn: false
         }
 
     },
     mounted: function trylogin() {
         this.$nextTick(function () {
-            this.usercookie = getCookie("login")
+            this.usercookie = getCookie("auth")
             if (this.usercookie.length > 0) {
                 var data = JSON.parse(this.usercookie);
-                this.username = data.username;
-                this.hash = data.password;
+                this.access_token = data.access_token;
                 this.vue_autologin();
+            } else {
+                console.log("No access token found, can not log in automatically.")
             }
         })
     },
 
     methods: {
         async vue_autologin() {
-            console.log("start login");
-            await axios.post("/user/login", {
-                username: this.username,
-                password: this.hash
+            console.log("Tries to login from saved access token...");
+            await axios.post("/auth/verify", {
+                access_token: this.access_token
             }).then(res => {
+                console.log(res);
                 if (res.data[0].name != null) {
-                    this.navoption = "Nytt inlägg"; //shown in navbar
+                    this.navoption = "Skapa artikel"; //shown in navbar
                     this.href = "/post.html" //redirect option for logged in user
+                    this.profilehref = "/profile?user=" + res.data[0].id
+                    this.loggedIn = true;
+                    this.username = res.data[0].name;
                 }
             })
         },

@@ -12,7 +12,6 @@ router.post('/createpost', (req, res) => {
     var url = req.body.url.replace(/\//g, "");
     var date = req.body.date;
     connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
-        console.log("a");
         if (result.length == 0) {
             console.log(`Creating news article ${title}, by ${author}`);
             connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}', '${date}')`, function (err2, result) {

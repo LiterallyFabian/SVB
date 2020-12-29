@@ -7,7 +7,7 @@ CREATE DATABASE svt;
 
 USE svt;
 
-CREATE TABLE users (name VARCHAR(20), hash VARCHAR(128));
+CREATE TABLE users (name VARCHAR(20), discriminator SMALLINT NOT NULL, access_token VARCHAR(30), refresh_token VARCHAR(30), avatar VARCHAR(128));
 
 CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64), date DATETIME);
 
@@ -28,5 +28,10 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
 - [ ] Categories
 - [ ] User profile pages
 - [x] osu! in javascript
+
+### To-do
+- [ ] Resize icons to increase load speeds
+- [ ] Allow catch at all resolutions
+- [ ] Allow catch on mobile devices
 
 

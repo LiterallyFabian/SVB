@@ -7,8 +7,9 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 var route_post = require('./routes/post.js');
-var route_user = require('./routes/user.js');
+//var route_user = require('./routes/user.js');
 var route_catch = require('./routes/catch.js');
+var route_auth = require('./routes/auth.js');
 require('dotenv').config();
 app.use(express.static(path.join(__dirname, '')));
 
@@ -37,8 +38,9 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use('/post', route_post);
-app.use('/user', route_user);
+//app.use('/user', route_user);
 app.use('/catch', route_catch);
+app.use('/auth', route_auth);
 
 app.get('/', (req, res) => {
     res.sendFile('index.html')
