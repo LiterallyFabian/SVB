@@ -1,11 +1,29 @@
 .navigation {
     text-align: center;
+    overflow: hidden;
+}
+
+.navigation a {
+    float: left;
+    display: block;
+    color: #333333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 27px;
 }
 
 .navigation ul {
-    text-align: center;
-    background-color: white;
-    overflow: hidden;
+	width: 100%;
+	text-align: center;
+	background-color: white;
+	overflow: hidden;
+	padding-inline-start: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-inline-start: 0px;
 }
 
 .navigation ul li {
@@ -36,15 +54,7 @@
     width: 8em;
 }
 
-.navigation a {
-    float: left;
-    display: block;
-    color: #333333;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 27px;
-}
+
 
 .navigation a.active {
     background-color: #e02e3d;
@@ -58,7 +68,7 @@
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
-    .navigation a:not(:first-child) {
+    .navigation a:not(:first-child){
         display: none;
     }
 
@@ -66,6 +76,9 @@
         float: right;
         display: block;
     }
+    .navigation ul li {
+		display: none;
+	}
 }
 
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
@@ -85,4 +98,7 @@
         display: block;
         text-align: left;
     }
+    .navigation.responsive ul li {
+		display: block;
+	}
 }
