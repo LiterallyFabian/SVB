@@ -34,8 +34,8 @@ const Login = {
             navoption: "Logga in",
             username: "",
             //dev: https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=http%3A%2F%2F192.168.56.101%3A3000%2Fauth&response_type=code&scope=identify
-            //prod: https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth%2F&response_type=code&scope=identify
-            href: "https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth%2F&response_type=code&scope=identify",
+            //prod: https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth&response_type=code&scope=identify
+            href: "https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth&response_type=code&scope=identify",
             profilehref: "",
             loggedIn: false
         }
