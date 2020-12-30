@@ -25,14 +25,11 @@
      hitsoundsNormal = [new Audio(`/catch/hitsounds/normal-hitnormal.mp3`), new Audio(`/catch/hitsounds/normal-hitwhistle.mp3`), new Audio(`/catch/hitsounds/normal-hitfinish.mp3`), new Audio(`/catch/hitsounds/normal-hitclap.mp3`)]
      hitsoundsSoft = [new Audio(`/catch/hitsounds/soft-hitnormal.mp3`), new Audio(`/catch/hitsounds/soft-hitwhistle.mp3`), new Audio(`/catch/hitsounds/soft-hitfinish.mp3`), new Audio(`/catch/hitsounds/soft-hitclap.mp3`)]
      hitsoundsDrum = [new Audio(`/catch/hitsounds/drum-hitnormal.mp3`), new Audio(`/catch/hitsounds/drum-hitwhistle.mp3`), new Audio(`/catch/hitsounds/drum-hitfinish.mp3`), new Audio(`/catch/hitsounds/drum-hitclap.mp3`)]
-     waitForLoad();
+    music.onloadeddata = waitForLoad(thumbnail);
 
-     function waitForLoad() {
+     function waitForLoad(thumbnail) {
          if (typeof music !== "undefined" &&
              typeof beatmap !== "undefined" &&
-             typeof hitsoundsNormal !== "undefined" &&
-             typeof hitsoundsSoft !== "undefined" &&
-             typeof hitsoundsDrum !== "undefined" &&
              music.readyState == 4
          ) {
              processMap(thumbnail)
