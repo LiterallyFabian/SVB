@@ -97,6 +97,7 @@
          var pos = parseInt(line[0]);
          var delay = parseInt(line[2]);
          var hitsound = parseInt(line[4]);
+         var sliderpositions = line[5].split(",")
 
          //slider
          if (line.length > 7) {
@@ -106,7 +107,7 @@
              var diff = parseInt(Math.floor(Math.random() * 7) + 3);
              if (Math.random() > 0.5) diff = diff * -1;
              var sliderLength = parseInt(Math.round(line[7]));
-             var size = parseInt(Math.round(sliderLength / 19.5) * repeats);
+             var size = parseInt(Math.round(sliderLength / 15) * repeats);
              var where = 0;
              var left = false;
              if (diff < 0) left = false;

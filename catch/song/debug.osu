@@ -1,33 +1,33 @@
 osu file format v14
 
 [General]
-AudioFilename: audio.mp3
+AudioFilename: offsetfinder.mp3
 AudioLeadIn: 0
 PreviewTime: -1
-Countdown: 0
-SampleSet: Normal
+Countdown: 1
+SampleSet: Soft
 StackLeniency: 0.7
 Mode: 0
-LetterboxInBreaks: 0
+LetterboxInBreaks: 1
 WidescreenStoryboard: 0
 
 [Editor]
-DistanceSpacing: 1.2
-BeatDivisor: 2
-GridSize: 8
+DistanceSpacing: 1.4
+BeatDivisor: 4
+GridSize: 4
 TimelineZoom: 1
 
 [Metadata]
-Title:[A]ddiction
-TitleUnicode:[A]ddiction
-Artist:Reol
-ArtistUnicode:Reol
-Creator:LiterallyZoey
-Version:Test
+Title:Keyboard Latency Test
+TitleUnicode:
+Artist:peppy
+ArtistUnicode:
+Creator:haha5957
+Version:Keyboard
 Source:
-Tags:
-BeatmapID:0
-BeatmapSetID:-1
+Tags:Offset Wizard keyboard
+BeatmapID:173084
+BeatmapSetID:57424
 
 [Difficulty]
 HPDrainRate:5
@@ -48,19 +48,13 @@ SliderTickRate:1
 //Storyboard Sound Samples
 
 [TimingPoints]
-645.914508365598,377.358490566038,4,1,0,100,1,0
+-6,500,4,2,1,0,1,0
 
 
 [HitObjects]
-100,123,2910,1,0,0:0:0:0:
-183,122,3287,1,0,0:0:0:0:
-350,124,3664,2,0,L|498:123,1,140
-488,291,4419,1,0,0:0:0:0:
-320,281,4796,1,0,0:0:0:0:
-151,276,5174,2,0,B|70:201|75:208,2,70
-101,115,5928,1,0,0:0:0:0:
-268,104,6306,1,0,0:0:0:0:
-428,151,6683,2,0,P|364:235|328:256,1,140
-167,261,7438,2,0,L|96:131,1,140
-260,88,8193,1,0,0:0:0:0:
-427,85,8570,1,0,0:0:0:0:
+450,200,994,2,0,P|473:104|450:400,1,280
+450,400,1994,1,0,0:0:0:0:
+67,298,2494,2,0,L|43:149,1,140
+44,159,3119,1,0,0:0:0:0:
+298,244,4494,2,0,L|118:72,1,245
+120,74,5494,1,0,0:0:0:0:
