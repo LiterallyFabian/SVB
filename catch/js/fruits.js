@@ -51,7 +51,6 @@ function fruit(x, id, size, hitsound) {
             if (this.size != 2) {
                 catches++;
                 score += this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25));
-                console.log(this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25)));
             }
             if (this.size == 0) {
                 combo++;

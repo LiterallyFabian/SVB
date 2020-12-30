@@ -97,37 +97,29 @@
          var pos = parseInt(line[0]);
          var delay = parseInt(line[2]);
          var hitsound = parseInt(line[4]);
-         var sliderpositions = line[5].split(",")
+         var sliderPositions = line[5].split("|")
+         var sliderEndPos = sliderPositions[sliderPositions.length - 1].split(":")[0]
 
          //slider
          if (line.length > 7) {
              var repeats = parseInt(line[6]);
              summonFruit(delay, parseInt(pos, 10), 0, hitsound);
 
-             var diff = parseInt(Math.floor(Math.random() * 7) + 3);
-             if (Math.random() > 0.5) diff = diff * -1;
              var sliderLength = parseInt(Math.round(line[7]));
-             var size = parseInt(Math.round(sliderLength / 15) * repeats);
-             var where = 0;
-             var left = false;
-             if (diff < 0) left = false;
-
-             for (var i = 0; i < size; i++) {
-                 var position = pos + parseFloat((where * diff));
-                 if (position > 640 || position < 20) {
-                     left = !left;
-                     position = pos + (where * diff);
-
-                 }
-                 if (left) where++;
-                 else where--;
-
-                 var dropPos = position;
+             var dropletsPerRepeat = parseInt(Math.round(sliderLength / 15));
+             var droplets = dropletsPerRepeat * repeats;
+             var diff = (pos - sliderEndPos) / droplets;
+             var currentDrop = 0;
+             for (var i = 0; i < droplets; i++) {
+                 var dropPos = pos - (diff * i);
                  var dropDelay = (i) * 40 + delay;
-                 summonFruit(dropDelay, dropPos, 1)
-
+                 if (currentDrop == dropletsPerRepeat) {
+                     summonFruit(dropDelay, dropPos, 0, hitsound)
+                     currentDrop = 0;
+                 } else summonFruit(dropDelay, dropPos, 1)
+                 currentDrop++;
              }
-             summonFruit(delay + (size + 1) * 80, pos + (where * diff), 0, hitsound)
+             summonFruit(delay + (droplets + 1) * 40, pos - (diff * droplets), 0, hitsound)
          } else if (line[3] != "12") //large fruit
          {
              summonFruit(delay, pos, 0, hitsound)
