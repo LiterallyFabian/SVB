@@ -74,7 +74,7 @@ function addBeatmaps() {
 
                 jimp.read(thumbnail, function (err, img) {
                     if (err) throw err;
-                    img.resize(192, 108)            // resize
+                    img.resize(192, jimp.AUTO)            // resize
                          .quality(70)                 // set JPEG quality
                          .write(icon); // save
                           console.log('Resized !!')
