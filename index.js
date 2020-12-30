@@ -43,7 +43,7 @@ app.use('/catch', route_catch);
 app.use('/auth', route_auth);
 
 app.get('/', (req, res) => {
-    res.sendFile('index.html')
+    res.sendFile('/index.html')
 });
 
 const hostname = '192.168.56.101';
