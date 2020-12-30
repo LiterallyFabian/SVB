@@ -3,7 +3,7 @@ var router = express.Router();
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const glob = require('glob');
-const sharp = require('sharp');
+var jimp = require("jimp");
 var beatmaplist;
 
 //Gets all beatmaps
@@ -69,19 +69,16 @@ function addBeatmaps() {
                 } else {
                     thumbnail = beatmapPath.replace("osu", "png");
                 }
+                var icon = thumbnail.replace(".jpg", "_icon.jpg");
                 //console.log(`title ${title}\nartist ${artist}\ndifficulty ${difficulty}\n creator ${creator}\nthumbnail ${thumbnail}\n\n-----------`);
-                sharp(thumbnail)
-                    .resize(150, 150, {
-                        kernel: sharp.kernel.nearest,
-                        fit: 'cover',
-                        background: {
-                            r: 255,
-                            g: 255,
-                            b: 255,
-                            alpha: 0.5
-                        }
-                    })
-                    .toFile(thumbnail.replace(".jpg", "_icon.jpg"))
+
+                jimp.read(thumbnail, function (err, img) {
+                    if (err) throw err;
+                    img.resize(192, 108)            // resize
+                         .quality(70)                 // set JPEG quality
+                         .write(icon); // save
+                          console.log('Resized !!')
+                });			
                 var data = {
                     title: title,
                     artist: artist,
