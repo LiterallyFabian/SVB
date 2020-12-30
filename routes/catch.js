@@ -3,7 +3,7 @@ var router = express.Router();
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const glob = require('glob');
-
+var beatmaplist;
 //Gets all beatmaps
 router.post('/getmaps', (req, res) => {
     connection.query("SELECT * FROM beatmaps", function (err, result) {
@@ -25,21 +25,20 @@ router.post('/getmap', (req, res) => {
     });
 });
 
-function clearDatabase() {
-    connection.query(`DELETE FROM beatmaps`, function (err, result) {
+function getMaps(){
+    connection.query("SELECT * FROM beatmaps", function (err, result) {
         if (err) throw err;
-        else {
-            console.log(`Deleted all beatmap cache, rebuilding...`)
-            buildDatabase();
-        }
-    });
+        beatmaplist = result;
+        addBeatmaps();
+    })
 }
 
-function buildDatabase() {
+function addBeatmaps() {
+    
     glob("catch/song/*.osu", {}, function (er, files) {
         var i = 0;
         files.forEach(beatmapPath => {
-            if (beatmapPath != "catch/song/debug.osu") {
+            if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.thumbnail.includes(beatmapPath.replace("osu", "jpg")))) {
                 var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
                 var title;
                 var artist;
@@ -82,11 +81,11 @@ function buildDatabase() {
                     console.log(`Map entry "${title}" created! ${++i}/${files.length-1}`);
                 });
             }
-        })
 
+        })
     })
 }
 
 
 module.exports = router;
-module.exports.clearDatabase = clearDatabase;
+module.exports.getMaps = getMaps;

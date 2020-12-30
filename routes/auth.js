@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
             .then(discordRes => discordRes.json())
             .then(info => {
                 t_info = info;
-                console.log(info);
+                //console.log(info);
                 return info;
             })
             .then(info => fetch('https://discord.com/api/users/@me', {
@@ -40,7 +40,7 @@ router.get('/', (req, res) => {
             }))
             .then(userRes => userRes.json())
             .then(userdata => {
-                console.log(userdata);
+                //console.log(userdata);
                 if (userdata.message != "401: Unauthorized") {
                     signUpOrInUser(t_info, userdata, res)
                     var loginData = {
@@ -67,7 +67,7 @@ router.post("/verify", (req, res) => {
         })
         .then(userRes => userRes.json())
         .then(userdata => {
-            console.log(userdata);
+            //console.log(userdata);
             if (userdata.toString().includes("401: Unauthorized")) return false;
             else {
                 connection.query(`SELECT * FROM users WHERE id = '${id}' and access_token = '${access_token}'`, function (err, resultmain) {

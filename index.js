@@ -28,7 +28,7 @@ connection.connect(function (e) {
     console.log('\nConnected to the MySQL server\n');
 
     route_post.createPosts();
-    route_catch.clearDatabase();
+    route_catch.getMaps();
 });
 
 app.use(express.json());
