@@ -45,7 +45,8 @@ router.get('/', (req, res) => {
                     signUpOrInUser(t_info, userdata, res)
                     var loginData = {
                         access_token: t_info.access_token,
-                        id: userdata.id
+                        id: userdata.id,
+                        name: userdata.username
                     };
                     res.cookie("auth", loginData, {
                         expires: new Date(Date.now() + 3600000 * 24 * 7)

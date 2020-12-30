@@ -94,7 +94,7 @@
                         }
                         await axios.post("/post/createpost", {
                             title: this.title,
-                            author: JSON.parse(getCookie("login")).username,
+                            author:  JSON.parse(getCookie("auth")).name,
                             text: this.text,
                             thumbnailPath: this.thumbnailPath,
                             url: this.url,
