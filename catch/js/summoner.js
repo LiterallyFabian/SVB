@@ -97,11 +97,12 @@
          var pos = parseInt(line[0]);
          var delay = parseInt(line[2]);
          var hitsound = parseInt(line[4]);
-         var sliderPositions = line[5].split("|")
-         var sliderEndPos = sliderPositions[sliderPositions.length - 1].split(":")[0]
+
 
          //slider
          if (line.length > 7) {
+             var sliderPositions = line[5].split("|")
+             var sliderEndPos = sliderPositions[sliderPositions.length - 1].split(":")[0]
              var repeats = parseInt(line[6]);
              summonFruit(delay, parseInt(pos, 10), 0, hitsound);
 
