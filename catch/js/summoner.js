@@ -112,7 +112,7 @@
              var left = false;
              if (diff < 0) left = false;
 
-             for (var loop = 0; loop < size; loop++) {
+             for (var i = 0; i < size; i++) {
                  var position = pos + parseFloat((where * diff));
                  if (position > 640 || position < 20) {
                      left = !left;
@@ -123,11 +123,11 @@
                  else where--;
 
                  var dropPos = position;
-                 var dropDelay = (loop) * 40 + delay;
+                 var dropDelay = (i) * 40 + delay;
                  summonFruit(dropDelay, dropPos, 1)
 
              }
-             summonFruit(delay + (size + 1) * 40, pos + (where * diff), 0, hitsound)
+             summonFruit(delay + (size + 1) * 80, pos + (where * diff), 0, hitsound)
          } else if (line[3] != "12") //large fruit
          {
              summonFruit(delay, pos, 0, hitsound)
