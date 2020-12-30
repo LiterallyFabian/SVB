@@ -20,7 +20,7 @@ class bmap {
         <li class="article_post">
     <a href='#' onclick='startGame("${this.thumbnail.replace("jpg", "osu")}", "${this.thumbnail}", "${this.thumbnail.replace("jpg", "mp3").replace("png", "mp3")}")' class="inner">
       <div class="li-img">
-        <img src="/${this.thumbnail}" alt="thumbnail" />
+        <img src="/${this.thumbnail.replace(".jpg", "_icon.jpg")}" alt="thumbnail" />
       </div>
       <div class="li-text">
         <h3 class="li-head">${this.artist} - ${this.title}</h3>
