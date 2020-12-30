@@ -5,12 +5,12 @@ document.getElementById("navbar").innerHTML = `
 <link href="/css/nav.css" rel="stylesheet" type="text/css">
 <nav class="navigation" id="topnav">
     <ul>
-    <a href="/index.html"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
+    <a href="/"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
     
-    <li><a href="/index.html" class="active">Nyheter</a></li>
+    <li><a href="/" class="active">Nyheter</a></li>
     <li><a href=#pagewrap>Lokalt</a></li>
     <li><a href=#video>Sport</a></li>
-    <li><a href="/catch/catch.html">svt!catch</a></li>
+    <li><a href="/catch">svt!catch</a></li>
     <li><a href="/kontakt.html">Kontakt</a></li>
     <li><a v-bind:href="href">{{ navoption }}</a></li>
     <li><a v-bind:href="profilehref" v-if="loggedIn">{{ username }}</a></li>
