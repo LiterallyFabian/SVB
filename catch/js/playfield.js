@@ -15,13 +15,14 @@ $(document).ready(function () {
     lastTime = Date.now();
     fruits = [];
     var scoreText;
-    score = 0;
-    misses = 0;
-    catches = 0;
-    kiai = false;
-    combo = 0;
-    touching = false;
-    touching_x = 0;
+    score = 0; //total score catched, affected by combo
+    misses = 0; //missed score (not affected by combo, to get acc)
+    catches = 0; //catched score (not affected by combo, to get ac)
+    kiai = false; //whether kiai mode is active or not (makes catcher happy)
+    combo = 0; //current user combo
+
+    touching = false; //whether the user is touching the screen or not (for mobile controls)
+    touching_x = 0; //where the user is touching
 
     catcherImage_idleL = document.getElementById('catcher-idleL');
     catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
@@ -127,7 +128,7 @@ $(document).ready(function () {
         context.fillStyle = '#0000003D';
         context.fillRect(0, 0, canvas.width, grid);
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
-        scoreText.text = `Accuracy: ${misses == 0 ? "100%" : `${Math.round(catches/(catches+misses)*100)}%`}  Score: ${score}  Combo: ${combo}`;
+        scoreText.text = `Accuracy: ${misses == 0 ? "100%" : `${(catches/(catches+misses)*100).toFixed(2)}%`}  Score: ${score}  Combo: ${combo}`;
         scoreText.update()
 
 

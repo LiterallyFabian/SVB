@@ -4,7 +4,7 @@ function fruit(x, id, size, hitsound) {
     this.id = id;
     //x goes from 0 to 1120
     this.x = x;
-    this.y = -100*scaleModifier;
+    this.y = -100 * scaleModifier;
     this.speedX = 0;
     this.speedY = 5;
     this.hitsound = -1;
@@ -49,7 +49,7 @@ function fruit(x, id, size, hitsound) {
             this.x = 10000;
             lastMiss = false;
             if (this.size != 2) {
-                catches++;
+                catches += this.score;
                 score += this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25));
             }
             if (this.size == 0) {
@@ -84,7 +84,7 @@ function fruit(x, id, size, hitsound) {
 
             this.x = 10000;
             if (this.size != 2) {
-                misses++;
+                misses += this.score;
                 lastMiss = true;
             }
             if (this.size == 0) combo = 0;
