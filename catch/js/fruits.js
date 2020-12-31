@@ -49,15 +49,15 @@ function fruit(x, id, size, hitsound) {
             this.x = 10000;
             lastMiss = false;
             if (this.size != 2) {
-                catches += this.score;
-                score += this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25));
+                smoothAcc(this.score, false);
+                addScore(this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25)));
             }
             if (this.size == 0) {
                 combo++;
 
             }
             if (this.size == 2) {
-                score += this.score;
+                addScore(this.score);
             }
 
 
@@ -84,7 +84,7 @@ function fruit(x, id, size, hitsound) {
             //console.log(`missed [${this.size}] with x ${this.x} sprite ${this.sprite} score ${this.score}`)
             this.x = 10000;
             if (this.size != 2) {
-                misses += this.score;
+                smoothAcc(this.score, true);
                 lastMiss = true;
             }
             if (this.size == 0) combo = 0;
@@ -93,8 +93,38 @@ function fruit(x, id, size, hitsound) {
     }
 }
 
+function smoothAcc(addedscore, isMiss) {
+    var i = 0; //  set your counter to 1
 
+    function Loop() { //  create a loop function
+        setTimeout(function () { //  call a 3s setTimeout when the loop is called
+            if (isMiss) misses += addedscore / 25;
+            else catches += addedscore / 25;
+            i++;
+            if (i < 25) {
+                Loop();
+            }
+        }, 18)
+    }
 
+    Loop();
+}
+
+function addScore(addedscore) {
+    var i = 0; //  set your counter to 1
+
+    function Loop() { //  create a loop function
+        setTimeout(function () { //  call a 3s setTimeout when the loop is called
+            score += addedscore / 25;
+            i++;
+            if (i < 25) {
+                Loop();
+            }
+        }, 18)
+    }
+
+    Loop();
+}
 
 //double double bool
 function summonFruit(delay, pos, size, hitsound) {
