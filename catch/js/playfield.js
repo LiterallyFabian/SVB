@@ -105,12 +105,12 @@ $(document).ready(function () {
         context.drawImage(catcherImage, catcher.x, catcher.y, catcher.width, catcher.height);
 
         //move catcher
-        if (keyState[37] || keyState[65] || keyState[103] || (touching && touching_x <= window.innerHeight/2)) { //left arrow | a | num7
+        if (keyState[37] || keyState[65] || keyState[103] || (touching && touching_x <= window.innerHeight / 2)) { //left arrow | a | num7
             catcher.x -= catcherSpeed;
             catcherImage_fail = catcherImage_failL;
             catcherImage_kiai = catcherImage_kiaiL;
             catcherImage_idle = catcherImage_idleL;
-        } else if (keyState[39] || keyState[68] || keyState[105] || (touching && touching_x > window.innerHeight/2)) { //right arrow | d | num9
+        } else if (keyState[39] || keyState[68] || keyState[105] || (touching && touching_x > window.innerHeight / 2)) { //right arrow | d | num9
             catcher.x += catcherSpeed;
             catcherImage_fail = catcherImage_failR;
             catcherImage_kiai = catcherImage_kiaiR;
@@ -142,23 +142,17 @@ $(document).ready(function () {
     window.addEventListener('keyup', function (e) {
         keyState[e.keyCode || e.which] = false;
     }, true);
-    $(document).mousedown(function (e) {
-        if (e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel') {
-            var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-            touching_x = touch.pageX;
-            if(e.type == 'touchstart' || e.type =="touchmove") touching = true;
-            else touching = false;
-            console.log("a")
-        } else if (e.type == 'mousedown') {
-            touching_x = e.clientX;
-            touching = true;
-        }
-       
+    $(document).on('touchmove', function (e) {
+        touching_x = e.originalEvent.touches[0].pageX;
+        touching = true;
     })
-    $(document).mouseup(function(e){
+    $(document).on('touchstart', function (e) {
+        touching_x = e.originalEvent.touches[0].pageX;
+        touching = true;
+    })
+    $(document).on('touchend', function (e) {
         touching = false;
     })
-
 
     requestAnimationFrame(loop);
 
