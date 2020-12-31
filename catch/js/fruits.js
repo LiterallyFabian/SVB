@@ -80,8 +80,8 @@ function fruit(x, id, size, hitsound) {
                 hitsounds[0].play();
             }
         } //miss
-        else if (this.y > 900 * scaleModifier && this.x != 10000) {
-
+        else if (this.y > 900 * scaleModifier && this.x != 10000 && !isNaN(this.x)) {
+            //console.log(`missed [${this.size}] with x ${this.x} sprite ${this.sprite} score ${this.score}`)
             this.x = 10000;
             if (this.size != 2) {
                 misses += this.score;
@@ -89,6 +89,7 @@ function fruit(x, id, size, hitsound) {
             }
             if (this.size == 0) combo = 0;
         }
+
     }
 }
 
