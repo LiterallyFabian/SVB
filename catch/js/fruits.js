@@ -4,7 +4,7 @@ function fruit(x, id, size, hitsound) {
     this.id = id;
     //x goes from 0 to 1120
     this.x = x;
-    this.y = -100;
+    this.y = -100*scaleModifier;
     this.speedX = 0;
     this.speedY = 5;
     this.hitsound = -1;
@@ -12,25 +12,25 @@ function fruit(x, id, size, hitsound) {
     this.score = 0;
     if (size == 0) { //normal fruit
         this.sprite = fruitImages[Math.floor(Math.random() * fruitImages.length)];
-        this.width = 80;
-        this.height = 80;
+        this.width = 80 * scaleModifier;
+        this.height = 80 * scaleModifier;
         this.hitsound = hitsound;
         this.score = 300;
     } else if (size == 1) { //droplet
         this.sprite = dropletImage;
-        this.width = 41;
-        this.height = 51;
+        this.width = 41 * scaleModifier;
+        this.height = 51 * scaleModifier;
         this.score = 50;
     } else if (size == 2) { //banana
         this.sprite = bananaImage;
-        this.width = 70;
-        this.height = 70;
+        this.width = 70 * scaleModifier;
+        this.height = 70 * scaleModifier;
         this.score = 1000;
     }
     context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
 
     this.newPos = function () {
-        this.y += this.speedY;
+        this.y += this.speedY * scaleModifier;
     }
     this.update = function () {
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
@@ -80,7 +80,7 @@ function fruit(x, id, size, hitsound) {
                 hitsounds[0].play();
             }
         } //miss
-        else if (this.y > 900 && this.x != 10000) {
+        else if (this.y > 900 * scaleModifier && this.x != 10000) {
 
             this.x = 10000;
             if (this.size != 2) {
@@ -98,7 +98,7 @@ function fruit(x, id, size, hitsound) {
 //double double bool
 function summonFruit(delay, pos, size, hitsound) {
     setTimeout(function () {
-        fruits.push(new fruit(pos * 1.75 + 200, fruits.length, size, hitsound))
+        fruits.push(new fruit(scaleModifier * pos * 1.75 + 200 * scaleModifier, fruits.length, size, hitsound))
     }, delay);
 }
 

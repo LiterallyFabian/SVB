@@ -1,14 +1,17 @@
 spinner = false;
 $(document).ready(function () {
+    $('#catchField').css('height', '100%');
     canvas = document.getElementById("catchField");
     context = canvas.getContext("2d");
+    context.canvas.height = window.innerHeight - document.getElementById('navbar').clientHeight;
+    context.canvas.width = (window.innerHeight - document.getElementById('navbar').clientHeight) * 1.63;
+    scaleModifier = context.canvas.width / 1400; //all values are based on 1400x855 grid
     grid = 5;
-    catcherWidthBase = 612 / 3;
-    catcherWidth = catcherWidthBase;
-    catcherHeight = 640 / 3;
+    catcherWidth = (612 / 3) * scaleModifier;
+    catcherHeight = (609 / 3) * scaleModifier;
     maxCatcherX = canvas.width - grid - catcherWidth;
-    catcherSpeed = 5;
-    fruitSpeed = 0.035;
+    catcherSpeed = 5 * scaleModifier;
+    fruitSpeed = 0.035 * scaleModifier;
     lastTime = Date.now();
     fruits = [];
     var scoreText;
@@ -17,7 +20,6 @@ $(document).ready(function () {
     catches = 0;
     kiai = false;
     combo = 0;
-
 
     catcherImage_idleL = document.getElementById('catcher-idleL');
     catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
@@ -47,15 +49,17 @@ $(document).ready(function () {
 
     function component(width, height, color, x, y, type) {
         this.type = type;
-        this.width = width;
-        this.height = height;
+        if (this.type != "text") {
+            this.width = width * scaleModifier;
+            this.height = height * scaleModifier;
+        }
         this.speedX = 0;
         this.speedY = 0;
         this.x = x;
         this.y = y;
         this.update = function () {
             if (this.type == "text") {
-                context.font = this.width + " " + this.height;
+                context.font = `${30*scaleModifier}px Consolas`;
                 context.fillStyle = color;
                 context.fillText(this.text, this.x, this.y);
             } else {
@@ -111,9 +115,9 @@ $(document).ready(function () {
             catcherImage_idle = catcherImage_idleR;
         }
         if (keyState[16] || keyState[220]) { //shift or §
-            catcherSpeed = 10;
+            catcherSpeed = 10 * scaleModifier;
         } else {
-            catcherSpeed = 5;
+            catcherSpeed = 5 * scaleModifier;
         }
 
         // draw walls
@@ -139,6 +143,6 @@ $(document).ready(function () {
 
     requestAnimationFrame(loop);
 
-    scoreText = new component("30px", "Consolas", "black", 30, 50, "text");
+    scoreText = new component("30px", "Public-Sans", "white", 30 * scaleModifier, 50 * scaleModifier, "text");
 
 });
