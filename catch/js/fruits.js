@@ -1,5 +1,8 @@
 lastMiss = false;
 
+stats_bananasSeen = 0;
+stats_bananasCatched = 0;
+
 function fruit(x, id, size, hitsound) {
     this.id = id;
     //x goes from 0 to 1120
@@ -58,6 +61,7 @@ function fruit(x, id, size, hitsound) {
             }
             if (this.size == 2) {
                 addScore(this.score);
+                stats_bananasCatched++;
             }
 
 
@@ -157,11 +161,38 @@ function toggleKiai(kiaiOn, delay) {
     }, delay);
 }
 
-function finishGame(delay){
-    
+function finishGame(delay) {
+    this.usercookie = getCookie("auth")
+    if (this.usercookie.length > 0) {
+        var data = JSON.parse(this.usercookie);
+        id = data.id;
+    } else return;
+    setTimeout(function () {
+        var rank;
+        if (misses == 0) rank = 'ss';
+        else if (catches / (catches + misses) * 100 > 98) rank = 's';
+        else if (catches / (catches + misses) * 100 > 94) rank = 'a';
+        else if (catches / (catches + misses) * 100 > 90) rank = 'b';
+        else if (catches / (catches + misses) * 100 > 85) rank = 'c';
+        else rank = 'd'
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/auth/updatecatch", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            rank: rank,
+            bananasCatched: stats_bananasCatched,
+            bananasSeen: stats_bananasSeen,
+            id: id,
+            score: score
+        }));
+    }, delay);
 }
 window.setInterval(function () {
-    if (spinner) fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, fruits.length, 2));
+    if (spinner) {
+        fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, fruits.length, 2));
+        stats_bananasSeen++;
+    }
 }, 60);
 
 function collides(obj1, obj2) {

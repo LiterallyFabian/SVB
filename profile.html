@@ -31,6 +31,43 @@
                 <p>{{ bio }}</p>
             </div>
         </div>
+        <div id="gallery" class="center">
+            <div class="center catch-stats">
+                <ul id="rank-list">
+                    <h1 style="padding:20px;">svt!catch stats</h1>
+                    <h2>Ranks achieved</h2>
+                    <li>
+                        <img src="/images/ranking-SS.png" alt="SS Icon" />
+                        <h3>{{ ranks_SS }}</h3>
+                    </li>
+                    <li>
+                        <img src="/images/ranking-S.png" alt="S Icon" />
+                        <h3>{{ ranks_S }}</h3>
+                    </li>
+                    <li>
+                        <img src="/images/ranking-A.png" alt="A Icon" />
+                        <h3>{{ ranks_A }}</h3>
+                    </li>
+                    <li>
+                        <img src="/images/ranking-B.png" alt="B Icon" />
+                        <h3>{{ ranks_B }}</h3>
+                    </li>
+                    <li>
+                        <img src="/images/ranking-C.png" alt="C Icon" />
+                        <h3>{{ ranks_C }}</h3>
+                    </li>
+                    <li>
+                        <img src="/images/ranking-D.png" alt="D Icon" />
+                        <h3>{{ ranks_D }}</h3>
+                    </li>
+                </ul>
+                <h2 style="padding-top: 30px;">Overall stats</h2>
+                <p>Total score: {{ total_score }}</p>
+                <p>Bananas catched: {{ bananas_catched }}</p>
+                <p>Banana accuracy: {{ banana_acc }}%</p>
+
+            </div>
+        </div>
     </div>
 
 </body>
@@ -45,7 +82,17 @@
                 id: "",
                 myID: "-1",
                 avatar: "https://i.imgur.com/K0eS3Pi.png",
-                isOwn: false
+                isOwn: false,
+                catchScores: "",
+                ranks_SS: 0,
+                ranks_S: 0,
+                ranks_A: 0,
+                ranks_B: 0,
+                ranks_C: 0,
+                ranks_D: 0,
+                banana_acc: 100,
+                bananas_catched: 0,
+                total_score: 0
             }
 
         },
@@ -69,19 +116,31 @@
                         this.username = res.data[0].name;
                         this.discriminator = res.data[0].discriminator;
                         this.bio = res.data[0].bio;
-                        document.getElementById('banner').style.background =
-                            `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
-                        document.getElementById('banner').style.backgroundSize = `cover`;
-                        document.getElementById('banner').style.backgroundRepeat = `no-repeat`;
-                        document.getElementById('banner').style.backgroundPosition =
-                            `center center`;
-                        this.avatar = res.data[0].avatar + "?size=128"
-                        if (getCookie("auth").length > 0) this.myID = JSON.parse(getCookie("auth")).id;
-                    }
+                        this.catchScores = JSON.parse(res.data[0].catchScores);
+                        this.ranks_SS = this.catchScores.ss;
+                        this.ranks_S = this.catchScores.s;
+                        this.ranks_A = this.catchScores.a;
+                        this.ranks_B = this.catchScores.b;
+                        this.ranks_C = this.catchScores.c;
+                        this.ranks_D = this.catchScores.d;
+                        this.bananas_catched = this.catchScores.bananasCatched;
+                        this.total_score = Math.floor(this.catchScores.score).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+                        this.banana_acc = (this.catchScores.bananasCatched / this.catchScores
+                            .bananasSeen * 100).toFixed(2);
+                    };
+                    document.getElementById('banner').style.background =
+                        `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
+                    document.getElementById('banner').style.backgroundSize = `cover`;
+                    document.getElementById('banner').style.backgroundRepeat = `no-repeat`;
+                    document.getElementById('banner').style.backgroundPosition =
+                        `center center`;
+                    this.avatar = res.data[0].avatar + "?size=128"
+                    if (getCookie("auth").length > 0) this.myID = JSON.parse(getCookie("auth")).id;
                 })
             }
         }
     }
+
     Vue.createApp(postCreation).mount('#page')
 </script>
 

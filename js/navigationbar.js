@@ -65,7 +65,7 @@ const Login = {
                 if (res.data[0].name != null) {
                     this.navoption = "Skapa artikel"; //shown in navbar
                     this.href = "/post.html" //redirect option for logged in user
-                    this.profilehref = "/profile.html?user=" + res.data[0].id
+                    this.profilehref = "/profile.html?user=" + res.data[0].id +"#banner"
                     this.loggedIn = true;
                     this.username = res.data[0].name + "#" + res.data[0].discriminator;
                 }

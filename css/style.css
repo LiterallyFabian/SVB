@@ -1,14 +1,21 @@
 @charset "UTF-8";
 
+#gallery {
+	width: 70%;
+	max-width: 1400px;
+}
+
 /* Body */
 body {
 	font-family: 'Public Sans', sans-serif;
 	background-color: #EBEBEB;
 	margin: 0;
 }
+
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
+
 /* Container */
 .container {
 	width: 90%;

@@ -1,3 +1,7 @@
+body {
+  background-color: #1c1719;
+}
+
 .hero-image {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.imgur.com/svmBcCG.png");
   height: 50%;
@@ -19,4 +23,36 @@
 .editprofile {
   color: white;
   display: inline-block;
+}
+
+.catch-stats{
+  color: white;
+  text-align: center;
+}
+#rank-list,
+#rank-list h3 {
+  list-style: none;
+  margin: 0;
+  padding: 5;
+  display: inline-block;
+}
+
+#rank-list>li {
+  float: left;
+  width: 130px;
+}
+
+#rank-list>li>.image {
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
+#rank-list img {
+  width: 36.9px;
+  height: 42.2px;
+}
+#gallery{
+  background-color: #2a2226;
+  padding-bottom: 18%;
 }

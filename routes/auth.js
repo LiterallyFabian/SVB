@@ -109,6 +109,47 @@ router.post("/updateuser", (req, res) => {
     });
 })
 
+//adds bananas and rank to user profile after game
+router.post("/updatecatch", (req, res) => {
+    var rank = req.body.rank;
+    var bananasCatched = req.body.bananasCatched;
+    var bananasSeen = req.body.bananasSeen;
+    var id = req.body.id;
+    var score = req.body.score;
+    if (!id) return false;
+    connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
+        var data = JSON.parse(result[0].catchScores);
+        data.bananasSeen += bananasSeen;
+        data.bananasCatched += bananasCatched;
+        if (score == null) score == 0;
+        data.score += score;
+        switch (rank) {
+            case 'ss':
+                data.ss++;
+                break;
+            case 's':
+                data.s++;
+                break;
+            case 'a':
+                data.a++;
+                break;
+            case 'b':
+                data.b++;
+                break;
+            case 'c':
+                data.c++;
+                break;
+            case 'd':
+                data.d++;
+                break;
+        }
+        connection.query(`UPDATE users SET catchScores = '${JSON.stringify(data)}' WHERE id = '${id}'`, function (err2, result) {
+            if (err2) throw err2;
+            console.log(`Added rank ${rank} to user ${id}`)
+        });
+    });
+});
+
 function signUpOrInUser(data, user, res) {
     console.log(data);
     console.log(user);
@@ -124,7 +165,7 @@ function signUpOrInUser(data, user, res) {
                 id: user.id,
                 bio: "Hello world!",
                 banner: "https://i.imgur.com/svmBcCG.png",
-                catchScores: '{"ss":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0}'
+                catchScores: '{"ss":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0, "score":0}'
             }
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
@@ -139,6 +180,7 @@ function signUpOrInUser(data, user, res) {
         }
     });
 }
+
 
 module.exports = router;
 module.exports.signUpOrInUser = signUpOrInUser;
