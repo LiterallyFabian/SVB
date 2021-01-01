@@ -46,6 +46,9 @@
             <p>{{ status }}</p>
 
         </div>
+        <div class="center"><h2>Banner preview:</h2>
+        <img :src="banner" class="center" style="width: 100%;" alt="Your banner link is invalid.">
+    </div>
 
 
         <script>
@@ -88,6 +91,7 @@
                                 if (res.data[0].name == null) {
                                     this.status = "Kunde inte hitta användare."
                                 } else {
+                                    this.avatar = res.data[0].avatar;
                                     this.username = `${res.data[0].name}#${res.data[0].discriminator}`;
                                     this.bio = res.data[0].bio;
                                     this.banner = res.data[0].banner;
@@ -101,7 +105,7 @@
                 }
             }
 
-            Vue.createApp(profileManagement).mount('.login_mainframe')
+            Vue.createApp(profileManagement).mount('#page')
         </script>
 </body>
 
