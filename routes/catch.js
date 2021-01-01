@@ -53,7 +53,7 @@ function addBeatmaps() {
                 beatmap.forEach(line => {
                     if (!foundObjects) {
                         if (line.startsWith("Title:")) title = line.split(":")[1];
-                        else if (line.startsWith("Artist:")) artist = line.split(":")[1];
+                        else if (line.startsWith("Artist:")) artist = line.substring(line.indexOf(":") + 1);
                         else if (line.startsWith("Version:")) difficulty = line.split(":")[1];
                         else if (line.startsWith("Creator:")) creator = line.split(":")[1];
                         else if (line.includes("[HitObjects]")) foundObjects = true;
@@ -74,11 +74,11 @@ function addBeatmaps() {
 
                 jimp.read(thumbnail, function (err, img) {
                     if (err) throw err;
-                    img.resize(192, jimp.AUTO)            // resize
-                         .quality(70)                 // set JPEG quality
-                         .write(icon); // save
-                          console.log('Resized !!')
-                });			
+                    img.resize(250, jimp.AUTO) // resize
+                        .quality(85) // set JPEG quality
+                        .write(icon); // save
+                    console.log('Resized thumbnail.')
+                });
                 var data = {
                     title: title,
                     artist: artist,

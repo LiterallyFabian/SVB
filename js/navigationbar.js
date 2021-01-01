@@ -10,7 +10,7 @@ document.getElementById("navbar").innerHTML = `
     <li><a href="/" class="active">Nyheter</a></li>
     <li><a href=#pagewrap>Lokalt</a></li>
     <li><a href=#video>Sport</a></li>
-    <li><a href="/catch#gallery">svt!catch</a></li>
+    <li><a href="/catch">svt!catch</a></li>
     <li><a href="/kontakt.html">Kontakt</a></li>
     <li><a v-bind:href="href">{{ navoption }}</a></li>
     <li><a v-bind:href="profilehref" v-if="loggedIn">{{ username }}</a></li>
@@ -74,8 +74,5 @@ const Login = {
     }
 }
 
-
-
-
-
 Vue.createApp(Login).mount('.navigation')
+

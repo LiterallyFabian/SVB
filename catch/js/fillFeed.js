@@ -17,19 +17,19 @@ class bmap {
 
     generatePost() {
         return `
-        <li class="article_post">
-    <a href='#' onclick='startGame("${this.thumbnail.replace("jpg", "osu")}", "${this.thumbnail}", "${this.thumbnail.replace("jpg", "mp3").replace("png", "mp3")}")' class="inner">
-      <div class="li-img">
-        <img src="/${this.thumbnail.replace(".jpg", "_icon.jpg")}" alt="thumbnail" />
-      </div>
-      <div class="li-text">
-        <h3 class="li-head">${this.artist} - ${this.title}</h3>
-        <div class="li-sub">
-          <p>${this.difficulty} (${secondsToDisplay(this.length)})<br><br>Mapped by ${this.creator}</p>
-        </div>
-      </div>
-    </a>
-  </li>`;
+        <li>
+        <a href='#'
+            onclick='startGame("${this.thumbnail.replace("jpg", "osu")}", "${this.thumbnail}", "${this.thumbnail.replace("jpg", "mp3").replace("png", "mp3")}")'
+            class="inner">
+            <figure>
+                <img class="thumbnail" src="/${this.thumbnail.replace(".jpg", "_icon.jpg" )}" alt="thumbnail">
+                <figcaption>
+                    <p>${this.title}</p>
+                    <p>${this.difficulty} (${secondsToDisplay(this.length)})<br><br><i>${this.artist}</i></p>
+                </figcaption>
+            </figure>
+        </a>
+    </li>`;
     }
 }
 
@@ -40,12 +40,11 @@ $.post("/catch/getmaps", function (data) {
     $.each(data, function (i, post) {
         bmaps.push(new bmap(post.id, post.title, post.artist, post.difficulty, post.thumbnail, post.length, post.creator));
     })
-    bmaps.reverse()
 });
 
 function UpdateFeed() {
     $.each(bmaps, function (i, post) {
-        $(".img-list").append($(post.post));
+        $(".image-list").append($(post.post));
     })
 }
 

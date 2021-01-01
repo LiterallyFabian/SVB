@@ -14,7 +14,7 @@
     <script src="js/fillFeed.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="css/playfield.css">
-    <link rel="stylesheet" type="text/css" href="/css/article.css">
+    <link rel="stylesheet" type="text/css" href="css/beatmapEntry.css">
     <!-- COMMON TAGS -->
     <meta charset="utf-8">
     <title>svt!catch</title>
@@ -23,11 +23,13 @@
     <meta name="image" content="https://i.imgur.com/0s5znfW.png">
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="svt!catch">
-    <meta itemprop="description" content="svt!catch, made entirely in JavaScript. It had to be done, you're welcome Laith.">
+    <meta itemprop="description"
+        content="svt!catch, made entirely in JavaScript. It had to be done, you're welcome Laith.">
     <meta itemprop="image" content="https://i.imgur.com/0s5znfW.png">
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta name="og:title" content="svt!catch">
-    <meta name="og:description" content="svt!catch, made entirely in JavaScript. It had to be done, you're welcome Laith.">
+    <meta name="og:description"
+        content="svt!catch, made entirely in JavaScript. It had to be done, you're welcome Laith.">
     <meta name="og:image" content="https://i.imgur.com/hRCYy7m.png">
     <meta name="og:url" content="https://svt.sajber.me/catch/catch.html">
     <meta name="og:site_name" content="SVT">
@@ -43,7 +45,8 @@
 
 <body>
 
-    <canvas id="catchField" width="1400" height="855" style="background: url('./img/background.png'); background-size: cover;"></canvas>
+    <canvas id="catchField" width="1400" height="855"
+        style="background: url('./img/background.png'); background-size: cover;"></canvas>
 
     <img class="hide" id="catcher-idleL" src="img/catcher-idle-L.png">
     <img class="hide" id="catcher-failL" src="img/catcher-fail-L.png">
@@ -56,11 +59,16 @@
     <img class="hide" id="fruit3" src="img/grape.png">
     <img class="hide" id="banana" src="img/banana.png">
     <img class="hide" id="droplet" src="img/droplet.png">
-    <div id="gallery" class="center">
-        <ul class="list img-list">
 
-        </ul>
-    </div>
+
+    <section class="song_gallery">
+        <div class="container">
+            <ol class="image-list grid-view">
+
+            </ol>
+        </div>
+    </section>
+
 </body>
 
 </html>
