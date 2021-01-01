@@ -21,7 +21,7 @@ class bmap {
         <a href='#'
             onclick='startGame("${this.thumbnail.replace("jpg", "osu")}", "${this.thumbnail}", "${this.thumbnail.replace("jpg", "mp3").replace("png", "mp3")}")'
             class="inner">
-            <figure>
+            <figure> 
                 <img class="thumbnail" src="/${this.thumbnail.replace(".jpg", "_icon.jpg" )}" alt="thumbnail">
                 <figcaption>
                     <p>${this.title}</p>

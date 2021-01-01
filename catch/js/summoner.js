@@ -94,7 +94,7 @@
              summonFruit(delay, parseInt(pos, 10), 0, hitsound);
 
              var sliderLength = parseInt(Math.round(line[7]));
-             var dropletsPerRepeat = parseInt(Math.round(sliderLength / 15));
+             var dropletsPerRepeat = parseInt(Math.round(sliderLength / 17));
              var droplets = dropletsPerRepeat * repeats;
              var diff = (pos - sliderEndPos) / droplets;
              var currentDrop = 0;
