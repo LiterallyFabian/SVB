@@ -29,4 +29,58 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
 - [ ] User profile pages
 - [x] osu! in javascript
 
+### svt!catch timeline
 
+- **24/12**
+  - Added a new page with a playfield and fruits
+  - Gave fruits gravity
+  - Gave catcher (a really laggy) movement
+- **25/12**
+  - Added methods to summon a fruit or droplet
+  - Added catcher collission
+  - Added an accuracy display
+  - Added beatmap parser
+    - Game starts on page load with CustomiZ - COOLEST
+  - Gave catcher smooth movement
+  - Added svt!catch to the navigation bar
+  - Removed fruit gravity and gave them a smooth static fall speed
+  - Implemented a beatmap builder to fill the database with beatmaps
+  - Added beatmap listing to catch website to let user start custom maps
+  - Added kiai time with catcher expressions
+  - Made catcher flip the way he is moving
+  - Added banana rains
+- **26/12**
+  - Added hitsounding
+  - Fixed audio offset
+  - Added confetti during kiai time
+  - Made playfield wider
+  - Added 23 new beatmaps
+  - Remove banana rains affecting accuracy
+  - Add scoring
+- **27/12**
+  - Rewrote database system to fit game for web
+  - Added metadata to catch site
+  - Added background image to games
+  - Optimized catch to be ran at slower internet speeds
+    - Game will wait for music and hitsounds to be fully loaded before starting
+- **29/12**
+  - Replace old login-system with Discord oauth2
+  - Dimmed catch field during games
+  - Add user profiles
+- **30/12**
+  - Rewrote database system to only add new beatmaps
+  - Made server create thumbnails for all beatmap covers to reduce loading speeds
+  - Fix slider length
+  - Fix slider ending positions
+    - No longer randomized, resulting in more accurate gameplay
+  - Reduce hitsound size
+- **31/12**
+  - Added 11 new beatmaps
+  - Rework playfield to resize based on display size
+  - Add mobile controls
+  - Show accuracy with 2 decimals
+  - Fixed bug where first fruit always counted as miss
+  - Smoothed score changes 
+- **1/1**
+  - Reworked song select design
+  - Add color to fruit sprites
