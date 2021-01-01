@@ -115,7 +115,18 @@ function signUpOrInUser(data, user, res) {
     connection.query(`SELECT * FROM users WHERE id = '${user.id}'`, function (err, result) {
         if (result.length == 0) {
             console.log(`Creating user for ${user.username}#${user.discriminator}`);
-            connection.query(`INSERT INTO users VALUES ('${user.username}', ${user.discriminator}, '${data.access_token}', '${data.refresh_token}', 'https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png', '${user.id}', 'Hello world!', 'https://i.imgur.com/svmBcCG.png')`, function (err2, result2) {
+            var sqldata = {
+                name: user.username,
+                discriminator: user.discriminator,
+                access_token: data.access_token,
+                refresh_token: data.refresh_token,
+                avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+                id: user.id,
+                bio: "Hello world!",
+                banner: "https://i.imgur.com/svmBcCG.png",
+                catchScores: '{"ss":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0}'
+            }
+            connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
                 res.redirect('/editprofile.html')
             });

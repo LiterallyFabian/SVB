@@ -156,6 +156,10 @@ function toggleKiai(kiaiOn, delay) {
         else confetti.stop();
     }, delay);
 }
+
+function finishGame(delay){
+    
+}
 window.setInterval(function () {
     if (spinner) fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, fruits.length, 2));
 }, 60);

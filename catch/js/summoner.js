@@ -8,6 +8,7 @@
  var hitsoundsDrum;
  hitsounds = [];
  var thumbPath;
+ var songLength;
 
  function startDebug() {
      startGame("./catch/song/debug.osu", "./catch/song/debug.jpg", "./catch/song/debug.mp3");
@@ -114,6 +115,7 @@
          } else { //spinner
              summonSpinner(delay, parseFloat(line[5]))
          }
+         if (line.length > 1) songLength = parseInt(line[2]);
 
 
      })
@@ -121,5 +123,5 @@
          var data = line.split(",");
          toggleKiai(data[7] == 1, data[0]);
      })
-
+     finishGame(songLength+3000);
  }
