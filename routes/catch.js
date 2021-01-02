@@ -41,7 +41,7 @@ function addBeatmaps() {
         var i = 0;
         files.forEach(beatmapPath => {
             //check if beatmap is already in
-            if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.thumbnail.includes(beatmapPath.replace("osu", "jpg")))) {
+            if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.path.includes(beatmapPath.replace("osu", "")))) {
                 var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
                 var title;
                 var artist;
@@ -63,12 +63,7 @@ function addBeatmaps() {
 
                 })
                 //Get thumbnail
-                var thumbnail;
-                if (fs.existsSync(beatmapPath.replace("osu", "jpg"))) {
-                    thumbnail = beatmapPath.replace("osu", "jpg")
-                } else {
-                    thumbnail = beatmapPath.replace("osu", "png");
-                }
+                var thumbnail = beatmapPath.replace("osu", "jpg");
                 var icon = thumbnail.replace(".jpg", "_icon.jpg");
                 //console.log(`title ${title}\nartist ${artist}\ndifficulty ${difficulty}\n creator ${creator}\nthumbnail ${thumbnail}\n\n-----------`);
 
@@ -83,7 +78,7 @@ function addBeatmaps() {
                     title: title,
                     artist: artist,
                     difficulty: difficulty,
-                    thumbnail: thumbnail,
+                    path: beatmapPath.replace(".osu", ""),
                     length: length,
                     creator: creator
                 }

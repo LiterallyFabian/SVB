@@ -1,127 +1,78 @@
- var beatmap;
- var fruitLines = [];
- var timingLines = [];
- volume = 50;
- var music;
- var hitsoundsNormal;
- var hitsoundsSoft;
- var hitsoundsDrum;
- hitsounds = [];
- var thumbPath;
- var songLength;
+/*
+    Handles summoning of objects
+*/
 
- function startDebug() {
-     startGame("./catch/song/debug.osu", "./catch/song/debug.jpg", "./catch/song/debug.mp3");
- }
+//Queues an object
+//Sizes: 0 - large, 1 - droplet, 2 - banana
+function summonFruit(delay, pos, size, hitsound) {
+    setTimeout(function () {
+        fruits.push(new fruit(scaleModifier * pos * 1.75 + 200 * scaleModifier, fruits.length, size, hitsound))
+    }, delay);
+}
 
- //loads stuff and then starts
- function startGame(map, thumbnail, audio) {
-     fetch(`/${map}`)
-         .then(response => response.text())
-         .then(data => {
-             beatmap = data.split("\n")
-         });
-     thumbPath = thumbnail;
-     music = new Audio(`/${audio}`);
-     hitsoundsNormal = [new Audio(`/catch/hitsounds/normal-hitnormal.mp3`), new Audio(`/catch/hitsounds/normal-hitwhistle.mp3`), new Audio(`/catch/hitsounds/normal-hitfinish.mp3`), new Audio(`/catch/hitsounds/normal-hitclap.mp3`)]
-     hitsoundsSoft = [new Audio(`/catch/hitsounds/soft-hitnormal.mp3`), new Audio(`/catch/hitsounds/soft-hitwhistle.mp3`), new Audio(`/catch/hitsounds/soft-hitfinish.mp3`), new Audio(`/catch/hitsounds/soft-hitclap.mp3`)]
-     hitsoundsDrum = [new Audio(`/catch/hitsounds/drum-hitnormal.mp3`), new Audio(`/catch/hitsounds/drum-hitwhistle.mp3`), new Audio(`/catch/hitsounds/drum-hitfinish.mp3`), new Audio(`/catch/hitsounds/drum-hitclap.mp3`)]
-     music.onloadeddata = waitForLoad();
- }
+//Queues a banana shower
+function summonSpinner(start, stop) {
+    setTimeout(function () {
+        bananaShower = true;
+    }, parseInt(start, 10));
+    setTimeout(function () {
+        bananaShower = false;
+    }, parseInt(stop, 10));
+}
 
- function waitForLoad() {
-     if (typeof music !== "undefined" &&
-         typeof beatmap !== "undefined" &&
-         music.readyState == 4
-     ) {
-         processMap()
-     } else {
-         setTimeout(waitForLoad, 500);
-     }
- }
+//Summons a banana every 60ms if a banana shower is active
+window.setInterval(function () {
+    if(typeof bananaShower == "undefined") return;
+    if (bananaShower) {
+        fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, fruits.length, 2));
+        stats_bananasSeen++;
+    }
+}, 60);
 
+//Queues a kiai-toggle
+function toggleKiai(kiaiOn, delay) {
+    //stop confetti slightly before kiai stops
+    if (!kiaiOn) {
+        setTimeout(function () {
+            confetti.stop();
+        }, delay - 2000);
+    }
+    setTimeout(function () {
+        kiai = kiaiOn;
+        if (kiaiOn) confetti.start();
+        else confetti.stop();
+    }, delay);
+}
 
+//Queues a statupdate 3 seconds after game is finished
+function finishGame(delay) {
+    setTimeout(function () {
+        var rank;
+        if (misses == 0) rank = 'ss';
+        else if (catches / (catches + misses) * 100 > 98) rank = 's';
+        else if (catches / (catches + misses) * 100 > 94) rank = 'a';
+        else if (catches / (catches + misses) * 100 > 90) rank = 'b';
+        else if (catches / (catches + misses) * 100 > 85) rank = 'c';
+        else rank = 'd'
+        setMedal(rank, score, highestCombo);
 
- function processMap() {
-     var foundTiming = false;
-     var foundObjects = false;
-     document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../${thumbPath}')`;
-     document.getElementById('catchField').style.backgroundSize = `cover`;
-     document.getElementById('catchField').style.backgroundRepeat = `no-repeat`;
-     document.getElementById('catchField').style.backgroundPosition = `center center`;
+        //check if logged in
+        this.usercookie = getCookie("auth")
+        if (this.usercookie.length > 0) {
+            var data = JSON.parse(this.usercookie);
+            id = data.id;
+        } else return;
 
-
-     //Get lines and offset from file
-     beatmap.forEach(line => {
-         if (!foundTiming) {
-             //set hitsounds
-             //normal whistle finish clap
-             if (line.includes("SampleSet: Normal") || line.includes("SampleSet: None")) hitsounds = hitsoundsNormal;
-             else if (line.includes("SampleSet: Soft")) hitsounds = hitsoundsSoft;
-             else if (line.includes("SampleSet: Drum")) hitsounds = hitsoundsDrum;
-             else if (line.includes("[TimingPoints]")) foundTiming = true;
-         } else {
-             if (!foundObjects) {
-                 if (line.split(",").length > 3) {
-                     timingLines.push(line);
-                 } else {
-                     if (line.includes("[HitObjects]")) foundObjects = true;
-                 }
-             } else {
-                 fruitLines.push(line);
-             }
-         }
-     });
-
-     setTimeout(function () {
-         music.volume = volume / 100;
-         music.play()
-     }, 955)
-
-
-     //Get data from all fruit lines
-     fruitLines.forEach(line => {
-         line = line.split(",")
-         var pos = parseInt(line[0]);
-         var delay = parseInt(line[2]);
-         var hitsound = parseInt(line[4]);
-
-
-         //slider
-         if (line.length > 7) {
-             var sliderPositions = line[5].split("|")
-             var sliderEndPos = sliderPositions[sliderPositions.length - 1].split(":")[0]
-             var repeats = parseInt(line[6]);
-             summonFruit(delay, parseInt(pos, 10), 0, hitsound);
-
-             var sliderLength = parseInt(Math.round(line[7]));
-             var dropletsPerRepeat = parseInt(Math.round(sliderLength / 17));
-             var droplets = dropletsPerRepeat * repeats;
-             var diff = (pos - sliderEndPos) / droplets;
-             var currentDrop = 0;
-             for (var i = 0; i < droplets; i++) {
-                 var dropPos = pos - (diff * i);
-                 var dropDelay = (i) * 40 + delay;
-                 if (currentDrop == dropletsPerRepeat) {
-                     summonFruit(dropDelay, dropPos, 0, hitsound)
-                     currentDrop = 0;
-                 } else summonFruit(dropDelay, dropPos, 1)
-                 currentDrop++;
-             }
-             summonFruit(delay + (droplets + 1) * 40, pos - (diff * droplets), 0, hitsound)
-         } else if (line[3] != "12") //large fruit
-         {
-             summonFruit(delay, pos, 0, hitsound)
-         } else { //spinner
-             summonSpinner(delay, parseFloat(line[5]))
-         }
-         if (line.length > 1) songLength = parseInt(line[2]);
-
-
-     })
-     timingLines.forEach(line => {
-         var data = line.split(",");
-         toggleKiai(data[7] == 1, data[0]);
-     })
-     finishGame(songLength+3000);
- }
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/auth/updatecatch", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            rank: rank,
+            bananasCatched: stats_bananasCatched,
+            bananasSeen: stats_bananasSeen,
+            id: id,
+            score: score,
+            highestCombo: highestCombo
+        }));
+    }, delay);
+}

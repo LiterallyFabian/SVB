@@ -1,11 +1,13 @@
-medal;
-// Get the image and insert it inside the modal - use its "alt" text as a caption
+/*
+Summons a medal on the page after game finish, containing play stats.
+*/
+medal = null;
 function setMedal(rank, score, highestCombo) {
     medal = document.getElementById("rankMedal");
     var medalImg = document.getElementById("rankImg");
     var captionText = document.getElementById("message");
     medal.style.display = "block";
-    medalImg.src = `/images/ranking-${rank.toUpperCase()}.png`;
+    medalImg.src = `/img/ranking-${rank.toUpperCase()}.png`;
     var messages = {
         "ss": "Perfect!",
         "s": "Awesome!",
@@ -15,5 +17,5 @@ function setMedal(rank, score, highestCombo) {
         "d": "Meh."
     }
 
-    captionText.innerHTML = `${messages[rank]} Your highest combo was ${highestCombo} and you got ${Math.floor(score)} points. ${isLoggedIn() ? "" : "<br>Log in to save these scores."}`;
+    captionText.innerHTML = `${messages[rank]} Your highest combo was ${highestCombo} and you got ${Math.floor(score)} points. ${isLoggedIn() ? "<br><br>Your score is saved on your profile!" : "<br><br>Log in to save these scores."}`;
 }

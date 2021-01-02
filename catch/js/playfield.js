@@ -1,4 +1,6 @@
-spinner = false;
+/*
+Handles player input and the playfield
+*/
 $(document).ready(function () {
     $('#catchField').css('height', '100%');
     canvas = document.getElementById("catchField");
@@ -7,13 +9,10 @@ $(document).ready(function () {
     context.canvas.width = (window.innerHeight - document.getElementById('navbar').clientHeight) * 1.63;
     scaleModifier = context.canvas.width / 1400; //all values are based on 1400x855 grid
     grid = 5;
-    catcherWidth = (612 / 3) * scaleModifier;
-    catcherHeight = (609 / 3) * scaleModifier;
-    maxCatcherX = canvas.width - grid - catcherWidth;
     catcherSpeed = 5 * scaleModifier;
     fruitSpeed = 0.035 * scaleModifier;
     lastTime = Date.now();
-    fruits = [];
+    fruits = []; //containing all fruits on playfield
     var scoreText;
     score = 0; //total score catched, affected by combo
     misses = 0; //missed score (not affected by combo, to get acc)
@@ -21,6 +20,7 @@ $(document).ready(function () {
     kiai = false; //whether kiai mode is active or not (makes catcher happy)
     combo = 0; //current user combo
     highestCombo = 0;
+    bananaShower = false; //whether a banana shower is active
 
     touching = false; //whether the user is touching the screen or not (for mobile controls)
     touching_x = 0; //where the user is touching
@@ -42,10 +42,10 @@ $(document).ready(function () {
 
 
     catcher = {
-        x: canvas.width / 2.5,
-        y: canvas.height * 0.77,
-        width: catcherWidth,
-        height: catcherHeight,
+        x: canvas.width / 2.5, //middle of playfield
+        y: canvas.height * 0.768, //makes catcher's feet touch the ground
+        width: (612 / 3) * scaleModifier,
+        height: (609 / 3) * scaleModifier,
 
         //velocity
         dy: 0
@@ -73,37 +73,25 @@ $(document).ready(function () {
         }
     }
 
-    // Calculates the factor by which something moved in a time sensitive manner
-    // Scaled relative to 60hz
-    // For example 60hz e.g. 0.0166...ms would return 1, 120hz 0.5, 30hz 2
-    function calculateRelativeSpeed(msLast, msNow) {
-        // time passed since last / 16ms
-        return (msNow - msLast) / (1000 / 60);
-    }
-
     // game loop
     function loop() {
-        let relativeSpeedMultiplier = calculateRelativeSpeed(lastTime, Date.now());
-        lastTime = Date.now();
         requestAnimationFrame(loop);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         // add gravity to fruits 
         fruits.forEach(fruit => {
-            fruit.newPos();
-            fruit.update();
+            fruit.updatePos();
             fruit.checkCollision();
         });
 
-        // prevent paddles from going through walls
+        // prevent catcher from leaving playfield
         if (catcher.x < grid) {
             catcher.x = grid;
-        } else if (catcher.x > maxCatcherX) {
-            catcher.x = maxCatcherX;
+        } else if (catcher.x > canvas.width - grid - catcher.width) {
+            catcher.x = canvas.width - grid - catcher.width;
         }
 
         //draw catcher
-        context.fillStyle = 'white';
         context.drawImage(catcherImage, catcher.x, catcher.y, catcher.width, catcher.height);
 
         //move catcher
@@ -119,21 +107,28 @@ $(document).ready(function () {
             catcherImage_idle = catcherImage_idleR;
         }
         //dash catcher
-        if (keyState[16] || keyState[220]) { //shift or §
+        if (keyState[16] || keyState[220]) { //shift | §
             catcherSpeed = 10 * scaleModifier;
         } else {
             catcherSpeed = 5 * scaleModifier;
         }
 
-        // draw walls
+        //update catcher expression based on kiai/fail
+        if (lastMiss) {
+            catcherImage = catcherImage_fail;
+        } else {
+            if (kiai) catcherImage = catcherImage_kiai;
+            else catcherImage = catcherImage_idle;
+        }
+
+        //draw walls
         context.fillStyle = '#0000003D';
         context.fillRect(0, 0, canvas.width, grid);
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
-        scoreText.text = `Accuracy: ${misses == 0 ? "100%" : `${(catches/(catches+misses)*100).toFixed(2)}%`}  Score: ${Math.round(score).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}  Combo: ${combo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+
+        //update score
+        scoreText.text = `Accuracy: ${misses == 0 ? "100%" : `${(catches/(catches+misses)*100).toFixed(2)}%`}  Score: ${cleanNumber(Math.round(score))}  Combo: ${cleanNumber(combo)}`;
         scoreText.update()
-
-
-
     }
 
     //Detect movement input

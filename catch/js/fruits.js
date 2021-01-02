@@ -1,3 +1,6 @@
+/*
+    Handles fruit gravity and collissions
+*/
 lastMiss = false;
 
 stats_bananasSeen = 0;
@@ -32,25 +35,17 @@ function fruit(x, id, size, hitsound) {
     }
     context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
 
-    this.newPos = function () {
+    this.updatePos = function () {
         this.y += this.speedY * scaleModifier;
-    }
-    this.update = function () {
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
     this.checkCollision = function () {
         if (this.x == 10000) return;
-
-        if (lastMiss) {
-            catcherImage = catcherImage_fail;
-        } else {
-            if (kiai) catcherImage = catcherImage_kiai;
-            else catcherImage = catcherImage_idle;
-        }
         //catch
         if (collides(this, catcher)) {
             this.x = 10000;
             lastMiss = false;
+            //Add score
             if (this.size != 2) {
                 smoothAcc(this.score, false);
                 addScore(this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25)));
@@ -65,7 +60,7 @@ function fruit(x, id, size, hitsound) {
                 stats_bananasCatched++;
             }
 
-
+            //Play hitsound
             if (this.hitsound == -1 || this.hitsound == undefined) return;
             //clap
             else if (this.hitsound == 8 || this.hitsound == 10 || this.hitsound == 12 || this.hitsound == 14) {
@@ -84,6 +79,7 @@ function fruit(x, id, size, hitsound) {
                 hitsounds[0].currentTime = 0;
                 hitsounds[0].play();
             }
+
         } //miss
         else if (this.y > 900 * scaleModifier && this.x != 10000 && !isNaN(this.x)) {
             //console.log(`missed [${this.size}] with x ${this.x} sprite ${this.sprite} score ${this.score}`)
@@ -131,74 +127,6 @@ function addScore(addedscore) {
     Loop();
 }
 
-//double double bool
-function summonFruit(delay, pos, size, hitsound) {
-    setTimeout(function () {
-        fruits.push(new fruit(scaleModifier * pos * 1.75 + 200 * scaleModifier, fruits.length, size, hitsound))
-    }, delay);
-}
-
-//double double bool
-function summonSpinner(start, stop) {
-    setTimeout(function () {
-        spinner = true;
-    }, parseInt(start, 10));
-    setTimeout(function () {
-        spinner = false;
-    }, parseInt(stop, 10));
-}
-
-function toggleKiai(kiaiOn, delay) {
-    //stop confetti slightly before kiai stops
-    if (!kiaiOn) {
-        setTimeout(function () {
-            confetti.stop();
-        }, delay - 2000);
-    }
-    setTimeout(function () {
-        kiai = kiaiOn;
-        if (kiaiOn) confetti.start();
-        else confetti.stop();
-    }, delay);
-}
-
-function finishGame(delay) {
-    setTimeout(function () {
-        var rank;
-        if (misses == 0) rank = 'ss';
-        else if (catches / (catches + misses) * 100 > 98) rank = 's';
-        else if (catches / (catches + misses) * 100 > 94) rank = 'a';
-        else if (catches / (catches + misses) * 100 > 90) rank = 'b';
-        else if (catches / (catches + misses) * 100 > 85) rank = 'c';
-        else rank = 'd'
-        setMedal(rank, score, highestCombo);
-
-        //check if logged in
-        this.usercookie = getCookie("auth")
-        if (this.usercookie.length > 0) {
-            var data = JSON.parse(this.usercookie);
-            id = data.id;
-        } else return;
-        
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/auth/updatecatch", true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            rank: rank,
-            bananasCatched: stats_bananasCatched,
-            bananasSeen: stats_bananasSeen,
-            id: id,
-            score: score,
-            highestCombo: highestCombo
-        }));
-    }, delay);
-}
-window.setInterval(function () {
-    if (spinner) {
-        fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, fruits.length, 2));
-        stats_bananasSeen++;
-    }
-}, 60);
 
 function collides(obj1, obj2) {
     return obj1.x < obj2.x + obj2.width &&
