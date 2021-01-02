@@ -5,7 +5,7 @@ function setMedal(rank, score, highestCombo) {
     var medalImg = document.getElementById("rankImg");
     var captionText = document.getElementById("message");
     medal.style.display = "block";
-    medalImg.src = `/images/ranking-${rank}.png`;
+    medalImg.src = `/images/ranking-${rank.toUpperCase()}.png`;
     var messages = {
         "ss": "Perfect!",
         "s": "Awesome!",
