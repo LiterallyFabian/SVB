@@ -163,11 +163,6 @@ function toggleKiai(kiaiOn, delay) {
 }
 
 function finishGame(delay) {
-    this.usercookie = getCookie("auth")
-    if (this.usercookie.length > 0) {
-        var data = JSON.parse(this.usercookie);
-        id = data.id;
-    } else return;
     setTimeout(function () {
         var rank;
         if (misses == 0) rank = 'ss';
@@ -177,6 +172,14 @@ function finishGame(delay) {
         else if (catches / (catches + misses) * 100 > 85) rank = 'c';
         else rank = 'd'
         setMedal(rank, score, highestCombo);
+
+        //check if logged in
+        this.usercookie = getCookie("auth")
+        if (this.usercookie.length > 0) {
+            var data = JSON.parse(this.usercookie);
+            id = data.id;
+        } else return;
+        
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/auth/updatecatch", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
