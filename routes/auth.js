@@ -172,13 +172,13 @@ function signUpOrInUser(data, user, res) {
             }
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
-                res.redirect('/editprofile.html')
+                res.redirect('/profile/edit')
             });
         } else {
             //update access token
             connection.query(`UPDATE users SET avatar = 'https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png', access_token = '${data.access_token}' WHERE id = '${user.id}'`, function (err2, result2) {
                 if (err2) throw err2;
-                res.redirect('/profile.html?user=' + user.id)
+                res.redirect('/profile?user=' + user.id)
             });
         }
     });

@@ -4,9 +4,7 @@
     <title>SVT</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/profile.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.8.0/sha512.min.js"
-        integrity="sha512-KUrAWA1oxsWKHBaA2mlZyRuR8zzzHHYgpDfkfPrT3FhlZ4YdXbXyE89VHI6WmWradSHtuZjLyLAMP2F7IWK4JQ=="
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.8.0/sha512.min.js" integrity="sha512-KUrAWA1oxsWKHBaA2mlZyRuR8zzzHHYgpDfkfPrT3FhlZ4YdXbXyE89VHI6WmWradSHtuZjLyLAMP2F7IWK4JQ==" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="/js/cookie.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
@@ -26,7 +24,7 @@
                 <img class="avatar" :src="avatar" alt="profile picture"></img>
                 <h1>{{ username }}#{{ discriminator }}</h1>
                 <div v-if="id == myID">
-                    <a href="/editprofile.html"><i class="editprofile far fa-edit fa-sm">
+                    <a href="/profile/edit"><i class="editprofile far fa-edit fa-sm">
                         </i></a></div>
                 <p>{{ bio }}</p>
             </div>
@@ -125,19 +123,18 @@
                         this.ranks_B = this.catchScores.b;
                         this.ranks_C = this.catchScores.c;
                         this.ranks_D = this.catchScores.d;
-                        this.bananas_catched = this.catchScores.bananasCatched;
-                        this.total_score = Math.floor(this.catchScores.score).toString().replace(
-                            /\B(?=(\d{3})+(?!\d))/g, ",");;
-                        this.banana_acc = (this.catchScores.bananasCatched / this.catchScores
-                            .bananasSeen * 100).toFixed(2);
+
+                        this.total_score = Math.floor(this.catchScores.score).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         this.highest_combo = this.catchScores.highestCombo;
+                        this.bananas_catched = this.catchScores.bananasCatched;
+                        if (this.catchScores.bananasSeen == 0) banana_acc = 100;
+                        else this.banana_acc = (this.catchScores.bananasCatched / this.catchScores.bananasSeen * 100).toFixed(2);
+
                     };
-                    document.getElementById('banner').style.background =
-                        `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
+                    document.getElementById('banner').style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
                     document.getElementById('banner').style.backgroundSize = `cover`;
                     document.getElementById('banner').style.backgroundRepeat = `no-repeat`;
-                    document.getElementById('banner').style.backgroundPosition =
-                        `center center`;
+                    document.getElementById('banner').style.backgroundPosition = `center center`;
                     this.avatar = res.data[0].avatar + "?size=256"
                     if (getCookie("auth").length > 0) this.myID = JSON.parse(getCookie("auth")).id;
                 })

@@ -46,7 +46,6 @@ app.get('/', (req, res) => {
     res.sendFile('/index.html')
 });
 
-
 const hostname = '192.168.56.101';
 const port = 3000;
 

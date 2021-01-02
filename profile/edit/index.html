@@ -78,7 +78,7 @@
                         }).then(res => {
                             this.status = "Din profil är uppdaterad!";
                             window.location.replace(
-                                `/profile.html?user=${JSON.parse(getCookie("auth")).id}`);
+                                `/profile?user=${JSON.parse(getCookie("auth")).id}`);
 
                         })
                     },
