@@ -185,7 +185,8 @@ function finishGame(delay) {
             bananasCatched: stats_bananasCatched,
             bananasSeen: stats_bananasSeen,
             id: id,
-            score: score
+            score: score,
+            highestCombo: highestCombo
         }));
     }, delay);
 }

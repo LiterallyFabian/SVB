@@ -116,13 +116,16 @@ router.post("/updatecatch", (req, res) => {
     var bananasSeen = req.body.bananasSeen;
     var id = req.body.id;
     var score = req.body.score;
+    var highestCombo = req.body.highestCombo;
     if (!id) return false;
     connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
         var data = JSON.parse(result[0].catchScores);
         data.bananasSeen += bananasSeen;
         data.bananasCatched += bananasCatched;
-        if (score == null) score == 0;
+        if (data.score == null) data.score = 0;
         data.score += score;
+        if (data.highestCombo == null) data.highestCombo = 0;
+        if (highestCombo > data.highestCombo) data.highestCombo = highestCombo;
         switch (rank) {
             case 'ss':
                 data.ss++;

@@ -63,6 +63,7 @@
                 </ul>
                 <h2 style="padding-top: 30px;">Overall stats</h2>
                 <p>Total score: {{ total_score }}</p>
+                <p>Highest combo: {{ highest_combo }}</p>
                 <p>Bananas catched: {{ bananas_catched }}</p>
                 <p>Banana accuracy: {{ banana_acc }}%</p>
 
@@ -92,7 +93,8 @@
                 ranks_D: 0,
                 banana_acc: 100,
                 bananas_catched: 0,
-                total_score: 0
+                total_score: 0,
+                highest_combo: 0
             }
 
         },
@@ -124,9 +126,11 @@
                         this.ranks_C = this.catchScores.c;
                         this.ranks_D = this.catchScores.d;
                         this.bananas_catched = this.catchScores.bananasCatched;
-                        this.total_score = Math.floor(this.catchScores.score).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+                        this.total_score = Math.floor(this.catchScores.score).toString().replace(
+                            /\B(?=(\d{3})+(?!\d))/g, ",");;
                         this.banana_acc = (this.catchScores.bananasCatched / this.catchScores
                             .bananasSeen * 100).toFixed(2);
+                        this.highest_combo = this.catchScores.highestCombo;
                     };
                     document.getElementById('banner').style.background =
                         `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
