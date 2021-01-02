@@ -88,3 +88,4 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
 - **2/1**
   - Add stat for highest combo
   - Add medal pop-ups
+  - Rewrote catch scripts to ease modding
