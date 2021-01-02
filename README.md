@@ -84,3 +84,7 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
 - **1/1**
   - Reworked song select design
   - Add color to fruit sprites
+  - Added ranks to user profiles
+- **2/1**
+  - Add stat highest combo
+  - Add medal pop-ups

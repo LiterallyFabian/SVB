@@ -10,10 +10,12 @@
     <script src="js/playfield.js"></script>
     <script src="js/fruits.js"></script>
     <script src="js/summoner.js"></script>
-    <script src="/js/getCookie.js"></script>
     <script src="js/fillFeed.js"></script>
+    <script src="js/rankPopup.js"></script>
+    <script src="/js/getCookie.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="css/playfield.css">
+    <link rel="stylesheet" type="text/css" href="css/medal.css">
     <link rel="stylesheet" type="text/css" href="css/beatmapEntry.css">
     <!-- COMMON TAGS -->
     <meta charset="utf-8">
@@ -48,18 +50,32 @@
     <canvas id="catchField" width="1400" height="855"
         style="background: url('./img/background.png'); background-size: cover;"></canvas>
 
+    <!--Catchers-->
     <img class="hide" id="catcher-idleL" src="img/catcher-idle-L.png">
     <img class="hide" id="catcher-failL" src="img/catcher-fail-L.png">
     <img class="hide" id="catcher-kiaiL" src="img/catcher-kiai-L.png">
     <img class="hide" id="catcher-idleR" src="img/catcher-idle-R.png">
     <img class="hide" id="catcher-failR" src="img/catcher-fail-R.png">
     <img class="hide" id="catcher-kiaiR" src="img/catcher-kiai-R.png">
+    <!--Fruits-->
     <img class="hide" id="fruit1" src="img/orange.png">
     <img class="hide" id="fruit2" src="img/apple.png">
     <img class="hide" id="fruit3" src="img/grape.png">
     <img class="hide" id="banana" src="img/banana.png">
     <img class="hide" id="droplet" src="img/droplet.png">
+    <!--Ranks-->
+    <img class="hide" id="rank-ss" src="/images/ranking-SS.png">
+    <img class="hide" id="rank-s" src="/images/ranking-S.png">
+    <img class="hide" id="rank-a" src="/images/ranking-A.png">
+    <img class="hide" id="rank-b" src="/images/ranking-B.png">
+    <img class="hide" id="rank-c" src="/images/ranking-C.png">
+    <img class="hide" id="rank-d" src="/images/ranking-D.png">
 
+    <div id="rankMedal" class="medal">
+            <span id="close" onclick="medal.style.display = 'none';">&times;</span>
+            <img class="medal-content" id="rankImg">
+            <div id="message"></div>
+          </div>
 
     <section class="song_gallery">
         <div class="container">

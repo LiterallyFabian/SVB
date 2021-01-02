@@ -20,6 +20,7 @@ $(document).ready(function () {
     catches = 0; //catched score (not affected by combo, to get ac)
     kiai = false; //whether kiai mode is active or not (makes catcher happy)
     combo = 0; //current user combo
+    highestCombo = 0;
 
     touching = false; //whether the user is touching the screen or not (for mobile controls)
     touching_x = 0; //where the user is touching

@@ -57,6 +57,7 @@ function fruit(x, id, size, hitsound) {
             }
             if (this.size == 0) {
                 combo++;
+                if(combo>highestCombo) highestCombo = combo;
 
             }
             if (this.size == 2) {
@@ -175,7 +176,7 @@ function finishGame(delay) {
         else if (catches / (catches + misses) * 100 > 90) rank = 'b';
         else if (catches / (catches + misses) * 100 > 85) rank = 'c';
         else rank = 'd'
-
+        setMedal(rank, score, highestCombo);
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/auth/updatecatch", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
