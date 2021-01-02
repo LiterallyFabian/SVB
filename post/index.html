@@ -5,16 +5,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SVT</title>
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
-    <link href="/css/form.css" rel="stylesheet" type="text/css">
-    <link href="/css/nav.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/js/insert.js"></script>
     <script src="/js/cookie.js"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/form.css" rel="stylesheet" type="text/css">
+    <link href="/css/nav.css" rel="stylesheet" type="text/css">
+    <title>SVT</title>
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
 </head>
@@ -33,16 +34,13 @@
                 <input class="textbox" type="text" v-model="title" placeholder="Min artikel" maxlength="64" required><br>
 
                 <label class="label">Artikel</label><br>
-                <textarea class="textbox articletextbox" type="text" v-model="text" maxlength="2500"
-                    required></textarea><br>
+                <textarea class="textbox articletextbox" type="text" v-model="text" maxlength="2500" required></textarea><br>
 
                 <label class="label">Omslagslänk</label><br>
-                <input class="textbox" type="text" v-model="thumbnailPath" placeholder="img/omslag.png"
-                    maxlength="128" required><br>
+                <input class="textbox" type="text" v-model="thumbnailPath" placeholder="img/omslag.png" maxlength="128" required><br>
 
                 <label class="label">Artikellänk</label><br>
-                <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1"
-                    maxlength="64" required><br><br>
+                <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1" maxlength="64" required><br><br>
 
                 <button class="submitbutton" v-on:click="vue_createpost">{{ action }}</button>
             </div>
@@ -94,7 +92,7 @@
                         }
                         await axios.post("/post/createpost", {
                             title: this.title,
-                            author:  JSON.parse(getCookie("auth")).name,
+                            author: JSON.parse(getCookie("auth")).name,
                             text: this.text,
                             thumbnailPath: this.thumbnailPath,
                             url: this.url,

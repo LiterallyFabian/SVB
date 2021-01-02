@@ -1,17 +1,18 @@
 <html>
 
 <head>
-    <title>SVT</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/profile.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha512/0.8.0/sha512.min.js" integrity="sha512-KUrAWA1oxsWKHBaA2mlZyRuR8zzzHHYgpDfkfPrT3FhlZ4YdXbXyE89VHI6WmWradSHtuZjLyLAMP2F7IWK4JQ==" crossorigin="anonymous"></script>
+    <!--Scripts-->
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
-    <script src="/js/cookie.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="/js/cookie.js"></script>
+    <!--Styling-->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <!--Meta-->
+    <title>SVT</title>
 </head>
 
 <body id="body">
@@ -96,7 +97,7 @@
             }
 
         },
-        mounted: function fillProfile() {
+        mounted: function fillProfile() { //Gets user ID from url field and fills profile if it exists.
             this.$nextTick(function () {
                 var url = new URL(window.location.href);
                 var id = url.searchParams.get("user");
@@ -113,6 +114,7 @@
                     id: this.id
                 }).then(res => {
                     if (res.data[0].name != null) {
+                        document.title = `SVT | ${res.data[0].name}'s profile`
                         this.username = res.data[0].name;
                         this.discriminator = res.data[0].discriminator;
                         this.bio = res.data[0].bio;
@@ -123,7 +125,6 @@
                         this.ranks_B = this.catchScores.b;
                         this.ranks_C = this.catchScores.c;
                         this.ranks_D = this.catchScores.d;
-
                         this.total_score = Math.floor(this.catchScores.score).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         this.highest_combo = this.catchScores.highestCombo;
                         this.bananas_catched = this.catchScores.bananasCatched;
