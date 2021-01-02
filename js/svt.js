@@ -26,3 +26,8 @@ function isLoggedIn() {
     this.usercookie = getCookie("auth")
     return this.usercookie.length > 0;
 }
+
+//converts 1000 to 1,000 etc
+function cleanNumber(num){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
