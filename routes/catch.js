@@ -41,7 +41,7 @@ function addBeatmaps() {
         var i = 0;
         files.forEach(beatmapPath => {
             //check if beatmap is already in
-            if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.path.includes(beatmapPath.replace("osu", "")))) {
+            if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.path.includes(beatmapPath.replace(".osu", "")))) {
                 var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
                 var title;
                 var artist;
