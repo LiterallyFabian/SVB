@@ -5,7 +5,7 @@ document.getElementById("navbar").innerHTML = `
 <link href="/css/nav.css" rel="stylesheet" type="text/css">
 <nav class="navigation" id="topnav">
     <ul>
-    <a href="/"><img class="navlogo" src="/images/logo.svg" alt="LOGO"></a>
+    <a href="/"><img class="navlogo" src="/img/logo.svg" alt="LOGO"></a>
     
     <li><a href="/" class="active">Nyheter</a></li>
     <li><a href=#pagewrap>Lokalt</a></li>
