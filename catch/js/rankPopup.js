@@ -14,8 +14,6 @@ function setMedal(rank, score, highestCombo) {
         "c": "Nice!",
         "d": "Meh."
     }
-    this.usercookie = getCookie("auth")
-    var isLoggedIn = this.usercookie.length > 0;
 
-    captionText.innerHTML = `${messages[rank]} Your highest combo was ${highestCombo} and you got ${Math.floor(score)} points. ${isLoggedIn ? "" : "<br>Log in to save these scores."}`;
+    captionText.innerHTML = `${messages[rank]} Your highest combo was ${highestCombo} and you got ${Math.floor(score)} points. ${isLoggedIn() ? "" : "<br>Log in to save these scores."}`;
 }

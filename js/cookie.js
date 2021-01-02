@@ -1,5 +1,4 @@
 //Gets cookies saved in users browser
-
 function getCookie(cname) {
     var name = cname + "=j:";
     var ca = decodeURIComponent(document.cookie).split(';');
@@ -13,4 +12,10 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+//(unsafe)
+function isLoggedIn() {
+    this.usercookie = getCookie("auth")
+    return this.usercookie.length > 0;
 }
