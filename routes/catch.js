@@ -66,14 +66,18 @@ function addBeatmaps() {
                 var thumbnail = beatmapPath.replace("osu", "jpg");
                 var icon = thumbnail.replace(".jpg", "_icon.jpg");
                 //console.log(`title ${title}\nartist ${artist}\ndifficulty ${difficulty}\n creator ${creator}\nthumbnail ${thumbnail}\n\n-----------`);
+                fs.access(icon, fs.F_OK, (err) => {
+                    if (err) {
+                        jimp.read(thumbnail, function (err, img) {
+                            if (err) throw err;
+                            img.resize(250, jimp.AUTO) // resize
+                                .quality(85) // set JPEG quality
+                                .write(icon); // save
+                            console.log('Resized thumbnail.')
+                        });
+                    }
+                })
 
-                jimp.read(thumbnail, function (err, img) {
-                    if (err) throw err;
-                    img.resize(250, jimp.AUTO) // resize
-                        .quality(85) // set JPEG quality
-                        .write(icon); // save
-                    console.log('Resized thumbnail.')
-                });
                 var data = {
                     title: title,
                     artist: artist,
