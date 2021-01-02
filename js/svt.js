@@ -1,3 +1,10 @@
+/*
+
+Collection of common methods used in most or all pages.
+
+*/
+
+
 //Gets cookies saved in users browser
 function getCookie(cname) {
     var name = cname + "=j:";
