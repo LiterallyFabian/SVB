@@ -35,8 +35,8 @@ function fruit(x, id, size, hitsound) {
     }
     context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
 
-    this.updatePos = function () {
-        this.y += this.speedY * scaleModifier;
+    this.updatePos = function (relativeSpeedMultiplier) {
+        this.y += this.speedY * scaleModifier * relativeSpeedMultiplier;
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
     this.checkCollision = function () {

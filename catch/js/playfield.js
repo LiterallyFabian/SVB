@@ -11,7 +11,7 @@ $(document).ready(function () {
     grid = 5;
     catcherSpeed = 5 * scaleModifier;
     fruitSpeed = 0.035 * scaleModifier;
-    lastTime = Date.now();
+    var lastTime = Date.now();
     fruits = []; //containing all fruits on playfield
     var scoreText;
     score = 0; //total score catched, affected by combo
@@ -51,36 +51,22 @@ $(document).ready(function () {
         dy: 0
     };
 
-    function component(width, height, color, x, y, type) {
-        this.type = type;
-        if (this.type != "text") {
-            this.width = width * scaleModifier;
-            this.height = height * scaleModifier;
-        }
-        this.speedX = 0;
-        this.speedY = 0;
-        this.x = x;
-        this.y = y;
-        this.update = function () {
-            if (this.type == "text") {
-                context.font = `${30*scaleModifier}px Consolas`;
-                context.fillStyle = color;
-                context.fillText(this.text, this.x, this.y);
-            } else {
-                context.fillStyle = color;
-                context.fillRect(this.x, this.y, this.width, this.height);
-            }
-        }
+    // Calculates the factor by which something moved in a time sensitive manner
+    // Scaled relative to 144hz
+    function calculateRelativeSpeed(msLast, msNow) {
+        return (msNow - msLast) / (1000 / 144);
     }
 
     // game loop
     function loop() {
+        let relativeSpeedMultiplier = calculateRelativeSpeed(lastTime, Date.now());
+        lastTime = Date.now();
         requestAnimationFrame(loop);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         // add gravity to fruits 
         fruits.forEach(fruit => {
-            fruit.updatePos();
+            fruit.updatePos(relativeSpeedMultiplier);
             fruit.checkCollision();
         });
 
@@ -97,6 +83,7 @@ $(document).ready(function () {
         //move catcher
         if (keyState[37] || keyState[65] || keyState[103] || (touching && touching_x <= window.innerHeight / 2)) { //left arrow | a | num7
             catcher.x -= catcherSpeed;
+            console.log(context.canvas.width / catcherSpeed);
             catcherImage_fail = catcherImage_failL;
             catcherImage_kiai = catcherImage_kiaiL;
             catcherImage_idle = catcherImage_idleL;
@@ -108,9 +95,9 @@ $(document).ready(function () {
         }
         //dash catcher
         if (keyState[16] || keyState[220]) { //shift | §
-            catcherSpeed = 10 * scaleModifier;
+            catcherSpeed = 10 * scaleModifier * relativeSpeedMultiplier;
         } else {
-            catcherSpeed = 5 * scaleModifier;
+            catcherSpeed = 5 * scaleModifier * relativeSpeedMultiplier;
         }
 
         //update catcher expression based on kiai/fail
@@ -152,6 +139,28 @@ $(document).ready(function () {
     })
 
     requestAnimationFrame(loop);
+
+    function component(width, height, color, x, y, type) {
+        this.type = type;
+        if (this.type != "text") {
+            this.width = width * scaleModifier;
+            this.height = height * scaleModifier;
+        }
+        this.speedX = 0;
+        this.speedY = 0;
+        this.x = x;
+        this.y = y;
+        this.update = function () {
+            if (this.type == "text") {
+                context.font = `${30*scaleModifier}px Consolas`;
+                context.fillStyle = color;
+                context.fillText(this.text, this.x, this.y);
+            } else {
+                context.fillStyle = color;
+                context.fillRect(this.x, this.y, this.width, this.height);
+            }
+        }
+    }
 
     scoreText = new component("30px", "Public-Sans", "white", 30 * scaleModifier, 50 * scaleModifier, "text");
 
