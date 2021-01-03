@@ -75,9 +75,9 @@
     const postCreation = {
         data() {
             return {
-                username: "Invalid User",
-                discriminator: "0000",
-                bio: "you messed up!",
+                username: "",
+                discriminator: "",
+                bio: "",
                 banner: "",
                 id: "",
                 myID: "-1",
@@ -99,22 +99,17 @@
         },
         mounted: function fillProfile() { //Gets user ID from url field and fills profile if it exists.
             this.$nextTick(function () {
-                var url = new URL(window.location.href);
-                var id = url.searchParams.get("user");
-                if (id != null) {
-                    this.id = id;
-                    this.vue_getuser();
-                }
-
+                this.vue_getuser();
             })
         },
         methods: {
             async vue_getuser() {
                 await axios.post("/auth/getuser", {
-                    id: this.id
+                    id: new URL(window.location.href).searchParams.get("user")
                 }).then(res => {
-                    if (res.data[0].name != null) {
+                    if (res.data[0] != null) { //queried profile existed
                         document.title = `SVT | ${res.data[0].name}'s profile`
+                        this.id = res.data[0].id;
                         this.username = res.data[0].name;
                         this.discriminator = res.data[0].discriminator;
                         this.bio = res.data[0].bio;
@@ -130,14 +125,19 @@
                         this.bananas_catched = cleanNumber(this.catchScores.bananasCatched);
                         if (this.catchScores.bananasSeen == 0) banana_acc = 100;
                         else this.banana_acc = (this.catchScores.bananasCatched / this.catchScores.bananasSeen * 100).toFixed(2);
+                        document.getElementById('banner').style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
+                        document.getElementById('banner').style.backgroundSize = `cover`;
+                        document.getElementById('banner').style.backgroundRepeat = `no-repeat`;
+                        document.getElementById('banner').style.backgroundPosition = `center center`;
+                        this.avatar = res.data[0].avatar + "?size=256"
+                        if (getCookie("auth").length > 0) this.myID = JSON.parse(getCookie("auth")).id;
 
-                    };
-                    document.getElementById('banner').style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
-                    document.getElementById('banner').style.backgroundSize = `cover`;
-                    document.getElementById('banner').style.backgroundRepeat = `no-repeat`;
-                    document.getElementById('banner').style.backgroundPosition = `center center`;
-                    this.avatar = res.data[0].avatar + "?size=256"
-                    if (getCookie("auth").length > 0) this.myID = JSON.parse(getCookie("auth")).id;
+                    } else { //profile doesn't exist
+                        this.username = "Invalid User";
+                        this.discriminator = "0000";
+                        this.bio = "you messed up!";
+                    }
+
                 })
             }
         }

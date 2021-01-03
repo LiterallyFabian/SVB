@@ -87,7 +87,7 @@ router.post("/verify", (req, res) => {
 //get user from id
 router.post("/getuser", (req, res) => {
     var id = req.body.id;
-    if (!id) return false;
+    if (!id) return [];
     connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
         res.send(result);
