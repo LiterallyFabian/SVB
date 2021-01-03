@@ -5,8 +5,16 @@ $(document).ready(function () {
     $('#catchField').css('height', '100%');
     canvas = document.getElementById("catchField");
     context = canvas.getContext("2d");
-    context.canvas.height = window.innerHeight - document.getElementById('navbar').clientHeight;
-    context.canvas.width = (window.innerHeight - document.getElementById('navbar').clientHeight) * 1.63;
+
+    if (window.innerHeight > window.innerWidth) {
+        context.canvas.width = window.innerWidth;
+        context.canvas.height = window.innerWidth / 1.63;
+    } else {
+        context.canvas.height = window.innerHeight - document.getElementById('navbar').clientHeight;
+        context.canvas.width = (window.innerHeight - document.getElementById('navbar').clientHeight) * 1.63;
+
+    }
+
     scaleModifier = context.canvas.width / 1400; //all values are based on 1400x855 grid
     grid = 5;
     catcherSpeed = 5 * scaleModifier;
@@ -81,13 +89,13 @@ $(document).ready(function () {
         context.drawImage(catcherImage, catcher.x, catcher.y, catcher.width, catcher.height);
 
         //move catcher
-        if (keyState[37] || keyState[65] || keyState[103] || (touching && touching_x <= window.innerHeight / 2)) { //left arrow | a | num7
+        if (keyState[37] || keyState[65] || keyState[103] || (touching && touching_x <= context.canvas.width / 2)) { //left arrow | a | num7
             catcher.x -= catcherSpeed;
             console.log(context.canvas.width / catcherSpeed);
             catcherImage_fail = catcherImage_failL;
             catcherImage_kiai = catcherImage_kiaiL;
             catcherImage_idle = catcherImage_idleL;
-        } else if (keyState[39] || keyState[68] || keyState[105] || (touching && touching_x > window.innerHeight / 2)) { //right arrow | d | num9
+        } else if (keyState[39] || keyState[68] || keyState[105] || (touching && touching_x > context.canvas.width / 2)) { //right arrow | d | num9
             catcher.x += catcherSpeed;
             catcherImage_fail = catcherImage_failR;
             catcherImage_kiai = catcherImage_kiaiR;
