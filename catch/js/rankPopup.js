@@ -17,5 +17,5 @@ function setMedal(rank, score, highestCombo) {
         "d": "Meh."
     }
 
-    captionText.innerHTML = `${messages[rank]} Your highest combo was ${highestCombo} and you got ${Math.floor(score)} points. ${isLoggedIn() ? "<br><br>Your score is saved on your profile!" : "<br><br>Log in to save these scores."}`;
+    captionText.innerHTML = `${messages[rank]} Your highest combo was ${cleanNumber(highestCombo)} and you got ${cleanNumber(Math.floor(score))} points. ${isLoggedIn() ? "<br><br>Your score is saved on your profile!" : "<br><br>Log in to save these scores."}`;
 }
