@@ -10,8 +10,8 @@ $(document).ready(function () {
         context.canvas.width = window.innerWidth;
         context.canvas.height = window.innerWidth / 1.63;
     } else {
-        context.canvas.height = window.innerHeight - document.getElementById('navbar').clientHeight;
-        context.canvas.width = (window.innerHeight - document.getElementById('navbar').clientHeight) * 1.63;
+        context.canvas.height = window.innerHeight - document.getElementById('nav-placeholder').clientHeight;
+        context.canvas.width = (window.innerHeight - document.getElementById('nav-placeholder').clientHeight) * 1.63;
 
     }
 

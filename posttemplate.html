@@ -30,35 +30,42 @@
 </head>
 
 <body>
-    <div id="navbar">
-        <script src="/js/navigationbar.js"></script>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
 
-        <div class="article_body">
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
 
-            <img class="article_cover" src="{{image}}" alt="Image">
+    <div class="article_body">
 
-            <h1>{{title}}
-                <div class="tools" style="display: inline;" v-if="isHidden">
-                    <div class="tooltip">
-                        <a href="/post?edit={{url}}"><i class="tool far fa-edit fa-sm">
-                                <span class="tooltiptext">Redigera artikel</span></i></a></div>
+        <img class="article_cover" src="{{image}}" alt="Image">
 
-                    <div class="tooltip">
-                        <a onClick="verifyDeletion()"><i class="tool far fa-trash-alt fa-sm">
-                                <span class="tooltiptext">Radera artikel</span></i></a></div>
-                </div>
-            </h1>
-            <h6>{{date}}</h6>
-            <hr>
+        <h1>{{title}}
+            <div class="tools" style="display: inline;" v-if="isHidden">
+                <div class="tooltip">
+                    <a href="/post?edit={{url}}"><i class="tool far fa-edit fa-sm">
+                            <span class="tooltiptext">Redigera artikel</span></i></a></div>
 
-            <pre>{{article}}</pre>
+                <div class="tooltip">
+                    <a onClick="verifyDeletion()"><i class="tool far fa-trash-alt fa-sm">
+                            <span class="tooltiptext">Radera artikel</span></i></a></div>
+            </div>
+        </h1>
+        <h6>{{date}}</h6>
+        <hr>
 
-            <br><br>
+        <pre>{{article}}</pre>
 
-            <hr>
-            <h5>Artikel publicerad av {{author}}</h5>
-            <p><i class="fas fa-envelope"></i> Hittat språk- eller faktafel i texten? Skriv och berätta.</p>
-        </div>
+        <br><br>
+
+        <hr>
+        <h5>Artikel publicerad av {{author}}</h5>
+        <p><i class="fas fa-envelope"></i> Hittat språk- eller faktafel i texten? Skriv och berätta.</p>
+    </div>
 </body>
 <script>
     function verifyDeletion() {

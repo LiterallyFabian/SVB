@@ -22,90 +22,96 @@
 <body id="page">
     <!-- Main Container -->
 
-    <div id="navbar">
-        <script src="/js/navigationbar.js"></script>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
 
 
-        <div class="login_mainframe">
-            <div class="login_formtable">
+    <div class="login_mainframe">
+        <div class="login_formtable">
 
-                <label class="label">Användarnamn</label><br>
-                <input class="textbox" type="text" v-model="username" placeholder="" disabled><br>
+            <label class="label">Användarnamn</label><br>
+            <input class="textbox" type="text" v-model="username" placeholder="" disabled><br>
 
-                <label class="label">Bio</label><br>
-                <textarea class="textbox articletextbox" v-model="bio" maxlength="512"
-                    :disabled="!canEdit"></textarea><br>
+            <label class="label">Bio</label><br>
+            <textarea class="textbox articletextbox" v-model="bio" maxlength="512" :disabled="!canEdit"></textarea><br>
 
-                <label class="label">Banner</label><br>
-                <input class="textbox" type="text" v-model="banner" placeholder="https://imgur.com/image.png/"
-                    maxlength="512" :disabled="!canEdit"><br><br>
+            <label class="label">Banner</label><br>
+            <input class="textbox" type="text" v-model="banner" placeholder="https://imgur.com/image.png/" maxlength="512" :disabled="!canEdit"><br><br>
 
 
-                <button class="submitbutton" v-on:click="vue_saveprofile">Spara profil</button>
-            </div>
-            <p>{{ status }}</p>
-
+            <button class="submitbutton" v-on:click="vue_saveprofile">Spara profil</button>
         </div>
-        <div class="center"><h2>Banner preview:</h2>
+        <p>{{ status }}</p>
+
+    </div>
+    <div class="center">
+        <h2>Banner preview:</h2>
         <img :src="banner" class="center" style="width: 100%;" alt="Your banner link is invalid.">
     </div>
 
 
-        <script>
-            const profileManagement = {
-                data() {
-                    return {
-                        username: "",
-                        bio: "",
-                        banner: "",
-                        status: "",
-                        canEdit: false
-                    }
+    <script>
+        const profileManagement = {
+            data() {
+                return {
+                    username: "",
+                    bio: "",
+                    banner: "",
+                    status: "",
+                    canEdit: false
+                }
 
-                },
-                mounted: function editpost() {
-                    this.$nextTick(function () {
-                        this.vue_fillprofile();
+            },
+            mounted: function editpost() {
+                this.$nextTick(function () {
+                    this.vue_fillprofile();
+                })
+            },
+            methods: {
+                async vue_saveprofile() {
+                    await axios.post("/auth/updateuser", {
+                        bio: this.bio,
+                        banner: this.banner,
+                        id: JSON.parse(getCookie("auth")).id
+                    }).then(res => {
+                        this.status = "Din profil är uppdaterad!";
+                        window.location.replace(
+                            `/profile?user=${JSON.parse(getCookie("auth")).id}`);
+
                     })
                 },
-                methods: {
-                    async vue_saveprofile() {
-                        await axios.post("/auth/updateuser", {
-                            bio: this.bio,
-                            banner: this.banner,
+                async vue_fillprofile() {
+                    var cookie = getCookie("auth");
+                    if (cookie.length > 0) {
+                        await axios.post("/auth/getuser", {
                             id: JSON.parse(getCookie("auth")).id
                         }).then(res => {
-                            this.status = "Din profil är uppdaterad!";
-                            window.location.replace(
-                                `/profile?user=${JSON.parse(getCookie("auth")).id}`);
-
+                            if (res.data[0].name == null) {
+                                this.status = "Kunde inte hitta användare."
+                            } else {
+                                this.avatar = res.data[0].avatar;
+                                this.username = `${res.data[0].name}#${res.data[0].discriminator}`;
+                                this.bio = res.data[0].bio;
+                                this.banner = res.data[0].banner;
+                                this.canEdit = JSON.parse(getCookie("auth")).id == res.data[0].id;
+                            }
                         })
-                    },
-                    async vue_fillprofile() {
-                        var cookie = getCookie("auth");
-                        if (cookie.length > 0) {
-                            await axios.post("/auth/getuser", {
-                                id: JSON.parse(getCookie("auth")).id
-                            }).then(res => {
-                                if (res.data[0].name == null) {
-                                    this.status = "Kunde inte hitta användare."
-                                } else {
-                                    this.avatar = res.data[0].avatar;
-                                    this.username = `${res.data[0].name}#${res.data[0].discriminator}`;
-                                    this.bio = res.data[0].bio;
-                                    this.banner = res.data[0].banner;
-                                    this.canEdit = JSON.parse(getCookie("auth")).id == res.data[0].id;
-                                }
-                            })
-                        } else {
-                            this.status = "Du är inte inloggad.";
-                        }
+                    } else {
+                        this.status = "Du är inte inloggad.";
                     }
                 }
             }
+        }
 
-            Vue.createApp(profileManagement).mount('#page')
-        </script>
+        Vue.createApp(profileManagement).mount('#page')
+    </script>
 </body>
 
 </html>

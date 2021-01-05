@@ -1,3 +1,6 @@
+body {
+	font-family: 'Public Sans', sans-serif;
+}
 .navigation {
     text-align: center;
     overflow: hidden;

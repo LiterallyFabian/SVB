@@ -2,6 +2,7 @@
 
 <head>
     <!--Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -17,8 +18,16 @@
 
 <body id="body">
 
-    <div id="navbar"></div>
-    <script src="/js/navigationbar.js"></script>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
     <div id="page">
         <div id="banner" class="hero-image">
             <div class="hero-text">

@@ -38,9 +38,15 @@
 </head>
 
 <body>
-    <div id="navbar">
-        <script src="/js/navigationbar.js"></script>
-    </div>
+      <!--Navigation bar-->
+  <div id="nav-placeholder"></div>
+
+  <script>
+    $(function () {
+      $("#nav-placeholder").load("/reused/nav.html");
+    });
+  </script>
+  <!--end of Navigation bar-->
 
     <canvas id="catchField" width="1400" height="855" style="background: url('./img/background.jpg'); background-size: cover;"></canvas>
 

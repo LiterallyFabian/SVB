@@ -23,106 +23,113 @@
 <body id="page">
     <!-- Main Container -->
 
-    <div id="navbar">
-        <script src="/js/navigationbar.js"></script>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
 
 
-        <div class="login_mainframe">
-            <div class="login_formtable">
+    <div class="login_mainframe">
+        <div class="login_formtable">
 
-                <label class="label">Nyhetstitel</label><br>
-                <input class="textbox" type="text" v-model="title" placeholder="Min artikel" maxlength="64" required><br>
+            <label class="label">Nyhetstitel</label><br>
+            <input class="textbox" type="text" v-model="title" placeholder="Min artikel" maxlength="64" required><br>
 
-                <label class="label">Artikel</label><br>
-                <textarea class="textbox articletextbox" type="text" v-model="text" maxlength="2500" required></textarea><br>
+            <label class="label">Artikel</label><br>
+            <textarea class="textbox articletextbox" type="text" v-model="text" maxlength="2500" required></textarea><br>
 
-                <label class="label">Omslagslänk</label><br>
-                <input class="textbox" type="text" v-model="thumbnailPath" placeholder="img/omslag.png" maxlength="128" required><br>
+            <label class="label">Omslagslänk</label><br>
+            <input class="textbox" type="text" v-model="thumbnailPath" placeholder="img/omslag.png" maxlength="128" required><br>
 
-                <label class="label">Artikellänk</label><br>
-                <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1" maxlength="64" required><br><br>
+            <label class="label">Artikellänk</label><br>
+            <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1" maxlength="64" required><br><br>
 
-                <button class="submitbutton" v-on:click="vue_createpost">{{ action }}</button>
-            </div>
-            <p>{{ status }}</p>
-
+            <button class="submitbutton" v-on:click="vue_createpost">{{ action }}</button>
         </div>
+        <p>{{ status }}</p>
+
+    </div>
 
 
-        <script>
-            const postCreation = {
-                data() {
-                    return {
-                        title: "",
-                        author: "",
-                        text: "",
-                        thumbnailPath: "",
-                        url: "",
-                        date: new Date().toISOString().slice(0, 19).replace('T', ' '),
-                        status: "",
-                        action: "Skapa inlägg",
-                        isEdit: 0
+    <script>
+        const postCreation = {
+            data() {
+                return {
+                    title: "",
+                    author: "",
+                    text: "",
+                    thumbnailPath: "",
+                    url: "",
+                    date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                    status: "",
+                    action: "Skapa inlägg",
+                    isEdit: 0
+                }
+
+            },
+            mounted: function editpost() {
+                this.$nextTick(function () {
+                    var url = new URL(window.location.href);
+                    var edit = url.searchParams.get("edit");
+                    if (edit != null) {
+                        this.url = edit;
+                        this.action = "Uppdatera inlägg";
+                        this.isEdit = 1;
+                        this.vue_fillpost();
                     }
 
-                },
-                mounted: function editpost() {
-                    this.$nextTick(function () {
-                        var url = new URL(window.location.href);
-                        var edit = url.searchParams.get("edit");
-                        if (edit != null) {
-                            this.url = edit;
-                            this.action = "Uppdatera inlägg";
-                            this.isEdit = 1;
-                            this.vue_fillpost();
-                        }
+                })
+            },
+            methods: {
+                async vue_createpost() {
+                    if (this.title == null || this.title == "") {
+                        this.status = "Ett fel uppstod: Skriv en titel lmao";
+                        return;
+                    } else if (this.text == null || this.text == "") {
+                        this.status = "Ett fel uppstod: Skriv en artikel lmao";
+                        return;
+                    } else if (this.url == null || this.url == "") {
+                        this.status = "Ett fel uppstod: Skriv en länk lmao";
+                        return;
+                    }
+                    await axios.post("/post/createpost", {
+                        title: this.title,
+                        author: JSON.parse(getCookie("auth")).name,
+                        text: this.text,
+                        thumbnailPath: this.thumbnailPath,
+                        url: this.url,
+                        date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+                    }).then(res => {
+                        this.status = "Din post är uppe!";
+                        window.location.replace(`/articles/${this.url}.html`);
 
                     })
                 },
-                methods: {
-                    async vue_createpost() {
-                        if (this.title == null || this.title == "") {
-                            this.status = "Ett fel uppstod: Skriv en titel lmao";
-                            return;
-                        } else if (this.text == null || this.text == "") {
-                            this.status = "Ett fel uppstod: Skriv en artikel lmao";
-                            return;
-                        } else if (this.url == null || this.url == "") {
-                            this.status = "Ett fel uppstod: Skriv en länk lmao";
-                            return;
+                async vue_fillpost() {
+                    await axios.post("/post/getarticle", {
+                        url: this.url
+                    }).then(res => {
+                        if (res.data[0].title == null) {
+                            this.status = "Article not found."
+                        } else {
+                            this.title = res.data[0].title;
+                            this.author = res.data[0].author;
+                            this.url = res.data[0].url;
+                            this.thumbnailPath = res.data[0].thumbnailPath;
+                            this.text = res.data[0].text;
                         }
-                        await axios.post("/post/createpost", {
-                            title: this.title,
-                            author: JSON.parse(getCookie("auth")).name,
-                            text: this.text,
-                            thumbnailPath: this.thumbnailPath,
-                            url: this.url,
-                            date: new Date().toISOString().slice(0, 19).replace('T', ' ')
-                        }).then(res => {
-                            this.status = "Din post är uppe!";
-                            window.location.replace(`/articles/${this.url}.html`);
-
-                        })
-                    },
-                    async vue_fillpost() {
-                        await axios.post("/post/getarticle", {
-                            url: this.url
-                        }).then(res => {
-                            if (res.data[0].title == null) {
-                                this.status = "Article not found."
-                            } else {
-                                this.title = res.data[0].title;
-                                this.author = res.data[0].author;
-                                this.url = res.data[0].url;
-                                this.thumbnailPath = res.data[0].thumbnailPath;
-                                this.text = res.data[0].text;
-                            }
-                        })
-                    }
+                    })
                 }
             }
+        }
 
-            Vue.createApp(postCreation).mount('.login_mainframe')
-        </script>
+        Vue.createApp(postCreation).mount('.login_mainframe')
+    </script>
 </body>
 
 </html>
