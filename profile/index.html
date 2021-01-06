@@ -14,6 +14,9 @@
     <link rel="stylesheet" type="text/css" href="/css/profile.css">
     <!--Meta-->
     <title>SVT</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body id="profilebody">
@@ -32,7 +35,7 @@
         <div id="banner" class="hero-image">
             <div class="hero-text">
                 <img class="avatar" :src="avatar" alt="profile picture"></img>
-                <h1>{{ username }}#{{ discriminator }}</h1>
+                <h1>{{ username }}</h1>
                 <div v-if="id == myID">
                     <a href="/profile/edit"><i class="editprofile far fa-edit fa-sm">
                         </i></a></div>
