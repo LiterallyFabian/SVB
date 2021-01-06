@@ -18,21 +18,19 @@ class article {
         //cut text to prevent overflowing
         var preview = shorten(stripHtml(this.text), 50)
 
-
         return `
         <li class="article_post">
-    <a href="/articles/${this.url}.html" class="inner">
-      <div class="li-img">
-        <img src="${this.thumbnailPath}" alt="thumbnail" />
-      </div>
-      <div class="li-text">
-        <h3 class="li-head">${this.title}</h3>
-        <div class="li-sub">
-          <p>${preview}</p>
-        </div>
-      </div>
-    </a>
-  </li>`;
+        <a href="/articles/${this.url}.html" class="inner">
+            <figure> 
+                <img class="thumbnail" src="${this.thumbnailPath}" alt="thumbnail">
+                <figcaption>
+                    <p>${this.title}</p>
+                    <p>${preview}</i></p>
+                </figcaption>
+            </figure>
+        </a>
+        </li>`;
+
     }
 }
 
@@ -51,10 +49,13 @@ $.post("/post/getposts", function (data) {
     articlelist.reverse()
 });
 
-function UpdateFeed() {
+(async () => {
+    console.log("waiting for variable");
+    while (articlelist.length == 0) // define the condition as you like
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
     document.querySelectorAll('.article_post').forEach(e => e.remove());
-    
-    var order = document.getElementById("sorting_order").value;
+    order = document.getElementById("sorting_order").value;
     if (order == "new") list = articlelist;
     else if (order == "old") list = articlelist.reverse();
     else if (order == "alphabetical") list = articlelist.sort(sortTitle);
@@ -62,10 +63,13 @@ function UpdateFeed() {
     else if (order == "long") list = articlelist.sort(sortLenght).reverse();
     else if (order == "short") list = articlelist.sort(sortLenght);
 
+
+
     $.each(list, function (i, post) {
-        $(".img-list").append($(post.post));
+        $(".image-list").append($(post.post));
     })
-}
+})();
+
 
 function sortTitle(a, b) {
     if (a.title < b.title) {
@@ -92,7 +96,3 @@ function shorten(str, maxLen, separator = ' ') {
     if (str.length <= maxLen) return str;
     return str.substr(0, str.lastIndexOf(separator, maxLen));
 }
-
-window.onload = function () {
-    UpdateFeed();
-};
