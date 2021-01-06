@@ -37,9 +37,11 @@
     </script>
     <!--end of Navigation bar-->
 
-    <div class="article_body">
+    <div class="article_body center">
 
-        <img class="article_cover" src="{{image}}" alt="Image">
+        <div class="article_cover">
+            <img src="{{image}}" alt="Image">
+        </div>
 
         <h1>{{title}}
             <div class="tools" style="display: inline;" v-if="isHidden">
@@ -54,16 +56,16 @@
         </h1>
         <h6>{{date}}</h6>
         <hr>
-
-        <pre>{{article}}</pre>
-
+        <div class="articlemain">
+            <pre>{{article}}</pre>
+        </div>
         <br><br>
 
         <hr>
         <h5>Artikel publicerad av {{author}}</h5>
         <p><i class="fas fa-envelope"></i> Hittat språk- eller faktafel i texten? Skriv och berätta.</p>
     </div>
-    
+
     <!-- Page footer -->
     <div id="footer-placeholder"></div>
 
