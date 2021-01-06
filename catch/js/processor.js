@@ -18,7 +18,8 @@ function startDebug() {
 }
 
 //loads stuff and then starts
-function startGame(path) {
+function startGame(path, title) {
+    document.title = `svt!catch | ${title}`
     fetch(`/${path}.osu`)
         .then(response => response.text())
         .then(data => {

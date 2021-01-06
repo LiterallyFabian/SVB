@@ -91,7 +91,6 @@ $(document).ready(function () {
         //move catcher
         if (keyState[37] || keyState[65] || keyState[103] || (touching && touching_x <= context.canvas.width / 2)) { //left arrow | a | num7
             catcher.x -= catcherSpeed;
-            console.log(context.canvas.width / catcherSpeed);
             catcherImage_fail = catcherImage_failL;
             catcherImage_kiai = catcherImage_kiaiL;
             catcherImage_idle = catcherImage_idleL;
