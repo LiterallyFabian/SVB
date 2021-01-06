@@ -16,7 +16,9 @@ class article {
 
     generatePost() {
         //cut text to prevent overflowing
-        var preview = shorten(stripHtml(this.text), 50)
+        var preview = shorten(stripHtml(this.text), 50);
+        var disallowedEndings = [".", "!", "?", ","];
+        if (!disallowedEndings.includes(preview.trim().slice(-1)) && preview.length != stripHtml(this.text).length) preview += "...";
 
         return `
         <li class="article_post">
