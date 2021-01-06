@@ -49,11 +49,12 @@ $.post("/post/getposts", function (data) {
         articlelist.push(new article(post.title, post.author, post.text, post.thumbnailPath, post.url, post.date));
     })
     articlelist.reverse()
+    console.log("Article feed retrieved.")
 });
 
 (async () => {
-    console.log("waiting for variable");
-    while (articlelist.length == 0) // define the condition as you like
+    console.log("Waiting for articles...");
+    while (articlelist.length == 0)
         await new Promise(resolve => setTimeout(resolve, 1000));
 
     document.querySelectorAll('.article_post').forEach(e => e.remove());
@@ -64,8 +65,6 @@ $.post("/post/getposts", function (data) {
     else if (order == "reversealphabetical") list = articlelist.sort(sortTitle).reverse();
     else if (order == "long") list = articlelist.sort(sortLenght).reverse();
     else if (order == "short") list = articlelist.sort(sortLenght);
-
-
 
     $.each(list, function (i, post) {
         $(".image-list").append($(post.post));
