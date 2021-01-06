@@ -37,16 +37,16 @@
     <meta name="og:type" content="website">
 </head>
 
-<body>
-      <!--Navigation bar-->
-  <div id="nav-placeholder"></div>
+<body id="catchbody">
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
 
-  <script>
-    $(function () {
-      $("#nav-placeholder").load("/reused/nav.html");
-    });
-  </script>
-  <!--end of Navigation bar-->
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
 
     <canvas id="catchField" width="1400" height="855" style="background: url('./img/background.jpg'); background-size: cover;"></canvas>
 
@@ -80,12 +80,11 @@
 
     <!--Gallery with beatmaps-->
     <section class="song_gallery">
-        <div class="container">
+        <div class="gallery_container">
             <ol class="image-list grid-view">
             </ol>
         </div>
     </section>
-
 </body>
 
 </html>

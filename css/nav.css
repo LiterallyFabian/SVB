@@ -1,6 +1,9 @@
 body {
-	font-family: 'Public Sans', sans-serif;
+    font-family: 'Public Sans', sans-serif;
+    position: relative;
+    min-height: 100vh;
 }
+
 .navigation {
     text-align: center;
     overflow: hidden;
@@ -39,7 +42,7 @@ body {
     /*4 länkarna i toppen*/
     font-size: 1.5em;
     font-weight: bolder;
-    color: black;
+    color: #333333;
     text-decoration: none;
 }
 
@@ -107,4 +110,32 @@ body {
     .navigation.responsive ul li {
         display: block;
     }
+}
+
+
+
+/*
+
+FOOTER
+
+*/
+
+.footer-container {
+    padding-top: 10rem;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    min-height: 3rem;
+    text-align: center;
+    background-color: white;
+    color: gray;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.footerlogo{
+    max-height: 40px;
+    padding-top: 10px;
 }

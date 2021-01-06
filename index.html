@@ -64,19 +64,25 @@
         <option value='short'>Kortast</option>
       </select>
     </form>
-    <ul class="list img-list">
-
-    </ul>
+     <!--Gallery with articles-->
+     <section class="article_gallery">
+        <div class="gallery_container">
+            <ol class="image-list grid-view">
+            </ol>
+        </div>
+    </section>
   </div>
   <!-- end of Article section -->
-  <!-- Footer Section -->
-  <footer id="contact">
-    <div class="button">KONTAKT</div>
-  </footer>
-  <!-- Copyrights Section -->
-  <div class="copyright">&copy;2020 - <strong>GRID</strong></div>
-  </div>
-  <!-- Main Container Ends -->
+
+  <!-- Page footer -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+      $(function () {
+          $("#footer-placeholder").load("/reused/footer.html");
+      });
+  </script>
+  <!--end of Page footer -->
 
 </body>
 
