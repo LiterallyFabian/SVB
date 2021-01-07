@@ -55,13 +55,21 @@ router.post('/getarticle', (req, res) => {
 //Deletes an article from url
 router.post('/deletearticle', (req, res) => {
     var url = req.body.url;
-    connection.query(`DELETE FROM posts WHERE url = '${url}'`, function (err, result) {
-        if (err) throw err;
-        else {
-            res.send(result);
-            console.log(`Deleted article ${url}`)
+    var auth = req.body.auth;
+    verifyPermission(auth, "delete_articles").then(granted => {
+        if (granted) {
+            connection.query(`DELETE FROM posts WHERE url = '${url}'`, function (err, result) {
+                if (err) throw err;
+                else {
+                    res.send(result);
+                    console.log(`Deleted article ${url}`)
+                }
+            });
+        } else {
+            res.send(false);
         }
-    });
+    })
+
 });
 
 
@@ -81,7 +89,7 @@ function createPosts() {
 
             //Add images to article
             var imageregex = /img([0-9]{1,3})\((https?:\/\/.*\.(?:png|jpg))\)/gi;
-            article =  article.replace(imageregex, `<div class="article_image"><img src="$2" alt="Image" style="width: $1%"></div>`)
+            article = article.replace(imageregex, `<div class="article_image"><img src="$2" alt="Image" style="width: $1%"></div>`)
 
             //Set variables on html page
             var publishdate = new Date(post.date);
@@ -105,6 +113,7 @@ function createPosts() {
         }));
     });
 }
+
 function shortenContent(str, maxLen, separator = ' ') {
     if (str.length <= maxLen) return str;
     return str.substr(0, str.lastIndexOf(separator, maxLen));

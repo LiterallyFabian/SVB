@@ -76,22 +76,25 @@
     </script>
     <!--end of Page footer -->
 </body>
+
 <script>
     function verifyDeletion() {
         const postDeletion = {
             data() {
                 return {
-                    url: "" //,
-                    //isHidden: JSON.parse(getCookie("isLoggedin")).status
+                    url: ""
                 }
 
             },
             methods: {
                 async vue_deletepost() {
                     await axios.post("/post/deletearticle", {
-                        url: window.location.pathname.replace("/articles/", "").replace(".html", "")
+                        url: window.location.pathname.replace("/articles/", "").replace(".html", ""),
+                        auth: getAuth()
                     }).then(res => {
-                        window.location.replace("/");
+                        if (res.data == false) alert("Permission denied. Please log in to an account with access.")
+                        else
+                            window.location.replace("/");
                     })
                 }
             }

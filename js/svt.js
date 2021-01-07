@@ -27,8 +27,24 @@ function isLoggedIn() {
     return this.usercookie.length > 0;
 }
 
+//returns id and access token from cookie
+function getAuth() {
+    var cookie = getCookie("auth");
+    if (cookie.length > 0) {
+        return {
+            id: JSON.parse(cookie).id,
+            access_token: JSON.parse(cookie).access_token
+        };
+    } else {
+        return {
+            id: "",
+            access_token: ""
+        };
+    }
+}
+
 //converts 1000 to 1,000 etc
-function cleanNumber(num){
+function cleanNumber(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 

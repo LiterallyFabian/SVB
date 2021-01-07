@@ -5,6 +5,8 @@ const fs = require('fs');
 const glob = require('glob');
 const url = require('url');
 const fetch = require('node-fetch');
+const permissions = require("./permission.js");
+const perms = permissions.permissions;
 
 //Gets users access token from auth, and then tries to log in or create account
 router.get('/', (req, res) => {
@@ -168,7 +170,8 @@ function signUpOrInUser(data, user, res) {
                 id: user.id,
                 bio: "Hello world!",
                 banner: "https://i.imgur.com/svmBcCG.png",
-                catchScores: '{"ss":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0, "score":0, "highestCombo":0}'
+                catchScores: '{"ss":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0, "score":0, "highestCombo":0}',
+                roles: '{roles:"krönikör"}'
             }
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
@@ -182,6 +185,24 @@ function signUpOrInUser(data, user, res) {
             });
         }
     });
+}
+
+// Checks if user ID have a permission.
+verifyPermission = function (auth, permission) {
+    return new Promise(function (resolve, reject) {
+        connection.query(`SELECT * FROM users WHERE id = '${auth.id.toString()}' AND access_token = '${auth.access_token}'`, function (err, result) {
+            if (err) throw err;
+            if (result.length > 0) {
+                var userRoles = JSON.parse(result[0].roles);
+                userRoles.forEach(role => {
+                    if (perms[role].permissions[permission]) resolve(true);
+                });
+                resolve(false);
+            } else {
+                resolve(false);
+            }
+        });
+    })
 }
 
 

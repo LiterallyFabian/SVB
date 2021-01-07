@@ -7,7 +7,7 @@ CREATE DATABASE svt;
 
 USE svt;
 
-CREATE TABLE users (name VARCHAR(128), discriminator SMALLINT NOT NULL, access_token VARCHAR(30), refresh_token VARCHAR(30), avatar VARCHAR(128), id VARCHAR(32), bio VARCHAR(512), banner VARCHAR(512), catchScores TEXT);
+CREATE TABLE users (name VARCHAR(128), discriminator SMALLINT NOT NULL, access_token VARCHAR(30), refresh_token VARCHAR(30), avatar VARCHAR(128), id VARCHAR(32), bio VARCHAR(512), banner VARCHAR(512), catchScores TEXT, roles TEXT);
 
 CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64), date DATETIME);
 
@@ -23,11 +23,22 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
 - svt!catch, written from scratch in javascript
 - Support for all osu! beatmaps
 
-### Upcoming
-- [x] Homefeed
-- [ ] Categories
-- [ ] User profile pages
-- [x] osu! in javascript
+### Badges
+
+- Krönikör
+  - Default
+- Epic
+  - Nothing special
+- Reporter
+  - Can create articles
+- Redaktör
+  - Can edit and remove all articles
+- Chefredaktör 
+  - Can assign roles
+
+    
+
+    
 
 ### svt!catch timeline
 
