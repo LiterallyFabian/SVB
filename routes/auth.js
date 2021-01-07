@@ -187,7 +187,7 @@ function signUpOrInUser(data, user, res) {
     });
 }
 
-// Checks if user ID have a permission.
+// Checks if user ID & access token have a permission.
 verifyPermission = function (auth, permission) {
     return new Promise(function (resolve, reject) {
         connection.query(`SELECT * FROM users WHERE id = '${auth.id.toString()}' AND access_token = '${auth.access_token}'`, function (err, result) {
