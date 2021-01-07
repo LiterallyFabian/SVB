@@ -92,6 +92,7 @@ router.post("/getuser", (req, res) => {
     if (!id) return [];
     connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
+        result[0]["perms"] = perms; //add copy of perm system
         res.send(result);
     });
 });

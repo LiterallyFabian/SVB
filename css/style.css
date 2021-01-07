@@ -15,12 +15,14 @@ body {
 a {
 	text-decoration: none;
 }
+
 .container {
 	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #FFFFFF;
 }
+
 .center {
 	display: block;
 	margin-left: auto;
@@ -140,3 +142,17 @@ footer {
 	width: 50%;
 }
 
+.badge {
+	padding: 3px 11px 4px;
+	font-size: 12.025px;
+	font-weight: bold;
+	text-transform: uppercase;
+	white-space: nowrap;
+	color: pink;
+	background-color: #201a1d;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+	display:inline-block;
+	margin: 10px 5px 10px 5px;
+}

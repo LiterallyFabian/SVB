@@ -36,6 +36,9 @@
             <div class="hero-text">
                 <img class="avatar" :src="avatar" alt="profile picture"></img>
                 <h1>{{ username }}</h1>
+                <div id="badges">
+
+                </div>
                 <div v-if="id == myID">
                     <a href="/profile/edit"><i class="editprofile far fa-edit fa-sm">
                         </i></a></div>
@@ -104,7 +107,8 @@
                 banana_acc: 100,
                 bananas_catched: 0,
                 total_score: 0,
-                highest_combo: 0
+                highest_combo: 0,
+                roles: []
             }
 
         },
@@ -142,6 +146,12 @@
                         document.getElementById('banner').style.backgroundPosition = `center center`;
                         this.avatar = res.data[0].avatar + "?size=256"
                         if (getCookie("auth").length > 0) this.myID = JSON.parse(getCookie("auth")).id;
+
+                        //set roles
+                        this.roles = JSON.parse(res.data[0].roles);
+                        $.each(this.roles, function (i, role) {
+                            $("#badges").append(`<p class="badge" style="color: ${res.data[0].perms[role].color};">${res.data[0].perms[role].title}</p>`);
+                        })
 
                     } else { //profile doesn't exist
                         this.username = "Invalid User";

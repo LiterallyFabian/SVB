@@ -46,6 +46,11 @@
   width: 130px;
 }
 
+h1{
+  margin-top: 5%;
+  margin-bottom: 0;
+}
+
 #rank-list>li>.image {
   display: block;
   float: left;

@@ -2,7 +2,7 @@
 permissions = {
     "krönikör": {
         title: "Krönikör",
-        color: "#FFD0F7",
+        color: "#46ccf9",
         permissions: {
             create_articles: false,
             edit_articles: false,
@@ -50,7 +50,7 @@ permissions = {
     },
     "chefredaktör": {
         title: "Chefredaktör",
-        color: "#73065E",
+        color: "#e280cf",
         permissions: {
             create_articles: true,
             edit_articles: true,
