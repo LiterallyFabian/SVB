@@ -101,11 +101,15 @@
                         text: this.text,
                         thumbnailPath: this.thumbnailPath,
                         url: this.url,
-                        date: new Date().toISOString().slice(0, 19).replace('T', ' ')
+                        date: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                        auth: getAuth()
                     }).then(res => {
-                        this.status = "Din post är uppe!";
-                        window.location.replace(`/articles/${this.url}.html`);
-
+                        if (res.data == false) {
+                            this.status = "Permission denied. Please log in to an account with access.";
+                        } else {
+                            this.status = "Din post är uppe!";
+                            window.location.replace(`/articles/${this.url}.html`);
+                        }
                     })
                 },
                 async vue_fillpost() {

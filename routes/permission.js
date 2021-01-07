@@ -4,8 +4,7 @@ permissions = {
         title: "Krönikör",
         color: "#46ccf9",
         permissions: {
-            create_articles: false,
-            edit_articles: false,
+            modify_articles: false,
             delete_articles: false,
             assign_roles: false,
             update_ownProfile: true,
@@ -16,8 +15,7 @@ permissions = {
         title: "Epic",
         color: "#FFB936",
         permissions: {
-            create_articles: false,
-            edit_articles: false,
+            modify_articles: false,
             delete_articles: false,
             assign_roles: false,
             update_ownProfile: true,
@@ -28,8 +26,7 @@ permissions = {
         title: "Reporter",
         color: "#000000",
         permissions: {
-            create_articles: true,
-            edit_articles: false,
+            modify_articles: true,
             delete_articles: false,
             assign_roles: false,
             update_ownProfile: true,
@@ -40,8 +37,7 @@ permissions = {
         title: "Redaktör",
         color: "#ffffff",
         permissions: {
-            create_articles: true,
-            edit_articles: true,
+            modify_articles: true,
             delete_articles: true,
             assign_roles: false,
             update_ownProfile: true,
@@ -52,8 +48,7 @@ permissions = {
         title: "Chefredaktör",
         color: "#e280cf",
         permissions: {
-            create_articles: true,
-            edit_articles: true,
+            modify_articles: true,
             delete_articles: true,
             assign_roles: true,
             update_ownProfile: true,

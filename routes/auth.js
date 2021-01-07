@@ -62,6 +62,8 @@ router.get('/', (req, res) => {
 router.post("/verify", (req, res) => {
     var access_token = req.body.access_token;
     var id = req.body.id;
+    var auth = req.body.auth;
+
     if (!access_token || !id) return false;
     fetch('https://discord.com/api/users/@me', {
             headers: {
@@ -78,7 +80,11 @@ router.post("/verify", (req, res) => {
                     else {
                         connection.query(`UPDATE users SET avatar = 'https://cdn.discordapp.com/avatars/${userdata.id}/${userdata.avatar}.png' WHERE id = '${userdata.id}'`, function (err2, result) {
                             if (err2) throw err2;
-                            res.send(resultmain);
+                            verifyPermission(auth, "modify_articles").then(granted => {
+                                if (granted) resultmain[0]["canPost"] = true;
+                                else resultmain[0]["canPost"] = false;
+                                res.send(resultmain);
+                            });
                         });
                     }
                 });

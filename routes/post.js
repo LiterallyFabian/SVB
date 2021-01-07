@@ -11,22 +11,30 @@ router.post('/createpost', (req, res) => {
     var thumbnail = req.body.thumbnailPath;
     var url = req.body.url.replace(/\//g, "");
     var date = req.body.date;
-    connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
-        if (result.length == 0) {
-            console.log(`Creating news article ${title}, by ${author}`);
-            connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}', '${date}')`, function (err2, result) {
-                if (err2) throw err2;
-                res.send(result);
-                console.log("Post created!");
-                createPosts()
+    var auth = req.body.auth;
+
+    verifyPermission(auth, "modify_articles").then(granted => {
+        if (granted) {
+            connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
+                if (result.length == 0) {
+                    console.log(`Creating news article ${title}, by ${author}`);
+                    connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}', '${date}')`, function (err2, result) {
+                        if (err2) throw err2;
+                        res.send(result);
+                        console.log("Post created!");
+                        createPosts();
+                    });
+                } else {
+                    connection.query(`UPDATE posts SET title = '${title}', author = '${author}', text = '${text}', thumbnailPath = '${thumbnail}', date = '${date}' WHERE url = '${url}'`, function (err2, result) {
+                        if (err2) throw err2;
+                        res.send(result);
+                        console.log("Post Updated!");
+                        createPosts();
+                    });
+                }
             });
         } else {
-            connection.query(`UPDATE posts SET title = '${title}', author = '${author}', text = '${text}', thumbnailPath = '${thumbnail}', date = '${date}' WHERE url = '${url}'`, function (err2, result) {
-                if (err2) throw err2;
-                res.send(result);
-                console.log("Post Updated!");
-                createPosts()
-            });
+            res.send(false);
         }
     });
 });

@@ -13,7 +13,8 @@
         <li><a href=#video>Sport</a></li>
         <li><a href="/catch">svt!catch</a></li>
         <li><a href="/kontakt.html">Kontakt</a></li>
-        <li><a v-bind:href="href">{{ navoption }}</a></li>
+        <li><a v-bind:href="href" v-if="!loggedIn">Logga in</a></li>
+        <li><a href="/post" v-if="canPost">Skapa inlägg</a></li>
         <li><a v-bind:href="profilehref" v-if="loggedIn">{{ username }}</a></li>
         <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
             <i class="fa fa-bars"></i>
@@ -32,11 +33,11 @@
     const Login = {
         data() {
             return {
-                navoption: "Logga in",
                 username: "",
                 href: "https://discord.com/api/oauth2/authorize?client_id=793179363029549057&redirect_uri=https%3A%2F%2Fsvt.sajber.me%2Fauth&response_type=code&scope=identify",
                 profilehref: "",
-                loggedIn: false
+                loggedIn: false,
+                canPost: false
             }
 
         },
@@ -59,14 +60,14 @@
                 console.log("Tries to login from saved access token...");
                 await axios.post("/auth/verify", {
                     access_token: this.access_token,
-                    id: this.id
+                    id: this.id,
+                    auth: getAuth()
                 }).then(res => {
                     if (res.data[0].name != null) {
-                        this.navoption = "Skapa artikel"; //shown in navbar
-                        this.href = "/post" //redirect option for logged in user
                         this.profilehref = "/profile?user=" + res.data[0].id + "#banner"
                         this.loggedIn = true;
                         this.username = res.data[0].name + "#" + res.data[0].discriminator;
+                        this.canPost = res.data[0].canPost;
                     }
                 })
             },
