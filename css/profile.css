@@ -2,6 +2,10 @@
   background-color: #1c1719;
 }
 
+.banneritems {
+  height: 100%;
+}
+
 .hero-image {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.imgur.com/svmBcCG.png");
   height: 50%;
@@ -19,7 +23,8 @@
   transform: translate(-50%, -50%);
   color: white;
 }
-.avatar{
+
+.avatar {
   max-width: 200px;
   width: 100%;
 }
@@ -29,10 +34,11 @@
   display: inline-block;
 }
 
-.catch-stats{
+.catch-stats {
   color: white;
   text-align: center;
 }
+
 #rank-list,
 #rank-list h3 {
   list-style: none;
@@ -46,7 +52,7 @@
   width: 130px;
 }
 
-h1{
+h1 {
   margin-top: 5%;
   margin-bottom: 0;
 }
@@ -61,7 +67,21 @@ h1{
   width: 36.9px;
   height: 42.2px;
 }
-#gallery{
+
+#gallery {
   background-color: #2a2226;
   padding-bottom: 18%;
+}
+
+@media screen and (max-width: 600px) {
+
+  .hero-image {
+    height: 70%;
+  }
+  .catch-stats{
+    width:100%;
+  }
+  #gallery{
+    width:80%;
+  }
 }

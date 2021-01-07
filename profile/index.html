@@ -33,16 +33,18 @@
 
     <div id="page">
         <div id="banner" class="hero-image">
-            <div class="hero-text">
-                <img class="avatar" :src="avatar" alt="profile picture"></img>
-                <h1>{{ username }}</h1>
-                <div id="badges">
+            <div class="banneritems">
+                <div class="hero-text">
+                    <img class="avatar" :src="avatar" alt="profile picture"></img>
+                    <h1>{{ username }}</h1>
+                    <div id="badges">
 
+                    </div>
+                    <div v-if="id == myID">
+                        <a href="/profile/edit"><i class="editprofile far fa-edit fa-sm">
+                            </i></a></div>
+                    <p>{{ bio }}</p>
                 </div>
-                <div v-if="id == myID">
-                    <a href="/profile/edit"><i class="editprofile far fa-edit fa-sm">
-                        </i></a></div>
-                <p>{{ bio }}</p>
             </div>
         </div>
         <div id="gallery" class="center">

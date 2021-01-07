@@ -24,7 +24,7 @@ permissions = {
     },
     "reporter": {
         title: "Reporter",
-        color: "#000000",
+        color: "#6ade51",
         permissions: {
             modify_articles: true,
             delete_articles: false,
@@ -35,7 +35,7 @@ permissions = {
     },
     "redaktör": {
         title: "Redaktör",
-        color: "#ffffff",
+        color: "#9effdd",
         permissions: {
             modify_articles: true,
             delete_articles: true,
