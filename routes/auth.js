@@ -92,13 +92,19 @@ router.post("/verify", (req, res) => {
         })
 });
 
-//get user from id
+//get public userdata from id
 router.post("/getuser", (req, res) => {
     var id = req.body.id;
     if (!id) return [];
     connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
-        result[0]["perms"] = perms; //add copy of perm system
+        result[0].perms = perms; //add copy of perm system
+
+        //remove private data
+        result[0].access_token = "";
+        result[0].refresh_token = "";
+        result[0].discriminator = "";
+        
         res.send(result);
     });
 });
