@@ -108,3 +108,4 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
 - **7/1**
   - Song title now shown in page title
   - Added more maps
+  - Added volume sliders
