@@ -105,3 +105,6 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
   - Scaled speeds to work across all refresh rates
 - **4/1**
   - Added mobile support
+- **7/1**
+  - Song title now shown in page title
+  - Added more maps
