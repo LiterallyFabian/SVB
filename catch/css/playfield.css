@@ -16,3 +16,14 @@ canvas {
 #catchbody {
     background-color: #1c1719;
 }
+
+.volume{
+    left:50%;
+    display:inline-block;
+    color:white;
+    left: 50%;
+   
+}
+.volume p{
+    display:inline-block;
+}

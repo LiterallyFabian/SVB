@@ -1,5 +1,6 @@
 /*
     Processes a beatmap file and adds all its fruit to the queue
+    Also controls the audio.
 */
 var beatmap;
 var fruitLines = [];
@@ -12,6 +13,7 @@ var hitsoundsDrum;
 hitsounds = [];
 var thumbPath;
 var songLength;
+var musicRange;
 
 function startDebug() {
     startGame("./catch/song/debug");
@@ -79,7 +81,10 @@ function processMap() {
     });
 
     setTimeout(function () {
-        music.volume = volume / 100;
+        if (hitsounds.length > 0) hitsounds.forEach(hs => {
+            hs.volume = effectsRange.value/100
+        });
+        music.volume = musicRange.value/100;
         music.play()
     }, 955)
 
@@ -136,4 +141,44 @@ function processMap() {
     })
     //Finish game 3 seconds after last object.
     finishGame(songLength + 3000);
+}
+
+//Audio
+$(document).ready(function () {
+    musicRange = document.getElementById("musicRange");
+    var effectsRange = document.getElementById("effectsRange");
+
+    musicRange.oninput = function () {
+        if (typeof music != "undefined") {
+            music.volume = musicRange.value/100;
+            
+        }
+        
+    }
+    effectsRange.oninput = function () {
+        if (hitsounds.length > 0) hitsounds.forEach(hs => {
+            hs.volume = effectsRange.value/100
+            
+        });
+    }
+
+    //load volume from cookies
+    musicRange.value = getVolume("catchVolumeMusic");
+    effectsRange.value = getVolume("catchVolumeEffects");
+})
+
+var saveCookie = setInterval(function() {
+    setCookie("catchVolumeMusic", musicRange.value, 10000);
+    setCookie("catchVolumeEffects", effectsRange.value, 10000);
+}, 2000);
+
+function getVolume(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
 }

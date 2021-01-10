@@ -48,7 +48,10 @@
     </script>
     <!--end of Navigation bar-->
 
+    <!-- Catch field -->
     <canvas id="catchField" width="1400" height="855" style="background: url('./img/background.jpg'); background-size: cover;"></canvas>
+
+
 
     <!--Catchers-->
     <img class="hide" id="catcher-idleL" src="img/catcher-idle-L.png">
@@ -80,7 +83,20 @@
 
     <!--Gallery with beatmaps-->
     <section class="song_gallery">
+
         <div class="gallery_container">
+
+            <!--Volume sliders-->
+            <div class="volume">
+                <p>Music</p>
+                <input type="range" min="0" max="100" value="50" class="slider" id="musicRange">
+
+                <p>Effects</p>
+                <input type="range" min="0" max="100" value="50" class="slider" id="effectsRange">
+
+            </div>
+            <!--end of Volume sliders-->
+
             <ol class="image-list grid-view">
             </ol>
         </div>
