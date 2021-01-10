@@ -16,6 +16,10 @@ a {
 	text-decoration: none;
 }
 
+.bannerpreview {
+	width: 70%;
+}
+
 .container {
 	width: 90%;
 	margin-left: auto;
@@ -153,6 +157,12 @@ footer {
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
 	border-radius: 9px;
-	display:inline-block;
+	display: inline-block;
 	margin: 10px 5px 10px 5px;
+}
+
+@media screen and (max-width: 600px) {
+	.bannerpreview {
+		width: 100%;
+	}
 }
