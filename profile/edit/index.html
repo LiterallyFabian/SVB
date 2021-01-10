@@ -8,7 +8,6 @@
     <title>SVT | Redigera profil</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/form.css" rel="stylesheet" type="text/css">
-    <link href="/css/nav.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@next"></script>
@@ -52,7 +51,7 @@
     </div>
     <div class="center">
         <h2>Banner preview:</h2>
-        <img :src="banner" class="center" style="width: 100%;" alt="Your banner link is invalid.">
+        <img :src="banner" class="center bannerpreview" alt="Your banner link is invalid.">
     </div>
 
     <!-- Page footer -->
@@ -73,13 +72,16 @@
                 bio: "",
                 banner: "",
                 status: "",
-                canEdit: false
+                canEdit: false,
+                editID: 0
             }
 
         },
         mounted: function editpost() {
             this.$nextTick(function () {
-                this.vue_fillprofile();
+                var url = new URL(window.location.href);
+                this.editID = url.searchParams.get("id");
+                this.vue_fillProfile();
             })
         },
         methods: {
@@ -87,28 +89,31 @@
                 await axios.post("/auth/updateuser", {
                     bio: this.bio,
                     banner: this.banner,
-                    id: JSON.parse(getCookie("auth")).id
+                    id: this.editID,
+                    auth: getAuth()
                 }).then(res => {
-                    this.status = "Din profil är uppdaterad!";
-                    window.location.replace(
-                        `/profile?user=${JSON.parse(getCookie("auth")).id}`);
-
+                    if (res.data == false) {
+                        this.status = "Permission denied. Please log in to an account with access.";
+                    } else {
+                        this.status = "Din profil är uppdaterad!";
+                        window.location.replace(`/profile?user=${this.editID}`);
+                    }
                 })
             },
-            async vue_fillprofile() {
-                var cookie = getCookie("auth");
-                if (cookie.length > 0) {
+            async vue_fillProfile() {
+                if (this.editID) {
                     await axios.post("/auth/getuser", {
-                        id: JSON.parse(getCookie("auth")).id
+                        id: this.editID
                     }).then(res => {
-                        if (res.data[0].name == null) {
+                        if (res.data == false) {
                             this.status = "Kunde inte hitta användare."
+                            this.username = ":("
                         } else {
                             this.avatar = res.data[0].avatar;
                             this.username = `${res.data[0].name}#${res.data[0].discriminator}`;
                             this.bio = res.data[0].bio;
                             this.banner = res.data[0].banner;
-                            this.canEdit = JSON.parse(getCookie("auth")).id == res.data[0].id;
+                            this.canEdit = true;
                         }
                     })
                 } else {

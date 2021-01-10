@@ -98,14 +98,17 @@ router.post("/getuser", (req, res) => {
     if (!id) return [];
     connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
-        result[0].perms = perms; //add copy of perm system
+        if (result.length > 0) {
+            result[0].perms = perms; //add copy of perm system
 
-        //remove private data
-        result[0].access_token = "";
-        result[0].refresh_token = "";
-        result[0].discriminator = "";
-        
-        res.send(result);
+            //remove private data
+            result[0].access_token = "";
+            result[0].refresh_token = "";
+
+            res.send(result);
+        } else {
+            res.send(false);
+        }
     });
 });
 
@@ -113,15 +116,40 @@ router.post("/updateuser", (req, res) => {
     var id = req.body.id;
     var bio = req.body.bio;
     var banner = req.body.banner;
+    var auth = req.body.auth;
     var data = {
         bio: bio,
         banner: banner
     }
-    connection.query(`UPDATE users SET ? WHERE id = '${id}'`, data, function (err2, result) {
-        if (err2) throw err2;
-        console.log(`User ${id} updated!`);
-        res.send();
+    verifyPermission(auth, "update_allProfile").then(granted => { //user got permission to edit any profile
+        if (granted) {
+            connection.query(`UPDATE users SET ? WHERE id = '${id}'`, data, function (err2, result) {
+                if (err2) throw err2;
+                console.log(`User ${id} updated by admin ${auth.id}!`);
+                res.send(true);
+                return;
+            });
+        } else {
+            verifyPermission(auth, "update_ownProfile").then(granted => { //user got permission to edit their profile
+                if (granted && id == auth.id) { // user tries to update profile with their ID
+                    connection.query(`SELECT * FROM users WHERE id = '${auth.id}' AND access_token = '${auth.access_token}'`, function (err, result) {
+                        if (result.length > 0) { // user found with same access ID; user now authorized 
+                            connection.query(`UPDATE users SET ? WHERE id = '${id}'`, data, function (err2, result) {
+                                if (err2) throw err2;
+                                console.log(`User profile ${id} updated by themselves!`);
+                                res.send(true);
+                                return;
+                            });
+                        }
+                    });
+                } else {
+                    res.send(false);
+                }
+            });
+        }
     });
+
+
 })
 
 //adds bananas and rank to user profile after game

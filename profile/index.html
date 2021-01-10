@@ -41,7 +41,7 @@
 
                     </div>
                     <div v-if="id == myID">
-                        <a href="/profile/edit"><i class="editprofile far fa-edit fa-sm">
+                        <a v-bind:href="editref"><i class="editprofile far fa-edit fa-sm">
                             </i></a></div>
                     <p>{{ bio }}</p>
                 </div>
@@ -110,7 +110,8 @@
                 bananas_catched: 0,
                 total_score: 0,
                 highest_combo: 0,
-                roles: []
+                roles: [],
+                editref: "/profile/edit"
             }
 
         },
@@ -124,12 +125,13 @@
                 await axios.post("/auth/getuser", {
                     id: new URL(window.location.href).searchParams.get("user")
                 }).then(res => {
-                    if (res.data[0] != null) { //queried profile existed
+                    if (res.data != false) { //queried profile existed
                         document.title = `SVT | ${res.data[0].name}'s profile`
                         this.id = res.data[0].id;
                         this.username = res.data[0].name;
                         this.discriminator = res.data[0].discriminator;
                         this.bio = res.data[0].bio;
+                        this.editref = `/profile/edit?id=${this.id}`;
                         this.catchScores = JSON.parse(res.data[0].catchScores);
                         this.ranks_SS = this.catchScores.ss;
                         this.ranks_S = this.catchScores.s;
@@ -142,7 +144,7 @@
                         this.bananas_catched = cleanNumber(this.catchScores.bananasCatched);
                         if (this.catchScores.bananasSeen == 0) banana_acc = 100;
                         else this.banana_acc = (this.catchScores.bananasCatched / this.catchScores.bananasSeen * 100).toFixed(2);
-                        document.getElementById('banner').style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${res.data[0].banner}')`;
+                        document.getElementById('banner').style.background = `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('${res.data[0].banner}')`;
                         document.getElementById('banner').style.backgroundSize = `cover`;
                         document.getElementById('banner').style.backgroundRepeat = `no-repeat`;
                         document.getElementById('banner').style.backgroundPosition = `center center`;

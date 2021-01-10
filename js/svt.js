@@ -50,7 +50,6 @@ function cleanNumber(num) {
 
 //converts 184 to 3:04 etc
 function secondsToDisplay(duration) {
-    // Hours, minutes and seconds
     var hrs = ~~(duration / 3600);
     var mins = ~~((duration % 3600) / 60);
     var secs = ~~duration % 60;
