@@ -49,6 +49,7 @@ function waitForLoad() {
 
 
 function processMap() {
+    resetGame();
     var foundTiming = false;
     var foundObjects = false;
 
@@ -82,9 +83,9 @@ function processMap() {
 
     setTimeout(function () {
         if (hitsounds.length > 0) hitsounds.forEach(hs => {
-            hs.volume = effectsRange.value/100
+            hs.volume = effectsRange.value / 100
         });
-        music.volume = musicRange.value/100;
+        music.volume = musicRange.value / 100;
         music.play()
     }, 955)
 
@@ -150,15 +151,15 @@ $(document).ready(function () {
 
     musicRange.oninput = function () {
         if (typeof music != "undefined") {
-            music.volume = musicRange.value/100;
-            
+            music.volume = musicRange.value / 100;
+
         }
-        
+
     }
     effectsRange.oninput = function () {
         if (hitsounds.length > 0) hitsounds.forEach(hs => {
-            hs.volume = effectsRange.value/100
-            
+            hs.volume = effectsRange.value / 100
+
         });
     }
 
@@ -167,7 +168,7 @@ $(document).ready(function () {
     effectsRange.value = getVolume("catchVolumeEffects");
 })
 
-var saveCookie = setInterval(function() {
+var saveCookie = setInterval(function () {
     setCookie("catchVolumeMusic", musicRange.value, 10000);
     setCookie("catchVolumeEffects", effectsRange.value, 10000);
 }, 2000);
@@ -175,10 +176,23 @@ var saveCookie = setInterval(function() {
 function getVolume(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
+}
+
+function resetGame() {
+    fruits = [];
+    fruitLines = [];
+    timingLines = [];
+    score = 0;
+    misses = 0;
+    catches = 0;
+    kiai = false;
+    combo = 0;
+    highestCombo = 0;
+    bananaShower = false;
 }
