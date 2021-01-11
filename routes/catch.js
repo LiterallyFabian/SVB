@@ -52,10 +52,10 @@ function addBeatmaps() {
                 //Set metadata
                 beatmap.forEach(line => {
                     if (!foundObjects) {
-                        if (line.startsWith("Title:")) title = line.split(":")[1];
+                        if (line.startsWith("Title:")) title = line.substring(line.indexOf(":") + 1);
                         else if (line.startsWith("Artist:")) artist = line.substring(line.indexOf(":") + 1);
-                        else if (line.startsWith("Version:")) difficulty = line.split(":")[1];
-                        else if (line.startsWith("Creator:")) creator = line.split(":")[1];
+                        else if (line.startsWith("Version:")) difficulty = line.substring(line.indexOf(":") + 1);
+                        else if (line.startsWith("Creator:")) creator = line.substring(line.indexOf(":") + 1);
                         else if (line.includes("[HitObjects]")) foundObjects = true;
                     } else {
                         if (line.split(",").length > 1) length = parseInt(line.split(",")[2] / 1000);
