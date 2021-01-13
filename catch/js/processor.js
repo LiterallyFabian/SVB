@@ -15,8 +15,8 @@ var thumbPath;
 var songLength;
 var musicRange;
 
-function startDebug(testcase) {
-    startGame(`./catch/song/debug/${testcase}`, "Debugging");
+function startDebug() {
+    startGame(`./catch/song/debug`, "Debugging");
 }
 
 //loads stuff and then starts
