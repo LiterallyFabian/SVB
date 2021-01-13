@@ -19,7 +19,7 @@ class bmap {
         return `
         <li>
         <a href='#'
-            onclick='startGame("${this.path}", "${this.title.trim()}")'
+            onclick='startGame("${this.path}", "${this.title.trim().replace("'", "´")}")'
             class="inner">
             <figure> 
                 <img class="thumbnail" src="/${this.path}_icon.jpg" alt="thumbnail">
