@@ -52,6 +52,9 @@ function processMap() {
     resetGame();
     var foundTiming = false;
     var foundObjects = false;
+    var sliderMultiplier;
+    var beatLength;
+    var beatLengthMultiplier = 1;
 
     //Sets background
     document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../${thumbPath}')`;
@@ -67,6 +70,7 @@ function processMap() {
             if (line.includes("SampleSet: Normal") || line.includes("SampleSet: None")) hitsounds = hitsoundsNormal;
             else if (line.includes("SampleSet: Soft")) hitsounds = hitsoundsSoft;
             else if (line.includes("SampleSet: Drum")) hitsounds = hitsoundsDrum;
+            else if (line.includes("SliderMultiplier")) sliderMultiplier = parseFloat(line.split(":")[1]);
             else if (line.includes("[TimingPoints]")) foundTiming = true;
         } else {
             if (!foundObjects) {
@@ -106,7 +110,7 @@ function processMap() {
                 //Get slider ending position
                 var sliderPositions = line[5].split("|")
                 var sliderEndPos = sliderPositions[sliderPositions.length - 1].split(":")[0]
-
+                var dropletTiming = beatLength / 100 / sliderMultiplier * 16.8 / beatLengthMultiplier; //time between droplets
                 var repeats = parseInt(line[6]); //How many times the slider will repeat
                 var sliderLength = parseInt(Math.round(line[7])); //How long the slider is
                 var dropletsPerRepeat = parseInt(Math.round(sliderLength / 17));
@@ -116,7 +120,7 @@ function processMap() {
 
                 for (var i = 0; i < droplets; i++) {
                     var dropPos = pos - (diff * i);
-                    var dropDelay = (i) * 40 + 20;
+                    var dropDelay = (i) * dropletTiming + 20;
                     if (currentDrop == dropletsPerRepeat) {
                         summonFruit(dropDelay, dropPos, 0, hitsound)
                         currentDrop = 0;
@@ -124,7 +128,8 @@ function processMap() {
                     currentDrop++;
                 }
                 //Summons slider-end fruit
-                summonFruit((droplets + 1) * 40, pos - (diff * droplets), 0, hitsound)
+                //console.log(`bl: ${beatLength} slm: ${sliderMultiplier} tot: ${beatLength / 100 / sliderMultiplier * 17} math: ${beatLength}/100*${sliderMultiplier}*17`)
+                summonFruit((droplets + 1) * dropletTiming, pos - (diff * droplets), 0, hitsound)
 
             } else if (line[3] != "12") {
                 //Summons a large fruit
@@ -141,7 +146,21 @@ function processMap() {
     timingLines.forEach(line => {
         var data = line.split(",");
         toggleKiai(data[7] == 1, data[0]);
+
+        //set beatlengths
+        if (data[6] == 1) {
+            setTimeout(function () {
+                beatLength = parseFloat(data[1]);
+                console.log("Beat length set to " + beatLength)
+            }, parseFloat(data[0]) - 10)
+        } else {
+            setTimeout(function () {
+                beatLengthMultiplier = -100 / parseFloat(data[1]);
+                console.log("Beat length multiplier set to " + beatLengthMultiplier)
+            }, data[0] - 10)
+        }
     })
+
     //Finish game 3 seconds after last object.
     finishGame(parseInt(fruitLines[fruitLines.length - 2].split(',')[2]) + 3000);
 }

@@ -9,25 +9,25 @@ SampleSet: Soft
 StackLeniency: 0.7
 Mode: 0
 LetterboxInBreaks: 1
-WidescreenStoryboard: 0
+WidescreenStoryboard: 1
 
 [Editor]
 DistanceSpacing: 1.4
-BeatDivisor: 4
+BeatDivisor: 1
 GridSize: 4
 TimelineZoom: 1
 
 [Metadata]
 Title:Keyboard Latency Test
-TitleUnicode:
+TitleUnicode:Keyboard Latency Test
 Artist:peppy
-ArtistUnicode:
-Creator:haha5957
-Version:Keyboard
+ArtistUnicode:peppy
+Creator:zoey
+Version:normal
 Source:
 Tags:Offset Wizard keyboard
-BeatmapID:173084
-BeatmapSetID:57424
+BeatmapID:0
+BeatmapSetID:-1
 
 [Difficulty]
 HPDrainRate:5
@@ -49,14 +49,22 @@ SliderTickRate:1
 
 [TimingPoints]
 -6,500,4,2,1,0,1,0
+8994,-50,4,2,1,0,0,0
+9994,-25,4,2,1,0,0,0
 
 
 [HitObjects]
-210,180,494,1,2,0:0:0:0:
-405,198,994,1,2,0:0:0:0:
-405,198,1494,1,2,0:0:0:0:
-405,198,1994,1,2,0:0:0:0:
-405,198,2494,1,2,0:0:0:0:
-405,198,2994,1,2,0:0:0:0:
-405,198,3494,1,2,0:0:0:0:
-405,198,3994,1,0,0:0:0:0:
+197,177,494,5,0,0:0:0:0:
+197,177,994,1,0,0:0:0:0:
+197,177,1494,1,0,0:0:0:0:
+197,177,1994,1,0,0:0:0:0:
+197,177,2494,1,0,0:0:0:0:
+197,177,2994,1,0,0:0:0:0:
+197,177,3494,2,0,L|199:22,1,140
+194,232,4494,2,0,L|204:21,2,140
+194,232,5994,1,0,0:0:0:0:
+194,232,6494,2,0,L|194:44,1,140
+194,92,7494,2,0,L|193:318,1,140
+189,36,8494,1,0,0:0:0:0:
+189,36,8994,2,0,L|191:330,1,280
+0,8,9994,2,0,L|458:361,1,560
