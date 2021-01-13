@@ -15,8 +15,8 @@ var thumbPath;
 var songLength;
 var musicRange;
 
-function startDebug() {
-    startGame("./catch/song/debug");
+function startDebug(testcase) {
+    startGame(`./catch/song/debug/${testcase}`, "Debugging");
 }
 
 //loads stuff and then starts
@@ -93,55 +93,57 @@ function processMap() {
     //Get data from all fruit lines
     fruitLines.forEach(line => {
         line = line.split(",")
-        var pos = parseInt(line[0]);
         var delay = parseInt(line[2]);
-        var hitsound = parseInt(line[4]);
 
-        if (line.length > 7) {
-            //Summons slider-start fruit
-            summonFruit(delay, parseInt(pos, 10), 0, hitsound);
+        setTimeout(function () { //processes and summons line when it's ready
+            var pos = parseInt(line[0]);
+            var hitsound = parseInt(line[4]);
 
-            //Get slider ending position
-            var sliderPositions = line[5].split("|")
-            var sliderEndPos = sliderPositions[sliderPositions.length - 1].split(":")[0]
+            if (line.length > 7) {
+                //Summons slider-start fruit
+                summonFruit(0, parseInt(pos, 10), 0, hitsound);
 
-            var repeats = parseInt(line[6]); //How many times the slider will repeat
-            var sliderLength = parseInt(Math.round(line[7])); //How long the slider is
-            var dropletsPerRepeat = parseInt(Math.round(sliderLength / 17));
-            var droplets = dropletsPerRepeat * repeats; //amount of droplets slider contains
-            var diff = (pos - sliderEndPos) / droplets; //difference in x each droplet should have
-            var currentDrop = 0;
+                //Get slider ending position
+                var sliderPositions = line[5].split("|")
+                var sliderEndPos = sliderPositions[sliderPositions.length - 1].split(":")[0]
 
-            for (var i = 0; i < droplets; i++) {
-                var dropPos = pos - (diff * i);
-                var dropDelay = (i) * 40 + delay;
-                if (currentDrop == dropletsPerRepeat) {
-                    summonFruit(dropDelay, dropPos, 0, hitsound)
-                    currentDrop = 0;
-                } else summonFruit(dropDelay, dropPos, 1)
-                currentDrop++;
+                var repeats = parseInt(line[6]); //How many times the slider will repeat
+                var sliderLength = parseInt(Math.round(line[7])); //How long the slider is
+                var dropletsPerRepeat = parseInt(Math.round(sliderLength / 17));
+                var droplets = dropletsPerRepeat * repeats; //amount of droplets slider contains
+                var diff = (pos - sliderEndPos) / droplets; //difference in x each droplet should have
+                var currentDrop = 0;
+
+                for (var i = 0; i < droplets; i++) {
+                    var dropPos = pos - (diff * i);
+                    var dropDelay = (i) * 40 + 20;
+                    if (currentDrop == dropletsPerRepeat) {
+                        summonFruit(dropDelay, dropPos, 0, hitsound)
+                        currentDrop = 0;
+                    } else summonFruit(dropDelay, dropPos, 1)
+                    currentDrop++;
+                }
+                //Summons slider-end fruit
+                summonFruit((droplets + 1) * 40, pos - (diff * droplets), 0, hitsound)
+
+            } else if (line[3] != "12") {
+                //Summons a large fruit
+                summonFruit(0, pos, 0, hitsound)
+            } else {
+                //Summons a spinner
+                summonSpinner(0, parseFloat(line[5]) - delay)
             }
-            //Summons slider-end fruit
-            summonFruit(delay + (droplets + 1) * 40, pos - (diff * droplets), 0, hitsound)
+            //Sets song length to current line
+            if (line.length > 1) songLength = parseInt(line[2]);
 
-        } else if (line[3] != "12") {
-            //Summons a large fruit
-            summonFruit(delay, pos, 0, hitsound)
-        } else {
-            //Summons a spinner
-            summonSpinner(delay, parseFloat(line[5]))
-        }
-        //Sets song length to current line
-        if (line.length > 1) songLength = parseInt(line[2]);
-
-
+        }, delay)
     })
     timingLines.forEach(line => {
         var data = line.split(",");
         toggleKiai(data[7] == 1, data[0]);
     })
     //Finish game 3 seconds after last object.
-    finishGame(songLength + 3000);
+    finishGame(parseInt(fruitLines[fruitLines.length - 2].split(',')[2]) + 3000);
 }
 
 //Audio
