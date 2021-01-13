@@ -166,6 +166,7 @@ function processMap() {
 }
 
 //Audio
+
 $(document).ready(function () {
     musicRange = document.getElementById("musicRange");
     var effectsRange = document.getElementById("effectsRange");
@@ -216,4 +217,11 @@ function resetGame() {
     combo = 0;
     highestCombo = 0;
     bananaShower = false;
+}
+
+function confettiToggle() {
+    var confettiToggle = document.getElementById("confettiToggle");
+    confetti.maxCount = confettiToggle.checked ? 500 : 150;
+    confetti.frameInterval = confettiToggle.checked ? 10 : 15;
+    confetti.speed = confettiToggle.checked ? 15 : 2;
 }

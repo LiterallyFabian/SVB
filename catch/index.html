@@ -86,16 +86,19 @@
 
         <div class="gallery_container">
 
-            <!--Volume sliders-->
-            <div class="volume">
+            <!--Game settings-->
+            <div class="gamesettings">
                 <p>Music</p>
                 <input type="range" min="0" max="100" value="50" class="slider" id="musicRange">
 
                 <p>Effects</p>
-                <input type="range" min="0" max="100" value="50" class="slider" id="effectsRange">
+                <input type="range" min="0" max="100" value="50" class="slider" name="ss" id="effectsRange">
+
+                <p>Disable confetti</p>
+                <input type="checkbox" id="confettiToggle" onClick="confettiToggle()">
 
             </div>
-            <!--end of Volume sliders-->
+            <!--end of Game settings-->
 
             <ol class="image-list grid-view">
             </ol>

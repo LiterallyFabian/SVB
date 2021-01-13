@@ -17,13 +17,13 @@ canvas {
     background-color: #1c1719;
 }
 
-.volume{
+.gamesettings{
     left:50%;
     display:inline-block;
     color:white;
     left: 50%;
    
 }
-.volume p{
+.gamesettings p{
     display:inline-block;
 }

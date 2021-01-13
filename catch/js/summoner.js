@@ -22,7 +22,7 @@ function summonSpinner(start, stop) {
 
 //Summons a banana every 60ms if a banana shower is active
 window.setInterval(function () {
-    if(typeof bananaShower == "undefined") return;
+    if (typeof bananaShower == "undefined") return;
     if (bananaShower) {
         fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, fruits.length, 2));
         stats_bananasSeen++;
