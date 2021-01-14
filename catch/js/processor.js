@@ -146,9 +146,11 @@ function processMap() {
     timingLines.forEach(line => {
         var data = line.split(",");
         toggleKiai(data[7] == 1, data[0]);
-
         //set beatlengths
-        if (data[6] == 1) {
+        if (typeof beatLength == "undefined") {
+            beatLength = parseFloat(data[1]);
+            console.log(`Default beat length set to ${beatLength} (${Math.round((1 / beatLength * 1000 * 60))} BPM)`)
+        } else if (data[6] == 1) {
             setTimeout(function () {
                 beatLength = parseFloat(data[1]);
                 console.log("Beat length set to " + beatLength)
@@ -160,7 +162,7 @@ function processMap() {
             }, data[0] - 10)
         }
     })
-
+    console.log(`${timingLines.length} beatlengths queued.`)
     //Finish game 3 seconds after last object.
     finishGame(parseInt(fruitLines[fruitLines.length - 2].split(',')[2]) + 3000);
 }

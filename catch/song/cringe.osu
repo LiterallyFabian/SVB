@@ -1,0 +1,74 @@
+osu file format v14
+
+[General]
+AudioFilename: audio.mp3
+AudioLeadIn: 0
+PreviewTime: -1
+Countdown: 0
+SampleSet: Normal
+StackLeniency: 0.7
+Mode: 0
+LetterboxInBreaks: 0
+WidescreenStoryboard: 0
+
+[Editor]
+DistanceSpacing: 1.5
+BeatDivisor: 4
+GridSize: 32
+TimelineZoom: 1
+
+[Metadata]
+Title:Cringe
+TitleUnicode:Cringe
+Artist:Zoey
+ArtistUnicode:Zoey
+Creator:LiterallyZoey
+Version:Cringe
+Source:
+Tags:
+BeatmapID:0
+BeatmapSetID:-1
+
+[Difficulty]
+HPDrainRate:7
+CircleSize:4
+OverallDifficulty:6
+ApproachRate:9
+SliderMultiplier:2.4
+SliderTickRate:1
+
+[Events]
+//Background and Video events
+//Break Periods
+//Storyboard Layer 0 (Background)
+//Storyboard Layer 1 (Fail)
+//Storyboard Layer 2 (Pass)
+//Storyboard Layer 3 (Foreground)
+//Storyboard Layer 4 (Overlay)
+//Storyboard Sound Samples
+
+[TimingPoints]
+1484.87427724862,555.555555555556,4,1,0,100,1,0
+1623,-100,4,1,0,100,0,1
+
+
+[Colours]
+Combo1 : 138,2,16
+Combo2 : 179,28,23
+Combo3 : 214,150,150
+Combo4 : 242,24,57
+
+[HitObjects]
+117,213,512,6,2,B|269:94|269:94|348:153|403:265,1,360
+484,73,1623,5,8,0:0:0:0:
+398,46,1762,1,8,0:0:0:0:
+311,69,1901,2,0,P|205:29|155:7,1,120
+155,201,2457,2,0,P|49:161|-1:139,1,120
+201,73,3012,5,0,0:0:0:0:
+123,119,3290,1,0,0:0:0:0:
+458,155,3429,2,0,P|392:87|310:109,1,180,4|0,0:0|0:0,0:0:0:0:
+146,313,4123,6,0,L|87:158,1,120,8|0,0:0|0:0,0:0:0:0:
+108,20,4679,2,0,L|257:40,1,120
+349,168,5234,1,0,0:0:0:0:
+308,248,5512,1,8,0:0:0:0:
+186,383,5651,2,0,L|92:216,1,180,12|0,0:0|0:0,0:0:0:0:

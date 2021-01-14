@@ -112,3 +112,5 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
 - **13/1**
   - Scaled slider lengths after their velocity (better timing)
   - Fixed bug where songs with ' in their title won't start
+- **14/1**
+  - Fixed bug where first beat length did not get set
