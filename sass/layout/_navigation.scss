@@ -41,10 +41,13 @@ body {
         li a {
             /*4 länkarna i toppen*/
             font-size: 1.5em;
-            font-weight: 450;
             color: white;
             text-decoration: none;
             padding: 14px 16px;
+
+            @include theme() {
+                font-weight: theme-get('nav-thickness');
+            }
         }
 
         li a:hover {
@@ -58,6 +61,7 @@ body {
     @include theme() {
         background-image: theme-get('logo');
     }
+
     display: block;
     width: 6em;
     height: 30px;
@@ -86,7 +90,7 @@ body {
     .navigation a.icon {
         float: right;
         display: block;
-        padding:15px;
+        padding: 15px;
     }
 
     .navigation ul li {
