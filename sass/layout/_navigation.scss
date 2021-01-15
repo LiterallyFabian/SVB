@@ -12,7 +12,9 @@ body {
 .navigation a {
     float: left;
     display: block;
-    color: #333333;
+    @include theme() {
+        color: theme-get('text')
+    }
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -22,7 +24,9 @@ body {
 .navigation ul {
     width: 100%;
     text-align: center;
-    background-color: white;
+    @include theme() {
+        background-color: theme-get('nav')
+    }
     overflow: hidden;
     margin-top: 0px;
 }
@@ -37,18 +41,17 @@ body {
     /*4 länkarna i toppen*/
     font-size: 1.5em;
     font-weight: bolder;
-    color: #333333;
+    color: white;
     text-decoration: none;
 }
 
 .navigation ul li a:hover {
     color: white;
-    background-color: #e02e3d;
+    background-color: $brand-color;
 }
 
 .navigation ul li a:active {
-    color: #e02e3d;
-
+    color: $brand-color;
 }
 
 #logo {
@@ -64,7 +67,7 @@ body {
 
 
 .navigation a.active {
-    background-color: #e02e3d;
+    background-color: $brand-color;
     color: white;
 }
 
