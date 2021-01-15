@@ -1,0 +1,103 @@
+#profilebody {
+    @include theme() {
+        background-color: theme-get('bg');
+    }
+}
+
+.banneritems {
+    height: 100%;
+}
+
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.imgur.com/svmBcCG.png");
+    height: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+
+    h1{
+        color:white;
+        margin:10px;
+    }
+    p {
+        color: white;
+    }
+}
+
+.avatar {
+    max-width: 200px;
+    width: 100%;
+}
+
+.editprofile {
+    color: white;
+    display: inline-block;
+}
+
+.catch-stats {
+    color: white;
+    text-align: center;
+}
+
+#rank-list,
+#rank-list h3 {
+    list-style: none;
+    margin: 0;
+    padding: 5;
+    display: inline-block;
+}
+
+#rank-list>li {
+    float: left;
+    width: 130px;
+}
+
+h1 {
+    margin-top: 5%;
+    margin-bottom: 0;
+}
+
+#rank-list>li>.image {
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+
+#rank-list img {
+    width: 36.9px;
+    height: 42.2px;
+}
+
+#profilegallery {
+    @include theme() {
+        background-color: theme-get('nav');
+    }
+
+    padding-bottom: 18%;
+    width: 70%;
+}
+
+@media screen and (max-width: 600px) {
+
+    .hero-image {
+        height: 70%;
+    }
+
+    .catch-stats {
+        width: 100%;
+    }
+
+    #profilegallery {
+        width: 80%;
+    }
+}
