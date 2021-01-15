@@ -2,11 +2,13 @@
 @import 'abstracts/themes';
 
 @import 'base/base';
-@import 'base/reset';
 
 @import 'components/buttons';
 @import 'components/form';
 @import 'components/gallery';
+@import 'components/tooltip';
+
+@import 'pages/article';
 
 @import 'layout/navigation';
 @import 'layout/footer';

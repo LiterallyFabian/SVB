@@ -10,7 +10,9 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "text-inverted": #cccccc,
         "form-bg": #f5f5f5,
         "form-border": #cccccc,
-        "text-field-bg": #ffffff),
+        "text-field-bg": #ffffff,
+        "icon": rgba(0, 0, 0, 0.2),
+        "icon-hover": rgba(0, 0, 0, 0.5)),
 
     theme_dark: ("logo": url('/img/logo_light.svg'),
         "bg": #1c1719,
@@ -22,7 +24,9 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "form-border": #2E2E2E,
         "text-field-bg": #382e32,
         "text-field-border": none,
-        "text-field-placeholder": #C8C8C8));
+        "text-field-placeholder": #C8C8C8,
+        "icon": rgba(153, 153, 153, 0.2),
+        "icon-hover": rgba(153, 153, 153, 0.5)));
 
 @mixin theme() {
 

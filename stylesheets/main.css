@@ -26,56 +26,6 @@ a {
   margin-right: auto;
 }
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
 input[type=submit] {
   background-color: #4CAF50;
   color: white;
@@ -113,20 +63,14 @@ input[type=submit] {
   background-color: #2a2226;
   border: 1px solid #2E2E2E;
 }
-
 .login_formtable label {
   margin-bottom: 5px;
 }
-
 .theme_light .login_formtable .label {
   color: #333333;
 }
 .theme_dark .login_formtable .label {
   color: #f6f6f6;
-}
-
-.center {
-  text-align: center;
 }
 
 .logo_border {
@@ -243,7 +187,6 @@ a {
 .image-list {
   margin: 3rem 0;
 }
-
 .theme_light .image-list li {
   background: #ffffff;
   color: #333333;
@@ -289,6 +232,147 @@ figure {
     padding: 0;
   }
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltip .tooltiptext {
+  font-size: 16px;
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+.tooltip :hover .tooltiptext {
+  visibility: visible;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #FFFFFF;
+}
+.theme_light .container {
+  background-color: #ebebeb;
+}
+.theme_dark .container {
+  background-color: #1c1719;
+}
+
+/* Header */
+header {
+  width: 100%;
+  height: 8%;
+  background-color: #1b1b1b;
+  border-bottom: 1px solid #1b1b1b;
+}
+
+.article_body {
+  width: 1000px;
+  max-width: 100%;
+  min-width: 40%;
+}
+
+.article_cover {
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+h1 {
+  margin: 5px 0 0 0;
+  padding: 5px 0 0 0;
+}
+
+h6 {
+  margin: 2px 0 0 0;
+  padding: 0;
+}
+
+.theme_light h1,
+.theme_light h2,
+.theme_light h3,
+.theme_light h4,
+.theme_light h5,
+.theme_light h6,
+.theme_light pre,
+.theme_light p {
+  color: #333333;
+}
+.theme_dark h1,
+.theme_dark h2,
+.theme_dark h3,
+.theme_dark h4,
+.theme_dark h5,
+.theme_dark h6,
+.theme_dark pre,
+.theme_dark p {
+  color: #f6f6f6;
+}
+
+.tool {
+  padding: 0 5px 0 0;
+}
+.theme_light .tool {
+  color: rgba(0, 0, 0, 0.2);
+}
+.theme_dark .tool {
+  color: rgba(153, 153, 153, 0.2);
+}
+
+.theme_light .tool:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+.theme_dark .tool:hover {
+  color: rgba(153, 153, 153, 0.5);
+}
+
+.articlemain {
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+pre {
+  white-space: pre-wrap;
+  font-family: "Public Sans", sans-serif;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+@media screen and (max-width: 600px) {
+  .article_body {
+    width: 95%;
+  }
+}
 body {
   font-family: "Public Sans", sans-serif;
   position: relative;
@@ -303,19 +387,29 @@ body {
 .navigation a {
   float: left;
   display: block;
-  color: #333333;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 27px;
 }
+.theme_light .navigation a {
+  color: #333333;
+}
+.theme_dark .navigation a {
+  color: #f6f6f6;
+}
 
 .navigation ul {
   width: 100%;
   text-align: center;
-  background-color: white;
   overflow: hidden;
   margin-top: 0px;
+}
+.theme_light .navigation ul {
+  background-color: #ffffff;
+}
+.theme_dark .navigation ul {
+  background-color: #2a2226;
 }
 
 .navigation ul li {
@@ -327,7 +421,7 @@ body {
   /*4 länkarna i toppen*/
   font-size: 1.5em;
   font-weight: bolder;
-  color: #333333;
+  color: white;
   text-decoration: none;
 }
 
