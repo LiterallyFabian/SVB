@@ -578,6 +578,7 @@ body {
   .navigation a.icon {
     float: right;
     display: block;
+    padding: 15px;
   }
 
   .navigation ul li {
