@@ -79,3 +79,7 @@ function secondsToDisplay(duration) {
     ret += "" + secs;
     return ret;
 }
+
+function setTheme(theme = "theme_dark") {
+    document.getElementsByTagName('html')[0].className = theme;
+}
