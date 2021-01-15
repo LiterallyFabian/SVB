@@ -502,12 +502,10 @@ body {
   text-align: center;
   overflow: hidden;
 }
-
 .navigation a {
   float: left;
   display: block;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
   font-size: 27px;
 }
@@ -517,10 +515,10 @@ body {
 .theme_dark .navigation a {
   color: #f6f6f6;
 }
-
 .navigation ul {
   width: 100%;
   text-align: center;
+  padding-inline-start: 0;
   overflow: hidden;
   margin: 0;
 }
@@ -530,34 +528,29 @@ body {
 .theme_dark .navigation ul {
   background-color: #2a2226;
 }
-
 .navigation ul li {
   text-align: center;
   display: inline;
 }
-
 .navigation ul li a {
   /*4 länkarna i toppen*/
   font-size: 1.5em;
   font-weight: bolder;
   color: white;
   text-decoration: none;
+  padding: 14px 16px;
 }
-
 .navigation ul li a:hover {
   color: white;
   background-color: #e02e3d;
 }
 
-.navigation ul li a:active {
-  color: #e02e3d;
-}
-
 #logo {
-  width: 8em;
-  height: 2em;
-  object-fit: cover;
+  display: block;
+  width: 6em;
+  height: 30px;
   background-repeat: no-repeat;
+  margin: 13px;
 }
 .theme_light #logo {
   background-image: url("/img/logo_dark.svg");

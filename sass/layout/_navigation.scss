@@ -7,62 +7,62 @@ body {
 .navigation {
     text-align: center;
     overflow: hidden;
-    
-}
 
-.navigation a {
-    float: left;
-    display: block;
-    @include theme() {
-        color: theme-get('text')
+    a {
+        float: left;
+        display: block;
+
+        @include theme() {
+            color: theme-get('text')
+        }
+
+        text-align: center;
+        text-decoration: none;
+        font-size: 27px;
     }
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 27px;
-}
 
-.navigation ul {
-    width: 100%;
-    text-align: center;
-    @include theme() {
-        background-color: theme-get('nav')
+    ul {
+        width: 100%;
+        text-align: center;
+        padding-inline-start: 0;
+
+        @include theme() {
+            background-color: theme-get('nav')
+        }
+
+        overflow: hidden;
+        margin: 0;
+
+        li {
+            text-align: center;
+            display: inline;
+        }
+
+        li a {
+            /*4 länkarna i toppen*/
+            font-size: 1.5em;
+            font-weight: bolder;
+            color: white;
+            text-decoration: none;
+            padding: 14px 16px;
+        }
+
+        li a:hover {
+            color: white;
+            background-color: $brand-color;
+        }
     }
-    overflow: hidden;
-    margin: 0;
-}
-
-
-.navigation ul li {
-    text-align: center;
-    display: inline;
-}
-
-.navigation ul li a {
-    /*4 länkarna i toppen*/
-    font-size: 1.5em;
-    font-weight: bolder;
-    color: white;
-    text-decoration: none;
-}
-
-.navigation ul li a:hover {
-    color: white;
-    background-color: $brand-color;
-}
-
-.navigation ul li a:active {
-    color: $brand-color;
 }
 
 #logo {
     @include theme() {
         background-image: theme-get('logo');
     }
-    width: 8em;
-    height: 2em;
-    object-fit: cover;
+    display: block;
+    width: 6em;
+    height: 30px;
     background-repeat: no-repeat;
+    margin:13px;
 }
 
 
