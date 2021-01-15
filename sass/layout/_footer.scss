@@ -12,22 +12,24 @@
 
     @include theme() {
         background-color: theme-get('nav');
-        color: theme-get('text')
+        color: theme-get('text-secondary')
     }
 
     font-family: 'Public Sans',
     sans-serif;
-}
 
-.footerlogo {
-    height: 54px;
-    width: 216px;
-    background-repeat: no-repeat;
-    margin: 0 auto;
-}
+    .footerlogo {
+        height: 30px;
+        width: 216px;
+        background-repeat: no-repeat;
+        margin: 15px auto;
 
-.footerlogo {
-    @include theme() {
-        background-image: theme-get('logo');
+        @include theme() {
+            background-image: theme-get('logo');
+        }
+    }
+
+    p {
+        margin-bottom: 15px;
     }
 }

@@ -21,6 +21,17 @@ function getCookie(cname) {
     return "";
 }
 
+function getAloneCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -82,4 +93,13 @@ function secondsToDisplay(duration) {
 
 function setTheme(theme = "theme_dark") {
     document.getElementsByTagName('html')[0].className = theme;
+    setCookie("sitetheme", theme, 100000);
+
 }
+
+$(document).ready(function () {
+    var theme = getAloneCookie("sitetheme");
+
+    if (theme == "theme_light" || theme == "theme_dark")
+        setTheme(theme)
+})
