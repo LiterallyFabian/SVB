@@ -3,27 +3,3 @@
     margin: 0;
 }
 
-canvas {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-}
-
-.hide {
-    display: none;
-}
-
-#catchbody {
-    background-color: #1c1719;
-}
-
-.gamesettings{
-    left:50%;
-    display:inline-block;
-    color:white;
-    left: 50%;
-   
-}
-.gamesettings p{
-    display:inline-block;
-}
