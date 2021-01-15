@@ -30,7 +30,7 @@
     </script>
     <!--end of Navigation bar-->
 
-    <div id="page">
+    <div id="page" class="profile">
         <div id="banner" class="hero-image">
             <div class="banneritems">
                 <div class="hero-text">
@@ -39,10 +39,10 @@
                     <div id="badges">
 
                     </div>
-                    <div v-if="id == myID">
+                    <div v-if="id == myID" style="padding:2%;">
                         <a v-bind:href="editref"><i class="editprofile far fa-edit fa-sm">
                             </i></a></div>
-                    <p>{{ bio }}</p>
+                    <p class="bio">{{ bio }}</p>
                 </div>
             </div>
         </div>
