@@ -27,7 +27,6 @@
 }
 
 .screamer {
-    background-color: #333333;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     display: table;
     overflow: hidden;
@@ -37,7 +36,7 @@
 }
 
 .screamer_prefix {
-    background-color: #e02e3d;
+    background-color: $brand-color;
     display: table-cell;
     padding: 8px 12px;
     vertical-align: middle;
@@ -47,7 +46,11 @@
 
 .screamer_prefix_text {
     font-size: 1.125rem;
-    color: #ffffff;
+
+    @include theme() {
+        color: theme-get('nav')
+    }
+
     display: inline;
     font-weight: 900;
     line-height: 1.5;
@@ -58,7 +61,12 @@
 
 .screamer_title {
     font-size: 1.25rem;
-    color: #ffffff;
+
+    @include theme() {
+        background-color: theme-get('text');
+        color: theme-get('nav');
+    }
+
     display: table-cell;
     font-weight: 900;
     line-height: 1.1;
@@ -70,8 +78,11 @@
 }
 
 .screamer_readmore {
+    @include theme() {
+        background-color: theme-get('text');
+        color: theme-get('nav');
+    }
     font-size: 0.9rem;
-    color: #ffffff;
     font-weight: 700;
     line-height: 1.5;
     padding: 0 16px;

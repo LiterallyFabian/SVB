@@ -1,3 +1,8 @@
+#gallery {
+	width: 70%;
+	max-width: 1400px;
+}
+
 button {
     cursor: pointer;
     background: none;
@@ -39,8 +44,10 @@ a {
 }
 
 .image-list li {
-    background: white;
-    color: #333333;
+    @include theme() {
+        background: theme-get('nav');
+        color: theme-get('text');
+    }
 }
 
 .image-list p:first-child {

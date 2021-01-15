@@ -1,0 +1,33 @@
+.footer-container {
+    padding-top: 10rem;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    min-height: 3rem;
+    text-align: center;
+    padding: 30px 0;
+
+    @include theme() {
+        background-color: theme-get('nav');
+        color: theme-get('text')
+    }
+
+    font-family: 'Public Sans',
+    sans-serif;
+}
+
+.footerlogo {
+    height: 54px;
+    width: 216px;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+}
+
+.footerlogo {
+    @include theme() {
+        background-image: theme-get('logo');
+    }
+}

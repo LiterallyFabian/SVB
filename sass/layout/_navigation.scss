@@ -1,0 +1,113 @@
+body {
+    font-family: 'Public Sans', sans-serif;
+    position: relative;
+    min-height: 100vh;
+}
+
+.navigation {
+    text-align: center;
+    overflow: hidden;
+}
+
+.navigation a {
+    float: left;
+    display: block;
+    color: #333333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 27px;
+}
+
+.navigation ul {
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    overflow: hidden;
+    margin-top: 0px;
+}
+
+
+.navigation ul li {
+    text-align: center;
+    display: inline;
+}
+
+.navigation ul li a {
+    /*4 länkarna i toppen*/
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: #333333;
+    text-decoration: none;
+}
+
+.navigation ul li a:hover {
+    color: white;
+    background-color: #e02e3d;
+}
+
+.navigation ul li a:active {
+    color: #e02e3d;
+
+}
+
+#logo {
+    @include theme() {
+        background-image: theme-get('logo');
+    }
+    width: 8em;
+    height: 2em;
+    object-fit: cover;
+    background-repeat: no-repeat;
+}
+
+
+
+.navigation a.active {
+    background-color: #e02e3d;
+    color: white;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.navigation .icon {
+    display: none;
+}
+
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (max-width: 600px) {
+    .navigation a:not(:first-child) {
+        display: none;
+    }
+
+    .navigation a.icon {
+        float: right;
+        display: block;
+    }
+
+    .navigation ul li {
+        display: none;
+    }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 600px) {
+    .navigation.responsive {
+        position: relative;
+    }
+
+    .navigation.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .navigation.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+
+    .navigation.responsive ul li {
+        display: block;
+    }
+}

@@ -1,21 +1,3 @@
-@charset "UTF-8";
-
-#gallery {
-	width: 70%;
-	max-width: 1400px;
-}
-
-/* Body */
-body {
-	font-family: 'Public Sans', sans-serif;
-	background-color: #EBEBEB;
-	margin: 0;
-}
-
-a {
-	text-decoration: none;
-}
-
 .bannerpreview {
 	width: 70%;
 }
@@ -25,12 +7,6 @@ a {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #FFFFFF;
-}
-
-.center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 .hero_header {

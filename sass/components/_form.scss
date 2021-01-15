@@ -1,0 +1,107 @@
+.login_mainframe {
+    width: 35%;
+    min-width: 450px;
+    margin: 0 auto;
+    min-height: 20px;
+    padding: 5px;
+    margin-top: 20px;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  .login_formtable {
+    @include theme() {
+      background-color: theme-get('form-bg');
+      border: 1px solid theme-get('form-border');
+  }
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    padding: 14px;
+    min-height: 20px;
+    min-width: 100px;
+  }
+  
+  .login_formtable label {
+    margin-bottom: 5px;
+  }
+  
+  .login_formtable .label {
+    @include theme() {
+      color: theme-get('text');
+    }
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .logo_border {
+    margin-top: 20px;
+  }
+  
+  .textbox {
+    font-size: 15px;
+    margin: 10px 0;
+    @include theme() {
+      color: theme-get('text');
+      background-color: theme-get('text-field-bg');
+      border: theme-get('text-field-border')
+    }
+    width: 60%;
+  }
+  ::placeholder{
+    @include theme() {
+      color: theme-get('text-field-placeholder')
+    }
+
+  }
+  
+  .bigtextbox {
+    height: 200px;
+    font-size: 15pt;
+  }
+  
+  .articletextbox {
+    height: 15em;
+    width: 98%;
+    padding: 1%;
+  }
+  
+  .submitbutton {
+    display: inline-block;
+    padding: 0.7em 1.4em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.15em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #FFFFFF;
+    background-color: #3a69ff;
+    box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.17);
+    text-align: center;
+    position: relative;
+  }
+  
+  .submitbutton:active {
+    top: 0.1em;
+  }
+  
+  @media all and (max-width:30em) {
+    .submitbutton {
+      display: block;
+      margin: 0.4em auto;
+    }
+  }
+  .loginbutton{
+    font-size: 16px;
+    padding: 0 20px;
+  }
+  @media screen and (max-width: 600px) {
+    .login_mainframe{
+      width:90%;
+    }
+  }
