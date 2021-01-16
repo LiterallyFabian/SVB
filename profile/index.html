@@ -1,4 +1,4 @@
-<html>
+<html class="theme_light">
 
 <head>
     <!--Scripts-->
@@ -7,11 +7,9 @@
     <script src="https://unpkg.com/vue@3.0.5"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="/js/svt.js"></script>
     <!--Styling-->
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
     <!--Meta-->
     <title>SVT</title>
     <meta charset="utf-8">
@@ -31,7 +29,7 @@
     </script>
     <!--end of Navigation bar-->
 
-    <div id="page">
+    <div id="page" class="profile">
         <div id="banner" class="hero-image">
             <div class="banneritems">
                 <div class="hero-text">
@@ -40,14 +38,14 @@
                     <div id="badges">
 
                     </div>
-                    <div v-if="id == myID">
+                    <div v-if="id == myID" style="padding:2%;">
                         <a v-bind:href="editref"><i class="editprofile far fa-edit fa-sm">
                             </i></a></div>
-                    <p>{{ bio }}</p>
+                    <p class="bio">{{ bio }}</p>
                 </div>
             </div>
         </div>
-        <div id="gallery" class="center">
+        <div id="profilegallery" class="center">
             <div class="center catch-stats">
                 <ul id="rank-list">
                     <h1 style="padding:20px;">svt!catch stats</h1>
@@ -86,6 +84,15 @@
             </div>
         </div>
     </div>
+    <!-- Page footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#footer-placeholder").load("/reused/footer.html");
+        });
+    </script>
+    <!--end of Page footer -->
 </body>
 <script type="application/javascript">
     const userProfile = {

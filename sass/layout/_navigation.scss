@@ -7,64 +7,72 @@ body {
 .navigation {
     text-align: center;
     overflow: hidden;
+
+    a {
+        float: left;
+        display: block;
+
+        @include theme() {
+            color: theme-get('text')
+        }
+
+        text-align: center;
+        text-decoration: none;
+        font-size: 27px;
+    }
+
+    ul {
+        width: 100%;
+        text-align: center;
+        padding-inline-start: 0;
+
+        @include theme() {
+            background-color: theme-get('nav')
+        }
+
+        overflow: hidden;
+        margin: 0;
+
+        li {
+            text-align: center;
+            display: inline;
+        }
+
+        li a {
+            /*4 länkarna i toppen*/
+            font-size: 1.5em;
+            color: white;
+            text-decoration: none;
+            padding: 14px 16px;
+
+            @include theme() {
+                font-weight: theme-get('nav-thickness');
+            }
+        }
+
+        li a:hover {
+            color: white;
+            background-color: $brand-color;
+        }
+    }
 }
 
-.navigation a {
-    float: left;
+#logo {
+    @include theme() {
+        background-image: theme-get('logo');
+    }
+
     display: block;
-    color: #333333;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 27px;
-}
-
-.navigation ul {
-    width: 100%;
-    text-align: center;
-    background-color: white;
-    overflow: hidden;
-    padding-inline-start: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-inline-start: 0px;
-}
-
-
-.navigation ul li {
-    text-align: center;
-    display: inline;
-}
-
-.navigation ul li a {
-    /*4 länkarna i toppen*/
-    font-size: 1.5em;
-    font-weight: bolder;
-    color: #333333;
-    text-decoration: none;
-}
-
-.navigation ul li a:hover {
-    color: white;
-    background-color: #e02e3d;
-}
-
-.navigation ul li a:active {
-    color: #e02e3d;
-
-}
-
-.navlogo {
-    display: block;
-    width: 8em;
+    width: 6em;
+    height: 30px;
+    background-repeat: no-repeat;
+    margin:13px;
 }
 
 
 
 .navigation a.active {
-    background-color: #e02e3d;
+    background-color: $brand-color;
     color: white;
 }
 
@@ -82,6 +90,7 @@ body {
     .navigation a.icon {
         float: right;
         display: block;
+        padding: 15px;
     }
 
     .navigation ul li {
@@ -110,32 +119,4 @@ body {
     .navigation.responsive ul li {
         display: block;
     }
-}
-
-
-
-/*
-
-FOOTER
-
-*/
-
-.footer-container {
-    padding-top: 10rem;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    min-height: 3rem;
-    text-align: center;
-    background-color: white;
-    color: gray;
-    font-family: 'Public Sans', sans-serif;
-}
-
-.footerlogo{
-    max-height: 40px;
-    padding-top: 10px;
 }

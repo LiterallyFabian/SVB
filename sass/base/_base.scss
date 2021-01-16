@@ -1,0 +1,30 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+@charset "UTF-8";
+
+body {
+    font-family: 'Public Sans', sans-serif;
+    margin: 0;
+    @include theme() {
+        background-color: theme-get('bg');
+    }
+}
+
+a {
+    @include theme() {
+        color: theme-get('text')
+    }
+
+    text-decoration: none;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hide {
+    display: none;
+}

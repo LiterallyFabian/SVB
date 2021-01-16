@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="theme_light">
 
 <head>
     <meta charset="utf-8" />
@@ -16,10 +16,7 @@
     <script src="js/processor.js"></script>
     <script src="/js/svt.js"></script>
     <!--Styling-->
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/playfield.css">
-    <link rel="stylesheet" type="text/css" href="css/medal.css">
-    <link rel="stylesheet" type="text/css" href="css/beatmapEntry.css">
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
     <!--Meta-->
     <title>svt!catch</title>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -104,6 +101,15 @@
             </ol>
         </div>
     </section>
+    <!-- Page footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#footer-placeholder").load("/reused/footer.html");
+        });
+    </script>
+    <!--end of Page footer -->
 </body>
 
 </html>

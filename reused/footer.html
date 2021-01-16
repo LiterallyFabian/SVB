@@ -1,8 +1,17 @@
-<link href="/css/nav.css" rel="stylesheet" type="text/css">
-<link href="/css/style.css" rel="stylesheet" type="text/css">
 <div class="footer-container">
     <div class="footer">
-        <a href="/"><img class="footerlogo center" src="/img/logo.svg" alt="LOGO"></a>
+        <a href="/">
+            <div class="footerlogo center" alt="LOGO"></div>
+        </a>
         <p>&#169; Sveriges Television AB</p>
+        <div class="tools" style="display: inline;">
+            <div class="tooltip">
+                <a onClick="setTheme('theme_light')"><i class="tool far fas fa-sun">
+                        <span class="tooltiptext">Light theme</span></i></a></div>
+
+            <div class="tooltip">
+                <a onClick="setTheme('theme_dark')"><i class="tool far fas fa-moon">
+                        <span class="tooltiptext">Dark theme</span></i></a></div>
+        </div>
     </div>
 </div>

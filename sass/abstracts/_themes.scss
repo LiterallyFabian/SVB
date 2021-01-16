@@ -1,0 +1,49 @@
+// -----------------------------------------------------------------------------
+// Handles all site themes
+// -----------------------------------------------------------------------------
+
+$themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
+        'bg':#ebebeb,
+        "nav": #ffffff,
+        "nav-thickness": bolder,
+        "text": #333333,
+        "text-secondary": #808080,
+        "text-inverted": #cccccc,
+        "form-bg": #f5f5f5,
+        "form-border": #cccccc,
+        "text-field-bg": #ffffff,
+        "icon": rgba(0, 0, 0, 0.2),
+        "icon-hover": rgba(0, 0, 0, 0.5)),
+
+    theme_dark: ("logo": url('/img/logo_light.svg'),
+        "bg": #18191A,
+        "nav": #242526,
+        "nav-thickness": 100,
+        "text": #E4E6EB,
+        "text-secondary": #B0B3B8,
+        "text-inverted": #ffffff,
+        "form-bg": #2a2226,
+        "form-border": #2E2E2E,
+        "text-field-bg": #382e32,
+        "text-field-border": none,
+        "text-field-placeholder": #C8C8C8,
+        "icon": rgba(153, 153, 153, 0.2),
+        "icon-hover": rgba(153, 153, 153, 0.5)));
+
+@mixin theme() {
+
+    @each $theme,
+    $map in $themes {
+        $theme-map: $map !global;
+
+        .#{$theme} & {
+            @content;
+        }
+    }
+
+    $theme-map: null !global;
+}
+
+@function theme-get($key) {
+    @return map-get($theme-map, $key);
+}
