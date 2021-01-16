@@ -114,3 +114,5 @@ CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCH
   - Fixed bug where songs with ' in their title won't start
 - **14/1**
   - Fixed bug where first beat length did not get set
+- **15/1**
+  - Added site-wide dark theme
