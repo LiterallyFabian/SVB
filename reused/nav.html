@@ -60,7 +60,7 @@
                     auth: getAuth()
                 }).then(res => {
                     if (res.data[0].name != null) {
-                        this.profilehref = "/profile?user=" + res.data[0].id + "#banner"
+                        this.profilehref = "/profile?user=" + res.data[0].id;
                         this.loggedIn = true;
                         this.username = res.data[0].name + "#" + res.data[0].discriminator;
                         this.canPost = res.data[0].canPost;
