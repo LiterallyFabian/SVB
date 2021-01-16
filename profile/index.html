@@ -7,7 +7,6 @@
     <script src="https://unpkg.com/vue@3.0.5"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="/js/svt.js"></script>
     <!--Styling-->
     <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
@@ -85,6 +84,15 @@
             </div>
         </div>
     </div>
+    <!-- Page footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#footer-placeholder").load("/reused/footer.html");
+        });
+    </script>
+    <!--end of Page footer -->
 </body>
 <script type="application/javascript">
     const userProfile = {

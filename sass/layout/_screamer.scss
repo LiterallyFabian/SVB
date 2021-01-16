@@ -46,11 +46,7 @@
 
 .screamer_prefix_text {
     font-size: 1.125rem;
-
-    @include theme() {
-        color: theme-get('nav')
-    }
-
+    color:white;
     display: inline;
     font-weight: 900;
     line-height: 1.5;
