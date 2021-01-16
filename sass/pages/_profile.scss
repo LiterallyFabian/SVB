@@ -89,13 +89,18 @@
     width: 70%;
 
     .catch-stats {
-        color: white;
-        text-align: center;
-        #rank-list{
-            padding:0;
+        @include theme() {
+            color: theme-get('text');
         }
-        p{
-            padding:5px;
+
+        text-align: center;
+
+        #rank-list {
+            padding: 0;
+        }
+
+        p {
+            padding: 5px;
         }
     }
 }
