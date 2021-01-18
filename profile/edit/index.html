@@ -42,6 +42,11 @@
             <label class="label">Banner</label><br>
             <input class="textbox" type="text" v-model="banner" placeholder="https://imgur.com/image.png/" maxlength="512" :disabled="!canEdit"><br><br>
 
+            <label class="label">Roller</label><br>
+            <ul id="roleentries">
+
+            </ul>
+
 
             <button class="submitbutton" v-on:click="vue_saveprofile">Spara profil</button>
         </div>
@@ -52,7 +57,6 @@
         <h2>Banner preview:</h2>
         <img :src="banner" class="center bannerpreview" alt="Your banner link is invalid.">
     </div>
-
     <!-- Page footer -->
     <div id="footer-placeholder"></div>
 
@@ -72,7 +76,8 @@
                 banner: "",
                 status: "",
                 canEdit: false,
-                editID: 0
+                editID: 0,
+                roles: []
             }
 
         },
@@ -89,7 +94,8 @@
                     bio: this.bio,
                     banner: this.banner,
                     id: this.editID,
-                    auth: getAuth()
+                    auth: getAuth(),
+                    roles: vue_getCheckedRoles()
                 }).then(res => {
                     if (res.data == false) {
                         this.status = "Permission denied. Please log in to an account with access.";
@@ -113,16 +119,36 @@
                             this.bio = res.data[0].bio;
                             this.banner = res.data[0].banner;
                             this.canEdit = true;
+                            this.vue_fillRoles(res.data[0].roles, res.data[0].perms)
                         }
                     })
                 } else {
                     this.status = "Du är inte inloggad.";
                 }
+            },
+            async vue_fillRoles(roles, perms) {
+                //place list
+                var myRoles = JSON.parse(roles);
+                $.each(perms, function (i, role) {
+                    $("#roleentries").append(`<li><input type="checkbox" name="role_${role.title}" value="${role.title}" /><p class="badge" style="color: ${role.color};">${role.title}</p></li>`);
+                })
+                //check roles user have
+                $(':checkbox[name^="role_"]').each(function (index) {
+                    if (myRoles.includes(this.value.toLowerCase())) this.checked = true;
+                });
             }
         }
     }
 
     Vue.createApp(profileManagement).mount('#page')
+
+    function vue_getCheckedRoles() {
+        roles = [];
+        $(':checkbox[name^="role_"]').each(function (index) {
+            if (this.checked) roles.push(this.value);
+        });
+        return roles;
+    }
 </script>
 
 </html>

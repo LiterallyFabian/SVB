@@ -114,13 +114,13 @@ router.post("/getuser", (req, res) => {
 
 router.post("/updateuser", (req, res) => {
     var id = req.body.id;
-    var bio = req.body.bio;
-    var banner = req.body.banner;
     var auth = req.body.auth;
     var data = {
-        bio: bio,
-        banner: banner
+        bio: req.body.bio,
+        banner: req.body.banner
     }
+    var roles = JSON.stringify(req.body.roles).toLowerCase();
+
     verifyPermission(auth, "update_allProfile").then(granted => { //user got permission to edit any profile
         if (granted) {
             connection.query(`UPDATE users SET ? WHERE id = '${id}'`, data, function (err2, result) {
@@ -149,7 +149,15 @@ router.post("/updateuser", (req, res) => {
         }
     });
 
-
+    //try to update user roles
+    verifyPermission(auth, "assign_roles").then(granted => { //user got permission to assign ALL roles to EVERYONE
+        if (granted) {
+            connection.query(`UPDATE users SET roles = '${roles}' WHERE id = '${id}'`, function (err2, result) {
+                if (err2) throw err2;
+                console.log(`User ${id} roles updated by admin ${auth.id}! New roles: ${roles}`);
+            });
+        }
+    })
 })
 
 //adds bananas and rank to user profile after game
