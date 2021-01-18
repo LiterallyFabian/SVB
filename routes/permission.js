@@ -11,11 +11,11 @@ permissions = {
             update_allProfile: false
         }
     },
-    "epic": {
-        title: "Epic",
+    "programledare": {
+        title: "Programledare",
         color: "#FFB936",
         permissions: {
-            modify_articles: false,
+            modify_articles: true,
             delete_articles: false,
             assign_roles: false,
             update_ownProfile: true,
