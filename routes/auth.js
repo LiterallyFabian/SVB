@@ -95,6 +95,7 @@ router.post("/verify", (req, res) => {
 //get public userdata from id
 router.post("/getuser", (req, res) => {
     var id = req.body.id;
+    var auth = req.body.auth;
     if (!id) return [];
     connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
@@ -105,7 +106,11 @@ router.post("/getuser", (req, res) => {
             result[0].access_token = "";
             result[0].refresh_token = "";
 
-            res.send(result);
+            verifyPermission(auth, "assign_roles").then(granted => {
+                if (granted) result[0]["canAssignRoles"] = true;
+                else result[0]["canAssignRoles"] = false;
+                res.send(result);
+            });
         } else {
             res.send(false);
         }
@@ -238,6 +243,9 @@ function signUpOrInUser(data, user, res) {
 
 // Checks if user ID & access token have a permission.
 verifyPermission = function (auth, permission) {
+    if (auth == null) return new Promise(function (resolve, reject) {
+        resolve(false)
+    });
     return new Promise(function (resolve, reject) {
         connection.query(`SELECT * FROM users WHERE id = '${auth.id.toString()}' AND access_token = '${auth.access_token}'`, function (err, result) {
             if (err) throw err;

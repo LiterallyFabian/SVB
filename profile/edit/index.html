@@ -77,7 +77,8 @@
                 status: "",
                 canEdit: false,
                 editID: 0,
-                roles: []
+                roles: [],
+                auth: null
             }
 
         },
@@ -108,7 +109,8 @@
             async vue_fillProfile() {
                 if (this.editID) {
                     await axios.post("/auth/getuser", {
-                        id: this.editID
+                        id: this.editID,
+                        auth: getAuth()
                     }).then(res => {
                         if (res.data == false) {
                             this.status = "Kunde inte hitta användare."
@@ -119,14 +121,14 @@
                             this.bio = res.data[0].bio;
                             this.banner = res.data[0].banner;
                             this.canEdit = true;
-                            this.vue_fillRoles(res.data[0].roles, res.data[0].perms)
+                            this.vue_fillRoles(res.data[0].roles, res.data[0].perms, res.data[0].canAssignRoles)
                         }
                     })
                 } else {
                     this.status = "Du är inte inloggad.";
                 }
             },
-            async vue_fillRoles(roles, perms) {
+            async vue_fillRoles(roles, perms, canAssign) {
                 //place list
                 var myRoles = JSON.parse(roles);
                 $.each(perms, function (i, role) {
@@ -135,6 +137,7 @@
                 //check roles user have
                 $(':checkbox[name^="role_"]').each(function (index) {
                     if (myRoles.includes(this.value.toLowerCase())) this.checked = true;
+                    this.disabled = !canAssign;
                 });
             }
         }
