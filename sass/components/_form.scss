@@ -108,6 +108,15 @@
   padding: 0 20px;
 }
 
+.bannerpreview {
+  max-width: 100%;
+  text-align: center;
+
+  @include theme() {
+    color: theme-get('text');
+  }
+}
+
 @media screen and (max-width: 600px) {
   .login_mainframe {
     width: 90%;
