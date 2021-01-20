@@ -13,13 +13,14 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "form-border": #cccccc,
         "text-field-bg": #ffffff,
         "icon": rgba(0, 0, 0, 0.2),
-        "icon-hover": rgba(0, 0, 0, 0.5)),
+        "icon-hover": rgba(0, 0, 0, 0.5),
+        "brand-color": #e02e3d),
 
     theme_dark: ("logo": url('/img/logo_light.svg'),
-        "bg": #18191A,
-        "nav": #242526,
+        "bg": #0d0d0d,
+        "nav": #1f1f1f,
         "nav-thickness": 100,
-        "text": #E4E6EB,
+        "text": #d9d9d9,
         "text-secondary": #B0B3B8,
         "text-inverted": #ffffff,
         "form-bg": #2a2226,
@@ -28,7 +29,8 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "text-field-border": none,
         "text-field-placeholder": #C8C8C8,
         "icon": rgba(153, 153, 153, 0.2),
-        "icon-hover": rgba(153, 153, 153, 0.5)));
+        "icon-hover": rgba(153, 153, 153, 0.5),
+        "brand-color": #ed2553));
 
 @mixin theme() {
 

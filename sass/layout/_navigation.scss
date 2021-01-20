@@ -52,7 +52,10 @@ body {
 
         li a:hover {
             color: white;
-            background-color: $brand-color;
+
+            @include theme() {
+                background-color: theme-get('brand-color');
+            }
         }
     }
 }
@@ -72,7 +75,10 @@ body {
 
 
 .navigation a.active {
-    background-color: $brand-color;
+    @include theme() {
+        background-color: theme-get('brand-color');
+    }
+
     color: white;
 }
 

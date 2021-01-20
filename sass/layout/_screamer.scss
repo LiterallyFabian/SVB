@@ -36,7 +36,9 @@
 }
 
 .screamer_prefix {
-    background-color: $brand-color;
+    @include theme() {
+        background-color: theme-get('brand-color');
+    }
     display: table-cell;
     padding: 8px 12px;
     vertical-align: middle;
