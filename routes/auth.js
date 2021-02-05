@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     if (urlObj.query.code) {
         const data = {
             client_id: '793179363029549057',
-            client_secret: 'KLveuO3qbqYO2feBMFfBx5iyn-sDeD8r',
+            client_secret: process.env.client_secret,
             grant_type: 'authorization_code',
             redirect_uri: process.env.redirect_uri,
             code: urlObj.query.code,
