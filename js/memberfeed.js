@@ -21,7 +21,7 @@ class member {
         <li class="article_post">
         <a href="/profile/?user=${this.id}" class="inner">
             <figure> 
-                <img class="memberthumbnail" src="${this.avatar}?size=256" alt="avatar">
+                <img class="memberthumbnail" src="${this.avatar}?size=256" alt="avatar" onerror="if (this.src != 'https://i.imgur.com/u8Wnd4X.png') this.src = 'https://i.imgur.com/u8Wnd4X.png';">
                 <figcaption>
                     <p>${this.name}</p>
                     <p>${this.bio}</i></p>
@@ -39,6 +39,7 @@ $.post("/auth/getusers", function (data) {
     $.each(data, function (i, user) {
         memberlist.push(new member(user.name, user.bio, user.avatar, user.roles, user.id, data[0].perms));
     })
+    memberlist.reverse();
     console.log("Member feed retrieved.")
 });
 
