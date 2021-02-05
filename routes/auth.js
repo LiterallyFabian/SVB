@@ -225,7 +225,7 @@ function signUpOrInUser(data, user, res) {
                 bio: "Hello world!",
                 banner: "https://i.imgur.com/svmBcCG.png",
                 catchScores: '{"ss":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0, "score":0, "highestCombo":0}',
-                roles: '{roles:"krönikör"}'
+                roles: '["krönikör"]'
             }
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
