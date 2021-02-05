@@ -262,6 +262,17 @@ verifyPermission = function (auth, permission) {
     })
 }
 
+//Gets all public users
+router.post('/getusers', (req, res) => {
+    connection.query("SELECT name,avatar,id,roles,bio,banner FROM users", function (err, result) {
+        if (err) throw err;
+        else {
+            result[0].perms = perms;
+            res.send(result);
+        }
+    });
+});
+
 
 module.exports = router;
 module.exports.signUpOrInUser = signUpOrInUser;

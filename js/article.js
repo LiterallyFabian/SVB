@@ -26,13 +26,12 @@ class article {
             <figure> 
                 <img class="thumbnail" src="${this.thumbnailPath}" alt="thumbnail">
                 <figcaption>
-                    <p>${this.title}</p>
+                    <p class="articletitle">${this.title}</p>
                     <p>${preview}</i></p>
                 </figcaption>
             </figure>
         </a>
         </li>`;
-
     }
 }
 
@@ -56,7 +55,11 @@ $.post("/post/getposts", function (data) {
     console.log("Waiting for articles...");
     while (articlelist.length == 0)
         await new Promise(resolve => setTimeout(resolve, 1000));
+    UpdateFeed();
 
+})();
+
+function UpdateFeed() {
     document.querySelectorAll('.article_post').forEach(e => e.remove());
     order = document.getElementById("sorting_order").value;
     if (order == "new") list = articlelist;
@@ -69,7 +72,7 @@ $.post("/post/getposts", function (data) {
     $.each(list, function (i, post) {
         $(".image-list").append($(post.post));
     })
-})();
+}
 
 
 function sortTitle(a, b) {
