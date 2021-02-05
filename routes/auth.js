@@ -229,7 +229,7 @@ function signUpOrInUser(data, user, res) {
             }
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
-                res.redirect('/profile/edit')
+                res.redirect(`/profile/edit?id=${user.id}`)
             });
         } else {
             //update access token
