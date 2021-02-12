@@ -5,7 +5,7 @@ const glob = require('glob');
 const schedule = require('node-schedule');
 
 router.post('/claimkakera', (req, res) => {
-    var id = req.body.id;
+    var id = req.body.discordid;
     var username = req.body.username;
     var avatar = req.body.avatar;
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -21,7 +21,7 @@ router.post('/claimkakera', (req, res) => {
 });
 
 router.post('/claimcharacter', (req, res) => {
-    var id = req.body.id;
+    var id = req.body.discordid;
     var username = req.body.username;
     var avatar = req.body.avatar;
     var claimed = req.body.claimed;
@@ -38,7 +38,7 @@ router.post('/claimcharacter', (req, res) => {
 });
 
 router.post('/resetclaim', (req, res) => {
-    var id = req.body.id;
+    var id = req.body.discordid;
     var username = req.body.username;
     var avatar = req.body.avatar;
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -54,7 +54,7 @@ router.post('/resetclaim', (req, res) => {
 });
 
 router.post('/dailykakera', (req, res) => {
-    var id = req.body.id;
+    var id = req.body.discordid;
     var username = req.body.username;
     var avatar = req.body.avatar;
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -70,7 +70,7 @@ router.post('/dailykakera', (req, res) => {
 });
 
 router.post('/updatetu', (req, res) => {
-    var id = req.body.id;
+    var id = req.body.discordid;
     var username = req.body.username;
     var avatar = req.body.avatar;
     var hasClaim = req.body.hasClaim;

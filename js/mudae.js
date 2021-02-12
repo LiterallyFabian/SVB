@@ -43,8 +43,8 @@ function UpdateFeed() {
         document.querySelectorAll('.article_post').forEach(e => e.remove());
         
         var list = memberlist.sort(sortTime).reverse();
-        $.each(list, function (i, post) {
-            $(".image-list").append($(post.post));
+        $.each(list, function (i, user) {
+            $(".image-list").append($(user.post));
         })
     });
 }
