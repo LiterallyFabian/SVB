@@ -19,7 +19,7 @@ class member {
                     <p>${this.username}</p>
                     <div class="badges">
                         <p class="badge" style="color: ${this.hasClaim == 1 ? "#05fe05" : "#ff5b5b"};">${this.hasClaim == 1 ? "HAS CLAIM" : "CLAIMED"}</p>
-                        <p class="badge" style="color: ${this.reactPower > this.reactCost ? "#05fe05" : "#ff5b5b"};">POWER: ${this.reactPower}%</p>
+                        <p class="badge" style="color: ${this.reactPower >= this.reactCost ? "#05fe05" : "#ff5b5b"};">POWER: ${this.reactPower}%</p>
                     </div>
                 </figcaption>
             </figure>
