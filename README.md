@@ -12,6 +12,8 @@ CREATE TABLE users (name VARCHAR(128), discriminator SMALLINT NOT NULL, access_t
 CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64), date DATETIME, id VARCHAR(32));
 
 CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCHAR(128), path VARCHAR(128), length SMALLINT, creator VARCHAR(128));
+
+CREATE TABLE mudae (id MEDIUMINT NOT NULL, username VARCHAR(64), avatar VARCHAR(128), hasClaim BOOLEAN, reactPower TINYINT, reactCost TINYINT, primary key (id));
 ```
 
 ### Features

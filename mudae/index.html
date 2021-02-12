@@ -1,0 +1,72 @@
+<!doctype html>
+<html class="theme_light">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--Scripts-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3.0.5"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/js/svt.js"></script>
+  <script src="/js/mudae.js"></script>
+  <!--Styling-->
+  <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+  <!--Fonts-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+  <!--Meta-->
+  <title>SVT | Mudae</title>
+  <meta name="description" content="SVT Nyheter, but with some fruits.">
+  <meta name="image" content="https://i.imgur.com/3q3gCx2.jpg">
+  <meta itemprop="name" content="SVT Nyheter">
+  <meta itemprop="description" content="SVT Nyheter, but with some fruits.">
+  <meta itemprop="image" content="https://i.imgur.com/3q3gCx2.jpg">
+  <meta name="og:title" content="SVT Nyheter">
+  <meta name="og:description" content="SVT Nyheter, but with some fruits.">
+  <meta name="og:image" content="https://i.imgur.com/hRCYy7m.png">
+  <meta name="og:url" content="https://svt.sajber.me">
+  <meta name="og:site_name" content="SVT">
+  <meta name="og:locale" content="sv_SE">
+  <meta name="og:type" content="website">
+</head>
+
+<body>
+  <!--Navigation bar-->
+  <div id="nav-placeholder"></div>
+
+  <script>
+    $(function () {
+      $("#nav-placeholder").load("/reused/nav.html");
+    });
+  </script>
+  <!--end of Navigation bar-->
+
+  <!-- Member section -->
+  <div id="gallery" class="center">
+    <!--Gallery with members-->
+    <section class="article_gallery">
+      <div class="gallery_container">
+        <ol class="image-list grid-view">
+        </ol>
+      </div>
+    </section>
+  </div>
+  <!-- end of Member section -->
+
+
+  <!-- Page footer -->
+  <div id="footer-placeholder"></div>
+
+  <script>
+    $(function () {
+      $("#footer-placeholder").load("/reused/footer.html");
+    });
+  </script>
+  <!--end of Page footer -->
+
+</body>
+
+</html>

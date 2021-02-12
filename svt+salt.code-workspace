@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "H:\\Bots\\SaltBotJS\\SaltBotJS"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "cv"
+	}
+"files.exclude": {
+        "**/.js": true,
+        "**/.js.map": true
+    }
+}
