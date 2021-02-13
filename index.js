@@ -6,6 +6,7 @@ const mysql2 = require('mysql2');
 const path = require('path');
 const fs = require('fs');
 const app = express();
+const fetch = require('node-fetch');
 var route_post = require('./routes/post.js');
 var route_catch = require('./routes/catch.js');
 var route_auth = require('./routes/auth.js');
@@ -54,4 +55,6 @@ const server = http.createServer(app);
 
 server.listen(port, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
+    route_mudae.send("==============\nServer started\n==============");
+
 });
