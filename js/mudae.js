@@ -41,7 +41,7 @@ function UpdateFeed() {
 
 
         document.querySelectorAll('.article_post').forEach(e => e.remove());
-        
+
         var list = memberlist.sort(sortTime).reverse();
         $.each(list, function (i, user) {
             $(".image-list").append($(user.post));
@@ -62,8 +62,39 @@ function sortTime(a, b) {
 
 window.setInterval(function () {
     UpdateFeed();
+    setDate()
 }, 120000);
 
 $(document).ready(function () {
-UpdateFeed();
+    UpdateFeed();
 })
+var nextReset
+setDate()
+
+function setDate() {
+    nextReset = new Date();
+    var hour = nextReset.getHours();
+    var minute = nextReset.getMinutes();
+
+    if (hour % 3 == 0 && minute >= 20) nextReset.setHours(hour + 3);
+    if (hour % 3 == 0 && minute < 20) nextReset.setHours(hour);
+    else nextReset.setHours(hour + 3 - hour % 3);
+    nextReset.setMinutes(20);
+    nextReset.setSeconds(0);
+}
+
+var x = setInterval(function () {
+    var now = new Date().getTime();
+    var distance = nextReset - now;
+
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("resetCountdown").innerHTML = `Claim reset in <b><br>${hours}h ${minutes}m ${seconds}s</b>`
+
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("resetCountdown").innerHTML = "Oh man, oh man. Where are all the rolls?";
+    }
+}, 1000);

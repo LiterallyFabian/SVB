@@ -46,8 +46,6 @@ a {
 
 
 .image-list {
-    margin: 3rem 0;
-
     li {
         @include theme() {
             background: theme-get('nav');
