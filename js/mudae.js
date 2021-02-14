@@ -95,6 +95,7 @@ var x = setInterval(function () {
 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("resetCountdown").innerHTML = "Oh man, oh man. Where are all the rolls?";
+        document.getElementById("resetCountdown").innerHTML = "Oh man, oh man. Where are all the rolls?<br>‎";
+        confetti.start();
     }
 }, 1000);
