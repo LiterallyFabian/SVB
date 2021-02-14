@@ -168,10 +168,10 @@ function processMap() {
 }
 
 //Audio
-
 $(document).ready(function () {
     musicRange = document.getElementById("musicRange");
-    var effectsRange = document.getElementById("effectsRange");
+    effectsRange = document.getElementById("effectsRange");
+    confettiRange = document.getElementById("confettiToggle");
 
     musicRange.oninput = function () {
         if (typeof music != "undefined") {
@@ -186,15 +186,21 @@ $(document).ready(function () {
 
         });
     }
+    confettiRange.oninput = function () {
+        if (!confettiRange.checked) confetti.stop();
+    }
+
 
     //load volume from cookies
     musicRange.value = getAloneCookie("catchVolumeMusic");
     effectsRange.value = getAloneCookie("catchVolumeEffects");
+    document.getElementById("confettiToggle").checked = getAloneCookie("catchConfetti");
 })
 
 var saveCookie = setInterval(function () {
     setCookie("catchVolumeMusic", musicRange.value, 10000);
     setCookie("catchVolumeEffects", effectsRange.value, 10000);
+    setCookie("catchConfetti", document.getElementById("confettiToggle").checked);
 }, 2000);
 
 
