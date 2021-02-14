@@ -210,10 +210,3 @@ function resetGame() {
     highestCombo = 0;
     bananaShower = false;
 }
-
-function confettiToggle() {
-    var confettiToggle = document.getElementById("confettiToggle");
-    confetti.maxCount = confettiToggle.checked ? 500 : 150;
-    confetti.frameInterval = confettiToggle.checked ? 10 : 15;
-    confetti.speed = confettiToggle.checked ? 15 : 2;
-}

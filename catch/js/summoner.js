@@ -39,7 +39,7 @@ function toggleKiai(kiaiOn, delay) {
     }
     setTimeout(function () {
         kiai = kiaiOn;
-        if (kiaiOn) confetti.start();
+        if (kiaiOn && !document.getElementById("confettiToggle").checked) confetti.start();
         else confetti.stop();
     }, delay);
 }
