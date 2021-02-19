@@ -2,3 +2,4 @@ node_modules/
 articles/
 catch/song/*_icon.jpg
 .env
+cmd.txt
