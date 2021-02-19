@@ -4,14 +4,14 @@
     <ul>
         <a href="/"><div id="logo" class="navlogo" alt="LOGO"></div></a>
 
-        <li><a href="/" class="active">Nyheter</a></li>
-        <li><a href="/mudae">Mudae</a></li>
-        <li><a href=/members>Medlemmar</a></li>
-        <li><a href="/catch">svt!catch</a></li>
-        <li><a href="/kontakt.html">Kontakt</a></li>
+        <li><a href="/" id="nav-main">Nyheter</a></li>
+        <li><a href="/mudae" id="nav-mudae">Mudae</a></li>
+        <li><a href=/members id="nav-members">Medlemmar</a></li>
+        <li><a href="/catch" id="nav-catch">svt!catch</a></li>
+        <li><a href="/kontakt.html" id="nav-contact">Kontakt</a></li>
         <li><a v-bind:href="href" v-if="!loggedIn">Logga in</a></li>
-        <li><a href="/post" v-if="canPost">Skapa inlägg</a></li>
-        <li><a v-bind:href="profilehref" v-if="loggedIn">{{ username }}</a></li>
+        <li><a href="/post" v-if="canPost" id="nav-post">Skapa inlägg</a></li>
+        <li><a v-bind:href="profilehref" v-if="loggedIn" id="nav-profile">{{ username }}</a></li>
         <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
             <i class="fa fa-bars"></i>
 </nav>
@@ -39,6 +39,7 @@
         },
         mounted: function trylogin() {
             this.$nextTick(function () {
+                this.vue_updatenav();
                 this.usercookie = getCookie("auth")
                 if (this.usercookie.length > 0) {
                     var data = JSON.parse(this.usercookie);
@@ -66,9 +67,38 @@
                         this.canPost = res.data[0].canPost;
                     }
                 })
+            },
+            async vue_updatenav() {
+                console.log(window.location.pathname)
+                if(window.location.pathname == "/") document.getElementById("nav-main").classList.add("active");
+                else if(window.location.pathname.startsWith("/mudae")) document.getElementById("nav-mudae").classList.add("active");
+                else if(window.location.pathname.startsWith("/members")) document.getElementById("nav-members").classList.add("active");
+                else if(window.location.pathname.startsWith("/catch")) document.getElementById("nav-catch").classList.add("active");
+                else if(window.location.pathname.startsWith("/contact")) document.getElementById("nav-contact").classList.add("active");
+                else if(window.location.pathname.startsWith("/post")) waitForElm("#nav-post").then(elm => elm.classList.add("active"));
+                else if(window.location.pathname.startsWith("/profile")) waitForElm("#nav-profile").then(elm => elm.classList.add("active"));
             }
         }
     }
-
     Vue.createApp(Login).mount('.navigation')
+
+    function waitForElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
 </script>
