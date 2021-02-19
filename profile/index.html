@@ -132,6 +132,7 @@
                 await axios.post("/auth/getuser", {
                     id: new URL(window.location.href).searchParams.get("user")
                 }).then(res => {
+                    console.log(res.data);
                     if (res.data != false) { //queried profile existed
                         document.title = `SVT | ${res.data[0].name}'s profile`
                         this.id = res.data[0].id;

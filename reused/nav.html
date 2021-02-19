@@ -8,7 +8,7 @@
         <li><a href="/mudae" id="nav-mudae">Mudae</a></li>
         <li><a href=/members id="nav-members">Medlemmar</a></li>
         <li><a href="/catch" id="nav-catch">svt!catch</a></li>
-        <li><a href="/kontakt.html" id="nav-contact">Kontakt</a></li>
+        <li><a href="/contact" v-if="loggedIn" id="nav-contact">Kontakt</a></li>
         <li><a v-bind:href="href" v-if="!loggedIn">Logga in</a></li>
         <li><a href="/post" v-if="canPost" id="nav-post">Skapa inlägg</a></li>
         <li><a v-bind:href="profilehref" v-if="loggedIn" id="nav-profile">{{ username }}</a></li>
@@ -69,12 +69,11 @@
                 })
             },
             async vue_updatenav() {
-                console.log(window.location.pathname)
                 if(window.location.pathname == "/") document.getElementById("nav-main").classList.add("active");
                 else if(window.location.pathname.startsWith("/mudae")) document.getElementById("nav-mudae").classList.add("active");
                 else if(window.location.pathname.startsWith("/members")) document.getElementById("nav-members").classList.add("active");
                 else if(window.location.pathname.startsWith("/catch")) document.getElementById("nav-catch").classList.add("active");
-                else if(window.location.pathname.startsWith("/contact")) document.getElementById("nav-contact").classList.add("active");
+                else if(window.location.pathname.startsWith("/contact")) waitForElm("#nav-contact").then(elm => elm.classList.add("active"));
                 else if(window.location.pathname.startsWith("/post")) waitForElm("#nav-post").then(elm => elm.classList.add("active"));
                 else if(window.location.pathname.startsWith("/profile")) waitForElm("#nav-profile").then(elm => elm.classList.add("active"));
             }

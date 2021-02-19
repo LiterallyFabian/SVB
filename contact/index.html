@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="theme_light">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SVT | Redigera profil</title>
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+    <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/svt.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body id="page">
+    <!-- Main Container -->
+
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
+
+    <div class="login_mainframe">
+        <div class="login_formtable">
+
+            <label class="label">Användarnamn</label><br>
+            <input class="textbox" type="text" v-model="username" placeholder="" disabled><br>
+
+            <label class="label">Meddelande</label><br>
+            <textarea class="textbox articletextbox" v-model="message" maxlength="512" :disabled="!canEdit"></textarea><br>
+
+            </ul>
+
+
+            <button class="submitbutton" v-on:click="vue_send">Skicka</button>
+        </div>
+    </div>
+    <p>{{ status }}</p>
+    <!-- Page footer -->
+    <div id="footer-placeholder"></div>
+    <!--end of Page footer -->
+</body>
+<script>
+    const profileManagement = {
+        data() {
+            return {
+                username: "",
+                message: "",
+                status: "",
+                avatar: "",
+                canEdit: false,
+                auth: null
+            }
+
+        },
+        mounted: function editpost() {
+            this.$nextTick(function () {
+                this.vue_fillProfile();
+            })
+        },
+        methods: {
+            async vue_fillProfile() {
+                this.auth = getAuth();
+                if (this.auth) {
+                    await axios.post("/auth/getuser", {
+                        auth: this.auth
+                    }).then(res => {
+                        if (res.data == false) {
+                            this.status = "Kunde inte hitta användare. Du är förmodligen inte inloggad."
+                            this.username = ":("
+                        } else {
+                            this.username = `${res.data[0].name}`;
+                            this.avatar = res.data[0].avatar;
+                            this.canEdit = true;
+                        }
+                    })
+                } else {
+                    this.status = "Cringe, du är inte inloggad.";
+                }
+            },
+            async vue_send() {
+                if (this.message.length > 2) {
+
+
+                    await axios.post("https://discord.com/api/webhooks/719239847423770686/Noi1z56L3_JmpRxykWVmoDMh1Nv8cwZnb-Tnh9psHSvuSKizKTRSS3Mq0iXaGRvZHSV8", {
+                        username: `${this.username} (via SVT)`,
+                        avatar_url: this.avatar,
+                        content: this.message,
+                    }).then(res => {
+                        if (res.status == 204) this.status = "Skickat!";
+                        else this.status = `${res.status}: Något gick fel. Cringe.`
+                        this.message = "";
+                    })
+                } else {
+                    this.status = "Skriv något längre pls";
+                }
+            }
+        }
+    }
+
+    Vue.createApp(profileManagement).mount('.login_mainframe')
+
+    $(function () {
+        $("#footer-placeholder").load("/reused/footer.html");
+    });
+</script>
+
+</html>
