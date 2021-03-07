@@ -1,0 +1,48 @@
+body,
+html {
+
+    color: #777;
+    background: black;
+}
+
+.bgimg-1,
+.bgimg-2,
+.bgimg-3 {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.bgimg-1 {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("https://i.imgur.com/BeXEHPB.jpg");
+    height: 100%
+}
+
+.caption {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #000;
+    font: 400 15px/1.8 "Public Sans", sans-serif;
+}
+
+.caption span.border {
+    @include theme() {
+        background-color: theme-get('nav');
+        color: theme-get('text');
+    }
+    background-color: white;
+    color: black;
+    padding: 18px;
+    font-size: 25px;
+}
+
+h3 {
+    text-transform: uppercase;
+    font: 20px "Public Sans", sans-serif;
+    color: #111;
+}

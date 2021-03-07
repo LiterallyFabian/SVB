@@ -8,8 +8,21 @@ const fetch = require('node-fetch');
 const permissions = require("./permission.js");
 const perms = permissions.permissions;
 
-//Gets users access token from auth, and then tries to log in or create account
+//log-in users through the main page
 router.get('/', (req, res) => {
+    console.log("login with svt")
+    processToken(req, res, false);
+});
+
+//log-in users through sajberroyale
+router.get('/royale', (req, res) => {
+    console.log("login with sajber")
+    processToken(req, res, true);
+});
+
+//Gets users access token from auth, and then tries to log in or create account
+//redirectNew = where to direct new members
+function processToken(req,res, fromSajberRoyale){
     var t_info;
     const urlObj = url.parse(req.url, true);
 
@@ -18,7 +31,7 @@ router.get('/', (req, res) => {
             client_id: '793179363029549057',
             client_secret: process.env.client_secret,
             grant_type: 'authorization_code',
-            redirect_uri: process.env.redirect_uri,
+            redirect_uri: process.env.redirect_uri + (fromSajberRoyale ? "/royale" : ""),
             code: urlObj.query.code,
             scope: 'identify',
         };
@@ -44,7 +57,7 @@ router.get('/', (req, res) => {
             .then(userdata => {
                 //console.log(userdata);
                 if (userdata.message != "401: Unauthorized") {
-                    signUpOrInUser(t_info, userdata, res)
+                    signUpOrInUser(t_info, userdata, res, fromSajberRoyale)
                     var loginData = {
                         access_token: t_info.access_token,
                         id: userdata.id,
@@ -56,7 +69,7 @@ router.get('/', (req, res) => {
                 }
             });
     }
-});
+}
 
 //check if users access token is valid
 router.post("/verify", (req, res) => {
@@ -206,7 +219,7 @@ router.post("/updatecatch", (req, res) => {
     });
 });
 
-function signUpOrInUser(data, user, res) {
+function signUpOrInUser(data, user, res, fromSajberRoyale) {
     console.log(data);
     console.log(user);
     connection.query(`SELECT * FROM users WHERE id = '${user.id}'`, function (err, result) {
@@ -226,13 +239,13 @@ function signUpOrInUser(data, user, res) {
             }
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
-                res.redirect(`/profile/edit?id=${user.id}`)
+                res.redirect((fromSajberRoyale ? "/profile/auth?user=" : "/profile/edit?id=" + user.id))
             });
         } else {
             //update access token
             connection.query(`UPDATE users SET avatar = 'https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png', access_token = '${data.access_token}' WHERE id = '${user.id}'`, function (err2, result2) {
                 if (err2) throw err2;
-                res.redirect('/profile?user=' + user.id)
+                res.redirect((fromSajberRoyale ? "/profile/auth" : "/profile/?user=" + user.id))
             });
         }
     });

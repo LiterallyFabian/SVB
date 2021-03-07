@@ -1,0 +1,35 @@
+<html class="theme_light">
+
+<head>
+    <!--Scripts-->
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+    <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <script src="/js/svt.js"></script>
+    <!--Styling-->
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <!--Meta-->
+    <title>SVT</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body id="royaleauth">
+
+    <div class="bgimg-1">
+        <div class="caption">
+            <span class="border">SajberRoyale auth code:</span><br>
+            <span class="border" id="authcode">
+                <script>
+                    document.write(getAuth().access_token);
+                </script>
+            </span>
+        </div>
+    </div>
+
+</body>
+
+</html>
