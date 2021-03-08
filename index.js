@@ -11,6 +11,7 @@ var route_post = require('./routes/post.js');
 var route_catch = require('./routes/catch.js');
 var route_auth = require('./routes/auth.js');
 var route_mudae = require('./routes/mudae.js');
+var route_royale = require('./routes/royale.js');
 require('dotenv').config();
 
 app.set('trust proxy',true); 
@@ -44,6 +45,7 @@ app.use('/post', route_post);
 app.use('/catch', route_catch);
 app.use('/auth', route_auth);
 app.use('/mudae', route_mudae);
+app.use('/royale', route_royale);
 
 app.get('/', (req, res) => {
     res.sendFile('/index.html')
