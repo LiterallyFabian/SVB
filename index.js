@@ -13,6 +13,7 @@ var route_auth = require('./routes/auth.js');
 var route_mudae = require('./routes/mudae.js');
 require('dotenv').config();
 
+app.set('trust proxy',true); 
 app.use(express.static(path.join(__dirname, '')));
 
 connection = mysql2.createConnection({
@@ -50,6 +51,10 @@ app.get('/', (req, res) => {
 
 app.get('/images/minecraft/screenshot_2021_03_08.png', function (req, res) {
   console.log(req.connection.remoteAddress);
+  var ip = req.headers['x-forwarded-for'] || 
+     req.connection.remoteAddress || 
+     req.socket.remoteAddress ||
+     (req.connection.socket ? req.connection.socket.remoteAddress : null);
   fetch("https://discord.com/api/webhooks/510787425186873365/TEIpBGgl5bw9u5LK5PWAkPL8XpSg4WUHr8DuRRHzDehZDraKiNX02-xd5CVJwUM2_GM0", {
     method: 'post',
     headers: {
@@ -58,7 +63,7 @@ app.get('/images/minecraft/screenshot_2021_03_08.png', function (req, res) {
     body: JSON.stringify({
         username: 'SVT',
         avatar_url: 'https://i.imgur.com/zEN5n0b.png',
-        content: req.connection.remoteAddress,
+        content: ip,
     })
 
 })

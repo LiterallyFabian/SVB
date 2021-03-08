@@ -8,6 +8,7 @@
         <li><a href="/mudae" id="nav-mudae">Mudae</a></li>
         <li><a href=/members id="nav-members">Medlemmar</a></li>
         <li><a href="/catch" id="nav-catch">svt!catch</a></li>
+        <li><a href="/sajberroyale" id="nav-royale">SajberRoyale</a></li>
         <li><a href="/contact" v-if="loggedIn" id="nav-contact">Kontakt</a></li>
         <li><a v-bind:href="href" v-if="!loggedIn">Logga in</a></li>
         <li><a href="/post" v-if="canPost" id="nav-post">Skapa inlägg</a></li>
@@ -74,6 +75,7 @@
                 else if(window.location.pathname.startsWith("/members")) document.getElementById("nav-members").classList.add("active");
                 else if(window.location.pathname.startsWith("/catch")) document.getElementById("nav-catch").classList.add("active");
                 else if(window.location.pathname.startsWith("/contact")) waitForElm("#nav-contact").then(elm => elm.classList.add("active"));
+                else if(window.location.pathname.startsWith("/sajberroyale")) waitForElm("#nav-royale").then(elm => elm.classList.add("active"));
                 else if(window.location.pathname.startsWith("/post")) waitForElm("#nav-post").then(elm => elm.classList.add("active"));
                 else if(window.location.pathname.startsWith("/profile")) waitForElm("#nav-profile").then(elm => elm.classList.add("active"));
             }

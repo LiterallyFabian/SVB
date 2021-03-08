@@ -111,7 +111,7 @@ router.post("/getuser", (req, res) => {
     var auth = req.body.auth;
     if(!id && !auth) return [];
     if (!id && auth) id = auth.id;
-    connection.query(`SELECT name, discriminator, avatar, id, bio, banner, catchScores, roles FROM users WHERE id = '${id}'`, function (err2, result) {
+    connection.query(`SELECT name, discriminator, avatar, id, bio, banner, catchScores, royaleScores, roles FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
         if (result.length > 0) {
             result[0].perms = perms; //add copy of perm system
@@ -235,6 +235,7 @@ function signUpOrInUser(data, user, res, fromSajberRoyale) {
                 bio: "Hello world!",
                 banner: "https://i.imgur.com/svmBcCG.png",
                 catchScores: '{"ss":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0, "score":0, "highestCombo":0}',
+                royaleScores: '{"gamesPlayed":0, "gamesWon":0,"kills":0,"deaths":0,"damageDone":0,"damageTaken":0,"healthRegenerated":0,"shotsFired":0,"shotsHit":0, "emotesEmoted":0, "itemsPickedup":0, "lockersOpened":0}',
                 roles: '["krönikör"]'
             }
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
@@ -282,6 +283,17 @@ router.post('/getusers', (req, res) => {
         }
     });
 });
+
+//Gets all sajberroyale stats
+router.post('/getroyale', (req, res) => {
+    connection.query("SELECT name,avatar,id,royaleScores FROM users", function (err, result) {
+        if (err) throw err;
+        else {
+            res.send(result);
+        }
+    });
+});
+
 
 
 module.exports = router;

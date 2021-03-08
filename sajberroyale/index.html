@@ -1,0 +1,67 @@
+<html class="theme_light">
+
+<head>
+    <!--Scripts-->
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <script src="/js/svt.js"></script>
+    <script src="/js/leaderboard.js"></script>
+    <!--Styling-->
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+    <!--Meta-->
+    <title>SajberRoyale</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body id="profilebody">
+
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Games played</th>
+                <th>Wins</th>
+                <th>Kills</th>
+                <th>K/D</th>
+                <th>Damage dealt</th>
+                <th>Damage taken</th>
+                <th>HP gained</th>
+                <th>Shots fired</th>
+                <th>Shots hit</th>
+                <th>Accuracy</th>
+                <th>Emotes</th>
+                <th>Pickups</th>
+                <th>Lockers opened</th>
+            </tr>
+        </thead>
+    </table>
+
+    <!-- Page footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#footer-placeholder").load("/reused/footer.html");
+        });
+    </script>
+    <!--end of Page footer -->
+</body>
+
+</html>
