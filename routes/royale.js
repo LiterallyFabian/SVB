@@ -14,7 +14,8 @@ router.post("/update", (req, res) => {
             var data = JSON.parse(result[0].royaleScores);
             try {
                 data.gamesPlayed += 1;
-                data.gamesWon += req.body.gamesWon;
+                if(req.body.win) data.gamesWon++;
+                else data.deaths++;
                 data.kills += req.body.kills;
                 data.damageDone += req.body.damageDone;
                 data.damageTaken += req.body.damageTaken;
