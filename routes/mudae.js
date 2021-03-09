@@ -119,20 +119,19 @@ router.post('/users', (req, res) => {
 });
 
 //Send webhook to log channel
-function send(message){
+function send(message) {
     fetch(process.env.loghook, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: 'SVT',
-                avatar_url: 'https://i.imgur.com/zEN5n0b.png',
-                content: message,
-            })
-
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: 'SVT',
+            avatar_url: 'https://i.imgur.com/zEN5n0b.png',
+            content: message,
         })
-        .then(res => console.log(res));
+
+    })
 }
 
 module.exports = router;

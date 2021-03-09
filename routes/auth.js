@@ -22,7 +22,7 @@ router.get('/royale', (req, res) => {
 
 //Gets users access token from auth, and then tries to log in or create account
 //redirectNew = where to direct new members
-function processToken(req,res, fromSajberRoyale){
+function processToken(req, res, fromSajberRoyale) {
     var t_info;
     const urlObj = url.parse(req.url, true);
 
@@ -76,40 +76,53 @@ router.post("/verify", (req, res) => {
     var access_token = req.body.access_token;
     var id = req.body.id;
     var auth = req.body.auth;
+    var royale = req.body.royale;
 
-    if (!access_token || !id) return false;
-    fetch('https://discord.com/api/users/@me', {
-            headers: {
-                authorization: `Bearer ${access_token}`,
-            },
-        })
-        .then(userRes => userRes.json())
-        .then(userdata => {
-            //console.log(userdata);
-            if (userdata.toString().includes("401: Unauthorized")) return false;
+    if (access_token || id) {
+        fetch('https://discord.com/api/users/@me', {
+                headers: {
+                    authorization: `Bearer ${access_token}`,
+                },
+            })
+            .then(userRes => userRes.json())
+            .then(userdata => {
+                if (userdata.toString().includes("401: Unauthorized")) return false;
+                else {
+                    connection.query(`SELECT * FROM users WHERE id = '${id}' and access_token = '${access_token}'`, function (err, resultmain) {
+                        if (err) throw err;
+                        else if (resultmain.length == 0) res.send(false);
+                        else {
+                            if (!auth) res.send(true)
+                            else {
+                                connection.query(`UPDATE users SET avatar = 'https://cdn.discordapp.com/avatars/${userdata.id}/${userdata.avatar}.png' WHERE id = '${userdata.id}'`, function (err2, result) {
+                                    if (err2) throw err2;
+                                    verifyPermission(auth, "modify_articles").then(granted => {
+                                        if (granted) resultmain[0]["canPost"] = true;
+                                        else resultmain[0]["canPost"] = false;
+                                        res.send(resultmain);
+                                    });
+                                });
+                            }
+                        }
+                    });
+                }
+            })
+    } else if (royale) {
+        connection.query(`SELECT * FROM users WHERE authToken = '${royale}'`, function (err, result) {
+            if (err) throw err;
+            else if (result.length == 0) res.send(false);
             else {
-                connection.query(`SELECT * FROM users WHERE id = '${id}' and access_token = '${access_token}'`, function (err, resultmain) {
-                    if (err) throw err;
-                    else {
-                        connection.query(`UPDATE users SET avatar = 'https://cdn.discordapp.com/avatars/${userdata.id}/${userdata.avatar}.png' WHERE id = '${userdata.id}'`, function (err2, result) {
-                            if (err2) throw err2;
-                            verifyPermission(auth, "modify_articles").then(granted => {
-                                if (granted) resultmain[0]["canPost"] = true;
-                                else resultmain[0]["canPost"] = false;
-                                res.send(resultmain);
-                            });
-                        });
-                    }
-                });
+                res.send(result);
             }
-        })
+        });
+    }
 });
 
 //get public userdata from id
 router.post("/getuser", (req, res) => {
     var id = req.body.id;
     var auth = req.body.auth;
-    if(!id && !auth) return [];
+    if (!id && !auth) return [];
     if (!id && auth) id = auth.id;
     connection.query(`SELECT name, discriminator, avatar, id, bio, banner, catchScores, royaleScores, roles FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
@@ -126,6 +139,7 @@ router.post("/getuser", (req, res) => {
         }
     });
 });
+
 
 router.post("/updateuser", (req, res) => {
     var id = req.body.id;
@@ -220,8 +234,8 @@ router.post("/updatecatch", (req, res) => {
 });
 
 function signUpOrInUser(data, user, res, fromSajberRoyale) {
-    console.log(data);
-    console.log(user);
+    //console.log(data);
+    //console.log(user);
     connection.query(`SELECT * FROM users WHERE id = '${user.id}'`, function (err, result) {
         if (result.length == 0) {
             console.log(`Creating user for ${user.username}#${user.discriminator}`);
@@ -236,19 +250,33 @@ function signUpOrInUser(data, user, res, fromSajberRoyale) {
                 banner: "https://i.imgur.com/svmBcCG.png",
                 catchScores: '{"ss":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0, "score":0, "highestCombo":0}',
                 royaleScores: '{"gamesPlayed":0, "gamesWon":0,"kills":0,"deaths":0,"damageDone":0,"damageTaken":0,"healthRegenerated":0,"shotsFired":0,"shotsHit":0, "emotesEmoted":0, "itemsPickedup":0, "lockersOpened":0}',
+                authToken: Math.floor(Math.random() * Math.floor(999999)),
                 roles: '["krönikör"]'
             }
+            res.cookie("access", sqldata.authToken, {
+                expires: new Date(Date.now() + 3600000 * 24 * 7)
+            });
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
                 res.redirect((fromSajberRoyale ? "/profile/auth?user=" : "/profile/edit?id=" + user.id))
             });
         } else {
-            //update access token
-            connection.query(`UPDATE users SET avatar = 'https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png', access_token = '${data.access_token}' WHERE id = '${user.id}'`, function (err2, result2) {
+
+            //set sajberroyale accsss token
+            connection.query(`SELECT authToken FROM users WHERE id = '${user.id}'`, function (err2, result) {
+                if (err2) throw err2;
+                console.log(result[0].authToken);
+                res.cookie("access", result[0].authToken, {
+                    expires: new Date(Date.now() + 3600000 * 24 * 7)
+                });
+            });
+            //update discord access token
+            connection.query(`UPDATE users SET avatar = 'https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png', access_token = '${data.access_token}' WHERE id = '${user.id}'`, function (err2, result) {
                 if (err2) throw err2;
                 res.redirect((fromSajberRoyale ? "/profile/auth" : "/profile/?user=" + user.id))
             });
         }
+
     });
 }
 
