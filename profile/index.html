@@ -231,8 +231,8 @@
         if (scores.deaths == 0) vue.royale_kd = scores.kills;
         else vue.royale_kd = (scores.kills / scores.deaths).toFixed(2);
 
-        vue.royale_damageDone = scores.damageDone + (scores.damageDone > scores.damageTaken ? ` (+${(scores.damageDone/scores.damageTaken*100).toFixed()}%)` : "");
-        vue.royale_damageTaken = scores.damageTaken + (scores.damageDone < scores.damageTaken ? ` (+${(scores.damageTaken/scores.damageDone*100).toFixed()}%)` : "");;
+        vue.royale_damageDone = scores.damageDone + (scores.damageDone > scores.damageTaken && scores.damageTaken != 0 ? ` (+${(scores.damageDone/scores.damageTaken*100).toFixed()}%)` : "");
+        vue.royale_damageTaken = scores.damageTaken + (scores.damageTaken > scores.damageDone && scores.damageDone != 0 ? ` (+${(scores.damageTaken/scores.damageDone*100).toFixed()}%)` : "");;
 
         vue.royale_health = scores.healthRegenerated;
         vue.royale_shotsFired = scores.shotsFired;
