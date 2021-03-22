@@ -13,7 +13,7 @@ $.post("/auth/getroyale", function (data) {
     })
     $('#table').DataTable({
         data: memberlist,
-        "order": [[ 2, "asc" ]],
+        "order": [[ 2, "desc" ]],
         columns: [
             { data: 'name' },
             { data: 'gamesPlayed' },
