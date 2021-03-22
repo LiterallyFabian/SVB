@@ -13,18 +13,19 @@ $.post("/auth/getroyale", function (data) {
     })
     $('#table').DataTable({
         data: memberlist,
+        "order": [[ 2, "asc" ]],
         columns: [
             { data: 'name' },
             { data: 'gamesPlayed' },
             { data: 'gamesWon' },
             { data: 'kills' },
             { data: 'kd' },
-            { data: 'damageDone' },
-            { data: 'damageTaken' },
-            { data: 'healthRegenerated' },
             { data: 'shotsFired' },
             { data: 'shotsHit' },
             { data: 'acc'},
+            { data: 'damageDone' },
+            { data: 'damageTaken' },
+            { data: 'healthRegenerated' },
             { data: 'emotesEmoted' },
             { data: 'itemsPickedup' },
             { data: 'lockersOpened' }
