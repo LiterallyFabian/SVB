@@ -40,6 +40,7 @@ $.post("/catch/getmaps", function (data) {
     $.each(data, function (i, post) {
         bmaps.push(new bmap(post.id, post.title, post.artist, post.difficulty, post.path, post.length, post.creator));
     })
+    UpdateFeed();
 });
 
 function UpdateFeed() {
@@ -47,7 +48,3 @@ function UpdateFeed() {
         $(".image-list").append($(post.post));
     })
 }
-
-window.onload = function () {
-    UpdateFeed();
-};
