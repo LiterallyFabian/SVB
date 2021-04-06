@@ -2,7 +2,9 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <nav class="navigation" id="topnav">
     <ul>
-        <a href="/"><div id="logo" class="navlogo" alt="LOGO"></div></a>
+        <a href="/">
+            <div id="logo" class="navlogo" alt="LOGO"></div>
+        </a>
 
         <li><a href="/" id="nav-main">Nyheter</a></li>
         <li><a href="/mudae" id="nav-mudae">Mudae</a></li>
@@ -16,6 +18,21 @@
         <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
             <i class="fa fa-bars"></i>
 </nav>
+
+<!--Cookies-->
+<div class="cookie-banner" style='display: none'>
+    <p>Please note that this website was built for a school assignment and is not affiliated with Sveriges Television AB in any way. We use a few cookies to make the site easier to use. By continuing to browse the site, you agree to our use of cookies.  <a href="https://svt.sajber.me/articles/cookie-info.html">Click here to read about how cookies are used.</a></p>
+    <button class="close" type='button'>X</button>
+    <script>
+        if (localStorage.getItem("cookieSeen") != "shown") {
+            $(".cookie-banner").delay(2000).fadeIn();
+            localStorage.setItem("cookieSeen", "shown")
+        };
+        $(".close").click(function () {
+            $(".cookie-banner").fadeOut();
+        })
+    </script>
+</div>
 
 <script>
     function toggleNav() {
@@ -70,36 +87,36 @@
                 })
             },
             async vue_updatenav() {
-                if(window.location.pathname == "/") document.getElementById("nav-main").classList.add("active");
-                else if(window.location.pathname.startsWith("/mudae")) document.getElementById("nav-mudae").classList.add("active");
-                else if(window.location.pathname.startsWith("/members")) document.getElementById("nav-members").classList.add("active");
-                else if(window.location.pathname.startsWith("/catch")) document.getElementById("nav-catch").classList.add("active");
-                else if(window.location.pathname.startsWith("/contact")) waitForElm("#nav-contact").then(elm => elm.classList.add("active"));
-                else if(window.location.pathname.startsWith("/sajberroyale")) waitForElm("#nav-royale").then(elm => elm.classList.add("active"));
-                else if(window.location.pathname.startsWith("/post")) waitForElm("#nav-post").then(elm => elm.classList.add("active"));
-                else if(window.location.pathname.startsWith("/profile")) waitForElm("#nav-profile").then(elm => elm.classList.add("active"));
+                if (window.location.pathname == "/") document.getElementById("nav-main").classList.add("active");
+                else if (window.location.pathname.startsWith("/mudae")) document.getElementById("nav-mudae").classList.add("active");
+                else if (window.location.pathname.startsWith("/members")) document.getElementById("nav-members").classList.add("active");
+                else if (window.location.pathname.startsWith("/catch")) document.getElementById("nav-catch").classList.add("active");
+                else if (window.location.pathname.startsWith("/contact")) waitForElm("#nav-contact").then(elm => elm.classList.add("active"));
+                else if (window.location.pathname.startsWith("/sajberroyale")) waitForElm("#nav-royale").then(elm => elm.classList.add("active"));
+                else if (window.location.pathname.startsWith("/post")) waitForElm("#nav-post").then(elm => elm.classList.add("active"));
+                else if (window.location.pathname.startsWith("/profile")) waitForElm("#nav-profile").then(elm => elm.classList.add("active"));
             }
         }
     }
     Vue.createApp(Login).mount('.navigation')
 
     function waitForElm(selector) {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver(mutations => {
+        return new Promise(resolve => {
             if (document.querySelector(selector)) {
-                resolve(document.querySelector(selector));
-                observer.disconnect();
+                return resolve(document.querySelector(selector));
             }
-        });
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
+            const observer = new MutationObserver(mutations => {
+                if (document.querySelector(selector)) {
+                    resolve(document.querySelector(selector));
+                    observer.disconnect();
+                }
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
         });
-    });
-}
+    }
 </script>
