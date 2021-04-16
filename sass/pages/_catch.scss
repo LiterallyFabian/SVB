@@ -1,9 +1,10 @@
 .gamesettings{
     left:50%;
     display:inline-block;
-    color:white;
     left: 50%;
-   
+    @include theme() {
+        color: theme-get('text');
+      }
 }
 .gamesettings p{
     display:inline-block;
