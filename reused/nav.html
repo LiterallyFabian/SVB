@@ -20,17 +20,21 @@
 </nav>
 
 <!--Cookies-->
-<div class="cookie-banner" style='display: none'>
-    <p>Please note that this website was built for a school assignment and is not affiliated with Sveriges Television AB in any way. We use a few cookies to make the site easier to use. By continuing to browse the site, you agree to our use of cookies.  <a href="https://svt.sajber.me/articles/cookie-info.html">Click here to read about how cookies are used.</a></p>
-    <button class="close" type='button'>X</button>
+<div id="cookieConsent">
+    <div id="closeCookieConsent">x</div>
+    Please note that this website was built for a school assignment and is not affiliated with Sveriges Television AB in any way. By continuing to browse the site, you agree to our <a href="https://svt.sajber.me/articles/cookie-info.html">use of cookies.</a><a class="cookieConsentOK">That's Fine</a>
+
     <script>
-        if (localStorage.getItem("cookieSeen") != "shown") {
-            $(".cookie-banner").delay(2000).fadeIn();
-            localStorage.setItem("cookieSeen", "shown")
-        };
-        $(".close").click(function () {
-            $(".cookie-banner").fadeOut();
-        })
+        $(document).ready(function () {
+            setTimeout(function () {
+                if (!getAloneCookie("accepted_cookies"))
+                    $("#cookieConsent").fadeIn(200);
+            }, 2000);
+            $("#closeCookieConsent, .cookieConsentOK").click(function () {
+                $("#cookieConsent").fadeOut(200);
+                setCookie("accepted_cookies", true, 100000);
+            });
+        });
     </script>
 </div>
 
