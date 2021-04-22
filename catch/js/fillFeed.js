@@ -62,8 +62,8 @@ if (getCookie("auth").length > 0) {
 
 function UpdateFeed(ranks) {
     document.querySelectorAll('.image-list .norank').forEach(e => e.remove())
-
     $.each(bmaps, function (i, post) {
         $(`.image-list ${ranks == {} ? ".norank" : ""}`).append($(post.generatePost(ranks)));
+        document.getElementById('no-map-alert').style.display = "none";
     })
 }
