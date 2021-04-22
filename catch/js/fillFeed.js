@@ -2,7 +2,7 @@
 class bmap {
     constructor(id, title, artist, difficulty, path, length, creator) {
         this.id = id,
-            this.title = title.trim(),
+            this.title = title.trim().toString(),
             this.artist = artist,
             this.difficulty = difficulty,
             this.path = path,
@@ -12,7 +12,8 @@ class bmap {
 
     generatePost(ranks) {
         var rankBadge = "";
-        if (ranks[this.title.toString()]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.title].toUpperCase()}.png">`;
+        if (ranks)
+            if (ranks[this.title]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.title].toUpperCase()}.png">`;
         return `
         <li>
         <a href='#'
@@ -47,10 +48,13 @@ if (getCookie("auth").length > 0) {
     $.post("/auth/getuser", {
         auth: JSON.stringify(getAuth())
     }, function (response) {
-        console.log(response)
+        if (!response) {
+            UpdateFeed({})
+            return;
+        }
         catchScores = JSON.parse(response[0].catchScores);
-        console.log(catchScores.ranks);
-        UpdateFeed(catchScores.ranks);
+
+        UpdateFeed(catchScores.ranks ? catchScores.ranks : {});
     });
 } else {
     UpdateFeed({});
