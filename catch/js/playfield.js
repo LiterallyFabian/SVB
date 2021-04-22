@@ -12,9 +12,8 @@ $(document).ready(function () {
     } else {
         context.canvas.height = window.innerHeight - 57;
         context.canvas.width = (window.innerHeight - 57) * 1.63;
-
     }
-
+    playStartAnim()
     scaleModifier = context.canvas.width / 1400; //all values are based on 1400x855 grid
     grid = 5;
     catcherSpeed = 5 * scaleModifier;
@@ -159,7 +158,7 @@ $(document).ready(function () {
         this.y = y;
         this.update = function () {
             if (this.type == "text") {
-                context.font = `${30*scaleModifier}px Consolas`;
+                context.font = `${30*scaleModifier}px Verdana`;
                 context.fillStyle = color;
                 context.fillText(this.text, this.x, this.y);
             } else {
@@ -170,5 +169,22 @@ $(document).ready(function () {
     }
 
     scoreText = new component("30px", "Public-Sans", "white", 30 * scaleModifier, 50 * scaleModifier, "text");
-
 });
+
+function playStartAnim() {
+
+    var i = 90;
+
+    function myLoop() {
+        setTimeout(function () {
+            $('#catchField').css('transform', `rotateX(${i}deg) scaleX(${1/i})`)
+            if (fruits.length > 0) return;
+            i--;
+            if (i > 0) {
+                myLoop();
+            }
+        }, 8-i/7)
+    }
+    myLoop();
+
+}
