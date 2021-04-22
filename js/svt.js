@@ -103,3 +103,10 @@ $(document).ready(function () {
     if (theme == "theme_light" || theme == "theme_dark")
         setTheme(theme)
 })
+
+//add zeroes to number
+function pad(num, size) {
+    num = num.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+}

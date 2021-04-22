@@ -28,6 +28,9 @@ $(document).ready(function () {
     combo = 0; //current user combo
     highestCombo = 0;
     bananaShower = false; //whether a banana shower is active
+    hasMoved = false;
+    gameStarted = false;
+    smile = true; //whether the catcher should smile (for the intro)
 
     touching = false; //whether the user is touching the screen or not (for mobile controls)
     touching_x = 0; //where the user is touching
@@ -49,7 +52,7 @@ $(document).ready(function () {
 
 
     catcher = {
-        x: canvas.width / 2.5, //middle of playfield
+        x: -300, //middle of playfield
         y: canvas.height * 0.768, //makes catcher's feet touch the ground
         width: (612 / 3) * scaleModifier,
         height: (609 / 3) * scaleModifier,
@@ -89,11 +92,13 @@ $(document).ready(function () {
 
         //move catcher
         if (keyState[37] || keyState[65] || keyState[103] || (touching && touching_x <= context.canvas.width / 2)) { //left arrow | a | num7
+            hasMoved = true;
             catcher.x -= catcherSpeed;
             catcherImage_fail = catcherImage_failL;
             catcherImage_kiai = catcherImage_kiaiL;
             catcherImage_idle = catcherImage_idleL;
         } else if (keyState[39] || keyState[68] || keyState[105] || (touching && touching_x > context.canvas.width / 2)) { //right arrow | d | num9
+            hasMoved = true;
             catcher.x += catcherSpeed;
             catcherImage_fail = catcherImage_failR;
             catcherImage_kiai = catcherImage_kiaiR;
@@ -110,7 +115,7 @@ $(document).ready(function () {
         if (lastMiss) {
             catcherImage = catcherImage_fail;
         } else {
-            if (kiai) catcherImage = catcherImage_kiai;
+            if (kiai || smile) catcherImage = catcherImage_kiai;
             else catcherImage = catcherImage_idle;
         }
 
@@ -120,8 +125,13 @@ $(document).ready(function () {
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
 
         //update score
-        scoreText.text = `Accuracy: ${misses == 0 ? "100%" : `${(catches/(catches+misses)*100).toFixed(2)}%`}  Score: ${cleanNumber(Math.round(score))}  Combo: ${cleanNumber(combo)}`;
+        accText.text = `${misses == 0 ? "100%" : `${(catches/(catches+misses)*100).toFixed(2)}%`}`;
+        scoreText.text = pad(Math.round(score), 7);
+        comboText.text = `x${cleanNumber(combo)}`;
+
+        accText.update()
         scoreText.update()
+        comboText.update()
     }
 
     //Detect movement input
@@ -146,7 +156,7 @@ $(document).ready(function () {
 
     requestAnimationFrame(loop);
 
-    function component(width, height, color, x, y, type) {
+    function component(width, height, color, x, y, type, align) {
         this.type = type;
         if (this.type != "text") {
             this.width = width * scaleModifier;
@@ -158,7 +168,8 @@ $(document).ready(function () {
         this.y = y;
         this.update = function () {
             if (this.type == "text") {
-                context.font = `${30*scaleModifier}px Verdana`;
+                context.font = `${width*scaleModifier}px Verdana`;
+                context.textAlign = align;
                 context.fillStyle = color;
                 context.fillText(this.text, this.x, this.y);
             } else {
@@ -168,23 +179,45 @@ $(document).ready(function () {
         }
     }
 
-    scoreText = new component("30px", "Public-Sans", "white", 30 * scaleModifier, 50 * scaleModifier, "text");
+
+    comboText = new component(25, "Public-Sans", "white", 840 * scaleModifier, 60 * scaleModifier, "text", "left");
+    scoreText = new component(55, "Public-Sans", "white", 700 * scaleModifier, 60 * scaleModifier, "text", "center");
+    accText = new component(25, "Public-Sans", "white", 560 * scaleModifier, 60 * scaleModifier, "text", "right");
 });
 
 function playStartAnim() {
-
     var i = 90;
+    var j = 0;
 
-    function myLoop() {
+    playfieldLoop();
+    setTimeout(function () {
+        catcherLoop();
+    }, 800)
+    setTimeout(function () {
+        smile =false;
+    }, 2100)
+
+
+    function playfieldLoop() {
         setTimeout(function () {
             $('#catchField').css('transform', `rotateX(${i}deg) scaleX(${1/i})`)
             if (fruits.length > 0) return;
             i--;
             if (i > 0) {
-                myLoop();
+                playfieldLoop();
             }
-        }, 8-i/7)
+        }, 8 - i / 50)
     }
-    myLoop();
+
+    function catcherLoop() {
+        setTimeout(function () {
+            catcher.x = j * 5;
+            if (fruits.length > 0) return;
+            j++;
+            if (j < 150 && !hasMoved) {
+                catcherLoop();
+            }
+        }, 8 - j / 100)
+    }
 
 }

@@ -24,6 +24,7 @@ function startDebug() {
 function startGame(path, title) {
     $('#catchField').css('transform', `rotateX(0deg) rotateY(0deg) rotateZ(0deg)`)
     currentSong = title;
+    gameStarted = true;
     document.title = `svt!catch | ${title}`
     fetch(`/${path}.osu`)
         .then(response => response.text())
