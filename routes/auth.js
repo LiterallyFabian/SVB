@@ -121,9 +121,11 @@ router.post("/verify", (req, res) => {
 //get public userdata from id
 router.post("/getuser", (req, res) => {
     var id = req.body.id;
-    if (req.body.auth) var auth = JSON.parse(req.body.auth);
-    if (!id && !auth) return [];
-    if (!id && auth) id = auth.id;
+    var auth = req.body.auth;
+    if (auth) {
+        if (typeof auth == "string") auth = JSON.parse(auth);
+        id = auth.id;
+    }
     connection.query(`SELECT name, discriminator, avatar, id, bio, banner, catchScores, royaleScores, roles FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
         if (result.length > 0) {

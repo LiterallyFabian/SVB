@@ -12,7 +12,7 @@ class bmap {
 
     generatePost(ranks) {
         var rankBadge = "";
-        if (ranks[this.title]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.title].toUpperCase()}.png">`;
+        if (ranks[this.title.toString()]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.title].toUpperCase()}.png">`;
         return `
         <li>
         <a href='#'
@@ -45,13 +45,14 @@ $.post("/catch/getmaps", function (data) {
 
 if (getCookie("auth").length > 0) {
     $.post("/auth/getuser", {
-        auth: getCookie("auth")
-    }, function (data) {
-        catchScores = JSON.parse(data[0].catchScores);
+        auth: JSON.stringify(getAuth())
+    }, function (response) {
+        console.log(response)
+        catchScores = JSON.parse(response[0].catchScores);
         console.log(catchScores.ranks);
         UpdateFeed(catchScores.ranks);
     });
-}else{
+} else {
     UpdateFeed({});
 }
 
