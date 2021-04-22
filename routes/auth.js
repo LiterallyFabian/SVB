@@ -121,7 +121,7 @@ router.post("/verify", (req, res) => {
 //get public userdata from id
 router.post("/getuser", (req, res) => {
     var id = req.body.id;
-    var auth = req.body.auth;
+    if (req.body.auth) var auth = JSON.parse(req.body.auth);
     if (!id && !auth) return [];
     if (!id && auth) id = auth.id;
     connection.query(`SELECT name, discriminator, avatar, id, bio, banner, catchScores, royaleScores, roles FROM users WHERE id = '${id}'`, function (err2, result) {
@@ -197,6 +197,8 @@ router.post("/updatecatch", (req, res) => {
     var id = req.body.id;
     var score = req.body.score;
     var highestCombo = req.body.highestCombo;
+    var title = req.body.title;
+
     if (!id) return false;
     connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
         var data = JSON.parse(result[0].catchScores);
@@ -206,6 +208,11 @@ router.post("/updatecatch", (req, res) => {
         data.score += score;
         if (data.highestCombo == null) data.highestCombo = 0;
         if (highestCombo > data.highestCombo) data.highestCombo = highestCombo;
+
+
+        var ranks = data.ranks ? data.ranks : {};
+
+        //add a rank count
         switch (rank) {
             case 'ss':
                 data.ss++;
@@ -226,6 +233,16 @@ router.post("/updatecatch", (req, res) => {
                 data.d++;
                 break;
         }
+        //add rank badge
+        var found = false;
+        ['ss', 's', 'a', 'b', 'c', 'd'].forEach(r => {
+            if (r == ranks[title]) found = true;
+            if (r == rank && !found) {
+                ranks[title] = rank;
+                found = true;
+            }
+        })
+        data.ranks = ranks;
         connection.query(`UPDATE users SET catchScores = '${JSON.stringify(data)}' WHERE id = '${id}'`, function (err2, result) {
             if (err2) throw err2;
             console.log(`Added rank ${rank} to user ${id}`)

@@ -11,6 +11,7 @@ var hitsoundsNormal;
 var hitsoundsSoft;
 var hitsoundsDrum;
 hitsounds = [];
+var currentSong;
 var thumbPath;
 var songLength;
 var musicRange;
@@ -21,6 +22,7 @@ function startDebug() {
 
 //loads stuff and then starts
 function startGame(path, title) {
+    currentSong = title;
     document.title = `svt!catch | ${title}`
     fetch(`/${path}.osu`)
         .then(response => response.text())

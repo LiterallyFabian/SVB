@@ -82,7 +82,8 @@ function finishGame(delay) {
             bananasSeen: stats_bananasSeen,
             id: id,
             score: score,
-            highestCombo: highestCombo
+            highestCombo: highestCombo,
+            title: currentSong
         }));
     }, delay);
 }

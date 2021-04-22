@@ -7,13 +7,13 @@
     <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js" type="text/javascript"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="/js/svt.js"></script>
     <script src="js/playfield.js"></script>
     <script src="js/fruits.js"></script>
     <script src="js/summoner.js"></script>
     <script src="js/fillFeed.js"></script>
     <script src="js/rankPopup.js"></script>
     <script src="js/processor.js"></script>
-    <script src="/js/svt.js"></script>
     <script src="/js/confetti.js"></script>
     <!--Styling-->
     <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
@@ -112,6 +112,22 @@
             $("#footer-placeholder").load("/reused/footer.html");
         });
     </script>
+    <style>
+        .parent {
+            border: 0;
+            position: relative;
+        }
+
+        .rankOverlay {
+            border: 0;
+            position: absolute;
+            top: 0;
+            width: 20%;
+            right: 0;
+            padding-right:1%;
+            filter: drop-shadow(0 0 0.4rem #000000);
+        }
+    </style>
     <!--end of Page footer -->
 </body>
 
