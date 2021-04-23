@@ -110,3 +110,7 @@ function pad(num, size) {
     while (num.length < size) num = "0" + num;
     return num;
 }
+
+function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+}

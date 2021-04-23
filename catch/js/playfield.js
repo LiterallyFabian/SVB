@@ -194,8 +194,9 @@ function playStartAnim() {
         catcherLoop();
     }, 800)
     setTimeout(function () {
-        smile =false;
+        smile = false;
     }, 2100)
+
 
 
     function playfieldLoop() {
@@ -205,6 +206,9 @@ function playStartAnim() {
             i--;
             if (i > 0) {
                 playfieldLoop();
+            } else {
+                startConfetti(true);
+                startConfetti(false);
             }
         }, 8 - i / 50)
     }
@@ -219,5 +223,50 @@ function playStartAnim() {
             }
         }, 8 - j / 100)
     }
+}
 
+
+function startConfetti(side) {
+    fire(0.25, {
+        spread: 46,
+        startVelocity: 55,
+    }), side;
+    fire(0.2, {
+        spread: 60,
+    }, side);
+    fire(0.35, {
+        spread: 120,
+        decay: 0.91,
+        scalar: 0.8
+    }, side);
+    fire(0.1, {
+        spread: 140,
+        startVelocity: 25,
+        decay: 0.92,
+        scalar: 1.2
+    }, side);
+    fire(0.1, {
+        spread: 140,
+        startVelocity: 45,
+    }, side);
+}
+
+var count = 300;
+var defaultL = {
+    origin: {
+        x: 0,
+        y: 0.85
+    },
+};
+var defaultR = {
+    origin: {
+        x: 1,
+        y: 0.85
+    },
+};
+
+function fire(particleRatio, opts, side) {
+    confettiCannon(Object.assign({}, side ? defaultL : defaultR, opts, {
+        particleCount: Math.floor(count * particleRatio)
+    }));
 }
