@@ -35,6 +35,7 @@ $(document).ready(function () {
     touching = false; //whether the user is touching the screen or not (for mobile controls)
     touching_x = 0; //where the user is touching
 
+
     catcherImage_idleL = document.getElementById('catcher-idleL');
     catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
     catcherImage_failL = document.getElementById('catcher-failL');
@@ -124,7 +125,21 @@ $(document).ready(function () {
         context.fillRect(0, 0, canvas.width, grid);
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
 
-        //update score
+
+
+        var accColor = "#FFFFFF"; //SS
+        if (misses > 0) {
+            var accuracy = catches / (catches + misses) * 100;
+
+            if (accuracy > 98) accColor = "#FACFED"; //S
+            else if (accuracy > 94) accColor = "#EDFACF"; //A
+            else if (accuracy > 90) accColor = "#FAF2CF"; //B
+            else if (accuracy > 85) accColor = "#FADDCF"; //C
+            else accColor = "#FACFD7"; // D
+        }
+        accText = new component(25, "Public-Sans", accColor, 560 * scaleModifier, 60 * scaleModifier, "text", "right");
+
+        //update scores
         accText.text = `${misses == 0 ? "100%" : `${(catches/(catches+misses)*100).toFixed(2)}%`}`;
         scoreText.text = pad(Math.round(score), 7);
         comboText.text = `x${cleanNumber(combo)}`;
@@ -156,34 +171,33 @@ $(document).ready(function () {
 
     requestAnimationFrame(loop);
 
-    function component(width, height, color, x, y, type, align) {
-        this.type = type;
-        if (this.type != "text") {
-            this.width = width * scaleModifier;
-            this.height = height * scaleModifier;
-        }
-        this.speedX = 0;
-        this.speedY = 0;
-        this.x = x;
-        this.y = y;
-        this.update = function () {
-            if (this.type == "text") {
-                context.font = `${width*scaleModifier}px Verdana`;
-                context.textAlign = align;
-                context.fillStyle = color;
-                context.fillText(this.text, this.x, this.y);
-            } else {
-                context.fillStyle = color;
-                context.fillRect(this.x, this.y, this.width, this.height);
-            }
-        }
-    }
-
-
     comboText = new component(25, "Public-Sans", "white", 840 * scaleModifier, 60 * scaleModifier, "text", "left");
     scoreText = new component(55, "Public-Sans", "white", 700 * scaleModifier, 60 * scaleModifier, "text", "center");
     accText = new component(25, "Public-Sans", "white", 560 * scaleModifier, 60 * scaleModifier, "text", "right");
 });
+
+function component(width, height, color, x, y, type, align) {
+    this.type = type;
+    if (this.type != "text") {
+        this.width = width * scaleModifier;
+        this.height = height * scaleModifier;
+    }
+    this.speedX = 0;
+    this.speedY = 0;
+    this.x = x;
+    this.y = y;
+    this.update = function () {
+        if (this.type == "text") {
+            context.font = `${width*scaleModifier}px Verdana`;
+            context.textAlign = align;
+            context.fillStyle = color;
+            context.fillText(this.text, this.x, this.y);
+        } else {
+            context.fillStyle = color;
+            context.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+}
 
 function playStartAnim() {
     var i = 90;
