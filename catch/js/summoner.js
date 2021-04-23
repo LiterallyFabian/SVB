@@ -64,6 +64,8 @@ function finishGame(delay) {
         else if (catches / (catches + misses) * 100 > 90) rank = 'b';
         else if (catches / (catches + misses) * 100 > 85) rank = 'c';
         else rank = 'd'
+        gameStarted = false;
+        confetti.stop();
         setMedal(rank, score, highestCombo);
 
         //check if logged in
