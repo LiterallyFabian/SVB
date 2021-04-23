@@ -215,7 +215,7 @@ function playStartAnim() {
 
     function catcherLoop() {
         setTimeout(function () {
-            catcher.x = j * 5;
+            catcher.x = j * 4 * scaleModifier;
             if (fruits.length > 0) return;
             j++;
             if (j < 150 && !hasMoved) {
