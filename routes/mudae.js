@@ -102,7 +102,6 @@ var j = schedule.scheduleJob('0 20 * * * *', function () {
 
 //Add 1 react power to everyone every 3 min
 var j = schedule.scheduleJob('*/3 * * * *', function () {
-    console.log("kaka");
     connection.query(`UPDATE mudae SET reactPower = reactPower + 1 WHERE reactPower < 100;`, function (err, result) {
         if (err) throw err;
     });
