@@ -125,20 +125,6 @@ $(document).ready(function () {
         context.fillRect(0, 0, canvas.width, grid);
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
 
-
-
-        var accColor = "#FFFFFF"; //SS
-        if (misses > 0) {
-            var accuracy = catches / (catches + misses) * 100;
-
-            if (accuracy > 98) accColor = "#FACFED"; //S
-            else if (accuracy > 94) accColor = "#EDFACF"; //A
-            else if (accuracy > 90) accColor = "#FAF2CF"; //B
-            else if (accuracy > 85) accColor = "#FADDCF"; //C
-            else accColor = "#FACFD7"; // D
-        }
-        accText = new component(25, "Public-Sans", accColor, 560 * scaleModifier, 60 * scaleModifier, "text", "right");
-
         //update scores
         accText.text = `${misses == 0 ? "100%" : `${(catches/(catches+misses)*100).toFixed(2)}%`}`;
         scoreText.text = pad(Math.round(score), 7);
@@ -171,9 +157,9 @@ $(document).ready(function () {
 
     requestAnimationFrame(loop);
 
-    comboText = new component(25, "Public-Sans", "white", 840 * scaleModifier, 60 * scaleModifier, "text", "left");
-    scoreText = new component(55, "Public-Sans", "white", 700 * scaleModifier, 60 * scaleModifier, "text", "center");
-    accText = new component(25, "Public-Sans", "white", 560 * scaleModifier, 60 * scaleModifier, "text", "right");
+    comboText = new component(25, "Public-Sans", "#CFF9FA", 840 * scaleModifier, 60 * scaleModifier, "text", "left");
+    scoreText = new component(55, "Public-Sans", "#CFF9FA", 700 * scaleModifier, 60 * scaleModifier, "text", "center");
+    accText = new component(25, "Public-Sans", "#CFF9FA", 560 * scaleModifier, 60 * scaleModifier, "text", "right");
 });
 
 function component(width, height, color, x, y, type, align) {
@@ -192,6 +178,10 @@ function component(width, height, color, x, y, type, align) {
             context.textAlign = align;
             context.fillStyle = color;
             context.fillText(this.text, this.x, this.y);
+            context.shadowOffsetX = 5;
+            context.shadowOffsetY = 3;
+            context.shadowBlur = 2;
+            context.shadowColor = "rgba(0, 0, 0, 0.5)";
         } else {
             context.fillStyle = color;
             context.fillRect(this.x, this.y, this.width, this.height);
@@ -210,7 +200,6 @@ function playStartAnim() {
     setTimeout(function () {
         smile = false;
     }, 2100)
-
 
 
     function playfieldLoop() {
