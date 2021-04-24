@@ -47,7 +47,7 @@ $(document).ready(function () {
     catcherImage_kiai = catcherImage_kiaiR;
     catcherImage_idle = catcherImage_idleR;
     catcherImage = catcherImage_idle;
-    fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3')];
+    fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3'), document.getElementById('fruit4')];
     dropletImage = document.getElementById('droplet');
     bananaImage = document.getElementById('banana');
 
