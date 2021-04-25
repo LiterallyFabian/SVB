@@ -63,7 +63,7 @@ function processMap() {
     var beatLengthMultiplier = 1;
 
     //Sets background
-    document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../${thumbPath}')`;
+    document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('../${thumbPath}')`;
     document.getElementById('catchField').style.backgroundSize = `cover`;
     document.getElementById('catchField').style.backgroundRepeat = `no-repeat`;
     document.getElementById('catchField').style.backgroundPosition = `center center`;
