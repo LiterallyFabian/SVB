@@ -1,5 +1,6 @@
 node_modules/
 articles/
 catch/song/icon/
+catch/song/preview/
 .env
 cmd.txt

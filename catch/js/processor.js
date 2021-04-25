@@ -26,7 +26,8 @@ function startGame(path, title) {
     document.getElementById('catchField').style.cursor = 'none';
     currentSong = title;
     gameStarted = true;
-    
+    stopPreview();
+    window.scrollTo(0,0);
     document.title = `svt!catch | ${title}`
     fetch(`/${path}.osu`)
         .then(response => response.text())
