@@ -22,7 +22,7 @@ class bmap {
             <figure> 
             <div class="parent">
                 ${rankBadge}
-                <img class="thumbnail" src="/${this.path}_icon.jpg" alt="thumbnail">
+                <img class="thumbnail" src="/${this.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
                 </div>
                 <figcaption>
                     <p>${this.title}</p>

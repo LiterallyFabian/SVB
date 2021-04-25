@@ -1,5 +1,5 @@
 node_modules/
 articles/
-catch/song/*_icon.jpg
+catch/song/icon/
 .env
 cmd.txt

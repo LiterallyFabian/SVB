@@ -63,8 +63,9 @@ function addBeatmaps() {
 
                 })
                 //Get thumbnail
+
                 var thumbnail = beatmapPath.replace("osu", "jpg");
-                var icon = thumbnail.replace(".jpg", "_icon.jpg");
+                var icon = thumbnail.replace("song/", "song/icon/");
                 //console.log(`title ${title}\nartist ${artist}\ndifficulty ${difficulty}\n creator ${creator}\nthumbnail ${thumbnail}\n\n-----------`);
                 fs.access(icon, fs.F_OK, (err) => {
                     if (err) {
@@ -88,7 +89,7 @@ function addBeatmaps() {
                 }
                 connection.query(`INSERT INTO beatmaps SET ?`, data, function (err2, result) {
                     if (err2) throw err2;
-                    console.log(`Map entry "${title}" created! ${++i}/${files.length-1}`);
+                    console.log(`Map entry ${title} created! ${++i}/${files.length-1}`);
                 });
             }
 
