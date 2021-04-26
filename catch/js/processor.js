@@ -15,6 +15,7 @@ var currentSong;
 var thumbPath;
 var songLength;
 var musicRange;
+var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
 
 function startDebug() {
     startGame(`./catch/song/debug`, "Debugging");
@@ -22,6 +23,7 @@ function startDebug() {
 
 //loads stuff and then starts
 function startGame(path, title) {
+    startAudio.play();
     $('#catchField').css('transform', `rotateX(0deg) rotateY(0deg) rotateZ(0deg)`)
     document.getElementById('catchField').style.cursor = 'none';
     currentSong = title;
