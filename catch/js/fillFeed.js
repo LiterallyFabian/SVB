@@ -83,5 +83,5 @@ function UpdateFeed(ranks) {
 }
 
 //card hovering audio
-var hoverAudio = new Audio('/catch/hitsounds/hover.ogg')
+var hoverAudio = new Audio('/catch/audio/hover.ogg')
 hoverAudio.volume = 0.2;
