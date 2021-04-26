@@ -54,3 +54,7 @@ function stopPreview() {
         volume: 0
     }, 500);
 }
+
+$(document).on('keyup', function (e) {
+    if (e.key == "Escape") stopPreview();
+});
