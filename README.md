@@ -42,7 +42,7 @@ CREATE TABLE mudae (id MEDIUMTEXT NOT NULL, username VARCHAR(64), avatar VARCHAR
 
     
 
-### svt!catch timeline
+## svt!catch timeline
 
 - **24/12**
   - Added a new page with a playfield and fruits
@@ -118,3 +118,24 @@ CREATE TABLE mudae (id MEDIUMTEXT NOT NULL, username VARCHAR(64), avatar VARCHAR
   - Fixed bug where first beat length did not get set
 - **15/1**
   - Added site-wide dark theme
+### Pitch-update
+- **22/4**
+  - Added ability to save ranks on maps
+  - Add notice if beatmaps can't load
+  - Redesigned UI
+- **23/4**
+  - Updated [catcher](https://i.imgur.com/iwzwSxg.png) 
+  - Added more confetti
+  - Added starting animation
+  - Added fireworks on SS-ranks
+- **24/4**
+  - Updated gallery design
+  - Added pears 
+  - Force-order all beatmaps by title
+- **25/4**
+  - Added option to preview music
+  - Animated gallery cards
+- **26/4**
+  - Add hover SFX
+  - Update default hitsounds
+  - Add starting SFX
