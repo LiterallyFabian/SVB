@@ -11,6 +11,7 @@ var hitsoundsNormal;
 var hitsoundsSoft;
 var hitsoundsDrum;
 hitsounds = [];
+winAudio = false;
 var currentSong;
 var thumbPath;
 var songLength;
@@ -28,8 +29,9 @@ function startGame(path, title) {
     document.getElementById('catchField').style.cursor = 'none';
     currentSong = title;
     gameStarted = true;
+    winAudio = new Audio('/catch/audio/rankpass.mp3');
     stopPreview();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     document.title = `svt!catch | ${title}`
     fetch(`/${path}.osu`)
         .then(response => response.text())
@@ -172,8 +174,15 @@ function processMap() {
         }
     })
     console.log(`${timingLines.length} beatlengths queued.`)
+
     //Finish game 3 seconds after last object.
-    finishGame(parseInt(fruitLines[fruitLines.length - 2].split(',')[2]) + 3000);
+    var mapLength = parseInt(fruitLines[fruitLines.length - 2].split(',')[2]);
+    finishGame(mapLength + 3000);
+
+    //play win audio
+    setTimeout(function () {
+        winAudio.play();
+    }, mapLength + 2000)
 }
 
 //Audio
