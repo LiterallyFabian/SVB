@@ -16,9 +16,9 @@ class bmap {
 
         if (ranks)
             if (ranks[this.title]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.title].toUpperCase()}.png">`;
+
         return `
-        <li>
-        
+        <li class="beatmapCard">
             <figure> 
             <div class="parent">
                 ${rankBadge}
@@ -68,4 +68,20 @@ function UpdateFeed(ranks) {
         $(`.image-list ${ranks == {} ? ".norank" : ""}`).append($(post.generatePost(ranks)));
         document.getElementById('no-map-alert').style.display = "none";
     })
+
+
+    $(function () {
+        $(".beatmapCard").hover(
+            function () {
+                if (hoverAudio.paused) hoverAudio.play();
+                else hoverAudio.currentTime = 0
+            },
+            function () {
+
+            });
+    });
 }
+
+//card hovering audio
+var hoverAudio = new Audio('/catch/hitsounds/hover.ogg')
+hoverAudio.volume = 0.2;
