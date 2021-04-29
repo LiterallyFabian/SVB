@@ -17,6 +17,7 @@ var thumbPath;
 var songLength;
 var musicRange;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
+startAudio.volume = document.getElementById("musicRange").value / 100;
 
 function startDebug() {
     startGame(`./catch/song/debug`, "Debugging");
@@ -30,6 +31,7 @@ function startGame(path, title) {
     currentSong = title;
     gameStarted = true;
     winAudio = new Audio('/catch/audio/rankpass.mp3');
+    winAudio.volume = document.getElementById("musicRange").value / 100;
     stopPreview();
     window.scrollTo(0, 0);
     document.title = `svt!catch | ${title}`
