@@ -17,7 +17,6 @@ var thumbPath;
 var songLength;
 var musicRange;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
-startAudio.volume = document.getElementById("musicRange").value / 100;
 
 function startDebug() {
     startGame(`./catch/song/debug`, "Debugging");
@@ -25,13 +24,14 @@ function startDebug() {
 
 //loads stuff and then starts
 function startGame(path, title) {
+    startAudio.volume = document.getElementById("musicRange").value / 100;
     startAudio.play();
     $('#catchField').css('transform', `rotateX(0deg) rotateY(0deg) rotateZ(0deg)`)
     document.getElementById('catchField').style.cursor = 'none';
     currentSong = title;
     gameStarted = true;
     winAudio = new Audio('/catch/audio/rankpass.mp3');
-    winAudio.volume = document.getElementById("musicRange").value / 100;
+
     stopPreview();
     window.scrollTo(0, 0);
     document.title = `svt!catch | ${title}`
@@ -183,6 +183,7 @@ function processMap() {
 
     //play win audio
     setTimeout(function () {
+        winAudio.volume = document.getElementById("musicRange").value / 100;
         winAudio.play();
     }, mapLength + 2000)
 }
