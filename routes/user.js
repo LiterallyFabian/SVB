@@ -73,6 +73,7 @@ router.post("/updatecatch", (req, res) => {
             ranks[mapid].misses = misses;
             ranks[mapid].catches = catches;
             ranks[mapid].time = Date.now();
+            ranks[mapid].id = mapid;
         }
 
         data.ranks = ranks;
