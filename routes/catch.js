@@ -43,44 +43,56 @@ function addBeatmaps() {
         files.forEach(beatmapPath => {
             //Add to MySQL 
             if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.path.includes(beatmapPath.replace(".osu", "")))) {
+                //array with every line from the beatmap
                 var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
-                var title;
-                var artist;
-                var difficulty;
-                var creator;
+
+                var beatmapData = {
+                    approachrate: 9,
+                    circlesize: 5
+                };
+                var foundTiming = false;
                 var foundObjects = false;
-                var length = 0;
-                var previewTime;
 
                 //Set metadata
                 beatmap.forEach(line => {
                     if (!foundObjects) {
-                        if (line.startsWith("Title:")) title = line.substring(line.indexOf(":") + 1);
-                        else if (line.startsWith("Artist:")) artist = line.substring(line.indexOf(":") + 1);
-                        else if (line.startsWith("Version:")) difficulty = line.substring(line.indexOf(":") + 1);
-                        else if (line.startsWith("Creator:")) creator = line.substring(line.indexOf(":") + 1);
-                        else if (line.startsWith("PreviewTime:")) previewTime = line.substring(line.indexOf(":") + 1);
+                        if (line.startsWith("Title:")) beatmapData.title = line.substring(line.indexOf(":") + 1).trim();
+                        else if (line.startsWith("Artist:")) beatmapData.artist = line.substring(line.indexOf(":") + 1).trim();
+                        else if (line.startsWith("SampleSet:")) beatmapData.sampleset = line.substring(line.indexOf(":") + 1).trim();
+                        else if (line.startsWith("Version:")) {
+                            beatmapData.difficulty = line.substring(line.indexOf(":") + 1).trim();
+                            beatmapData.id = (beatmapData.title + beatmapData.difficulty).hashCode();
+                            if (beatmapData.id < 0) beatmapData.id *= -1;
+                        } else if (line.startsWith("Creator:")) beatmapData.creator = line.substring(line.indexOf(":") + 1).trim();
+                        else if (line.startsWith("PreviewTime:")) beatmapData.previewtime = line.substring(line.indexOf(":") + 1);
+                        else if (line.startsWith("BeatmapID:")) beatmapData.id = line.substring(line.indexOf(":") + 1).trim();
+                        else if (line.startsWith("ApproachRate:")) beatmapData.approachrate = line.substring(line.indexOf(":") + 1);
+                        else if (line.startsWith("CircleSize:")) beatmapData.circlesize = line.substring(line.indexOf(":") + 1);
+
+                        //found objects
                         else if (line.includes("[HitObjects]")) foundObjects = true;
+
+                        //found timing points for BPM
+                        if (foundTiming) {
+                            beatmapData.bpm = 1 / line.split(",")[1] * 1000 * 60;
+                            foundTiming = false;
+                        }
+                        if (line.includes("[TimingPoints]")) foundTiming = true;
+
                     } else {
-                        if (line.split(",").length > 1) length = parseInt(line.split(",")[2] / 1000);
+                        if (line.split(",").length > 1) beatmapData.length = parseInt(line.split(",")[2] / 1000);
                     }
                 })
 
                 //Create thumbnail & preview audio if needed
                 createThumbnail(beatmapPath);
-                createPreview(beatmapPath, previewTime);
+                createPreview(beatmapPath, beatmapData.previewtime);
 
-                var data = {
-                    title: title,
-                    artist: artist,
-                    difficulty: difficulty,
-                    path: beatmapPath.replace(".osu", ""),
-                    length: length,
-                    creator: creator
-                }
-                connection.query(`INSERT INTO beatmaps SET ?`, data, function (err2, result) {
-                    if (err2) throw err2;
-                    console.log(`Map entry ${title} created! ${++i}/${files.length-1}`);
+                beatmapData.path = beatmapPath.replace(".osu", "");
+                console.log(beatmapData);
+                connection.query(`INSERT INTO beatmaps SET ?`, beatmapData, function (err, result) {
+                    if (err) throw err;
+                    console.log(`Map entry ${beatmapData.title} created! ${++i}/${files.length-1}`);
                 });
             }
 
@@ -109,8 +121,6 @@ function createPreview(path, previewTime) {
     var audio = path.replace("osu", "mp3");
     var preview = audio.replace("song/", "song/preview/");
 
-   
-
     fs.access(preview, fs.F_OK, (err) => {
         if (err) {
             MP3Cutter.cut({
@@ -124,6 +134,19 @@ function createPreview(path, previewTime) {
     })
 }
 
+//gets an unique int-hash from a string. just to give all maps a consistent ID even if they don't have one included
+String.prototype.hashCode = function () {
+    var hash = 0;
+    if (this.length == 0) {
+        return hash;
+    }
+    for (var i = 0; i < this.length; i++) {
+        var char = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
 
 module.exports = router;
 module.exports.getMaps = getMaps;

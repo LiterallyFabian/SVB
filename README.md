@@ -11,7 +11,21 @@ CREATE TABLE users (name VARCHAR(128), discriminator SMALLINT NOT NULL, access_t
 
 CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64), date DATETIME, id VARCHAR(32));
 
-CREATE TABLE beatmaps (title VARCHAR(128), artist VARCHAR(128), difficulty VARCHAR(128), path VARCHAR(128), length SMALLINT, creator VARCHAR(128));
+CREATE TABLE beatmaps (
+  title VARCHAR(128), 
+  artist VARCHAR(128), 
+  difficulty VARCHAR(128), 
+  path VARCHAR(128) NOT NULL, 
+  length SMALLINT DEFAULT 0, 
+  creator VARCHAR(128), 
+  sampleset VARCHAR(128) DEFAULT 'Soft' NOT NULL, 
+  approachrate SMALLINT DEFAULT 9 NOT NULL,
+  circlesize SMALLINT DEFAULT 4 NOT NULL,
+  bpm FLOAT DEFAULT 90 NOT NULL,
+  previewtime INT DEFAULT 0 NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(id)
+  );
 
 CREATE TABLE mudae (id MEDIUMTEXT NOT NULL, username VARCHAR(64), avatar VARCHAR(128), hasClaim BOOLEAN, reactPower TINYINT, reactCost TINYINT, lastAction DATETIME, primary key (id));
 ```
