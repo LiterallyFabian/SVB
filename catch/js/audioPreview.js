@@ -10,7 +10,6 @@ function playPreview(path, id) {
 
         var x = document.getElementsByClassName('fa-pause');
         for (var i = 0; i < x.length; i++) {
-            console.log(x[i].id)
             setIcon(x[i].id.replace("icon-", ""), false);
         }
 
