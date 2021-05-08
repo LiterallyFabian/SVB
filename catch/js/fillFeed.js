@@ -1,34 +1,27 @@
 //Creates cards for all beatmaps in database and post them to the front page on load.
 class bmap {
-    constructor(id, title, artist, difficulty, path, length, creator) {
-        this.id = id,
-            this.title = title.trim().toString(),
-            this.artist = artist,
-            this.difficulty = difficulty,
-            this.path = path,
-            this.length = length,
-            this.creator = creator
+    constructor(beatmap) {
+        this.beatmap = beatmap;
     }
 
     generatePost(ranks) {
         var rankBadge = "";
-        var previewID = parseInt(randomInRange(1000000, 9999999));
 
         if (ranks)
-            if (ranks[this.title]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.title].toUpperCase()}.png">`;
+            if (ranks[this.beatmap.title]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.beatmap.title].toUpperCase()}.png">`;
 
         return `
-        <li class="beatmapCard" id="card-${previewID}">
+        <li class="beatmapCard" id="card-${this.beatmap.id}">
             <figure> 
             <div class="parent">
                 ${rankBadge}
-                <a onClick="playPreview('${this.path}', '${previewID}')"> <i id="icon-${previewID}" title="Preview song" class="fas fa-play playButton"></i></a>
-                <a onclick='startGame("${this.path}", "${this.title.trim().replace("'", "´")}")' class="inner">
-                <img class="thumbnail" src="/${this.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
+                <a onClick="playPreview('${this.beatmap.path}', '${this.beatmap.id}')"> <i id="icon-${this.beatmap.id}" title="Preview song" class="fas fa-play playButton"></i></a>
+                <a onclick='startID(${this.beatmap.id})' class="inner">
+                <img class="thumbnail" src="/${this.beatmap.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
                 </div>
                 <figcaption>
-                    <p>${this.title}</p>
-                    <p>${this.difficulty} (${secondsToDisplay(this.length)})<br><br><i>${this.artist}</i></p>
+                    <p>${this.beatmap.title}</p>
+                    <p>${this.beatmap.difficulty} (${secondsToDisplay(this.beatmap.length)})<br><br><i>${this.beatmap.artist}</i></p>
                 </figcaption>
             </figure>
         </a>
@@ -39,9 +32,11 @@ class bmap {
 
 //gets a list of all articles in database on page load
 var bmaps = [];
+beatmapDatabase = {};
 $.post("/catch/getmaps", function (data) {
-    $.each(data, function (i, post) {
-        bmaps.push(new bmap(post.id, post.title, post.artist, post.difficulty, post.path, post.length, post.creator));
+    $.each(data, function (i, map) {
+        beatmapDatabase[map.id.toString()] = map;
+        bmaps.push(new bmap(map));
     })
 });
 

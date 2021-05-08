@@ -22,6 +22,12 @@ function startDebug() {
     startGame(`./catch/song/debug`, "Debugging");
 }
 
+//start beatmap from ID
+function startID(beatmapID) {
+    var map = beatmapDatabase[beatmapID.toString()];
+    startGame(map.path, map.title)
+}
+
 //loads stuff and then starts
 function startGame(path, title) {
     startAudio.volume = document.getElementById("musicRange").value / 100;
