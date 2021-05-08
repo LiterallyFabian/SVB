@@ -12,17 +12,17 @@ class bmap {
 
     generatePost(ranks) {
         var rankBadge = "";
-        var songID = `preview-${this.title.replace(" ", "-").replace("'", "´")}`
+        var previewID = parseInt(randomInRange(1000000, 9999999));
 
         if (ranks)
             if (ranks[this.title]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.title].toUpperCase()}.png">`;
 
         return `
-        <li class="beatmapCard">
+        <li class="beatmapCard" id="card-${previewID}">
             <figure> 
             <div class="parent">
                 ${rankBadge}
-                <a onClick="playPreview('${this.path}', '${songID}')"> <i id="${songID}" title="Preview song" class="fas fa-play playButton"></i></a>
+                <a onClick="playPreview('${this.path}', '${previewID}')"> <i id="icon-${previewID}" title="Preview song" class="fas fa-play playButton"></i></a>
                 <a onclick='startGame("${this.path}", "${this.title.trim().replace("'", "´")}")' class="inner">
                 <img class="thumbnail" src="/${this.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
                 </div>

@@ -2,13 +2,16 @@ var previewAudio;
 var playHash = 0;
 
 function playPreview(path, id) {
+    var iconID = `icon-${id}`;
+    var cardID = `card-${id}`;
 
     //play audio
-    if (document.getElementById(id).classList.contains('fa-play')) {
+    if (document.getElementById(iconID).classList.contains('fa-play')) {
 
         var x = document.getElementsByClassName('fa-pause');
         for (var i = 0; i < x.length; i++) {
-            setIcon(x[i], false);
+            console.log(x[i].id)
+            setIcon(x[i].id.replace("icon-", ""), false);
         }
 
         if (previewAudio) {
@@ -21,13 +24,16 @@ function playPreview(path, id) {
             volume: document.getElementById("musicRange").value / 100
         }, 500);
         previewAudio.play();
-        setIcon(document.getElementById(id), true);
+        setIcon(id, true);
 
         playHash = randomInRange(0, 10000);
         var tempHash = playHash;
 
         setTimeout(function () {
-            if (tempHash == playHash) stopPreview();
+            if (tempHash == playHash) {
+                stopPreview();
+                setIcon(id, false);
+            }
         }, 9400);
 
 
@@ -35,17 +41,24 @@ function playPreview(path, id) {
     //stop audio
     else {
         stopPreview()
-        setIcon(document.getElementById(id), false);
+        setIcon(id, false);
     }
 }
 
-function setIcon(element, pause) {
+function setIcon(id, pause) {
+    var iconElement = document.getElementById(`icon-${id}`);
+    var cardElement = document.getElementById(`card-${id}`);
+
     if (pause) {
-        element.classList.remove('fa-play');
-        element.classList.add('fa-pause');
+        iconElement.classList.remove('fa-play');
+        iconElement.classList.add('fa-pause');
+        cardElement.classList.add('song-active');
+        cardElement.classList.remove('song-deactive');
     } else {
-        element.classList.remove('fa-pause');
-        element.classList.add('fa-play');
+        iconElement.classList.remove('fa-pause');
+        iconElement.classList.add('fa-play');
+        cardElement.classList.remove('song-active');
+        cardElement.classList.add('song-deactive');
     }
 }
 

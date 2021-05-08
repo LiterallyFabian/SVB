@@ -37,7 +37,7 @@ a {
 }
 
 .gallery_container {
-    width:90%;
+    width: 90%;
     max-width: 1230px;
     margin: 0 auto;
 }
@@ -68,9 +68,19 @@ a {
 
     }
 
-    li:hover {
+    li:hover,
+    .song-active {
         -webkit-transform: scale(1.1, 1.1);
         transform: scale(1.1, 1.1);
+    }
+
+    .song-active {
+        animation-duration: 8s;
+        animation: pulse 0.5s infinite;
+    }
+
+    .song-deactive {
+        animation: downscale 0.5s;
     }
 
     li:hover::after {
@@ -78,6 +88,31 @@ a {
     }
 }
 
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0px rgba(214, 21, 111, 0.5);
+        -webkit-transform: scale(1.1, 1.1);
+        transform: scale(1.1, 1.1);
+    }
+
+    100% {
+        box-shadow: 0 0 0 20px rgba(214, 21, 111, 0);
+        -webkit-transform: scale(1.12, 1.12);
+        transform: scale(1.12, 1.12);
+    }
+}
+
+@keyframes downscale {
+    0% {
+        -webkit-transform: scale(1.1, 1.1);
+        transform: scale(1.1, 1.1);
+    }
+
+    100% {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+}
 
 .image-list .articletitle {
     font-weight: bold;
@@ -120,4 +155,30 @@ figure {
 
 p {
     margin: 0;
+}
+
+.parent {
+    border: 0;
+    position: relative;
+}
+
+.rankOverlay {
+    border: 0;
+    position: absolute;
+    top: 0;
+    width: 20%;
+    right: 0;
+    padding-right: 1%;
+    filter: drop-shadow(0 0 0.4rem #000000);
+}
+
+.playButton {
+    color: #d9d9d9;
+    border: 0;
+    position: absolute;
+    top: 0;
+    width: 30%;
+    left: 0;
+    padding: 4%;
+    filter: drop-shadow(0 0 0.3rem #000000);
 }
