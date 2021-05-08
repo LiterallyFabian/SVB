@@ -4,17 +4,12 @@ class bmap {
         this.beatmap = beatmap;
     }
 
-    generatePost(ranks) {
-        var rankBadge = "";
-
-        if (ranks)
-            if (ranks[this.beatmap.title]) rankBadge = `<img class="rankOverlay" src="/img/ranking-${ranks[this.beatmap.title].toUpperCase()}.png">`;
-
+    generatePost() {
         return `
         <li class="beatmapCard" id="card-${this.beatmap.id}">
             <figure> 
             <div class="parent">
-                ${rankBadge}
+            <img class="rankOverlay" id="rank-${this.beatmap.id}">
                 <a onClick="playPreview('${this.beatmap.path}', '${this.beatmap.id}')"> <i id="icon-${this.beatmap.id}" title="Preview song" class="fas fa-play playButton"></i></a>
                 <a onclick='startID(${this.beatmap.id})' class="inner">
                 <img class="thumbnail" src="/${this.beatmap.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
@@ -38,32 +33,28 @@ $.post("/catch/getmaps", function (data) {
         beatmapDatabase[map.id.toString()] = map;
         bmaps.push(new bmap(map));
     })
+    UpdateFeed();
 });
 
-
+catchScores = {}
 if (getCookie("auth").length > 0) {
     $.post("/auth/getuser", {
         auth: JSON.stringify(getAuth())
     }, function (response) {
-        if (!response) {
-            UpdateFeed({})
-            return;
+        if (response) {
+             catchScores = JSON.parse(response[0].catchScores).ranks;
+            $.each(catchScores, function (i, score) {
+                if (score.id) $(`#rank-${score.id}`).attr("src", `/img/ranking-${score.rank.toUpperCase()}.png`);
+            })
         }
-        catchScores = JSON.parse(response[0].catchScores);
-
-        UpdateFeed(catchScores.ranks ? catchScores.ranks : {});
     });
-} else {
-    UpdateFeed({});
 }
 
-function UpdateFeed(ranks) {
-    document.querySelectorAll('.image-list .norank').forEach(e => e.remove())
+function UpdateFeed() {
     $.each(bmaps, function (i, post) {
-        $(`.image-list ${ranks == {} ? ".norank" : ""}`).append($(post.generatePost(ranks)));
-        document.getElementById('no-map-alert').style.display = "none";
+        $(`.image-list`).append($(post.generatePost()));
+        if (bmaps.length > 0) document.getElementById('no-map-alert').style.display = "none";
     })
-
 
     $(function () {
         $(".beatmapCard").hover(
