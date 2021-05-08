@@ -74,11 +74,6 @@ a {
         transform: scale(1.1, 1.1);
     }
 
-    .song-active {
-        animation-duration: 8s;
-        animation: pulse 0.5s infinite;
-    }
-
     .song-deactive {
         animation: downscale 0.5s;
     }

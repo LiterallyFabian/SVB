@@ -53,11 +53,13 @@ function setIcon(id, pause) {
         iconElement.classList.remove('fa-play');
         iconElement.classList.add('fa-pause');
         cardElement.classList.add('song-active');
+        cardElement.style.animation = `pulse ${60/beatmapDatabase[id.toString()].bpm}s infinite`;
         cardElement.classList.remove('song-deactive');
     } else {
         iconElement.classList.remove('fa-pause');
         iconElement.classList.add('fa-play');
         cardElement.classList.remove('song-active');
+        cardElement.style.removeProperty("animation");
         cardElement.classList.add('song-deactive');
     }
 }
