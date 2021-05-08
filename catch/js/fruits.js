@@ -52,7 +52,8 @@ function fruit(x, id, size, hitsound) {
             }
             if (this.size == 0) {
                 combo++;
-                if(combo>highestCombo) highestCombo = combo;
+                catchedFruits++;
+                if (combo > highestCombo) highestCombo = combo;
 
             }
             if (this.size == 2) {
@@ -88,17 +89,20 @@ function fruit(x, id, size, hitsound) {
                 smoothAcc(this.score, true);
                 lastMiss = true;
             }
-            if (this.size == 0) combo = 0;
+            if (this.size == 0) {
+                combo = 0;
+                missedFruits++;
+            }
         }
 
     }
 }
 
 function smoothAcc(addedscore, isMiss) {
-    var i = 0; //  set your counter to 1
+    var i = 0;
 
-    function Loop() { //  create a loop function
-        setTimeout(function () { //  call a 3s setTimeout when the loop is called
+    function Loop() {
+        setTimeout(function () {
             if (isMiss) misses += addedscore / 25;
             else catches += addedscore / 25;
             i++;
@@ -112,10 +116,10 @@ function smoothAcc(addedscore, isMiss) {
 }
 
 function addScore(addedscore) {
-    var i = 0; //  set your counter to 1
+    var i = 0;
 
-    function Loop() { //  create a loop function
-        setTimeout(function () { //  call a 3s setTimeout when the loop is called
+    function Loop() {
+        setTimeout(function () {
             score += addedscore / 25;
             i++;
             if (i < 25) {

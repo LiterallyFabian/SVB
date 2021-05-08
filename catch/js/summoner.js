@@ -75,17 +75,17 @@ function finishGame(delay) {
             id = data.id;
         } else return;
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/auth/updatecatch", true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
+        axios.post('/user/updatecatch',{
             rank: rank,
             bananasCatched: stats_bananasCatched,
             bananasSeen: stats_bananasSeen,
-            id: id,
-            score: score,
+            misses: missedFruits,
+            catches: catchedFruits,
+            score: parseInt(score),
             highestCombo: highestCombo,
-            title: currentSong
-        }));
+            userid: id,
+            title: currentSong,
+            mapid: beatmapData.id
+        })
     }, delay);
 }

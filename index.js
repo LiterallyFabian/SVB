@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const fetch = require('node-fetch');
+var route_user = require('./routes/user.js');
 var route_post = require('./routes/post.js');
 var route_catch = require('./routes/catch.js');
 var route_auth = require('./routes/auth.js');
@@ -41,6 +42,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 
+app.use('/user', route_user);
 app.use('/post', route_post);
 app.use('/catch', route_catch);
 app.use('/auth', route_auth);

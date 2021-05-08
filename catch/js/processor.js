@@ -3,6 +3,7 @@
     Also controls the audio.
 */
 var beatmap;
+beatmapData = [];
 var fruitLines = [];
 var timingLines = [];
 volume = 50;
@@ -25,6 +26,7 @@ function startDebug() {
 //start beatmap from ID
 function startID(beatmapID) {
     var map = beatmapDatabase[beatmapID.toString()];
+    beatmapData = map;
     startGame(map.path, map.title)
 }
 
@@ -242,4 +244,6 @@ function resetGame() {
     combo = 0;
     highestCombo = 0;
     bananaShower = false;
+    missedFruits = 0;
+    catchedFruits = 0;
 }

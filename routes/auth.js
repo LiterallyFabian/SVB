@@ -191,67 +191,6 @@ router.post("/updateuser", (req, res) => {
     })
 })
 
-//adds bananas and rank to user profile after game
-router.post("/updatecatch", (req, res) => {
-    var rank = req.body.rank;
-    var bananasCatched = req.body.bananasCatched;
-    var bananasSeen = req.body.bananasSeen;
-    var id = req.body.id;
-    var score = req.body.score;
-    var highestCombo = req.body.highestCombo;
-    var title = req.body.title;
-
-    if (!id) return false;
-    connection.query(`SELECT * FROM users WHERE id = '${id}'`, function (err2, result) {
-        var data = JSON.parse(result[0].catchScores);
-        data.bananasSeen += bananasSeen;
-        data.bananasCatched += bananasCatched;
-        if (data.score == null) data.score = 0;
-        data.score += score;
-        if (data.highestCombo == null) data.highestCombo = 0;
-        if (highestCombo > data.highestCombo) data.highestCombo = highestCombo;
-
-
-        var ranks = data.ranks ? data.ranks : {};
-
-        //add a rank count
-        switch (rank) {
-            case 'ss':
-                data.ss++;
-                break;
-            case 's':
-                data.s++;
-                break;
-            case 'a':
-                data.a++;
-                break;
-            case 'b':
-                data.b++;
-                break;
-            case 'c':
-                data.c++;
-                break;
-            case 'd':
-                data.d++;
-                break;
-        }
-        //add rank badge
-        var found = false;
-        ['ss', 's', 'a', 'b', 'c', 'd'].forEach(r => {
-            if (r == ranks[title]) found = true;
-            if (r == rank && !found) {
-                ranks[title] = rank;
-                found = true;
-            }
-        })
-        data.ranks = ranks;
-        connection.query(`UPDATE users SET catchScores = '${JSON.stringify(data)}' WHERE id = '${id}'`, function (err2, result) {
-            if (err2) throw err2;
-            console.log(`Added rank ${rank} to user ${id}`)
-        });
-    });
-});
-
 function signUpOrInUser(data, user, res, fromSajberRoyale) {
     //console.log(data);
     //console.log(user);

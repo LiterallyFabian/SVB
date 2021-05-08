@@ -23,7 +23,9 @@ $(document).ready(function () {
     var scoreText;
     score = 0; //total score catched, affected by combo
     misses = 0; //missed score (not affected by combo, to get acc)
-    catches = 0; //catched score (not affected by combo, to get ac)
+    catches = 0; //catched score (not affected by combo, to get acc)
+    missedFruits = 0;
+    catchedFruits = 0;
     kiai = false; //whether kiai mode is active or not (makes catcher happy)
     combo = 0; //current user combo
     highestCombo = 0;
