@@ -58,11 +58,12 @@ function toggleKiai(kiaiOn, delay) {
 function finishGame(delay) {
     setTimeout(function () {
         var rank;
+        var acc = missedFruits == 0 ? 100 : catchedFruits / (catchedFruits + missedFruits) * 100;
         if (misses == 0) rank = 'ss';
-        else if (catches / (catches + misses) * 100 > 98) rank = 's';
-        else if (catches / (catches + misses) * 100 > 94) rank = 'a';
-        else if (catches / (catches + misses) * 100 > 90) rank = 'b';
-        else if (catches / (catches + misses) * 100 > 85) rank = 'c';
+        else if (acc > 98) rank = 's';
+        else if (acc > 94) rank = 'a';
+        else if (acc > 90) rank = 'b';
+        else if (acc > 85) rank = 'c';
         else rank = 'd'
         gameStarted = false;
         confetti.stop();
@@ -75,12 +76,14 @@ function finishGame(delay) {
             id = data.id;
         } else return;
 
-        axios.post('/user/updatecatch',{
+        axios.post('/user/updatecatch', {
             rank: rank,
             bananasCatched: stats_bananasCatched,
             bananasSeen: stats_bananasSeen,
-            misses: missedFruits,
-            catches: catchedFruits,
+            missedFruits: missedFruits,
+            catchedFruits: catchedFruits,
+            missedScore: missedScore,
+            catchedScore: catchedScore,
             score: parseInt(score),
             highestCombo: highestCombo,
             userid: id,

@@ -8,8 +8,10 @@ router.post("/updatecatch", (req, res) => {
     var rank = req.body.rank;
     var bananasCatched = req.body.bananasCatched;
     var bananasSeen = req.body.bananasSeen;
-    var misses = req.body.misses;
-    var catches = req.body.catches;
+    var missedFruits = req.body.missedFruits;
+    var catchedFruits = req.body.catchedFruits;
+    var missedScore = req.body.missedScore;
+    var catchedScore = req.body.catchedScore;
     var score = req.body.score;
     var highestCombo = req.body.highestCombo;
     var title = req.body.title;
@@ -70,8 +72,9 @@ router.post("/updatecatch", (req, res) => {
             ranks[mapid].combo = highestCombo;
             ranks[mapid].bananasCatched = bananasCatched;
             ranks[mapid].bananasSeen = bananasSeen;
-            ranks[mapid].misses = misses;
-            ranks[mapid].catches = catches;
+            ranks[mapid].misses = missedFruits;
+            ranks[mapid].catches = catchedFruits;
+            ranks[mapid].accuracy = missedScore = 0 ? 100 : catchedScore / (catchedScore + missedScore) * 100;
             ranks[mapid].time = Date.now();
             ranks[mapid].id = mapid;
         }
