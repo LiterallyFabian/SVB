@@ -138,7 +138,7 @@ function processMap() {
                 var droplets = dropletsPerRepeat * repeats; //amount of droplets slider contains
                 var diff = (pos - sliderEndPos) / droplets; //difference in x each droplet should have
                 var currentDrop = 0;
-
+                
                 for (var i = 0; i < droplets; i++) {
                     var dropPos = pos - (diff * i);
                     var dropDelay = (i) * dropletTiming + 20;
@@ -150,7 +150,7 @@ function processMap() {
                 }
                 //Summons slider-end fruit
                 //console.log(`bl: ${beatLength} slm: ${sliderMultiplier} tot: ${beatLength / 100 / sliderMultiplier * 17} math: ${beatLength}/100*${sliderMultiplier}*17`)
-                summonFruit((droplets + 1) * dropletTiming, pos - (diff * droplets), 0, hitsound)
+                summonFruit((droplets + 1) * dropletTiming, sliderEndPos, 0, hitsound)
 
             } else if (line[3] != "12") {
                 //Summons a large fruit
