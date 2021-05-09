@@ -59,7 +59,7 @@ function finishGame(delay) {
     setTimeout(function () {
         var rank;
         var acc = missedFruits == 0 ? 100 : catchedFruits / (catchedFruits + missedFruits) * 100;
-        if (misses == 0) rank = 'ss';
+        if (missedFruits == 0) rank = 'ss';
         else if (acc > 98) rank = 's';
         else if (acc > 94) rank = 'a';
         else if (acc > 90) rank = 'b';
