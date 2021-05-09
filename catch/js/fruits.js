@@ -103,8 +103,8 @@ function smoothAcc(addedscore, isMiss) {
 
     function Loop() {
         setTimeout(function () {
-            if (isMiss) misses += addedscore / 25;
-            else catches += addedscore / 25;
+            if (isMiss) missedScore += addedscore / 25;
+            else catchedScore += addedscore / 25;
             i++;
             if (i < 25) {
                 Loop();

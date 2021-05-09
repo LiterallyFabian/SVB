@@ -22,8 +22,8 @@ $(document).ready(function () {
     fruits = []; //containing all fruits on playfield
     var scoreText;
     score = 0; //total score catched, affected by combo
-    misses = 0; //missed score (not affected by combo, to get acc)
-    catches = 0; //catched score (not affected by combo, to get acc)
+    missedScore = 0; //missed score (not affected by combo, to get acc)
+    catchedScore = 0; //catched score (not affected by combo, to get acc)
     missedFruits = 0;
     catchedFruits = 0;
     kiai = false; //whether kiai mode is active or not (makes catcher happy)
@@ -128,7 +128,7 @@ $(document).ready(function () {
         context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
 
         //update scores
-        accText.text = `${misses == 0 ? "100%" : `${(catches/(catches+misses)*100).toFixed(2)}%`}`;
+        accText.text = `${missedScore == 0 ? "100%" : `${(catchedScore/(catchedScore+missedScore)*100).toFixed(2)}%`}`;
         scoreText.text = pad(Math.round(score), 7);
         comboText.text = `x${cleanNumber(combo)}`;
 
