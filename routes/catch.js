@@ -37,7 +37,6 @@ function getMaps() {
 }
 
 function addBeatmaps() {
-
     glob("catch/song/*.osu", {}, function (er, files) {
         var i = 0;
         files.forEach(beatmapPath => {
@@ -52,6 +51,7 @@ function addBeatmaps() {
                 };
                 var foundTiming = false;
                 var foundObjects = false;
+                var hitobjects = [];
 
                 //Set metadata
                 beatmap.forEach(line => {
@@ -80,13 +80,17 @@ function addBeatmaps() {
                         if (line.includes("[TimingPoints]")) foundTiming = true;
 
                     } else {
-                        if (line.split(",").length > 1) beatmapData.length = parseInt(line.split(",")[2] / 1000);
+                        if (line.split(",").length > 1) {
+                            beatmapData.length = parseInt(line.split(",")[2] / 1000);
+                            hitobjects.push(line);
+                        }
                     }
                 })
 
                 //Create thumbnail & preview audio if needed
                 createThumbnail(beatmapPath);
                 createPreview(beatmapPath, beatmapData.previewtime);
+                beatmapData.stars = calculateDifficulty(hitobjects);
 
                 beatmapData.path = beatmapPath.replace(".osu", "");
                 console.log(beatmapData);
@@ -132,6 +136,30 @@ function createPreview(path, previewTime) {
             console.log(`Trying to cut "${preview}"`)
         }
     })
+}
+
+function calculateDifficulty(hitobjects) {
+    var stars = 0;
+    var lastPos = 320;
+    var lastHit = 0;
+    hitobjects.forEach(line => {
+        var fruit = line.split(',');
+        var thisPos = fruit[0];
+        var thisHit = fruit[2];
+
+        var distance = Math.abs(lastPos - thisPos);
+        var time = thisHit - lastHit;
+
+        //add star rating depending on distance & time
+        //only modify star rating if time < 1s and distance > 10
+        if (time < 1000 && distance > 10) {
+            stars += distance / time;
+        }
+
+        lastPos = thisPos;
+        lastHit = thisHit;
+    })
+    return stars / hitobjects.length * 10;
 }
 
 //gets an unique int-hash from a string. just to give all maps a consistent ID even if they don't have one included
