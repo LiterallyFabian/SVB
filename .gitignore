@@ -2,6 +2,7 @@ node_modules/
 articles/
 catch/song/icon/
 catch/song/preview/
+catch/song/DEBUG_*
 .env
 cmd.txt
 .vs/
