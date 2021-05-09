@@ -38,8 +38,9 @@ axios.all([
             auth: getCookie("auth").length > 0 ? JSON.stringify(getAuth()) : -1
         })
     ])
-    .then(axios.spread((maps, ranks) => {
-        catchScores = JSON.parse(ranks.data[0].catchScores).ranks;
+    .then(axios.spread((maps, user) => {
+        if(user.data) catchScores = JSON.parse(user.data[0].catchScores).ranks;
+        
         $.each(maps.data, function (i, map) {
             beatmapDatabase[map.id.toString()] = map;
             $(`.image-list`).append($(new bmap(map).generatePost()));
