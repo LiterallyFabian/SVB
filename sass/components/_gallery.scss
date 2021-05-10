@@ -151,12 +151,15 @@ p {
 
 
 
-.beatmapCard{
+.beatmapCard {
+    max-width: 300px;
     .parent {
         border: 0;
         position: relative;
     }
-    font-family: "Poppins", "Segoe UI";
+
+    font-family: "Poppins",
+    "Segoe UI";
 }
 
 .rankOverlay {
@@ -182,8 +185,9 @@ p {
 
 .starContainer {
     bottom: 0;
-    .star{
-        bottom:0;
+
+    .star {
+        bottom: 0;
         font-size: 15px;
         color: #d9d9d9;
         filter: drop-shadow(0 0 0.2rem #000000);

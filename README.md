@@ -25,6 +25,7 @@ CREATE TABLE beatmaps (
   previewtime INT DEFAULT 0 NOT NULL,
   id INT NOT NULL AUTO_INCREMENT,
   stars FLOAT NOT NULL DEFAULT 0,
+  tags TEXT,
   PRIMARY KEY(id)
   );
 

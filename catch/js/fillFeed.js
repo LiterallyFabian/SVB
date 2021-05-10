@@ -36,6 +36,7 @@ class bmap {
 
 
 beatmapDatabase = {};
+allBeatmaps = [];
 catchScores = {};
 
 axios.all([
@@ -47,9 +48,11 @@ axios.all([
     .then(axios.spread((maps, user) => {
         if (user.data) catchScores = JSON.parse(user.data[0].catchScores).ranks;
         $.each(maps.data, function (i, map) {
-
             beatmapDatabase[map.id.toString()] = map;
             $(`.image-list`).append($(new bmap(map).generatePost()));
+
+            map.tags += ` ${map.title} ${map.creator} ${map.difficulty} ${map.artist}`;
+            allBeatmaps.push(map);
         })
         document.getElementById('no-map-alert').style.display = "none";
         $(function () {
@@ -67,3 +70,48 @@ axios.all([
 //card hovering audio
 var hoverAudio = new Audio('/catch/audio/hover.ogg')
 hoverAudio.volume = 0.2;
+
+
+$(document).ready(function () {
+    var typingTimer;
+    var doneTypingInterval = 200;
+    var input = $('#search');
+    input.on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(Search, doneTypingInterval);
+    });
+
+    input.on('keydown', function () {
+        clearTimeout(typingTimer);
+    });
+});
+
+
+function Search() {
+    var search = $("#search").val().toLowerCase();
+    var searches = search.split(" ").filter(String);
+    var regex = GenerateRegExp(searches);
+    var matches = allBeatmaps.filter((i) => {
+        const r = new RegExp(regex, 'gi');
+        return r.test(i.tags);
+    });
+    var includedIDs = [];
+    matches.forEach(m => includedIDs.push(m.id))
+    $(".beatmapCard").each(function () {
+        var thisID = $(this)[0].id.replace("card-", "");
+        if (includedIDs.includes(parseInt(thisID))) $(this).removeClass("hide")
+        else $(this).addClass("hide")
+    })
+}
+
+function GenerateRegExp(arr) {
+    var s = ".*";
+    arr.forEach(function (e) {
+        s += "(?=.*" + EscapeRegExp(e) + ")";
+    });
+    return s += ".*";
+}
+
+function EscapeRegExp(str) {
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}

@@ -16,6 +16,7 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "icon-hover": rgba(0, 0, 0, 0.5),
         "shadow-reverse": rgba(0, 0, 0, 0.5),
         "shadow-invisible": rgba(0, 0, 0, 0),
+        "blue": #144B5B,
         "brand-color": #e02e3d),
 
     theme_dark: ("logo": url('/img/logo_light.svg'),
@@ -34,6 +35,7 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "icon-hover": rgba(153, 153, 153, 0.5),
         "shadow-reverse": rgba(255, 255, 255, 0.5),
         "shadow-invisible": rgba(255, 255, 255, 0),
+        "blue": #41A6C3,
         "brand-color": #ed2553));
 
 @mixin theme() {

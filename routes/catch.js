@@ -65,6 +65,7 @@ function addBeatmaps() {
                             if (beatmapData.id < 0) beatmapData.id *= -1;
                         } else if (line.startsWith("Creator:")) beatmapData.creator = line.substring(line.indexOf(":") + 1).trim();
                         else if (line.startsWith("PreviewTime:")) beatmapData.previewtime = line.substring(line.indexOf(":") + 1);
+                        else if (line.startsWith("Tags:")) beatmapData.tags = line.substring(line.indexOf(":") + 1).replace("\r", "");
                         else if (line.startsWith("BeatmapID:")) beatmapData.id = line.substring(line.indexOf(":") + 1).trim();
                         else if (line.startsWith("ApproachRate:")) beatmapData.approachrate = line.substring(line.indexOf(":") + 1);
                         else if (line.startsWith("CircleSize:")) beatmapData.circlesize = line.substring(line.indexOf(":") + 1);

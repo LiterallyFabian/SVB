@@ -1,14 +1,31 @@
-.gamesettings{
-    left:50%;
-    display:inline-block;
-    left: 50%;
+.gamesettings {
+    width: 80%;
+    margin: auto;
+
     @include theme() {
         color: theme-get('text');
-      }
+    }
+
+    .searchBar {
+        font-size: 25px;
+        width: 100%;
+        padding: 1%;
+        margin: 3% 0;
+    }
+
+    .searchBar:focus {
+        @include theme() {
+            box-shadow: 0 0 30px theme-get('blue');
+        }
+    }
+
+
+
+    p {
+        display: inline-block;
+    }
 }
-.gamesettings p{
-    display:inline-block;
-}
+
 
 canvas {
     display: block;
@@ -16,9 +33,10 @@ canvas {
     max-width: 100%;
 }
 
-#catchbody{
+#catchbody {
     cursor: url('/catch/img/cursor-normal.png'), default;
-a{
-    cursor: url('/catch/img/cursor-hover.png'), pointer;
-}
+
+    a {
+        cursor: url('/catch/img/cursor-hover.png'), pointer;
+    }
 }
