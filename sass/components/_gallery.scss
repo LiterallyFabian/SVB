@@ -12,7 +12,7 @@ button {
     border-radius: 15px;
     display: block;
     width: 100%;
-    height: 180px;
+    height: 190px;
     object-fit: cover;
 }
 
@@ -119,11 +119,10 @@ a {
     display: grid;
     grid-gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    padding-left: 0;
 }
 
 .grid-view figcaption {
-    padding: 1rem 0.5rem;
+    padding: 0.8rem;
 }
 
 
@@ -149,9 +148,14 @@ p {
     margin: 0;
 }
 
-.parent {
-    border: 0;
-    position: relative;
+
+
+.beatmapCard{
+    .parent {
+        border: 0;
+        position: relative;
+    }
+    font-family: "Poppins", "Segoe UI";
 }
 
 .rankOverlay {
@@ -177,11 +181,8 @@ p {
 
 .starContainer {
     bottom: 0;
-    padding: 4%;
-    width: 100%;
-    position: absolute;
     .star{
-        float:left;
+        bottom:0;
         font-size: 15px;
         color: #d9d9d9;
         filter: drop-shadow(0 0 0.2rem #000000);

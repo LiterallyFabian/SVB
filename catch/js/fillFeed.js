@@ -18,16 +18,15 @@ class bmap {
             <figure> 
             <div class="parent">
                 ${rankOverlay}
-                <div class="starContainer startooltip">${stars}
-                    <span class="startooltiptext">${this.beatmap.stars.toFixed(2)}</span>
-                </div>
                 <a onClick="playPreview('${this.beatmap.path}', '${this.beatmap.id}')"> <i id="icon-${this.beatmap.id}" title="Preview song" class="fas fa-play playButton"></i></a>
                 <a onclick='startID(${this.beatmap.id})' class="inner">
                 <img class="thumbnail" src="/${this.beatmap.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
                 </div>
                 <figcaption>
-                    <p>${this.beatmap.title}</p>
-                    <p>${this.beatmap.difficulty} (${secondsToDisplay(this.beatmap.length)})<br><br><i>${this.beatmap.artist}</i></p>
+                    <p style="padding-bottom:2px"><b>${this.beatmap.title.replace(/((\(|\[).+(\)|\])$|feat.+)+/ig, '')}</b></p>
+                    <p>${this.beatmap.difficulty} (${secondsToDisplay(this.beatmap.length)})</p>
+                    <br>
+                    <div class="starContainer">${this.beatmap.stars.toFixed(2)} ${stars}</div>
                 </figcaption>
             </figure>
         </a>
@@ -37,7 +36,7 @@ class bmap {
 
 
 beatmapDatabase = {};
-catchScores = {}
+catchScores = {};
 
 axios.all([
         axios.post("/catch/getmaps"),
@@ -47,8 +46,8 @@ axios.all([
     ])
     .then(axios.spread((maps, user) => {
         if (user.data) catchScores = JSON.parse(user.data[0].catchScores).ranks;
-
         $.each(maps.data, function (i, map) {
+
             beatmapDatabase[map.id.toString()] = map;
             $(`.image-list`).append($(new bmap(map).generatePost()));
         })
