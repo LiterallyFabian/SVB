@@ -32,17 +32,16 @@
     <div id="page" class="profile">
         <div id="banner" class="hero-image">
             <div class="banneritems">
-                <div class="hero-text">
-                    <img class="avatar" :src="avatar" alt="profile picture"></img>
-                    <h1>{{ username }}</h1>
-                    <div id="badges">
+                <img class="avatar" :src="avatar" alt="profile picture"></img>
+                <h1>{{ username }}</h1>
 
-                    </div>
-                    <div v-if="id == myID" style="padding:2%;">
-                        <a v-bind:href="editref"><i class="editprofile far fa-edit fa-sm">
-                            </i></a></div>
-                    <p class="bio">{{ bio }}</p>
-                </div>
+                <div id="badges"> </div>
+
+                <div v-if="id == myID">
+                    <a v-bind:href="editref"><i class="editprofile far fa-edit fa-sm">
+                        </i></a></div>
+
+                <p class="bio">{{ bio }}</p>
             </div>
         </div>
         <!-- Game scores -->
@@ -55,27 +54,27 @@
                         <h2>Ranks achieved</h2>
                         <li>
                             <img src="/img/ranking-SS.png" alt="SS Icon" />
-                            <h3>{{ catch_ranks_SS }}</h3>
+                            <p>{{ catch_ranks_SS }}</p>
                         </li>
                         <li>
                             <img src="/img/ranking-S.png" alt="S Icon" />
-                            <h3>{{ catch_ranks_S }}</h3>
+                            <p>{{ catch_ranks_S }}</p>
                         </li>
                         <li>
                             <img src="/img/ranking-A.png" alt="A Icon" />
-                            <h3>{{ catch_ranks_A }}</h3>
+                            <p>{{ catch_ranks_A }}</p>
                         </li>
                         <li>
                             <img src="/img/ranking-B.png" alt="B Icon" />
-                            <h3>{{ catch_ranks_B }}</h3>
+                            <p>{{ catch_ranks_B }}</p>
                         </li>
                         <li>
                             <img src="/img/ranking-C.png" alt="C Icon" />
-                            <h3>{{ catch_ranks_C }}</h3>
+                            <p>{{ catch_ranks_C }}</p>
                         </li>
                         <li>
                             <img src="/img/ranking-D.png" alt="D Icon" />
-                            <h3>{{ catch_ranks_D }}</h3>
+                            <p>{{ catch_ranks_D }}</p>
                         </li>
                     </ul>
                     <h2 style="padding-top: 30px;">Overall stats</h2>
