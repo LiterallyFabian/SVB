@@ -153,7 +153,8 @@ function calculateDifficulty(hitobjects) {
         //add star rating depending on distance & time
         //only modify star rating if time < 1s and distance > 10
         if (time < 1000 && distance > 10) {
-            stars += distance / time;
+            if (time > 0)
+                stars += distance / time;
         }
 
         lastPos = thisPos;
