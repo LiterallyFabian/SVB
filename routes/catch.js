@@ -159,7 +159,7 @@ function calculateDifficulty(hitobjects) {
         lastPos = thisPos;
         lastHit = thisHit;
     })
-    return stars / hitobjects.length * 10;
+    return stars / hitobjects.length * 13;
 }
 
 //gets an unique int-hash from a string. just to give all maps a consistent ID even if they don't have one included
