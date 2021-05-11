@@ -1,8 +1,10 @@
 node_modules/
-articles/
-catch/song/icon/
-catch/song/preview/
-catch/song/DEBUG_*
+app/public/articles/
+app/public/catch/song/icon/
+app/public/catch/song/preview/
+app/public/catch/song/DEBUG_*
 .env
 cmd.txt
 .vs/
+.code-workspace
+cmd.txt

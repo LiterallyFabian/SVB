@@ -113,7 +113,7 @@ function createPosts() {
 
             //Save article as html page
 
-            fs.writeFile(`articles/${post.url}.html`, file, function (err) {
+            fs.writeFile(`public/articles/${post.url}.html`, file, function (err) {
                 if (err) return console.log(err);
 
 

@@ -37,11 +37,12 @@ function getMaps() {
 }
 
 function addBeatmaps() {
-    glob("catch/song/*.osu", {}, function (er, files) {
+    glob("public/catch/song/*.osu", {}, function (er, files) {
         var i = 0;
         files.forEach(beatmapPath => {
             //Add to MySQL 
-            if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.path.includes(beatmapPath.replace(".osu", "")))) {
+            var cleanPath = beatmapPath.replace(".osu", "").replace("public/", "");
+            if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.path.includes(cleanPath))) {
                 //array with every line from the beatmap
                 var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
 
@@ -93,7 +94,7 @@ function addBeatmaps() {
                 createPreview(beatmapPath, beatmapData.previewtime);
                 beatmapData.stars = calculateDifficulty(hitobjects);
 
-                beatmapData.path = beatmapPath.replace(".osu", "");
+                beatmapData.path = cleanPath;
                 console.log(beatmapData);
                 connection.query(`INSERT INTO beatmaps SET ?`, beatmapData, function (err, result) {
                     if (err) throw err;
