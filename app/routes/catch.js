@@ -37,11 +37,11 @@ function getMaps() {
 }
 
 function addBeatmaps() {
-    glob("public/catch/song/*.osu", {}, function (er, files) {
+    glob(__dirname + "/../public/catch/song/*.osu", {}, function (er, files) {
         var i = 0;
         files.forEach(beatmapPath => {
             //Add to MySQL 
-            var cleanPath = beatmapPath.replace(".osu", "").replace("public/", "");
+            var cleanPath = beatmapPath.split("public/")[1].replace(".osu", "");
             if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.path.includes(cleanPath))) {
                 //array with every line from the beatmap
                 var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
