@@ -87,7 +87,7 @@ function createPosts() {
         if (err) throw err;
         var months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
         console.log(`Creating ${result.length} news articles...`)
-        result.forEach(post => fs.readFile("posttemplate.html", 'utf8', function (err, data) {
+        result.forEach(post => fs.readFile("/posttemplate.html", 'utf8', function (err, data) {
             if (err) {
                 return console.log(err);
             }
