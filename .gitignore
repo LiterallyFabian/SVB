@@ -5,5 +5,5 @@ app/public/catch/song/preview/
 app/public/catch/song/DEBUG_*
 .env
 .vs/
-.code-workspace
+*.code-workspace
 cmd.txt
