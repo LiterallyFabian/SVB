@@ -9,7 +9,7 @@ var beatmaplist;
 
 //Gets all beatmaps
 router.post('/getmaps', (req, res) => {
-    connection.query("SELECT * FROM beatmaps ORDER BY title", function (err, result) {
+    connection.query("SELECT * FROM beatmaps ORDER BY stars", function (err, result) {
         if (err) throw err;
         else {
             res.send(result);

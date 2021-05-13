@@ -38,6 +38,19 @@ class bmap {
 beatmapDatabase = {};
 allBeatmaps = [];
 catchScores = {};
+includedIDs = [];
+
+var sort = getAloneCookie("sort");
+//set default if no sorting is saved
+if (typeof sort == "object") {
+    sort = {
+        sort: "difficulty",
+        reverse: false
+    };
+    setCookie("sort", JSON.stringify(sort), 100000);
+} else {
+    sort = JSON.parse(sort);
+}
 
 axios.all([
         axios.post("/catch/getmaps"),
@@ -49,11 +62,11 @@ axios.all([
         if (user.data) catchScores = JSON.parse(user.data[0].catchScores).ranks;
         $.each(maps.data, function (i, map) {
             beatmapDatabase[map.id.toString()] = map;
-            $(`.image-list`).append($(new bmap(map).generatePost()));
-
             map.tags += ` ${map.title} ${map.creator} ${map.difficulty} ${map.artist}`;
             allBeatmaps.push(map);
-        })
+        });
+        matches = allBeatmaps;
+        FillFeed();
         document.getElementById('no-map-alert').style.display = "none";
         $(function () {
             $(".beatmapCard").hover(
@@ -84,6 +97,8 @@ $(document).ready(function () {
     input.on('keydown', function () {
         clearTimeout(typingTimer);
     });
+
+    $(`#sort-${sort.sort}`).addClass(sort.reverse ? "fa-chevron-down" : "fa-chevron-up")
 });
 
 
@@ -95,7 +110,7 @@ function Search() {
         const r = new RegExp(regex, 'gi');
         return r.test(i.tags);
     });
-    var includedIDs = [];
+    includedIDs = [];
     matches.forEach(m => includedIDs.push(m.id))
     $(".beatmapCard").each(function () {
         var thisID = $(this)[0].id.replace("card-", "");
@@ -114,4 +129,31 @@ function GenerateRegExp(arr) {
 
 function EscapeRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+function FillFeed() {
+    //sort
+    if (sort.sort == "difficulty") allBeatmaps.sort((a, b) => (a.stars > b.stars) ? 1 : -1);
+    if (sort.sort == "title") allBeatmaps.sort((a, b) => (a.title > b.title) ? 1 : -1);
+    if (sort.sort == "artist") allBeatmaps.sort((a, b) => (a.artist > b.artist) ? 1 : -1);
+    if (sort.reverse) allBeatmaps.reverse();
+
+    $('.beatmapCard').remove();
+    allBeatmaps.forEach(map => {
+        $(`.image-list`).append($(new bmap(map).generatePost()));
+    })
+}
+
+function SetSort(newSort) {
+    $(`#sort-${sort.sort}`).removeClass("fa-chevron-down fa-chevron-up")
+    if (sort.sort == newSort) {
+        sort.reverse = !sort.reverse;
+
+    } else {
+        sort.sort = newSort;
+        sort.reverse = false;
+    }
+    setCookie("sort", JSON.stringify(sort), 100000);
+    $(`#sort-${newSort}`).addClass(sort.reverse ? "fa-chevron-down" : "fa-chevron-up")
+    FillFeed();
 }

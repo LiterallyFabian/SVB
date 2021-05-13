@@ -1,6 +1,7 @@
 .gamesettings {
     width: 80%;
     margin: auto;
+    padding-bottom: 20px;
 
     @include theme() {
         color: theme-get('text');
@@ -8,7 +9,7 @@
 
     .searchBar {
         font-size: 25px;
-        width: 100%;
+        width: 98%;
         padding: 1%;
         margin: 3% 0;
     }
@@ -19,10 +20,50 @@
         }
     }
 
-
-
     p {
         display: inline-block;
+    }
+
+    .sortbar {
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 10px;
+
+        @include theme() {
+            background-color: theme-get('nav');
+        }
+
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        p {
+            margin: auto;
+            padding: 10px;
+            border-radius: 10px;
+            transition: 0.3s;
+
+            @include theme() {
+                background-color: theme-get('bg');
+            }
+        }
+
+        p:hover {
+            transition: 0.3s;
+
+            @include theme() {
+                background-color: theme-get('form-bg');
+            }
+        }
+
+        h1 {
+            margin: 10px;
+        }
+
+        .fa-chevron-up,
+        .fa-chevron-down {
+            padding-left: 7px;
+        }
     }
 }
 
