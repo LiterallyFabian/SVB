@@ -136,6 +136,8 @@ function FillFeed() {
     if (sort.sort == "difficulty") allBeatmaps.sort((a, b) => (a.stars > b.stars) ? 1 : -1);
     if (sort.sort == "title") allBeatmaps.sort((a, b) => (a.title > b.title) ? 1 : -1);
     if (sort.sort == "artist") allBeatmaps.sort((a, b) => (a.artist > b.artist) ? 1 : -1);
+    if (sort.sort == "length") allBeatmaps.sort((a, b) => (a.length > b.length) ? 1 : -1);
+    if (sort.sort == "bpm") allBeatmaps.sort((a, b) => (a.bpm > b.bpm) ? 1 : -1);
     if (sort.reverse) allBeatmaps.reverse();
 
     $('.beatmapCard').remove();
