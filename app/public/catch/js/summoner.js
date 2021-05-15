@@ -24,7 +24,7 @@ function summonSpinner(start, stop) {
 window.setInterval(function () {
     if (typeof bananaShower == "undefined") return;
     if (bananaShower) {
-        fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, 2));
+        fruits.push(new fruit(Math.floor(Math.random() * 1500) + 220, 2));
         stats_bananasSeen++;
     }
 }, 60);
