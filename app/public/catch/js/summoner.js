@@ -6,7 +6,7 @@
 //Sizes: 0 - large, 1 - droplet, 2 - banana
 function summonFruit(delay, pos, size, hitsound) {
     setTimeout(function () {
-        fruits.push(new fruit(scaleModifier * pos * 1.75 + 200 * scaleModifier, size, hitsound))
+        fruits.push(new fruit(scaleModifier * pos * 2.1 + 180, size, hitsound))
     }, delay);
 }
 
