@@ -6,12 +6,9 @@ lastMiss = false;
 stats_bananasSeen = 0;
 stats_bananasCatched = 0;
 
-function fruit(x, id, size, hitsound) {
-    this.id = id;
-    //x goes from 0 to 1120
-    this.x = x;
+function fruit(x, size, hitsound, hyper = false) {
+    this.x = x; //from 0 to 1120
     this.y = -100 * scaleModifier;
-    this.speedX = 0;
     this.speedY = 5;
     this.hitsound = -1;
     this.size = size;
@@ -39,6 +36,7 @@ function fruit(x, id, size, hitsound) {
         this.y += this.speedY * scaleModifier * relativeSpeedMultiplier;
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
+
     this.checkCollision = function () {
         if (this.x == 10000) return;
         //catch

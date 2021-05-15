@@ -6,7 +6,7 @@
 //Sizes: 0 - large, 1 - droplet, 2 - banana
 function summonFruit(delay, pos, size, hitsound) {
     setTimeout(function () {
-        fruits.push(new fruit(scaleModifier * pos * 1.75 + 200 * scaleModifier, fruits.length, size, hitsound))
+        fruits.push(new fruit(scaleModifier * pos * 1.75 + 200 * scaleModifier, size, hitsound))
     }, delay);
 }
 
@@ -24,7 +24,7 @@ function summonSpinner(start, stop) {
 window.setInterval(function () {
     if (typeof bananaShower == "undefined") return;
     if (bananaShower) {
-        fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, fruits.length, 2));
+        fruits.push(new fruit(Math.floor(Math.random() * 1000) + 220, 2));
         stats_bananasSeen++;
     }
 }, 60);
