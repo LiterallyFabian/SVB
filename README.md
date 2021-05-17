@@ -162,7 +162,6 @@ primary key (id)
   - Fixed bug where first beat length did not get set
 - **15/1**
   - Added site-wide dark theme
-### Pitch-update
 - **22/4**
   - Added ability to save ranks on maps
   - Add notice if beatmaps can't load
@@ -183,3 +182,13 @@ primary key (id)
   - Add hover SFX
   - Update default hitsounds
   - Add starting SFX
+- **8/5**
+  - Animate playing beatmap cards
+  - Started saving map-specific play statistics
+- **9/5**
+  - Fixed beatmaps sometimes not showing up
+- **10/5**
+  - Added beatmap star rating
+  - Add option to search for beatmaps
+- **14/5**
+  - Add option to sort beatmaps by title, artist, difficulty, length & BPM
