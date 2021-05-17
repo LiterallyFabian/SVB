@@ -7,9 +7,30 @@ CREATE DATABASE svt;
 
 USE svt;
 
-CREATE TABLE users (name VARCHAR(128), discriminator SMALLINT NOT NULL, access_token VARCHAR(30), refresh_token VARCHAR(30), avatar VARCHAR(128), id VARCHAR(32), bio VARCHAR(512), banner VARCHAR(512), catchScores TEXT, royaleScores TEXT, authToken TEXT, roles TEXT);
+CREATE TABLE users (
+  name VARCHAR(128), 
+  discriminator SMALLINT NOT NULL, 
+  access_token VARCHAR(30), 
+  refresh_token VARCHAR(30), 
+  avatar VARCHAR(128), 
+  id VARCHAR(32), 
+  bio VARCHAR(512),
+  banner VARCHAR(512), 
+  catchScores TEXT, 
+  royaleScores TEXT, 
+  authToken TEXT, 
+  roles TEXT
+  );
 
-CREATE TABLE posts (title VARCHAR(64), author VARCHAR(20), text VARCHAR(2500), thumbnailPath VARCHAR(128), url VARCHAR(64), date DATETIME, id VARCHAR(32));
+CREATE TABLE posts (
+  title VARCHAR(64), 
+  author VARCHAR(20), 
+  text VARCHAR(2500), 
+  thumbnailPath VARCHAR(128), 
+  url VARCHAR(64), 
+  date DATETIME, 
+  id VARCHAR(32)
+  );
 
 CREATE TABLE beatmaps (
   title VARCHAR(128), 
@@ -29,7 +50,16 @@ CREATE TABLE beatmaps (
   PRIMARY KEY(id)
   );
 
-CREATE TABLE mudae (id MEDIUMTEXT NOT NULL, username VARCHAR(64), avatar VARCHAR(128), hasClaim BOOLEAN, reactPower TINYINT, reactCost TINYINT, lastAction DATETIME, primary key (id));
+CREATE TABLE mudae (
+id MEDIUMTEXT NOT NULL,
+username VARCHAR(64), 
+avatar VARCHAR(128), 
+hasClaim BOOLEAN, 
+reactPower TINYINT, 
+reactCost TINYINT, 
+lastAction DATETIME, 
+primary key (id)
+);
 ```
 
 ### Features
@@ -45,9 +75,7 @@ CREATE TABLE mudae (id MEDIUMTEXT NOT NULL, username VARCHAR(64), avatar VARCHAR
 
 - Krönikör
   - Default
-- Epic
-  - Nothing special
-- Reporter
+- Reporter & Programledare
   - Can create articles
 - Redaktör
   - Can edit and remove all articles
