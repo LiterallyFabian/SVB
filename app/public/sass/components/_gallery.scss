@@ -51,7 +51,7 @@ a {
 .image-list {
     li {
         @include theme() {
-            background: theme-get('nav');
+            background: theme-get('foreground');
             color: theme-get('text');
         }
 

@@ -6,7 +6,7 @@
     background-color: #FFFFFF;
 
     @include theme() {
-        background-color: theme-get('bg')
+        background-color: theme-get('background')
     }
 }
 
@@ -66,14 +66,6 @@ header {
         }
     }
 }
-
-
-
-
-
-
-
-
 
 .tool {
     @include theme() {

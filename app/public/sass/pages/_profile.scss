@@ -1,6 +1,6 @@
 #profilebody {
     @include theme() {
-        background-color: theme-get('bg');
+        background-color: theme-get('background');
     }
 }
 
@@ -81,7 +81,7 @@
 
 #profilegallery {
     @include theme() {
-        background-color: theme-get('nav');
+        background-color: theme-get('foreground');
     }
 
     padding-bottom: 18%;

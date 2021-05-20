@@ -25,9 +25,10 @@
 
 .caption span.border {
     @include theme() {
-        background-color: theme-get('nav');
+        background-color: theme-get('foreground');
         color: theme-get('text');
     }
+
     background-color: white;
     color: black;
     padding: 18px;

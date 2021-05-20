@@ -27,7 +27,7 @@ body {
         padding-inline-start: 0;
 
         @include theme() {
-            background-color: theme-get('nav')
+            background-color: theme-get('foreground')
         }
 
         overflow: hidden;
