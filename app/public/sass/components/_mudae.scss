@@ -1,24 +1,9 @@
 #resetCountdown {
     @include theme() {
         color: theme-get('text');
-        text-shadow: 1px 0px 1px theme-get('form-border'),
-    0px 1px 1px theme-get("text-field-bg"),
-    2px 1px 1px theme-get('form-border'),
-    1px 2px 1px theme-get("text-field-bg"),
-    3px 2px 1px theme-get('form-border'),
-    2px 3px 1px theme-get("text-field-bg"),
-    4px 3px 1px theme-get('form-border'),
-    3px 4px 1px theme-get("text-field-bg"),
-    5px 4px 1px theme-get('form-border'),
-    4px 5px 1px theme-get("text-field-bg"),
-    6px 5px 1px theme-get('form-border'),
-    5px 6px 1px theme-get("text-field-bg"),
-    7px 6px 1px theme-get('form-border');
+        font-weight: 800;
     }
-
     font-size:30px;
-    
-
     text-align: center;
     padding: 10px;
 }

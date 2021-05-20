@@ -100,7 +100,7 @@ function setTheme(theme = "theme_dark") {
 $(document).ready(function () {
     var theme = getAloneCookie("sitetheme");
 
-    if (theme == "theme_light" || theme == "theme_dark")
+    if (theme.includes("theme_"))
         setTheme(theme)
 })
 

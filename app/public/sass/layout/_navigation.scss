@@ -51,10 +51,9 @@ body {
         }
 
         li a:hover {
-            color: white;
-
             @include theme() {
                 background-color: theme-get('brand-color');
+                color: theme-get('brand-text');
             }
         }
     }
@@ -77,9 +76,8 @@ body {
 .navigation a.active {
     @include theme() {
         background-color: theme-get('brand-color');
+        color: theme-get('brand-text');
     }
-
-    color: white;
 }
 
 /* Hide the link that should open and close the topnav on small screens */
