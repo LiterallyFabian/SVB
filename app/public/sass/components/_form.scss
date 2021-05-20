@@ -55,8 +55,8 @@
 
   @include theme() {
     color: theme-get('text');
-    background-color: theme-get('text-field-bg');
-    border: theme-get('text-field-border')
+    background-color: theme-get('text-field');
+    border: theme-get('text-field')
   }
 
   width: 60%;
@@ -64,7 +64,7 @@
 
 ::placeholder {
   @include theme() {
-    color: theme-get('text-field-placeholder')
+    color: theme-get('text-disabled')
   }
 
 }

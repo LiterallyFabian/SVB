@@ -52,7 +52,7 @@
             transition: 0.3s;
 
             @include theme() {
-                background-color: theme-get('form-bg');
+                background-color: theme-get('foreground');
             }
         }
 
