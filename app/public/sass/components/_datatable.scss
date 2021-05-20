@@ -20,7 +20,7 @@
 }
 table.dataTable tbody tr {
     @include theme() {
-        background-color: theme-get('text-field-bg');
+        background-color: theme-get('foreground');
     }
 }
 

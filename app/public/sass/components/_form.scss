@@ -19,8 +19,8 @@
 
 .login_formtable {
   @include theme() {
-    background-color: theme-get('form-bg');
-    border: 1px solid theme-get('form-border');
+    background-color: theme-get('foreground');
+    border: 1px solid theme-get('text-disabled');
   }
 
   border-radius: 4px 4px 4px 4px;
@@ -55,8 +55,8 @@
 
   @include theme() {
     color: theme-get('text');
-    background-color: theme-get('text-field');
-    border: theme-get('text-field')
+    background-color: theme-get('foreground-lighter');
+    border: 1px solid theme-get('text-disabled');
   }
 
   width: 60%;

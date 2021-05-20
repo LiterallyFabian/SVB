@@ -12,6 +12,19 @@
         width: 98%;
         padding: 1%;
         margin: 3% 0;
+
+        @include theme() {
+            color: theme-get('text');
+            background-color: theme-get('foreground')
+        }
+
+        border: none;
+    }
+
+    .searchBar::placeholder {
+        @include theme() {
+            color: theme-get('text-disabled')
+        }
     }
 
     .searchBar:focus {
