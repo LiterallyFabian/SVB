@@ -60,6 +60,7 @@ axios.all([
     ])
     .then(axios.spread((maps, user) => {
         if (user.data) catchScores = JSON.parse(user.data[0].catchScores).ranks;
+        if (typeof catchScores == 'undefined') catchScores = {};
         $.each(maps.data, function (i, map) {
             beatmapDatabase[map.id.toString()] = map;
             map.tags += ` ${map.title} ${map.creator} ${map.difficulty} ${map.artist}`;
