@@ -138,7 +138,7 @@ function processMap() {
                 var droplets = dropletsPerRepeat * repeats; //amount of droplets slider contains
                 var diff = (pos - sliderEndPos) / droplets; //difference in x each droplet should have
                 var currentDrop = 0;
-                
+
                 for (var i = 0; i < droplets; i++) {
                     var dropPos = pos - (diff * i);
                     var dropDelay = (i) * dropletTiming + 20;
@@ -246,4 +246,6 @@ function resetGame() {
     bananaShower = false;
     missedFruits = 0;
     catchedFruits = 0;
+    missedScore = 0;
+    catchedScore = 0;
 }
