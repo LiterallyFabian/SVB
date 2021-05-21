@@ -13,7 +13,6 @@ $(document).ready(function () {
         context.canvas.height = window.innerHeight - 57;
         context.canvas.width = (window.innerHeight - 57) * 1.63;
     }
-    playStartAnim()
     scaleModifier = context.canvas.width / 1400; //all values are based on 1400x855 grid
     grid = 5;
     catcherSpeed = 5 * scaleModifier;
@@ -55,7 +54,7 @@ $(document).ready(function () {
 
 
     catcher = {
-        x: -300, //middle of playfield
+        x: scaleModifier*400, //middle of playfield
         y: canvas.height * 0.768, //makes catcher's feet touch the ground
         width: (516 / 2.7) * scaleModifier,
         height: (609 / 2.7) * scaleModifier,
@@ -188,45 +187,6 @@ function component(width, height, color, x, y, type, align) {
             context.fillStyle = color;
             context.fillRect(this.x, this.y, this.width, this.height);
         }
-    }
-}
-
-function playStartAnim() {
-    var i = 90;
-    var j = 0;
-
-    playfieldLoop();
-    setTimeout(function () {
-        catcherLoop();
-    }, 800)
-    setTimeout(function () {
-        smile = false;
-    }, 2100)
-
-
-    function playfieldLoop() {
-        setTimeout(function () {
-            $('#catchField').css('transform', `rotateX(${i}deg) scaleX(${1/i})`)
-            if (fruits.length > 0) return;
-            i--;
-            if (i > 0) {
-                playfieldLoop();
-            } else {
-                startConfetti(true);
-                startConfetti(false);
-            }
-        }, 8 - i / 50)
-    }
-
-    function catcherLoop() {
-        setTimeout(function () {
-            catcher.x = j * 4 * scaleModifier;
-            if (fruits.length > 0) return;
-            j++;
-            if (j < 150 && !hasMoved) {
-                catcherLoop();
-            }
-        }, 8 - j / 100)
     }
 }
 
