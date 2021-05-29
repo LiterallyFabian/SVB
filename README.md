@@ -20,7 +20,7 @@ CREATE TABLE users (
   royaleScores TEXT, 
   authToken TEXT, 
   roles TEXT
-  );
+);
 
 CREATE TABLE posts (
   title VARCHAR(64), 
@@ -30,7 +30,7 @@ CREATE TABLE posts (
   url VARCHAR(64), 
   date DATETIME, 
   id VARCHAR(32)
-  );
+);
 
 CREATE TABLE beatmaps (
   title VARCHAR(128), 
@@ -47,8 +47,9 @@ CREATE TABLE beatmaps (
   id INT NOT NULL AUTO_INCREMENT,
   stars FLOAT NOT NULL DEFAULT 0,
   tags TEXT,
+  colors TEXT,
   PRIMARY KEY(id)
-  );
+);
 
 CREATE TABLE mudae (
 id MEDIUMTEXT NOT NULL,
