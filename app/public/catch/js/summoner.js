@@ -11,10 +11,8 @@ function summonFruit(delay, pos, size, hitsound) {
 }
 
 //Queues a banana shower
-function summonSpinner(start, stop) {
-    setTimeout(function () {
-        bananaShower = true;
-    }, parseInt(start, 10));
+function summonSpinner(stop) {
+    bananaShower = true;
     setTimeout(function () {
         bananaShower = false;
     }, parseInt(stop, 10));
@@ -40,7 +38,7 @@ window.setInterval(function () {
 }, 10);
 
 //Queues a kiai-toggle
-function toggleKiai(kiaiOn, delay) {
+function toggleKiai(kiaiOn, delay, timestamp) {
     //stop confetti slightly before kiai stops
     if (!kiaiOn) {
         setTimeout(function () {
@@ -49,14 +47,16 @@ function toggleKiai(kiaiOn, delay) {
     }
     setTimeout(function () {
         kiai = kiaiOn;
+        if (currentStartTime != timestamp) return;
         if (kiaiOn && !document.getElementById("confettiToggle").checked) confetti.start();
         else confetti.stop();
     }, delay);
 }
 
 //Queues a statupdate 3 seconds after game is finished
-function finishGame(delay) {
+function finishGame(delay, timestamp) {
     setTimeout(function () {
+        if (currentStartTime != timestamp) return;
         var rank;
         var acc = missedFruits == 0 ? 100 : catchedFruits / (catchedFruits + missedFruits) * 100;
         if (missedScore == 0) rank = 'ss';

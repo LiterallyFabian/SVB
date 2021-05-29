@@ -14,6 +14,8 @@ var hitsoundsDrum;
 hitsounds = [];
 winAudio = false;
 var currentSong;
+//timestamp of current song start
+var currentStartTime;
 var thumbPath;
 var songLength;
 var musicRange;
@@ -49,6 +51,8 @@ function startGame(path, title) {
             beatmap = data.split("\n")
         });
     thumbPath = path + ".jpg";
+
+    if (music) music.pause();
     music = new Audio(`/${path}.mp3`);
     hitsoundsNormal = [new Audio(`/catch/hitsounds/normal-hitnormal.mp3`), new Audio(`/catch/hitsounds/normal-hitwhistle.mp3`), new Audio(`/catch/hitsounds/normal-hitfinish.mp3`), new Audio(`/catch/hitsounds/normal-hitclap.mp3`)]
     hitsoundsSoft = [new Audio(`/catch/hitsounds/soft-hitnormal.mp3`), new Audio(`/catch/hitsounds/soft-hitwhistle.mp3`), new Audio(`/catch/hitsounds/soft-hitfinish.mp3`), new Audio(`/catch/hitsounds/soft-hitclap.mp3`)]
@@ -71,11 +75,14 @@ function waitForLoad() {
 
 function processMap() {
     resetGame();
+    var fruitHasSpawned = false;
     var foundTiming = false;
     var foundObjects = false;
     var sliderMultiplier;
     var beatLength;
     var beatLengthMultiplier = 1;
+    currentStartTime = new Date();
+    var songTime = currentStartTime;
 
     //Sets background
     document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('../${thumbPath}')`;
@@ -121,6 +128,11 @@ function processMap() {
         var delay = parseInt(line[2]);
 
         setTimeout(function () { //processes and summons line when it's ready
+            if (!fruitHasSpawned) {
+                fruitHasSpawned = true;
+                resetGame();
+            }
+            if (currentStartTime != songTime) return;
             var pos = parseInt(line[0]);
             var hitsound = parseInt(line[4]);
 
@@ -145,7 +157,7 @@ function processMap() {
                     if (currentDrop == dropletsPerRepeat) {
                         summonFruit(dropDelay, dropPos, 0, hitsound)
                         currentDrop = 0;
-                    } else summonFruit(dropDelay, dropPos, 1)
+                    } else summonFruit(dropDelay, dropPos, 1, 0)
                     currentDrop++;
                 }
                 //Summons slider-end fruit
@@ -157,7 +169,7 @@ function processMap() {
                 summonFruit(0, pos, 0, hitsound)
             } else {
                 //Summons a spinner
-                summonSpinner(0, parseFloat(line[5]) - delay)
+                summonSpinner(parseFloat(line[5]) - delay)
             }
             //Sets song length to current line
             if (line.length > 1) songLength = parseInt(line[2]);
@@ -166,20 +178,24 @@ function processMap() {
     })
     timingLines.forEach(line => {
         var data = line.split(",");
-        toggleKiai(data[7] == 1, data[0]);
+        toggleKiai(data[7] == 1, data[0], currentStartTime);
         //set beatlengths
         if (typeof beatLength == "undefined") {
             beatLength = parseFloat(data[1]);
             console.log(`Default beat length set to ${beatLength} (${Math.round((1 / beatLength * 1000 * 60))} BPM)`)
         } else if (data[6] == 1) {
             setTimeout(function () {
-                beatLength = parseFloat(data[1]);
-                console.log("Beat length set to " + beatLength)
+                if (currentStartTime == songTime) {
+                    beatLength = parseFloat(data[1]);
+                    console.log("Beat length set to " + beatLength)
+                }
             }, parseFloat(data[0]) - 10)
         } else {
             setTimeout(function () {
-                beatLengthMultiplier = -100 / parseFloat(data[1]);
-                console.log("Beat length multiplier set to " + beatLengthMultiplier)
+                if (currentStartTime == songTime) {
+                    beatLengthMultiplier = -100 / parseFloat(data[1]);
+                    console.log("Beat length multiplier set to " + beatLengthMultiplier)
+                }
             }, data[0] - 10)
         }
     })
@@ -187,12 +203,14 @@ function processMap() {
 
     //Finish game 3 seconds after last object.
     var mapLength = parseInt(fruitLines[fruitLines.length - 2].split(',')[2]);
-    finishGame(mapLength + 3000);
+    finishGame(mapLength + 3000, currentStartTime);
 
     //play win audio
     setTimeout(function () {
-        winAudio.volume = document.getElementById("musicRange").value / 100;
-        winAudio.play();
+        if (currentStartTime == songTime) {
+            winAudio.volume = document.getElementById("musicRange").value / 100;
+            winAudio.play();
+        }
     }, mapLength + 2000)
 }
 
