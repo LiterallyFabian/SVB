@@ -31,7 +31,7 @@ $(document).ready(function () {
     bananaShower = false; //whether a banana shower is active
     hasMoved = false;
     gameStarted = false;
-    smile = true; //whether the catcher should smile (for the intro)
+    smile = false; //whether the catcher should smile (for the intro)
 
     touching = false; //whether the user is touching the screen or not (for mobile controls)
     touching_x = 0; //where the user is touching
