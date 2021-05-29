@@ -32,7 +32,7 @@
     <div id="page" class="profile">
         <div id="banner" class="hero-image">
             <div class="banneritems">
-                <img class="avatar" :src="avatar" alt="profile picture"></img>
+                <img class="avatar" :src="avatar" alt="profile picture" onerror="this.onerror=null;$('.avatar').attr('src','/img/default.png');"></img>
                 <h1>{{ username }}</h1>
 
                 <div id="badges"> </div>
@@ -124,7 +124,7 @@
                 banner: "",
                 id: "",
                 myID: "-1",
-                avatar: "https://i.imgur.com/K0eS3Pi.png",
+                avatar: "/img/default.png",
                 isOwn: false,
                 roles: [],
                 editref: "/profile/edit",
