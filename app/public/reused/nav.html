@@ -91,15 +91,19 @@
                 })
             },
             async vue_updatenav() {
+
+                //always there
                 if (window.location.pathname == "/") document.getElementById("nav-main").classList.add("active");
                 else if (window.location.pathname.startsWith("/mudae")) document.getElementById("nav-mudae").classList.add("active");
                 else if (window.location.pathname.startsWith("/members")) document.getElementById("nav-members").classList.add("active");
                 else if (window.location.pathname.startsWith("/catch")) document.getElementById("nav-catch").classList.add("active");
+                else if (window.location.pathname.startsWith("/articles")) document.getElementById("nav-main").classList.add("active");
+                //dynamic nav items
                 else if (window.location.pathname.startsWith("/contact")) waitForElm("#nav-contact").then(elm => elm.classList.add("active"));
                 else if (window.location.pathname.startsWith("/sajberroyale")) waitForElm("#nav-royale").then(elm => elm.classList.add("active"));
                 else if (window.location.pathname.startsWith("/post")) waitForElm("#nav-post").then(elm => elm.classList.add("active"));
                 else if (window.location.pathname.startsWith("/profile")) waitForElm("#nav-profile").then(elm => elm.classList.add("active"));
-                else if (window.location.pathname.startsWith("/articles")) waitForElm("#nav-main").then(elm => elm.classList.add("active"));
+
             }
         }
     }
