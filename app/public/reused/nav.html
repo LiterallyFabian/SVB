@@ -99,6 +99,7 @@
                 else if (window.location.pathname.startsWith("/sajberroyale")) waitForElm("#nav-royale").then(elm => elm.classList.add("active"));
                 else if (window.location.pathname.startsWith("/post")) waitForElm("#nav-post").then(elm => elm.classList.add("active"));
                 else if (window.location.pathname.startsWith("/profile")) waitForElm("#nav-profile").then(elm => elm.classList.add("active"));
+                else if (window.location.pathname.startsWith("/articles")) waitForElm("#nav-main").then(elm => elm.classList.add("active"));
             }
         }
     }
