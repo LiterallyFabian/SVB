@@ -49,7 +49,23 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "blue": #144B5B,
         "star": #C9F1FB,
         "brand-color": #C9F1FB,
-        "brand-text": #213347));
+        "brand-text": #213347),
+
+    theme_icecream: ("logo": url('/img/logo_dark.svg'),
+        "background": #E9C6F8,
+        "foreground": #F2D5FF,
+        "foreground-lighter": #F7E6FF,
+        "text": rgba(0, 0, 0, 0.87),
+        "text-secondary": rgba(0, 0, 0, 0.54),
+        "text-disabled": rgba(0, 0, 0, 0.38),
+        "icon": rgba(153, 153, 153, 0.6),
+        "icon-hover": rgba(153, 153, 153, 0.9),
+        "shadow-reverse": rgba(0, 0, 0, 0.5),
+        "shadow-invisible": rgba(0, 0, 0, 0),
+        "blue": #a336b7,
+        "star": #C9F1FB,
+        "brand-color": #a336b7,
+        "brand-text": #FFFFFF));
 
 @mixin theme() {
 
