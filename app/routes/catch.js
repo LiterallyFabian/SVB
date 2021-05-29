@@ -92,11 +92,19 @@ function addBeatmaps() {
 
                         //found timing points for BPM
                         if (foundTiming) {
-                            beatmapData.bpm = 1 / line.split(",")[1] * 1000 * 60;
-                            foundTiming = false;
+                            if (line.trim() == "") {
+                                foundTiming = false;
+                            } else {
+                                var timing = line.split(",")[0];
+                                var beatLength = line.split(",")[1];
+                                if (beatLength > 0 && parseFloat(timing) < beatmapData.previewtime) {
+                                    beatmapData.bpm = 1 / beatLength * 1000 * 60;
+                                }
+                            }
                         }
                         if (line.includes("[TimingPoints]")) foundTiming = true;
 
+                        //add hitobjects
                     } else {
                         if (line.split(",").length > 1) {
                             beatmapData.length = parseInt(line.split(",")[2] / 1000);
