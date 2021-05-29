@@ -46,10 +46,13 @@ function toggleKiai(kiaiOn, delay, timestamp) {
         }, delay - 2000);
     }
     setTimeout(function () {
-        kiai = kiaiOn;
         if (currentStartTime != timestamp) return;
-        if (kiaiOn && !document.getElementById("confettiToggle").checked) confetti.start();
-        else confetti.stop();
+        var kiaiBefore = kiai;
+        kiai = kiaiOn;
+        if (kiaiOn && !document.getElementById("confettiToggle").checked) {
+            confetti.start();
+            if (!kiaiBefore) confettiSides();
+        } else confetti.stop();
     }, delay);
 }
 
@@ -91,4 +94,37 @@ function finishGame(delay, timestamp) {
             mapid: beatmapData.id
         })
     }, delay);
+}
+
+function confettiSides() {
+    var end = Date.now() + (1000);
+
+    var colors = JSON.parse(beatmapData.colors);
+
+    (function frame() {
+        confettiCannon({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: {
+                x: 0,
+                y: 1
+            },
+            colors: colors
+        });
+        confettiCannon({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: {
+                x: 1,
+                y: 1
+            },
+            colors: colors
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
 }

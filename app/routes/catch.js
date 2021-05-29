@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const glob = require('glob');
+var rgb2hex = require('rgb2hex');
+var fs = require('fs');
+var glob = require('glob');
 var jimp = require("jimp");
-const MP3Cutter = require('mp3-cutter');
+var MP3Cutter = require('mp3-cutter');
 var beatmaplist;
 
 //Gets all beatmaps
@@ -37,6 +37,8 @@ function getMaps() {
 }
 
 function addBeatmaps() {
+    var colorRegex = /Combo\d+ : (\d+),(\d+),(\d+)/gm;
+
     glob(__dirname + "/../public/catch/song/*.osu", {}, function (er, files) {
         var i = 0;
         files.forEach(beatmapPath => {
@@ -48,10 +50,12 @@ function addBeatmaps() {
 
                 var beatmapData = {
                     approachrate: 9,
-                    circlesize: 5
+                    circlesize: 5,
+                    colors: ["#ffc000", "#00ca00", "#127cff", "#f21839"]
                 };
                 var foundTiming = false;
                 var foundObjects = false;
+                var foundColors = false;
                 var hitobjects = [];
 
                 //Set metadata
@@ -74,6 +78,18 @@ function addBeatmaps() {
                         //found objects
                         else if (line.includes("[HitObjects]")) foundObjects = true;
 
+
+                        //check for colors
+                        if (line.startsWith("Combo")) {
+                            if (!foundColors) {
+                                foundColors = true;
+                                beatmapData.colors = [];
+                            }
+                            var color = rgb2hex(`rgb(${line.split(" : ")[1]})`).hex;
+                            beatmapData.colors.push(color);
+                        }
+
+
                         //found timing points for BPM
                         if (foundTiming) {
                             beatmapData.bpm = 1 / line.split(",")[1] * 1000 * 60;
@@ -93,7 +109,7 @@ function addBeatmaps() {
                 createThumbnail(beatmapPath);
                 createPreview(beatmapPath, beatmapData.previewtime);
                 beatmapData.stars = calculateDifficulty(hitobjects);
-
+                beatmapData.colors = JSON.stringify(beatmapData.colors);
                 beatmapData.path = cleanPath;
                 console.log(beatmapData);
                 connection.query(`INSERT INTO beatmaps SET ?`, beatmapData, function (err, result) {

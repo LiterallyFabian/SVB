@@ -21,6 +21,7 @@
     "node-fetch": "^2.6.1",
     "node-schedule": "^2.0.0",
     "path": "^0.12.7",
+    "rgb2hex": "^0.2.5",
     "url": "^0.11.0"
   },
   "engines": {
