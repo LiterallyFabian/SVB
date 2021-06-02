@@ -80,11 +80,12 @@ router.post("/updatecatch", (req, res) => {
         }
 
         data.ranks = ranks;
-        connection.query(`UPDATE users SET catchScores = '${JSON.stringify(data)}' WHERE id = '${userid}'`, function (err2, result) {
+        connection.query(`UPDATE users SET catchScores = ${connection.escape(JSON.stringify(data))} WHERE id = '${userid}'`, function (err2, result) {
             if (err2) throw err2;
             console.log(`Added rank ${rank} to user ${userid} from map ${title}`)
         });
     });
 });
+
 
 module.exports = router;
