@@ -268,6 +268,29 @@ String.prototype.hashCode = function () {
     return hash;
 }
 
+router.get('/updateall', (req, res) => {
+    connection.query(`SELECT id,catchScores FROM users`, function (err, result) {
+        if (err) throw err;
+        result.forEach(user => {
+            var scores = JSON.parse(user.catchScores).ranks;
+            if (typeof scores == "object") {
+                scores = Object.values(scores);
+                var newScores = JSON.parse(user.catchScores);
+
+                scores.forEach(score => {
+                    if (typeof score == "object") {
+                        score.pp = calculatePerformance(score.combo, score.accuracy, score.catches, score.misses, score.id)
+                        newScores.ranks[score.id] = score;
+                    }
+                })
+                console.log(`Calculated performance for user ${user.id}`)
+                connection.query(`UPDATE users SET catchScores = ${connection.escape(JSON.stringify(newScores))} WHERE id = '${user.id}'`)
+            }
+        })
+    });
+    res.send("done")
+});
+
 module.exports = router;
 module.exports.getMaps = getMaps;
 module.exports.beatmaplist = beatmaplist;
