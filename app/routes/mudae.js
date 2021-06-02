@@ -27,7 +27,7 @@ router.post('/claimcharacter', (req, res) => {
     var claimed = req.body.claimed;
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    console.log(`${username} (ID: ${id}) claimed ${claimed}.`);
+    //console.log(`${username} (ID: ${id}) claimed ${claimed}.`);
     send(`<:lit:414885003596660736> **${username}** (ID: ${id}) claimed **${claimed}**.`)
 
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", false, 100, 100, "${date}") ON DUPLICATE KEY UPDATE hasClaim = false, username = "${username}", avatar = "${avatar}", lastAction = "${date}";`, function (err, result) {
@@ -44,7 +44,7 @@ router.post('/resetclaim', (req, res) => {
     var avatar = req.body.avatar;
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    console.log(`${username} (ID: ${id}) used rt.`);
+    //console.log(`${username} (ID: ${id}) used rt.`);
 
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}") ON DUPLICATE KEY UPDATE hasClaim = true, username = "${username}", avatar = "${avatar}";`, function (err, result) {
         if (err) throw err;
@@ -60,7 +60,7 @@ router.post('/dailykakera', (req, res) => {
     var avatar = req.body.avatar;
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    console.log(`${username} (ID: ${id}) used dk.`);
+    //console.log(`${username} (ID: ${id}) used dk.`);
 
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}") ON DUPLICATE KEY UPDATE reactPower = 100, username = "${username}", avatar = "${avatar}";`, function (err, result) {
         if (err) throw err;
@@ -79,7 +79,7 @@ router.post('/updatetu', (req, res) => {
     var reactPower = req.body.reactPower;
     var date = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    console.log(`${username} (ID: ${id}) updated their stats.`);
+    //console.log(`${username} (ID: ${id}) updated their stats.`);
 
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", ${hasClaim}, ${reactPower}, ${reactCost}, "${date}") ON DUPLICATE KEY UPDATE username = "${username}", avatar = "${avatar}", hasClaim = ${hasClaim}, reactCost = ${reactCost}, reactPower = ${reactPower};`, function (err, result) {
         if (err) throw err;
@@ -92,7 +92,7 @@ router.post('/updatetu', (req, res) => {
 //Reset claim for everyone at xx:20
 var j = schedule.scheduleJob('0 20 * * * *', function () {
 
-    console.log(`Oh man oh man, where are all the rolls?`);
+    //console.log(`Oh man oh man, where are all the rolls?`);
     send("https://media.discordapp.net/attachments/483931673784877066/750812294505693314/rolls.jpg")
 
     connection.query(`UPDATE mudae SET hasClaim = true;`, function (err, result) {
