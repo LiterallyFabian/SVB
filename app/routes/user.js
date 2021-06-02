@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var svtcatch = require('./catch.js');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
@@ -75,6 +76,7 @@ router.post("/updatecatch", (req, res) => {
             ranks[mapid].misses = missedFruits;
             ranks[mapid].catches = catchedFruits;
             ranks[mapid].accuracy = missedScore = 0 ? 100 : catchedScore / (catchedScore + missedScore) * 100;
+            ranks[mapid].pp = svtcatch.calculatePerformance(ranks[mapid].combo, ranks[mapid].accuracy, ranks[mapid].catches, ranks[mapid].misses, mapid);
             ranks[mapid].time = Date.now();
             ranks[mapid].id = mapid;
         }

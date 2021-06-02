@@ -5,7 +5,7 @@ var fs = require('fs');
 var glob = require('glob');
 var jimp = require("jimp");
 var MP3Cutter = require('mp3-cutter');
-var beatmaplist;
+var beatmaplist = {};
 
 //Gets all beatmaps
 router.post('/getmaps', (req, res) => {
@@ -31,7 +31,10 @@ router.post('/getmap', (req, res) => {
 function getMaps() {
     connection.query("SELECT * FROM beatmaps", function (err, result) {
         if (err) throw err;
-        beatmaplist = result;
+        result.forEach(bmap => {
+            beatmaplist[bmap.id.toString()] = bmap;
+        })
+
         addBeatmaps();
     })
 }
@@ -44,7 +47,8 @@ function addBeatmaps() {
         files.forEach(beatmapPath => {
             //Add to MySQL 
             var cleanPath = beatmapPath.split("public/")[1].replace(".osu", "");
-            if (beatmapPath != "catch/song/debug.osu" && !beatmaplist.some(i => i.path.includes(cleanPath))) {
+
+            if (Object.values(beatmaplist).filter(e => e.path === cleanPath).length == 0) {
                 //array with every line from the beatmap
                 var beatmap = fs.readFileSync(beatmapPath, 'utf8').split('\n');
 
@@ -122,7 +126,7 @@ function addBeatmaps() {
                 console.log(beatmapData);
                 connection.query(`INSERT INTO beatmaps SET ?`, beatmapData, function (err, result) {
                     if (err) throw err;
-                    console.log(`Map entry ${beatmapData.title} created! ${++i}/${files.length-1}`);
+                    console.log(`Map entry ${beatmapData.title} created! ${++i}/${files.length - 1}`);
                 });
             }
 
@@ -189,6 +193,67 @@ function calculateDifficulty(hitobjects) {
     return stars / hitobjects.length * 13;
 }
 
+function calculatePerformance(combo, acc, catches, misses, id) {
+
+    if (!beatmaplist[id]) {
+        console.log("Beatmap ID " + id + " not found");
+        return 0;
+    }
+    var ar = beatmaplist[id].approachrate;
+    var mcombo = catches + misses;
+    var stars = beatmaplist[id].stars;
+    if (typeof acc != "number") acc = 100 - (misses / mcombo * 100);
+
+    /*console.log("----------------");
+    console.log(combo);
+    console.log(acc);
+    console.log(catches);
+    console.log(misses);
+    console.log(id);
+    console.log(ar);
+    console.log(mcombo);
+    console.log(stars)*/
+
+
+    // Conversion from Star rating to pp
+    final = Math.pow(((5 * (stars) / 0.0049) - 4), 2) / 100000;
+
+    // Length Bonus
+    lengthbonus = (0.95 + 0.3 * Math.min(1.0, mcombo / 2500.0) + (mcombo > 2500 ? Math.log10(mcombo / 2500.0) * 0.475 : 0.0));
+    final *= lengthbonus;
+
+    // Miss Penalty
+    final *= Math.pow(0.97, misses);
+
+    // Not FC combo penalty
+    final *= Math.pow(combo / mcombo, 0.8);
+
+    // AR Bonus
+    arbonus = 1;
+    if (ar > 9)
+        arbonus += 0.1 * (ar - 9.0);
+    if (ar > 10)
+        arbonus += 0.1 * (ar - 10.0);
+    if (ar < 8)
+        arbonus += 0.025 * (8.0 - ar);
+    final *= arbonus;
+
+    /*// Hidden bonus
+    hiddenbonus = 1;
+    if (ar > 10)
+        hiddenbonus = 1.01 + 0.04 * (11 - Math.min(11, ar));
+    else
+        hiddenbonus = 1.05 + 0.075 * (10 - ar);
+    */
+
+    // Acc Penalty
+    final *= Math.pow(acc / 100, 5.5);
+    final = Math.round(100 * final) / 100;
+
+    console.log(final)
+    return final;
+}
+
 //gets an unique int-hash from a string. just to give all maps a consistent ID even if they don't have one included
 String.prototype.hashCode = function () {
     var hash = 0;
@@ -205,3 +270,5 @@ String.prototype.hashCode = function () {
 
 module.exports = router;
 module.exports.getMaps = getMaps;
+module.exports.beatmaplist = beatmaplist;
+module.exports.calculatePerformance = calculatePerformance;
