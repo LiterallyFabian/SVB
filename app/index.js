@@ -31,7 +31,8 @@ connection.connect(function (e) {
     }
 
     console.log('\nConnected to the MySQL server\n');
-
+    
+    require('./routes/database.js').createTables();
     route_post.createPosts();
     route_catch.getMaps();
 });
