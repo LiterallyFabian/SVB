@@ -52,14 +52,14 @@ CREATE TABLE beatmaps (
 );
 
 CREATE TABLE mudae (
-id MEDIUMTEXT NOT NULL,
-username VARCHAR(64), 
-avatar VARCHAR(128), 
-hasClaim BOOLEAN, 
-reactPower TINYINT, 
-reactCost TINYINT, 
-lastAction DATETIME, 
-primary key (id)
+  id VARCHAR(32) NOT NULL,
+  username VARCHAR(64), 
+  avatar VARCHAR(128), 
+  hasClaim BOOLEAN, 
+  reactPower TINYINT, 
+  reactCost TINYINT, 
+  lastAction DATETIME, 
+  primary key (id)
 );
 ```
 
