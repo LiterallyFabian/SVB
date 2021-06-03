@@ -13,6 +13,8 @@ class bmap {
         var stars = "";
         for (var i = 0; i < Math.round(this.beatmap.stars); i++) stars += `<i class="fas fa-star star"></i>`;
 
+        var fixedTitle = this.beatmap.title.replace(/(?<!^)(\[.+\]$)|(\(.+\)$)|(\-.+\-$)|(\~.+\~$)|((feat|ft| ver ).+)|(\/|\-.+remix)$/ig, '');
+
         return `
         <li class="beatmapCard" id="card-${this.beatmap.id}">
             <figure> 
@@ -23,11 +25,11 @@ class bmap {
                 <img class="thumbnail" src="/${this.beatmap.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
                 </div>
                 <figcaption>
-                    <p style="padding-bottom:2px"><b>${this.beatmap.title.replace(/((\(|\[).+(\)|\])$|feat.+)+/ig, '')}</b></p>
+                    <p style="padding-bottom:2px"><b>${fixedTitle}</b></p>
                     <p>${this.beatmap.difficulty} (${secondsToDisplay(this.beatmap.length)})</p>
                     <br>
                     <div class="starContainer">${this.beatmap.stars.toFixed(2)} ${stars}</div>
-                </figcaption>
+                </figcaption> 
             </figure>
         </a>
     </li>`;
