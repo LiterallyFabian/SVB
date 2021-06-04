@@ -30,7 +30,7 @@ router.post('/claimcharacter', (req, res) => {
     //console.log(`${username} (ID: ${id}) claimed ${claimed}.`);
     send(`<:lit:414885003596660736> **${username}** (ID: ${id}) claimed **${claimed}**.`)
 
-    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", false, 100, 100, "${date}") ON DUPLICATE KEY UPDATE hasClaim = false, username = "${username}", avatar = "${avatar}", lastAction = "${date}";`, function (err, result) {
+    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", false, 100, 100, "${date}", 100) ON DUPLICATE KEY UPDATE hasClaim = false, username = "${username}", avatar = "${avatar}", lastAction = "${date}";`, function (err, result) {
         if (err) throw err;
         else {
             res.send(result);
@@ -46,7 +46,7 @@ router.post('/resetclaim', (req, res) => {
 
     //console.log(`${username} (ID: ${id}) used rt.`);
 
-    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}") ON DUPLICATE KEY UPDATE hasClaim = true, username = "${username}", avatar = "${avatar}";`, function (err, result) {
+    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}", 100) ON DUPLICATE KEY UPDATE hasClaim = true, username = "${username}", avatar = "${avatar}";`, function (err, result) {
         if (err) throw err;
         else {
             res.send(result);
@@ -62,7 +62,7 @@ router.post('/dailykakera', (req, res) => {
 
     //console.log(`${username} (ID: ${id}) used dk.`);
 
-    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}") ON DUPLICATE KEY UPDATE reactPower = reactCap, reactCap = GREATEST(reactPower, reactCap), username = "${username}", avatar = "${avatar}";`, function (err, result) {
+    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}", 100) ON DUPLICATE KEY UPDATE reactPower = reactCap, reactCap = GREATEST(reactPower, reactCap), username = "${username}", avatar = "${avatar}";`, function (err, result) {
         if (err) throw err;
         else {
             res.send(result);
@@ -81,7 +81,7 @@ router.post('/updatetu', (req, res) => {
 
     //console.log(`${username} (ID: ${id}) updated their stats.`);
 
-    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", ${hasClaim}, ${reactPower}, ${reactCost}, "${date}") ON DUPLICATE KEY UPDATE username = "${username}", avatar = "${avatar}", hasClaim = ${hasClaim}, reactCost = ${reactCost}, reactPower = ${reactPower};`, function (err, result) {
+    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", ${hasClaim}, ${reactPower}, ${reactCost}, "${date}", 100) ON DUPLICATE KEY UPDATE username = "${username}", avatar = "${avatar}", hasClaim = ${hasClaim}, reactCost = ${reactCost}, reactPower = ${reactPower};`, function (err, result) {
         if (err) throw err;
         else {
             res.send(result);
