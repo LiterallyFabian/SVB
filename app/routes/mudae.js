@@ -62,7 +62,7 @@ router.post('/dailykakera', (req, res) => {
 
     //console.log(`${username} (ID: ${id}) used dk.`);
 
-    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}") ON DUPLICATE KEY UPDATE reactPower = 100, username = "${username}", avatar = "${avatar}";`, function (err, result) {
+    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}") ON DUPLICATE KEY UPDATE reactPower = reactCap, reactCap = GREATEST(reactPower, reactCap), username = "${username}", avatar = "${avatar}";`, function (err, result) {
         if (err) throw err;
         else {
             res.send(result);
@@ -102,7 +102,7 @@ var j = schedule.scheduleJob('0 20 * * * *', function () {
 
 //Add 1 react power to everyone every 3 min
 var j = schedule.scheduleJob('*/3 * * * *', function () {
-    connection.query(`UPDATE mudae SET reactPower = reactPower + 1 WHERE reactPower < 100;`, function (err, result) {
+    connection.query(`UPDATE mudae SET reactPower = reactPower + 1 WHERE reactPower < reactCap;`, function (err, result) {
         if (err) throw err;
     });
 });

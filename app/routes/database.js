@@ -55,6 +55,7 @@ module.exports.createTables = function createTables() {
         reactPower TINYINT, 
         reactCost TINYINT, 
         lastAction DATETIME, 
+        reactCap TINYINT DEFAULT 100,
         primary key (id)
     )
     `);
