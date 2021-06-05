@@ -13,7 +13,7 @@ class bmap {
         var stars = "";
         for (var i = 0; i < Math.round(this.beatmap.stars); i++) stars += `<i class="fas fa-star star"></i>`;
 
-        var fixedTitle = this.beatmap.title.replace(/(?<!^)(\[.+\]$)|(\(.+\)$)|(\-.+\-$)|(\~.+\~$)|((feat|ft| ver ).+)|(\/|\-.+remix)$/ig, '');
+        var fixedTitle = this.beatmap.title.replace(/(?<!^)((\[.+\]$)|(\(.+\)$)|(\-.+\-$)|(\~.+\~$)|((feat|ft| ver ).+)|(\/|\-.+remix))$/ig, '');
 
         return `
         <li class="beatmapCard" id="card-${this.beatmap.id}">
