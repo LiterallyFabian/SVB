@@ -12,7 +12,7 @@ router.post('/claimkakera', (req, res) => {
     console.log(`${username} (ID: ${id}) claimed kakera.`);
     send(`<:rainbowK:774383796337639425> **${username}** (ID: ${id}) claimed kakera.`)
 
-    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 60, 100, "${date}") ON DUPLICATE KEY UPDATE reactPower = reactPower - reactCost, username = "${username}", avatar = "${avatar}", lastAction = "${date}";`, function (err, result) {
+    connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 60, 100, "${date}", 100) ON DUPLICATE KEY UPDATE reactPower = reactPower - reactCost, username = "${username}", avatar = "${avatar}", lastAction = "${date}";`, function (err, result) {
         if (err) throw err;
         else {
             res.send(result);
