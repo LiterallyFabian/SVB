@@ -51,6 +51,7 @@ $(document).ready(function () {
     fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3'), document.getElementById('fruit4')];
     dropletImage = document.getElementById('droplet');
     bananaImage = document.getElementById('banana');
+    hyperImage = document.getElementById('hyper');
 
 
     catcher = {
