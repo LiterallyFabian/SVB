@@ -93,6 +93,7 @@ function fruit(x, size, hitsound, hyper = false) {
                 lastMiss = true;
             }
             if (this.size == 0) {
+                if (combo > 15) hitsoundCombobreak.play();
                 combo = 0;
                 missedFruits++;
             }
