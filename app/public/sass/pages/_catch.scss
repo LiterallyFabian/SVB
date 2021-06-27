@@ -94,3 +94,11 @@ canvas {
         cursor: url('/catch/img/cursor-hover.png'), pointer;
     }
 }
+
+#catchField {
+    background: url('/catch/img/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+}

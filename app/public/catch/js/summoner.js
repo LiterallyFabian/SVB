@@ -2,14 +2,6 @@
     Handles summoning of objects
 */
 
-//Queues an object
-//Sizes: 0 - large, 1 - droplet, 2 - banana
-function summonFruit(delay, pos, size, hitsound) {
-    setTimeout(function () {
-        fruits.push(new fruit(scaleModifier * pos * 2.1 + 180, size, hitsound))
-    }, delay);
-}
-
 //Queues a banana shower
 function summonSpinner(stop) {
     bananaShower = true;
@@ -22,7 +14,7 @@ function summonSpinner(stop) {
 window.setInterval(function () {
     if (typeof bananaShower == "undefined") return;
     if (bananaShower) {
-        fruits.push(new fruit(Math.floor(Math.random() * 1500) + 220, 2));
+        summonedFruits.push(new fruit(Math.floor(Math.random() * 1500) + 220, 2));
         stats_bananasSeen++;
     }
 }, 60);

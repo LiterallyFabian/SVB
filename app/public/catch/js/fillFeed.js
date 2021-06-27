@@ -21,7 +21,7 @@ class bmap {
             <div class="parent">
                 ${rankOverlay}
                 <a onClick="playPreview('${this.beatmap.path}', '${this.beatmap.id}')"> <i id="icon-${this.beatmap.id}" title="Preview song" class="fas fa-play playButton"></i></a>
-                <a onclick='startID(${this.beatmap.id})' class="inner">
+                <a onclick='loadID(${this.beatmap.id})' class="inner">
                 <img class="thumbnail" src="/${this.beatmap.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
                 </div>
                 <figcaption>
