@@ -44,7 +44,7 @@ function startGame(path, title) {
 
     stopPreview();
     window.scrollTo(0, 0);
-    document.title = `svt!catch | ${title}`
+    document.title = `svb!catch | ${title}`
     fetch(`/${path}.osu`)
         .then(response => response.text())
         .then(data => {
