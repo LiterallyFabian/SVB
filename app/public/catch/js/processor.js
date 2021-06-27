@@ -217,26 +217,37 @@ function parseBeatmap(beatmap) {
     var timing = parseTiming(result.timingLines);
     result.timingPoints = timing.timingPoints;
     result.beatLength = timing.beatLength;
+    result.beatLengthMultiplier = timing.beatLengthMultiplier;
     return result;
 }
 
 function parseTiming(timingLines) {
     var timingPoints = [];
     var beatLength;
+    var beatLengthMultiplier;
     timingLines.forEach(line => {
         var data = line.split(",");
         toggleKiai(data[7] == 1, data[0], currentStartTime);
 
-        //set beatlength
+        //set default beatlength
         if (typeof beatLength == "undefined") {
-            beatLength = parseFloat(data[1]);
+            beatLength = data[1];
             console.log(`Default beat length set to ${beatLength} (${Math.round((1 / beatLength * 1000 * 60))} BPM)`)
+
+            //set default beatlength multiplier
+        } else if (data[6] == 0 && typeof beatLengthMultiplier == "undefined") {
+            beatLengthMultiplier = data[1] == 0 ? 1 : -100 / data[1];
+            console.log(`Default beat length multiplier set to ${beatLengthMultiplier}.`)
+
+            //queue beatlength
         } else if (data[6] == 1) {
             timingPoints.push({
                 type: "beatLength",
                 value: parseFloat(data[1]),
                 delay: parseFloat(data[0] - 10)
             });
+
+            //queue beatLengthMultiplier
         } else {
             timingPoints.push({
                 type: "beatLengthMultiplier",
@@ -245,8 +256,10 @@ function parseTiming(timingLines) {
             });
         }
     });
+    if (typeof beatLengthMultiplier == "undefined") beatLengthMultiplier = 1;
     return {
         beatLength: beatLength,
+        beatLengthMultiplier: beatLengthMultiplier,
         timingPoints: timingPoints
     };
 }
@@ -255,8 +268,8 @@ function parseFruits(beatmap) {
     var allFruits = [];
     var sliderMultiplier = beatmap.sliderMultiplier;
     var beatLength = beatmap.beatLength;
+    var beatLengthMultiplier = beatmap.beatLengthMultiplier;
 
-    var beatLengthMultiplier = 1;
     beatmap.fruitLines.forEach(line => {
         line = line.split(",")
         var delay = parseInt(line[2]);
@@ -274,10 +287,15 @@ function parseFruits(beatmap) {
             return obj.delay >= delay
         });
         if (timing[0]) {
-            if (timing[0].type == "beatLength") beatLength = timing[0].value;
-            else beatLengthMultiplier = timing[0].value;
-        }
+            if (timing[0].type == "beatLength") {
+                beatLength = timing[0].value;
+                // console.log(` ${delay} Beat length set to ${beatLength}`)
 
+            } else {
+                beatLengthMultiplier = timing[0].value;
+                // console.log(` ${delay} Beat length multiplier set to ${beatLengthMultiplier}`)
+            }
+        }
         //line is slider
         if (line.length > 7) {
             //Queue slider-start fruit
