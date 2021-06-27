@@ -17,8 +17,11 @@ $(document).ready(function () {
     grid = 5;
     catcherSpeed = 5 * scaleModifier;
     fruitSpeed = 0.035 * scaleModifier;
+    //2 if catcher takes hyper fruit
+    hyperSpeedModifier = 1;
     var lastTime = Date.now();
-    fruits = []; //containing all fruits on playfield
+    allFruits = [];
+    summonedFruits = []; //containing all fruits on playfield
     var scoreText;
     score = 0; //total score catched, affected by combo
     missedScore = 0; //missed score (not affected by combo, to get acc)
@@ -51,10 +54,11 @@ $(document).ready(function () {
     fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3'), document.getElementById('fruit4')];
     dropletImage = document.getElementById('droplet');
     bananaImage = document.getElementById('banana');
+    hyperImage = document.getElementById('hyper');
 
 
     catcher = {
-        x: scaleModifier*400, //middle of playfield
+        x: scaleModifier * 400, //middle of playfield
         y: canvas.height * 0.768, //makes catcher's feet touch the ground
         width: (516 / 2.7) * scaleModifier,
         height: (609 / 2.7) * scaleModifier,
@@ -77,7 +81,7 @@ $(document).ready(function () {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         // add gravity to fruits 
-        fruits.forEach(fruit => {
+        summonedFruits.forEach(fruit => {
             fruit.updatePos(relativeSpeedMultiplier);
             fruit.checkCollision();
         });
@@ -95,22 +99,22 @@ $(document).ready(function () {
         //move catcher
         if (keyState[37] || keyState[65] || keyState[103] || (touching && touching_x <= context.canvas.width / 2)) { //left arrow | a | num7
             hasMoved = true;
-            catcher.x -= catcherSpeed;
+            catcher.x -= catcherSpeed * hyperSpeedModifier;
             catcherImage_fail = catcherImage_failL;
             catcherImage_kiai = catcherImage_kiaiL;
             catcherImage_idle = catcherImage_idleL;
         } else if (keyState[39] || keyState[68] || keyState[105] || (touching && touching_x > context.canvas.width / 2)) { //right arrow | d | num9
             hasMoved = true;
-            catcher.x += catcherSpeed;
+            catcher.x += catcherSpeed * hyperSpeedModifier;
             catcherImage_fail = catcherImage_failR;
             catcherImage_kiai = catcherImage_kiaiR;
             catcherImage_idle = catcherImage_idleR;
         }
         //dash catcher
         if (keyState[16] || keyState[220]) { //shift | §
-            catcherSpeed = 10 * scaleModifier * relativeSpeedMultiplier;
+            catcherSpeed = 10 * scaleModifier * relativeSpeedMultiplier * hyperSpeedModifier;
         } else {
-            catcherSpeed = 5 * scaleModifier * relativeSpeedMultiplier;
+            catcherSpeed = 5 * scaleModifier * relativeSpeedMultiplier * hyperSpeedModifier;
         }
 
         //update catcher expression based on kiai/fail
