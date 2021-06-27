@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/js/svt.js"></script>
     <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
-    <title>SVT</title>
+    <title>SVB | Create article</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
@@ -34,16 +34,16 @@
     <div class="login_mainframe">
         <div class="login_formtable">
 
-            <label class="label">Nyhetstitel</label><br>
+            <label class="label">News title</label><br>
             <input class="textbox" type="text" v-model="title" placeholder="Min artikel" maxlength="64" required><br>
 
-            <label class="label">Artikel</label><br>
+            <label class="label">Article</label><br>
             <textarea class="textbox articletextbox" type="text" v-model="text" maxlength="2500" required></textarea><br>
 
-            <label class="label">Omslagslänk</label><br>
+            <label class="label">Banner link</label><br>
             <input class="textbox" type="text" v-model="thumbnailPath" placeholder="img/omslag.png" maxlength="128" required><br>
 
-            <label class="label">Artikellänk</label><br>
+            <label class="label">Article link</label><br>
             <input class="textbox" type="text" v-model="url" placeholder="/min-artikel" :disabled="isEdit == 1" maxlength="64" required><br><br>
 
             <button class="submitbutton" v-on:click="vue_createpost">{{ action }}</button>
@@ -64,7 +64,7 @@
                     url: "",
                     date: new Date().toISOString().slice(0, 19).replace('T', ' '),
                     status: "",
-                    action: "Skapa inlägg",
+                    action: "Create article",
                     isEdit: 0
                 }
 
@@ -75,7 +75,7 @@
                     var edit = url.searchParams.get("edit");
                     if (edit != null) {
                         this.url = edit;
-                        this.action = "Uppdatera inlägg";
+                        this.action = "Update article";
                         this.isEdit = 1;
                         this.vue_fillpost();
                     }
@@ -85,13 +85,13 @@
             methods: {
                 async vue_createpost() {
                     if (this.title == null || this.title == "") {
-                        this.status = "Ett fel uppstod: Skriv en titel lmao";
+                        this.status = "Error: Write a title lmao";
                         return;
                     } else if (this.text == null || this.text == "") {
-                        this.status = "Ett fel uppstod: Skriv en artikel lmao";
+                        this.status = "Error: Write an article lmao";
                         return;
                     } else if (this.url == null || this.url == "") {
-                        this.status = "Ett fel uppstod: Skriv en länk lmao";
+                        this.status = "Error: Write a link lmao";
                         return;
                     }
                     await axios.post("/post/createpost", {
@@ -106,7 +106,7 @@
                         if (res.data == false) {
                             this.status = "Permission denied. Please log in to an account with access.";
                         } else {
-                            this.status = "Din post är uppe!";
+                            this.status = "Your article has been created.";
                             window.location.replace(`/articles/${this.url}.html`);
                         }
                     })

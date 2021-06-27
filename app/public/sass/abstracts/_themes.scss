@@ -2,7 +2,7 @@
 // Handles all site themes
 // -----------------------------------------------------------------------------
 
-$themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
+$themes: (theme_light: ("logo": url('/img/logo_dark.png'),
         "background": #EAEAEA,
         "foreground": #F4F4F4,
         "foreground-lighter": #FFFFFF,
@@ -18,7 +18,7 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "brand-color": #e02e3d,
         "brand-text": #FFFFFF),
 
-    theme_dark: ("logo": url('/img/logo_light.svg'),
+    theme_dark: ("logo": url('/img/logo_light.png'),
         "background": #0d0d0d,
         "foreground": #242424,
         "foreground-lighter": #292929,
@@ -35,7 +35,7 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "brand-text": #FFFFFF,
         "nav-thickness": 100),
 
-    theme_aqua: ("logo": url('/img/logo_light.svg'),
+    theme_aqua: ("logo": url('/img/logo_light.png'),
         "background": rgb(11, 22, 34),
         "foreground": rgb(21, 31, 46),
         "foreground-lighter": rgb(30, 44, 66),
@@ -51,7 +51,7 @@ $themes: (theme_light: ("logo": url('/img/logo_dark.svg'),
         "brand-color": #C9F1FB,
         "brand-text": #213347),
 
-    theme_icecream: ("logo": url('/img/logo_dark.svg'),
+    theme_icecream: ("logo": url('/img/logo_dark.png'),
         "background": #E9C6F8,
         "foreground": #F2D5FF,
         "foreground-lighter": #F7E6FF,

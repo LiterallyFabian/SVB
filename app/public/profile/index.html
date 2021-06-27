@@ -11,7 +11,7 @@
     <!--Styling-->
     <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
     <!--Meta-->
-    <title>SVT</title>
+    <title>SVB</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,7 +49,7 @@
             <div class="center game-stats">
                 <!-- Catch scores -->
                 <div>
-                    <h1 style="padding:20px; margin:0; text-decoration: underline;">svt!catch stats</h1>
+                    <h1 style="padding:20px; margin:0; text-decoration: underline;">svb!catch stats</h1>
                     <ul id="rank-list">
                         <h2>Ranks achieved</h2>
                         <li>
@@ -129,7 +129,7 @@
                 roles: [],
                 editref: "/profile/edit",
                 //
-                // svt!catch stats
+                // svb!catch stats
                 //
                 catch_scores: "",
                 catch_ranks_SS: 0,
@@ -195,7 +195,7 @@
     Vue.createApp(userProfile).mount('#page')
 
     function setUser(vue, data) {
-        document.title = `SVT | ${data.name}'s profile`
+        document.title = `SVB | ${data.name}'s profile`
         vue.id = data.id;
         vue.username = data.name;
         vue.discriminator = data.discriminator;

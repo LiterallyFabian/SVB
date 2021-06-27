@@ -25,11 +25,11 @@
     }
 
     .footerlogo {
-        height: 30px;
-        width: 216px;
+        background-size: 200px;
+        height: 50px;
+        width: 200px;
+        object-fit: contain;
         background-repeat: no-repeat;
-        margin: 15px auto;
-
         @include theme() {
             background-image: theme-get('logo');
         }

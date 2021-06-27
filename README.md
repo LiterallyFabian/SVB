@@ -2,14 +2,14 @@
   <img src="app/public/img/banner.jpg">
 </p>
 
-# SVT
-This repo is mostly used by me to play around with web development, for most people there is nothing of interest here. Maybe give [svt!catch](https://svt.sajber.me/catch/) a try if you're bored? 
+# SVB
+This repo is mostly used by me to play around with web development, for most people there is nothing of interest here. Maybe give [svb!catch](https://svb.sajber.me/catch/) a try if you're bored? SVB doesn't stand for anything special, it used to be SVT but changed due to trademark issues.
 
-###### *Please note that this website is not affiliated with Sveriges Television AB, osu!, or any other brands you might see here in any way. If you have any questions you can [email me here](mailto:lindgrenfabian@gmail.com?subject=svt%21catch).* 
+###### *Please note that this website is not affiliated with Sveriges Television AB, osu!, or any other brands you might see here in any way. If you have any questions you can [email me here](mailto:lindgrenfabian@gmail.com?subject=SVB).* 
 
 ## Parts of the website
 
-- svt!catch
+- svb!catch
   - Rhythm minigame based on [osu!catch](https://osu.ppy.sh/wiki/en/Game_mode/osu!catch). 
   - Full support for any osu! beatmap.
   - Custom difficulty calculations to give all beatmaps (levels) their own difficulty rating
@@ -45,8 +45,8 @@ This repo is mostly used by me to play around with web development, for most peo
 - Node.js v12
 - MySQL
 ```bash
-git clone https://github.com/LiterallyFabian/SVT.git
-cd SVT/app
+git clone https://github.com/LiterallyFabian/SVB.git
+cd SVB/app
 npm install
 node .
 ```
