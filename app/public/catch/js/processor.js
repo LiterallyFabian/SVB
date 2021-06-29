@@ -94,7 +94,14 @@ function processMap() {
         });
         hitsoundCombobreak.volume = effectsRange.value / 100;
         music.volume = musicRange.value / 100;
-        music.play()
+        music.play();
+
+        //makes catcher wide if user is playing "Putin Walk"
+        if (beatmapData.id == 2517397) {
+            $(catcher).animate({
+                width: catcher.width * 2.5
+            }, 1500);
+        }
     }, 955)
 
     //get all fruits
