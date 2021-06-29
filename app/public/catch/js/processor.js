@@ -128,7 +128,7 @@ function processMap() {
     }, fruits[fruits.length - 2].delay + 2000)
 }
 
-//Audio
+//Save settings
 $(document).ready(function () {
     musicRange = document.getElementById("musicRange");
     effectsRange = document.getElementById("effectsRange");
@@ -137,18 +137,18 @@ $(document).ready(function () {
     musicRange.oninput = function () {
         if (typeof music != "undefined") {
             music.volume = musicRange.value / 100;
-
         }
-
+        setCookie("catchVolumeMusic", musicRange.value, 10000);
     }
     effectsRange.oninput = function () {
         if (hitsounds.length > 0) hitsounds.forEach(hs => {
             hs.volume = effectsRange.value / 100
-
         });
+        setCookie("catchVolumeEffects", effectsRange.value, 10000);
     }
     confettiRange.oninput = function () {
         if (!confettiRange.checked) confetti.stop();
+        setCookie("catchConfetti", document.getElementById("confettiToggle").checked);
     }
 
 
@@ -157,13 +157,6 @@ $(document).ready(function () {
     effectsRange.value = getAloneCookie("catchVolumeEffects");
     document.getElementById("confettiToggle").checked = getAloneCookie("catchConfetti");
 })
-
-var saveCookie = setInterval(function () {
-    setCookie("catchVolumeMusic", musicRange.value, 10000);
-    setCookie("catchVolumeEffects", effectsRange.value, 10000);
-    setCookie("catchConfetti", document.getElementById("confettiToggle").checked);
-}, 2000);
-
 
 function resetGame() {
     fruitHasSpawned = false;
