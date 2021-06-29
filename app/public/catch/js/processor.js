@@ -274,7 +274,7 @@ function parseFruits(beatmap) {
 
         //update beatlength
         var pos = parseInt(line[0]);
-        var hitsound = parseInt(line[4]);
+        var defaultHitsound = parseInt(line[4]);
 
         var timing = beatmap.timingPoints.filter(obj => {
             return obj.delay >= delay
@@ -291,13 +291,17 @@ function parseFruits(beatmap) {
         }
         //line is slider
         if (line.length > 7) {
+            var overrideHitsounds = line.length > 8;
+            var sliderHitsounds = overrideHitsounds ? line[8].split("|") : [];
+            var currentHitsound = 0;
+
             //Queue slider-start fruit
             allFruits.push({
                 delay: delay,
                 fruit: {
                     x: pos,
                     size: 0,
-                    hitsound: hitsound
+                    hitsound: overrideHitsounds ? sliderHitsounds[currentHitsound++] : defaultHitsound
                 }
             })
 
@@ -310,6 +314,7 @@ function parseFruits(beatmap) {
             var dropletsPerRepeat = parseInt(Math.round(sliderLength / 17));
             var droplets = dropletsPerRepeat * repeats; //amount of droplets slider contains
             var diff = (pos - sliderEndPos) / droplets; //difference in x each droplet should have
+
             var currentDrop = 0;
 
             for (var i = 0; i < droplets; i++) {
@@ -321,7 +326,7 @@ function parseFruits(beatmap) {
                         fruit: {
                             x: dropPos,
                             size: 0,
-                            hitsound: hitsound
+                            hitsound: overrideHitsounds ? sliderHitsounds[currentHitsound++] : defaultHitsound
                         }
                     })
                     currentDrop = 0;
@@ -343,7 +348,7 @@ function parseFruits(beatmap) {
                 fruit: {
                     x: sliderEndPos,
                     size: 0,
-                    hitsound: hitsound
+                    hitsound: overrideHitsounds ? sliderHitsounds[currentHitsound++] : defaultHitsound
                 }
             })
 
@@ -354,7 +359,7 @@ function parseFruits(beatmap) {
                 fruit: {
                     x: pos,
                     size: 0,
-                    hitsound: hitsound
+                    hitsound: defaultHitsound
                 }
             })
         } else {
