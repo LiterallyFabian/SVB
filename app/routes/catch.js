@@ -291,6 +291,37 @@ router.get('/updateall', (req, res) => {
     res.send("done")
 });
 
+router.get("/fixranks", (req, res) => {
+    connection.query(`SELECT id,catchScores FROM users`, function (err, result) {
+        if (err) throw err;
+        result.forEach(user => {
+            var scores = JSON.parse(user.catchScores).ranks;
+            if (typeof scores == "object") {
+                scores = Object.values(scores);
+                var newScores = JSON.parse(user.catchScores);
+
+                scores.forEach(score => {
+                    if (typeof score == "object") {
+                        var acc = score.accuracy;
+                        if (acc > 0) {
+                            if (acc == 100) score.rank = 'ss';
+                            else if (acc > 98) score.rank = 's';
+                            else if (acc > 94) score.rank = 'a';
+                            else if (acc > 90) score.rank = 'b';
+                            else if (acc > 85) score.rank = 'c';
+                            else score.rank = 'd';
+                        }
+                        newScores.ranks[score.id] = score;
+                    }
+                })
+                console.log(`Fixed ranks for ${user.id}`)
+                connection.query(`UPDATE users SET catchScores = ${connection.escape(JSON.stringify(newScores))} WHERE id = '${user.id}'`)
+            }
+        })
+    });
+    res.send("done")
+})
+
 module.exports = router;
 module.exports.getMaps = getMaps;
 module.exports.beatmaplist = beatmaplist;
