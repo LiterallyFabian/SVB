@@ -20,7 +20,7 @@ function playPreview(path, id) {
         previewAudio = new Audio(`/${path.replace("song/", "song/preview/")}.mp3`);
         previewAudio.volume = 0;
         $(previewAudio).animate({
-            volume: document.getElementById("musicRange").value / 100
+            volume: getAloneCookie("catchVolumeMusic") / 100
         }, 500);
         previewAudio.play();
         setIcon(id, true);

@@ -5,6 +5,7 @@
     <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
     <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="/catch/js/audioPreview.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <script src="/js/svt.js"></script>
@@ -120,6 +121,7 @@
     <!--end of Page footer -->
 </body>
 <script type="application/javascript">
+    var beatmapDatabase = {};
     const userProfile = {
         data() {
             return {
@@ -133,7 +135,6 @@
                 isOwn: false,
                 roles: [],
                 editref: "/profile/edit",
-                maps: {},
                 scoreList: {},
                 scoreListLength: 0,
                 //
@@ -189,7 +190,7 @@
                         console.log(user.data);
                         if (user.data != false) { //queried profile existed
                             maps.data.forEach(map => {
-                                this.maps[map.id] = map;
+                                beatmapDatabase[map.id] = map;
                             })
                             setUser(user.data[0])
                             setCatch(user.data[0].catchScores);
@@ -303,12 +304,13 @@
                 break;
             }
             var score = vue.scoreList[i];
-            var beatmap = vue.maps[score.id];
+            var beatmap = beatmapDatabase[score.id];
             if (typeof score.accuracy == "undefined") score.accuracy = NaN;
             if (beatmap) {
                 $("#scorelist").append(`
             <main class="scorelist__profiles">
-                <article class="scorelist__profile" style='background-image:linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("/${beatmap.path.replace("/song", "/song/icon")}.jpg");'>
+                <article id="card-${beatmap.id}" class="scorelist__profile" style='background-image:linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("/${beatmap.path.replace("/song", "/song/icon")}.jpg");'>
+                    <a class="scorelist__play" onClick="playPreview('${beatmap.path}', '${beatmap.id}')"> <i id="icon-${beatmap.id}" title="Preview song" class="fas fa-play playButton"></i></a>
                     <img src="/img/ranking-${score.rank.toUpperCase()}.png" alt="${score.rank.toUpperCase()}" class="scorelist__picture">
                     <span class="scorelist__name">${score.title}<br>
                         <div class="scorelist__info">by ${beatmap.artist}</div>
