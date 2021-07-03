@@ -84,27 +84,9 @@
                     <p>Banana accuracy: {{ catch_banana_acc }}%</p>
 
                     <h2>Best Performance</h2>
-
-                    <main class="scorelist__profiles">
-                        <article class="scorelist__profile" style='background-image:linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("/img/ranking-SS.png");'>
-                            <img src="/img/ranking-SS.png" alt="SS" class="scorelist__picture">
-                            <span class="scorelist__name">Nip Hyakkei<br>
-                                <div class="scorelist__info">by  Ichimon</div>
-                            </span>
-                            <span class="scorelist__value">183<span>pp<br>85.84%</span></span>
-                        </article>
-
-                    </main>
-                        <main class="scorelist__profiles">
-                            <article class="scorelist__profile" style='background-image:linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("/catch/song/icon/nippon%20egao%20hyakkei.jpg");'>
-                                <img src="/img/ranking-SS.png" alt="SS" class="scorelist__picture">
-                                <span class="scorelist__name">Nippon Egao Hyakkei<br>
-                                    <div class="scorelist__info">by Momokurotei Ichimon</div>
-                                </span>
-                                <span class="scorelist__value">183<span>pp<br>85.84%</span></span>
-                            </article>
-
-                        </main>
+                    <div id="scorelist">
+                    </div>
+                    <button id="loadscores" onclick="addBests(15);">Load more scores...</button>
                 </div>
                 <hr>
                 <!-- SajberRoyale scores -->
@@ -151,6 +133,9 @@
                 isOwn: false,
                 roles: [],
                 editref: "/profile/edit",
+                maps: {},
+                scoreList: {},
+                scoreListLength: 0,
                 //
                 // svb!catch stats
                 //
@@ -193,31 +178,39 @@
         },
         methods: {
             async vue_getuser() {
-                await axios.post("/auth/getuser", {
-                    id: new URL(window.location.href).searchParams.get("user")
-                }).then(res => {
-                    console.log(res.data);
-                    if (res.data != false) { //queried profile existed
-                        setUser(this, res.data[0])
-                        setCatch(this, res.data[0].catchScores);
-                        setRoyale(this, res.data[0].royaleScores);
+
+                await axios.all([
+                        axios.post("/catch/getmaps"),
+                        axios.post("/auth/getuser", {
+                            id: new URL(window.location.href).searchParams.get("user")
+                        })
+                    ])
+                    .then(axios.spread((maps, user) => {
+                        console.log(user.data);
+                        if (user.data != false) { //queried profile existed
+                            maps.data.forEach(map => {
+                                this.maps[map.id] = map;
+                            })
+                            setUser(user.data[0])
+                            setCatch(user.data[0].catchScores);
+                            setRoyale(user.data[0].royaleScores);
 
 
 
-                    } else { //profile doesn't exist
-                        this.username = "Invalid User";
-                        this.discriminator = "0000";
-                        this.bio = "you messed up!";
-                    }
+                        } else { //profile doesn't exist
+                            this.username = "Invalid User";
+                            this.discriminator = "0000";
+                            this.bio = "you messed up!";
+                        }
 
-                })
+                    }))
             }
         }
     }
 
-    Vue.createApp(userProfile).mount('#page')
+    var vue = Vue.createApp(userProfile).mount('#page')
 
-    function setUser(vue, data) {
+    function setUser(data) {
         document.title = `SVB | ${data.name}'s profile`
         vue.id = data.id;
         vue.username = data.name;
@@ -239,7 +232,7 @@
         })
     }
 
-    function setRoyale(vue, data) {
+    function setRoyale(data) {
         var scores = JSON.parse(data);
         vue.royale_games = scores.gamesPlayed;
         vue.royale_wins = scores.gamesWon;
@@ -268,8 +261,22 @@
         vue.royale_lockers = scores.lockersOpened;
     }
 
-    function setCatch(vue, data) {
+    function setCatch(data) {
         var scores = JSON.parse(data);
+
+        if (scores.ranks) {
+            //fix score list
+            vue.scoreList = Object.values(scores.ranks);
+
+            //remove legacy scores
+            vue.scoreList = vue.scoreList.filter(function (element) {
+                return typeof element !== 'string';
+            });
+
+            //sort scores by pp
+            vue.scoreList.sort((a, b) => (a.pp > b.pp) ? -1 : 1)
+        }
+
         vue.catch_ranks_SS = scores.ss;
         vue.catch_ranks_S = scores.s;
         vue.catch_ranks_A = scores.a;
@@ -281,6 +288,42 @@
         vue.catch_bananas_catched = cleanNumber(scores.bananasCatched);
         if (scores.bananasSeen == 0) vue.catch_banana_acc = 100;
         else vue.catch_banana_acc = (scores.bananasCatched / scores.bananasSeen * 100).toFixed(2);
+        addBests(5)
+    }
+
+    function addBests(count) {
+        if (vue.scoreList.length == undefined) {
+            $("#scorelist").append("No scores saved!")
+            return;
+        }
+        var start = vue.scoreListLength;
+        for (var i = start; i < start + count; i++) {
+            if (vue.scoreList.length == i) {
+                bestLimit();
+                break;
+            }
+            var score = vue.scoreList[i];
+            var beatmap = vue.maps[score.id];
+            if (typeof score.accuracy == "undefined") score.accuracy = NaN;
+            if (beatmap) {
+                $("#scorelist").append(`
+            <main class="scorelist__profiles">
+                <article class="scorelist__profile" style='background-image:linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("/${beatmap.path.replace("/song", "/song/icon")}.jpg");'>
+                    <img src="/img/ranking-${score.rank.toUpperCase()}.png" alt="${score.rank.toUpperCase()}" class="scorelist__picture">
+                    <span class="scorelist__name">${score.title}<br>
+                        <div class="scorelist__info">by ${beatmap.artist}</div>
+                    </span>
+                    <span class="scorelist__value">${score.pp.toFixed(0)}<span>pp<br>${score.accuracy.toFixed(2)}%</span></span>
+                </article>
+            </main>   
+            `)
+                vue.scoreListLength++;
+            }
+        }
+    }
+
+    function bestLimit() {
+        $("#loadscores").remove()
     }
 </script>
 
