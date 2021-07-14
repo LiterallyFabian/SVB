@@ -91,7 +91,7 @@ function secondsToDisplay(duration) {
     return ret;
 }
 
-function setTheme(theme = "theme_dark") {
+function setTheme(theme) {
     document.getElementsByTagName('html')[0].className = theme;
     setCookie("sitetheme", theme, 100000);
 
@@ -100,8 +100,10 @@ function setTheme(theme = "theme_dark") {
 $(document).ready(function () {
     var theme = getAloneCookie("sitetheme");
 
-    if (theme.includes("theme_"))
+    if (theme)
         setTheme(theme)
+    else
+        setTheme("theme_dark")
 })
 
 //add zeroes to number
