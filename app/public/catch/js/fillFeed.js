@@ -10,11 +10,15 @@ class bmap {
         var score = catchScores[this.beatmap.id];
         if (score) rankOverlay = `<img class="rankOverlay" src="/img/ranking-${score.rank.toUpperCase()}.png">`;
 
-        var stars = "";
-        for (var i = 0; i < Math.round(this.beatmap.stars); i++) stars += `<i class="fas fa-star star"></i>`;
+        //fill star container
+        var color = getColor(this.beatmap.stars);
+        var stars = `<i class="fas fa-star star" style="color:${color}"></i>`;
+        for (var i = 0; i < Math.round(this.beatmap.stars) - 1; i++) stars += `<i class="fas fa-star star" style="color:${color}"></i>`;
 
+        //remove stuff from title
         var fixedTitle = this.beatmap.title.replace(/(?<!^)((\[.+\]$)|(\(.+\)$)|(\-.+\-$)|(\~.+\~$)|((feat|ft| ver ).+)|(\/|\-.+remix))$/ig, '');
 
+        //generate card
         return `
         <li class="beatmapCard" id="card-${this.beatmap.id}">
             <figure> 
@@ -165,4 +169,27 @@ function SetSort(newSort) {
     setCookie("sort", JSON.stringify(sort), 100000);
     $(`#sort-${newSort}`).addClass(sort.reverse ? "fa-chevron-down" : "fa-chevron-up")
     FillFeed();
+}
+
+function getColor(stars) {
+    var prev = -1;
+    var colors = {
+        0: "#A7F495",
+        2: "#95D7F4",
+        3: "#F4E295",
+        4: "#F2BD56",
+        5: "#F2AB56",
+        6: "#F27F56",
+        7: "#D256F2",
+        8: "#F256A4",
+        9: "#8756F2"
+    }
+    var i;
+    for (i in colors) {
+        var n = parseInt(i);
+        if ((prev != -1) && (stars < n))
+            return colors[prev];
+        else
+            prev = n;
+    }
 }
