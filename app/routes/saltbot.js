@@ -17,4 +17,16 @@ router.post("/update", (req, res) => {
 
 });
 
+router.get("/get/:token", (req, res) => {
+    var token = req.params.token;
+    if (token == process.env.salttoken) {
+        connection.query(`SELECT * FROM saltbot`, function (err, result) {
+            if (err) throw err;
+            return res.status(200).send(result);
+        });
+    } else {
+        return res.status(403);
+    }
+});
+
 module.exports = router;
