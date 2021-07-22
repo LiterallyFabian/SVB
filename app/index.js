@@ -13,6 +13,7 @@ var route_catch = require('./routes/catch.js');
 var route_auth = require('./routes/auth.js');
 var route_mudae = require('./routes/mudae.js');
 var route_royale = require('./routes/royale.js');
+var route_saltbot = require('./routes/saltbot.js');
 require('dotenv').config();
 
 app.set('trust proxy', true);
@@ -49,6 +50,7 @@ app.use('/catch', route_catch);
 app.use('/auth', route_auth);
 app.use('/mudae', route_mudae);
 app.use('/royale', route_royale);
+app.use('/saltbot', route_saltbot);
 
 app.get('/', (req, res) => {
     res.sendFile('/index.html')

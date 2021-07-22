@@ -59,4 +59,12 @@ module.exports.createTables = function createTables() {
         primary key (id)
     )
     `);
+
+    connection.query(`
+    CREATE TABLE IF NOT EXISTS saltbot (
+        id VARCHAR(32) NOT NULL,
+        command TINYTEXT,
+        date DATETIME
+    )
+    `);
 }
