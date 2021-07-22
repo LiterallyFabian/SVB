@@ -20,7 +20,7 @@ router.post("/update", (req, res) => {
 router.get("/get/:token", (req, res) => {
     var token = req.params.token;
     if (token == process.env.salttoken) {
-        connection.query(`SELECT * FROM saltbot`, function (err, result) {
+        connection.query(`SELECT * FROM saltbot ORDER BY DATE DESC`, function (err, result) {
             if (err) throw err;
             return res.status(200).send(result);
         });
