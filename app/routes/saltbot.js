@@ -14,13 +14,33 @@ router.post("/update", (req, res) => {
     } else {
         return res.status(403);
     }
-
 });
 
-router.get("/get/:token", (req, res) => {
-    var token = req.params.token;
+//update server count
+router.post("/server", (req, res) => {
+    var token = req.body.token;
+    var servers = req.body.servers;
+    var members = req.body.members;
+    console.log(req.body)
     if (token == process.env.salttoken) {
-        connection.query(`SELECT * FROM saltbot ORDER BY DATE DESC`, function (err, result) {
+        connection.query(`INSERT INTO saltbot_servers (members,servers,date) VALUES (${members},${servers},NOW());`, function (err, result) {
+            if (err) throw err;
+            return res.status(200)
+        });
+    } else {
+        return res.status(403);
+    }
+});
+
+router.get("/get/:token/:mode", (req, res) => {
+    var token = req.params.token;
+    var mode = req.params.mode;
+    var table = "saltbot";
+    if (mode == "server") table = "saltbot_servers"
+    else if (mode == "command") table = "saltbot"
+
+    if (token == process.env.salttoken) {
+        connection.query(`SELECT * FROM ${table} ORDER BY DATE DESC`, function (err, result) {
             if (err) throw err;
             return res.status(200).send(result);
         });

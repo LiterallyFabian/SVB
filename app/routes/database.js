@@ -67,4 +67,12 @@ module.exports.createTables = function createTables() {
         date DATETIME
     )
     `);
+    
+    connection.query(`
+    CREATE TABLE IF NOT EXISTS saltbot_servers (
+        servers INT,
+        members INT,
+        date DATETIME
+    )
+    `);
 }
