@@ -22,7 +22,6 @@ router.post("/server", (req, res) => {
     var servers = req.body.servers;
     var members = req.body.members || null;
     var time = req.body.timestamp;
-    console.log(req.body)
     if (token == process.env.salttoken) {
         connection.query(`INSERT INTO saltbot_servers (members,servers,date) VALUES (${members},${servers},${time ? `"${time}"` : "NOW()"});`, function (err, result) {
             if (err) throw err;
