@@ -20,10 +20,11 @@ router.post("/update", (req, res) => {
 router.post("/server", (req, res) => {
     var token = req.body.token;
     var servers = req.body.servers;
-    var members = req.body.members;
+    var members = req.body.members || null;
+    var time = req.body.timestamp;
     console.log(req.body)
     if (token == process.env.salttoken) {
-        connection.query(`INSERT INTO saltbot_servers (members,servers,date) VALUES (${members},${servers},NOW());`, function (err, result) {
+        connection.query(`INSERT INTO saltbot_servers (members,servers,date) VALUES (${members},${servers},${time ? `"${time}"` : "NOW()"});`, function (err, result) {
             if (err) throw err;
             return res.status(200)
         });
