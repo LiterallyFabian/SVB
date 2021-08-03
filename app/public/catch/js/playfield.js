@@ -38,23 +38,7 @@ $(document).ready(function () {
     touching = false; //whether the user is touching the screen or not (for mobile controls)
     touching_x = 0; //where the user is touching
 
-
-    catcherImage_idleL = document.getElementById('catcher-idleL');
-    catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
-    catcherImage_failL = document.getElementById('catcher-failL');
-    catcherImage_idleR = document.getElementById('catcher-idleR');
-    catcherImage_kiaiR = document.getElementById('catcher-kiaiR');
-    catcherImage_failR = document.getElementById('catcher-failR');
-
-    catcherImage_fail = catcherImage_failR;
-    catcherImage_kiai = catcherImage_kiaiR;
-    catcherImage_idle = catcherImage_idleR;
-    catcherImage = catcherImage_idle;
-    fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3'), document.getElementById('fruit4')];
-    dropletImage = document.getElementById('droplet');
-    bananaImage = document.getElementById('banana');
-    hyperImage = document.getElementById('hyper');
-
+    loadAssets();
 
     catcher = {
         x: scaleModifier * 400, //middle of playfield
@@ -191,6 +175,24 @@ function component(width, height, color, x, y, type, align) {
             context.fillRect(this.x, this.y, this.width, this.height);
         }
     }
+}
+
+function loadAssets() {
+    catcherImage_idleL = document.getElementById('catcher-idleL');
+    catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
+    catcherImage_failL = document.getElementById('catcher-failL');
+    catcherImage_idleR = document.getElementById('catcher-idleR');
+    catcherImage_kiaiR = document.getElementById('catcher-kiaiR');
+    catcherImage_failR = document.getElementById('catcher-failR');
+
+    catcherImage_fail = catcherImage_failR;
+    catcherImage_kiai = catcherImage_kiaiR;
+    catcherImage_idle = catcherImage_idleR;
+    catcherImage = catcherImage_idle;
+    fruitImages = [document.getElementById('fruit1'), document.getElementById('fruit2'), document.getElementById('fruit3'), document.getElementById('fruit4')];
+    dropletImage = document.getElementById('droplet');
+    bananaImage = document.getElementById('banana');
+    hyperImage = document.getElementById('hyper');
 }
 
 
