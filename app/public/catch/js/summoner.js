@@ -1,32 +1,36 @@
 /*
     Handles summoning of objects
 */
+var bananaShower = false; //whether a banana shower is active
 
 //Queues a banana shower
-function summonSpinner(stop) {
-    bananaShower = true;
+function summonSpinner(start, stop) {
     setTimeout(function () {
-        bananaShower = false;
-    }, parseInt(stop, 10));
+        bananaShower = true;
+        setTimeout(function () {
+            bananaShower = false;
+        }, parseInt(stop - start));
+    }, parseInt(start));
 }
 
 //Summons a banana every 60ms if a banana shower is active
 window.setInterval(function () {
-    if (typeof bananaShower == "undefined") return;
-    if (bananaShower) {
-        summonedFruits.push(new fruit(Math.floor(Math.random() * 1500) + 220, 2));
-        stats_bananasSeen++;
-    }
+    if (typeof bananaShower != "undefined")
+        if (bananaShower) {
+            summonedFruits.push(new fruit(Math.floor(Math.random() * 1500) + 220, 2));
+            stats_bananasSeen++;
+        }
 }, 60);
 
 deg = 0.1;
 //Rotates the catch field
 window.setInterval(function () {
-    if (score > 0) {
-        deg += 0.5;
-        var degrees = document.getElementById("rotationSettings").value.split(' ');
-        $('#catchField').css('transform', `rotateY(${deg * degrees[0]}deg) rotateZ(${deg * degrees[1]}deg) rotateX(${deg * degrees[2]}deg)`)
-    }
+    if (typeof bananaShower != "undefined")
+        if (score > 0) {
+            deg += 0.5;
+            var degrees = document.getElementById("rotationSettings").value.split(' ');
+            $('#catchField').css('transform', `rotateY(${deg * degrees[0]}deg) rotateZ(${deg * degrees[1]}deg) rotateX(${deg * degrees[2]}deg)`)
+        }
 }, 10);
 
 //Queues a kiai-toggle

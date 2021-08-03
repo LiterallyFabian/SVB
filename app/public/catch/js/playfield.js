@@ -31,7 +31,6 @@ $(document).ready(function () {
     kiai = false; //whether kiai mode is active or not (makes catcher happy)
     combo = 0; //current user combo
     highestCombo = 0;
-    bananaShower = false; //whether a banana shower is active
     hasMoved = false;
     gameStarted = false;
     smile = false; //whether the catcher should smile (for the intro)

@@ -362,7 +362,7 @@ function parseFruits(beatmap) {
             })
         } else {
             //Summons a spinner
-            summonSpinner(parseFloat(line[5]) - delay)
+            summonSpinner(delay, parseFloat(line[5]))
         }
         //Sets song length to current line
         if (line.length > 1) songLength = parseInt(line[2]);
