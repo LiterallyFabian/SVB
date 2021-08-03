@@ -25,9 +25,9 @@ function startEggs(id) {
             $(this).attr("src", $(this).attr("src").replace("lynn", "yuzu"));
         });
 
-        //padoru / cinderella cage
+        //padoru / cinderella cage / carol of circles
         //adds a snowstorm
-    } else if (id == 2742205 || id == 244224) {
+    } else if (id == 2742205 || id == 244224 || id == 2258912) {
         $.getScript('/js/snowstorm.js', function () {
             snowStorm.start();
         });
