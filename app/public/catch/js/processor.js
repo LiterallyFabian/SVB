@@ -214,89 +214,76 @@ function parseBeatmap(beatmap) {
             }
         }
     });
-    var timing = parseTiming(result.timingLines);
-    result.timingPoints = timing.timingPoints;
-    result.beatLength = timing.beatLength;
-    result.beatLengthMultiplier = timing.beatLengthMultiplier;
+    var timingData = parseTiming(result.timingLines);
+    result.timingPoints = timingData.timing;
+    result.defaultBeatLength = timingData.def;
     return result;
 }
 
 function parseTiming(timingLines) {
     var timingPoints = [];
-    var beatLength;
-    var beatLengthMultiplier;
+    var lastBeatLength;
+    var defaultBeatLength = -1;
     timingLines.forEach(line => {
         var data = line.split(",");
-        toggleKiai(data[7] == 1, data[0], currentStartTime);
+        var time = data[0] - 5;
+        var beatLength = parseInt(data[1]);
+        var meter = data[2];
+        var sampleSet = data[3];
+        var sampleIndex = data[4];
+        var volume = data[5];
+        var uninherited = data[6] == 1;
+        var effects = data[7];
 
-        //set default beatlength
-        if (typeof beatLength == "undefined") {
-            beatLength = data[1];
-            console.log(`Default beat length set to ${beatLength} (${Math.round((1 / beatLength * 1000 * 60))} BPM)`)
+        toggleKiai(effects == 1, time, currentStartTime);
 
-            //set default beatlength multiplier
-        } else if (data[6] == 0 && typeof beatLengthMultiplier == "undefined") {
-            beatLengthMultiplier = data[1] == 0 ? 1 : -100 / data[1];
-            console.log(`Default beat length multiplier set to ${beatLengthMultiplier}.`)
-
-            //queue beatlength
-        } else if (data[6] == 1) {
+        //set beatlengths
+        if (uninherited) {
             timingPoints.push({
-                type: "beatLength",
-                value: parseFloat(data[1]),
-                delay: parseFloat(data[0] - 10)
+                value: beatLength,
+                delay: time - 1
             });
+            lastBeatLength = beatLength
+            if (defaultBeatLength == -1) {
+                defaultBeatLength = beatLength;
+                console.log(`Default beat length set to ${beatLength} (${Math.round(1 / beatLength * 1000 * 60)} BPM)`)
+            }
 
-            //queue beatLengthMultiplier
         } else {
             timingPoints.push({
-                type: "beatLengthMultiplier",
-                value: -100 / parseFloat(data[1]),
-                delay: parseFloat(data[0] - 10)
+                value: lastBeatLength / (-100 / beatLength),
+                delay: time - 1
             });
         }
     });
-    if (typeof beatLengthMultiplier == "undefined") beatLengthMultiplier = 1;
+    if (defaultBeatLength == -1) {
+        defaultBeatLength = 500;
+        console.error(`Default beat length could not be found!`, timingLines);
+    }
     return {
-        beatLength: beatLength,
-        beatLengthMultiplier: beatLengthMultiplier,
-        timingPoints: timingPoints
+        def: defaultBeatLength,
+        timing: timingPoints
     };
 }
 
 function parseFruits(beatmap) {
     var allFruits = [];
     var sliderMultiplier = beatmap.sliderMultiplier;
-    var beatLength = beatmap.beatLength;
-    var beatLengthMultiplier = beatmap.beatLengthMultiplier;
+    var beatLength = beatmap.defaultBeatLength;
 
     beatmap.fruitLines.forEach(line => {
-        line = line.split(",")
+        line = line.split(",");
+        var pos = parseInt(line[0]); //x
         var delay = parseInt(line[2]);
+        var defaultHitsound = parseInt(line[4]);
 
         if (!fruitHasSpawned) {
             fruitHasSpawned = true;
             resetGame();
         }
 
-        //update beatlength
-        var pos = parseInt(line[0]);
-        var defaultHitsound = parseInt(line[4]);
 
-        var timing = beatmap.timingPoints.filter(obj => {
-            return obj.delay >= delay
-        });
-        if (timing[0]) {
-            if (timing[0].type == "beatLength") {
-                beatLength = timing[0].value;
-                // console.log(` ${delay} Beat length set to ${beatLength}`)
-
-            } else {
-                beatLengthMultiplier = timing[0].value;
-                // console.log(` ${delay} Beat length multiplier set to ${beatLengthMultiplier}`)
-            }
-        }
-        //line is slider
+        //this line is a SLIDER
         if (line.length > 7) {
             var overrideHitsounds = line.length > 8;
             var sliderHitsounds = overrideHitsounds ? line[8].split("|") : [];
@@ -312,24 +299,28 @@ function parseFruits(beatmap) {
                 }
             })
 
+            //Update beatLength
+            var timing = beatmap.timingPoints.filter(obj => {
+                return obj.delay < delay
+            });
+            if (timing[0]) beatLength = timing[timing.length - 1].value;
+
             //Get slider ending position
             var sliderPositions = line[5].split("|")
             var sliderEndPos = sliderPositions[sliderPositions.length - 1].split(":")[0]
-            var dropletTiming = beatLength / 100 / sliderMultiplier * 16.8 / beatLengthMultiplier; //time between droplets
             var repeats = parseInt(line[6]); //How many times the slider will repeat
-            var sliderLength = parseInt(Math.round(line[7])); //How long the slider is
-            var dropletsPerRepeat = parseInt(Math.round(sliderLength / 17));
+            var sliderLength = line[7] / (sliderMultiplier * 100) * beatLength * repeats; //How long the slider is in milliseconds
+            var dropletsPerRepeat = line[7] / 20;
             var droplets = dropletsPerRepeat * repeats; //amount of droplets slider contains
+            var dropletDelay = sliderLength / droplets;
             var diff = (pos - sliderEndPos) / droplets; //difference in x each droplet should have
 
             var currentDrop = 0;
-
             for (var i = 0; i < droplets; i++) {
                 var dropPos = pos - (diff * i);
-                var dropDelay = (i) * dropletTiming + 20;
                 if (currentDrop == dropletsPerRepeat) {
                     allFruits.push({
-                        delay: delay + dropDelay,
+                        delay: delay + dropletDelay * i,
                         fruit: {
                             x: dropPos,
                             size: 0,
@@ -339,7 +330,7 @@ function parseFruits(beatmap) {
                     currentDrop = 0;
                 } else
                     allFruits.push({
-                        delay: delay + dropDelay,
+                        delay: delay + dropletDelay * i,
                         fruit: {
                             x: dropPos,
                             size: 1,
@@ -351,7 +342,7 @@ function parseFruits(beatmap) {
             //Queues slider-end fruit
             //console.log(`bl: ${beatLength} slm: ${sliderMultiplier} tot: ${beatLength / 100 / sliderMultiplier * 17} math: ${beatLength}/100*${sliderMultiplier}*17`)
             allFruits.push({
-                delay: delay + (droplets + 1) * dropletTiming,
+                delay: delay + droplets * dropletDelay,
                 fruit: {
                     x: sliderEndPos,
                     size: 0,
