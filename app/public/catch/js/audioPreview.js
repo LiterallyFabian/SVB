@@ -1,3 +1,7 @@
+/*
+Handles audio previews on beatmap cards
+*/
+
 var previewAudio;
 var playHash = 0;
 

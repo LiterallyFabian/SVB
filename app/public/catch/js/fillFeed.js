@@ -1,4 +1,6 @@
-//Creates cards for all beatmaps in database and post them to the front page on load.
+/*
+Creates cards for all beatmaps in database and post them to the front page on load.
+*/
 class bmap {
     constructor(beatmap) {
         this.beatmap = beatmap;
