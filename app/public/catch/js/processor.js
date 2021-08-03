@@ -95,13 +95,7 @@ function processMap() {
         hitsoundCombobreak.volume = effectsRange.value / 100;
         music.volume = musicRange.value / 100;
         music.play();
-
-        //makes catcher wide if user is playing "Putin Walk"
-        if (beatmapData.id == 2517397) {
-            $(catcher).animate({
-                width: catcher.width * 2.5
-            }, 1500);
-        }
+        startEggs(beatmapData.id);
     }, 955)
 
     //get all fruits
@@ -139,7 +133,6 @@ function processMap() {
 $(document).ready(function () {
     musicRange = document.getElementById("musicRange");
     effectsRange = document.getElementById("effectsRange");
-    confettiRange = document.getElementById("confettiToggle");
 
     musicRange.oninput = function () {
         if (typeof music != "undefined") {
@@ -152,17 +145,13 @@ $(document).ready(function () {
             hs.volume = effectsRange.value / 100
         });
         setCookie("catchVolumeEffects", effectsRange.value, 10000);
-    }
-    confettiRange.oninput = function () {
-        if (!confettiRange.checked) confetti.stop();
-        setCookie("catchConfetti", document.getElementById("confettiToggle").checked);
+
     }
 
 
     //load volume from cookies
     musicRange.value = getAloneCookie("catchVolumeMusic");
     effectsRange.value = getAloneCookie("catchVolumeEffects");
-    document.getElementById("confettiToggle").checked = getAloneCookie("catchConfetti");
 })
 
 function resetGame() {

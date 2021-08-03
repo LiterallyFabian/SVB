@@ -1,0 +1,33 @@
+.fall-away {
+    display: inline-block;
+    position: relative;
+    animation: drop 4s;
+    opacity: 0;
+}
+
+@keyframes drop {
+    0% {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(300deg);
+    }
+
+    40% {
+        top: 0px;
+    }
+
+    60% {
+        opacity: 1;
+        top: 1200px;
+    }
+
+    80% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+    }
+}

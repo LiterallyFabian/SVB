@@ -36,19 +36,13 @@ window.setInterval(function () {
 //Queues a kiai-toggle
 function toggleKiai(kiaiOn, delay, timestamp) {
     //stop confetti slightly before kiai stops
-    if (!kiaiOn) {
-        setTimeout(function () {
-            confetti.stop();
-        }, delay - 2000);
-    }
     setTimeout(function () {
         if (currentStartTime != timestamp) return;
         var kiaiBefore = kiai;
         kiai = kiaiOn;
-        if (kiaiOn && !document.getElementById("confettiToggle").checked) {
-            confetti.start();
+        if (kiaiOn) {
             if (!kiaiBefore) confettiSides();
-        } else confetti.stop();
+        }
     }, parseInt(delay) + 955); //the music is delayed by 955ms as it takes the fruits that long to drop
 }
 
