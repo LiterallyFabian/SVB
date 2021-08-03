@@ -59,8 +59,8 @@ $(document).ready(function () {
     catcher = {
         x: scaleModifier * 400, //middle of playfield
         y: canvas.height * 0.768, //makes catcher's feet touch the ground
-        width: (516 / 2.7) * scaleModifier,
-        height: (609 / 2.7) * scaleModifier,
+        width: (516 / 2.5) * scaleModifier,
+        height: (609 / 2.5) * scaleModifier,
 
         //velocity
         dy: 0
