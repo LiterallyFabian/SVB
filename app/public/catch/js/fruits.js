@@ -62,25 +62,7 @@ function fruit(x, size, hitsound, hyper = false) {
                 stats_bananasCatched++;
             }
 
-            //Play hitsound
-            if (this.hitsound == -1 || this.hitsound == undefined) return;
-            //clap
-            else if (this.hitsound == 8 || this.hitsound == 10 || this.hitsound == 12 || this.hitsound == 14) {
-                hitsounds[3].currentTime = 0;
-                hitsounds[3].play();
-            } //finish
-            else if (this.hitsound == 4 || this.hitsound == 6 || this.hitsound == 12 || this.hitsound == 14) {
-                hitsounds[2].currentTime = 0;
-                hitsounds[2].play();
-            } //whistle
-            else if (this.hitsound == 2 || this.hitsound == 6 || this.hitsound == 10 || this.hitsound == 14) {
-                hitsounds[1].currentTime = 0;
-                hitsounds[1].play();
-            } //normal
-            else if (this.hitsound == 0) {
-                hitsounds[0].currentTime = 0;
-                hitsounds[0].play();
-            }
+            playHitsound(this.hitsound)
 
         } //miss
         else if (this.y > 680 * scaleModifier && this.x != 10000 && !isNaN(this.x)) {
@@ -141,4 +123,24 @@ function collides(obj1, obj2) {
         obj1.x + obj1.width > obj2.x &&
         obj1.y < obj2.y + obj2.height &&
         obj1.y + obj1.height > obj2.y;
+}
+
+function playHitsound(id) {
+    //clap
+    if (id == 8 || id == 10 || id == 12 || id == 14) {
+        hitsounds[3].currentTime = 0;
+        hitsounds[3].play();
+    } //finish
+    if (id == 4 || id == 6 || id == 12 || id == 14) {
+        hitsounds[2].currentTime = 0;
+        hitsounds[2].play();
+    } //whistle
+    if (id == 2 || id == 6 || id == 10 || id == 14) {
+        hitsounds[1].currentTime = 0;
+        hitsounds[1].play();
+    } //normal
+    if (id == 0) {
+        hitsounds[0].currentTime = 0;
+        hitsounds[0].play();
+    }
 }
