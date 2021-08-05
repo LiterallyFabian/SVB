@@ -14,9 +14,11 @@ function startEggs(id) {
     //putin walk
     //makes catcher wide
     if (id == 2517397) {
-        $(catcher).animate({
-            width: catcher.width * 2.5
-        }, 1500);
+        setTimeout(function () {
+            $(catcher).animate({
+                width: catcher.width * 2.5
+            }, 1500);
+        }, 955);
 
         //my love / new beginnings
         //changes catcher to Yuzu
@@ -63,56 +65,63 @@ function startEggs(id) {
         canvas = document.getElementById("catchField");
         canvas.requestFullscreen()
 
+        //bad apple
+        //replaces all fruits to apples
+    } else if (id == 1754722) {
+        fruitImages = [document.getElementById('fruit2')];
+
         //mopemope
         //MAKE IT STOP
     } else if (id == 2533406) {
         setTimeout(function () {
-            setCatcher("nnyl");
-            setBackground("song/mopemope/rrrrr1.jpg")
-        }, 45579)
+            setTimeout(function () {
+                setCatcher("nnyl");
+                setBackground("song/mopemope/rrrrr1.jpg")
+            }, 45579)
 
-        setTimeout(function () {
-            setCatcher("lynn", "nnyl");
-            setBackground("song/mopemope/glitch.png")
-        }, 50979)
+            setTimeout(function () {
+                setCatcher("lynn", "nnyl");
+                setBackground("song/mopemope/glitch.png")
+            }, 50979)
 
-        setTimeout(function () {
-            setCatcher("nnyl");
-            setBackground("song/mopemope/invert.png")
-            $("#catchField").animate({
-                opacity: 0.7
-            }, 20000);
-        }, 56379)
+            setTimeout(function () {
+                setCatcher("nnyl");
+                setBackground("song/mopemope/invert.png")
+                $("#catchField").animate({
+                    opacity: 0.7
+                }, 20000);
+            }, 56379)
 
-        setTimeout(function () {
-            setCatcher("kanna", "nnyl")
-            setBackground("song/mopemope/oooooooooowhite.png")
-        }, 62979)
+            setTimeout(function () {
+                setCatcher("kanna", "nnyl")
+                setBackground("song/mopemope/oooooooooowhite.png")
+            }, 62979)
 
-        setTimeout(function () {
-            setCatcher("nnyl", "kanna");
-        }, 64979)
+            setTimeout(function () {
+                setCatcher("nnyl", "kanna");
+            }, 64979)
 
-        setTimeout(function () {
-            $("#catchField").css("z-index", "999");
-            $("#topnav").addClass("fall-away");
-        }, 70179)
+            setTimeout(function () {
+                $("#catchField").css("z-index", "999");
+                $("#topnav").addClass("fall-away");
+            }, 70179)
 
-        setTimeout(function () {
-            setBackground("song/mopemope/rrrrr3.png")
-        }, 79779)
+            setTimeout(function () {
+                setBackground("song/mopemope/rrrrr3.png")
+            }, 79779)
 
-        setTimeout(function () {
-            setBackground("song/mopemope/glitch.png")
-            $("#catchField").css("opacity", "1");
-            setCatcher("lynn", "nnyl");
-        }, 98979)
+            setTimeout(function () {
+                setBackground("song/mopemope/glitch.png")
+                $("#catchField").css("opacity", "1");
+                setCatcher("lynn", "nnyl");
+            }, 98979)
 
-        setTimeout(function () {
-            setBackground("song/mopemope/rrrrr2.png")
-            setCatcher("nnyl");
-            $("#catchField").css("animation", "rotation 1s cubic-bezier(0, 0, 1, -0.36)");
-        }, 109404)
+            setTimeout(function () {
+                setBackground("song/mopemope/rrrrr2.png")
+                setCatcher("nnyl");
+                $("#catchField").css("animation", "rotation 1s cubic-bezier(0, 0, 1, -0.36)");
+            }, 109404)
+        }, 955);
     }
 }
 

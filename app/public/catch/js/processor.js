@@ -82,7 +82,8 @@ function processMap() {
 
     //Sets background
     setBackground(`../${thumbPath}`);
-
+    startEggs(beatmapData.id);
+    
     //Set volume & play music
     hitsounds = beatmap.hitsounds;
     setTimeout(function () {
@@ -92,7 +93,6 @@ function processMap() {
         hitsoundCombobreak.volume = effectsRange.value / 100;
         music.volume = musicRange.value / 100;
         music.play();
-        startEggs(beatmapData.id);
     }, 955)
 
     //get all fruits
