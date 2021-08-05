@@ -81,10 +81,7 @@ function processMap() {
 
 
     //Sets background
-    document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('../${thumbPath}')`;
-    document.getElementById('catchField').style.backgroundSize = `cover`;
-    document.getElementById('catchField').style.backgroundRepeat = `no-repeat`;
-    document.getElementById('catchField').style.backgroundPosition = `center center`;
+    setBackground(`../${thumbPath}`);
 
     //Set volume & play music
     hitsounds = beatmap.hitsounds;

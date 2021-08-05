@@ -21,9 +21,7 @@ function startEggs(id) {
         //my love / new beginnings
         //changes catcher to Yuzu
     } else if (id == 397535 || id == 2116202) {
-        $(".catch-catcher").each(function () {
-            $(this).attr("src", $(this).attr("src").replace("lynn", "yuzu"));
-        });
+        setCatcher("yuzu");
 
         //padoru / cinderella cage / carol of circles
         //adds a snowstorm
@@ -56,9 +54,70 @@ function startEggs(id) {
         //aozora no rhapsody / ai no supreme / ishukan communication
         //changes catcher to kanna
     } else if (id == 1643753 || id == 3099518 || id == 1258912) {
-        $(".catch-catcher").each(function () {
-            $(this).attr("src", $(this).attr("src").replace("lynn", "kanna"));
-        });
-    }
+        setCatcher("kanna");
 
+        //sound cinema
+        //makes everything black
+    } else if (id == 1821081) {
+        $("#catchbody").css("background-color", "black")
+        canvas = document.getElementById("catchField");
+        canvas.requestFullscreen()
+
+        //mopemope
+        //MAKE IT STOP
+    } else if (id == 2533406) {
+        setTimeout(function () {
+            setCatcher("nnyl");
+            setBackground("song/mopemope/rrrrr1.jpg")
+        }, 45579)
+
+        setTimeout(function () {
+            setCatcher("lynn", "nnyl");
+            setBackground("song/mopemope/glitch.png")
+        }, 50979)
+
+        setTimeout(function () {
+            setCatcher("nnyl");
+            setBackground("song/mopemope/invert.png")
+            $("#catchField").animate({
+                opacity: 0.7
+            }, 20000);
+        }, 56379)
+
+        setTimeout(function () {
+            setCatcher("kanna", "nnyl")
+            setBackground("song/mopemope/oooooooooowhite.png")
+        }, 62979)
+
+        setTimeout(function () {
+            setCatcher("nnyl", "kanna");
+        }, 64979)
+
+        setTimeout(function () {
+            $("#catchField").css("z-index", "999");
+            $("#topnav").addClass("fall-away");
+        }, 70179)
+
+        setTimeout(function () {
+            setBackground("song/mopemope/rrrrr3.png")
+        }, 79779)
+
+        setTimeout(function () {
+            setBackground("song/mopemope/glitch.png")
+            $("#catchField").css("opacity", "1");
+            setCatcher("lynn", "nnyl");
+        }, 98979)
+
+        setTimeout(function () {
+            setBackground("song/mopemope/rrrrr2.png")
+            setCatcher("nnyl");
+            $("#catchField").css("animation", "rotation 1s cubic-bezier(0, 0, 1, -0.36)");
+        }, 109404)
+    }
+}
+
+function setCatcher(catcher, from = "lynn") {
+    $(".catch-catcher").each(function () {
+        $(this).attr("src", $(this).attr("src").replace(from, catcher));
+    });
 }

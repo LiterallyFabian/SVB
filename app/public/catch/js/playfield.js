@@ -240,3 +240,10 @@ function fire(particleRatio, opts, side) {
         particleCount: Math.floor(count * particleRatio)
     }));
 }
+
+function setBackground(path){
+    document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('${path}')`;
+    document.getElementById('catchField').style.backgroundSize = `cover`;
+    document.getElementById('catchField').style.backgroundRepeat = `no-repeat`;
+    document.getElementById('catchField').style.backgroundPosition = `center center`;
+}
