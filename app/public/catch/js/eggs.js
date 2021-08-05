@@ -70,6 +70,16 @@ function startEggs(id) {
     } else if (id == 1754722) {
         fruitImages = [document.getElementById('fruit2')];
 
+        //all chikatto songs
+        //changes catcher to Chika
+    } else if (id == 2015394 || id == 2070968 || id == 1982162) {
+        setCatcher("chika");
+
+        //ddlc
+        //changes title on catch
+    } else if (id == 1513428) {
+        $("#nav-catch").text("just!monika");
+
         //mopemope
         //MAKE IT STOP
     } else if (id == 2533406) {
