@@ -27,14 +27,16 @@ class bmap {
             <div class="parent">
                 ${rankOverlay}
                 <a onClick="playPreview('${this.beatmap.path}', '${this.beatmap.id}')"> <i id="icon-${this.beatmap.id}" title="Preview song" class="fas fa-play playButton"></i></a>
+                <p class="corner-text">${secondsToDisplay(this.beatmap.length)}</p>
                 <a onclick='loadID(${this.beatmap.id})' class="inner">
                 <img class="thumbnail" src="/${this.beatmap.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
                 </div>
                 <figcaption>
                     <p style="padding-bottom:2px"><b>${fixedTitle}</b></p>
-                    <p>${this.beatmap.difficulty} (${secondsToDisplay(this.beatmap.length)})</p>
+                    <p>${this.beatmap.artist}</p>
                     <br>
                     <div class="starContainer">${this.beatmap.stars.toFixed(2)} ${stars}</div>
+                    
                 </figcaption> 
             </figure>
         </a>

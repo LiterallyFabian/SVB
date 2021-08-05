@@ -161,27 +161,37 @@ p {
 
     font-family: "Poppins",
     "Segoe UI";
-}
 
-.rankOverlay {
-    border: 0;
-    position: absolute;
-    top: 0;
-    width: 20%;
-    right: 0;
-    padding-right: 1%;
-    filter: drop-shadow(0 0 0.4rem #000000);
-}
+    .playButton {
+        color: #d9d9d9;
+        border: 0;
+        position: absolute;
+        top: 0;
+        width: 30%;
+        left: 0;
+        padding: 4%;
+        filter: drop-shadow(0 0 0.3rem #000000);
+    }
 
-.playButton {
-    color: #d9d9d9;
-    border: 0;
-    position: absolute;
-    top: 0;
-    width: 30%;
-    left: 0;
-    padding: 4%;
-    filter: drop-shadow(0 0 0.3rem #000000);
+    .rankOverlay {
+        border: 0;
+        position: absolute;
+        top: 0;
+        width: 20%;
+        right: 0;
+        padding-right: 1%;
+        filter: drop-shadow(0 0 0.4rem #000000);
+    }
+
+    .corner-text {
+        bottom: 0;
+        right: 0;
+        padding: 0 4% 0 2%;
+        border: 0;
+        position: absolute;
+        text-shadow: 2px 2px 3px rgb(0 0 0);
+        font-size: 30px;
+    }
 }
 
 .starContainer {
