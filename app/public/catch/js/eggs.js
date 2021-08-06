@@ -85,17 +85,17 @@ function startEggs(id) {
         setTimeout(function () {
             setTimeout(function () {
                 setCatcher("nnyl");
-                setBackground("song/mopemope/rrrrr1.jpg")
+                setBackground("song/assets/rrrrr1.jpg")
             }, 45579)
 
             setTimeout(function () {
                 setCatcher("lynn", "nnyl");
-                setBackground("song/mopemope/glitch.png")
+                setBackground("song/assets/glitch.png")
             }, 50979)
 
             setTimeout(function () {
                 setCatcher("nnyl");
-                setBackground("song/mopemope/invert.png")
+                setBackground("song/assets/invert.png")
                 $("#catchField").animate({
                     opacity: 0.7
                 }, 20000);
@@ -103,7 +103,7 @@ function startEggs(id) {
 
             setTimeout(function () {
                 setCatcher("kanna", "nnyl")
-                setBackground("song/mopemope/oooooooooowhite.png")
+                setBackground("song/assets/oooooooooowhite.png")
             }, 62979)
 
             setTimeout(function () {
@@ -129,13 +129,13 @@ function startEggs(id) {
             }, 79779)
 
             setTimeout(function () {
-                setBackground("song/mopemope/glitch.png")
+                setBackground("song/assets/glitch.png")
                 $("#catchField").css("opacity", "1");
                 setCatcher("lynn", "nnyl");
             }, 98979)
 
             setTimeout(function () {
-                setBackground("song/mopemope/rrrrr2.png")
+                setBackground("song/assets/rrrrr2.png")
                 setCatcher("nnyl");
                 $("#catchField").css("animation", "rotation 1s cubic-bezier(0, 0, 1, -0.36)");
             }, 109404)
