@@ -41,7 +41,6 @@ function startEggs(id) {
                 let obj = this;
                 setTimeout(function () {
                     $(obj).addClass("fall-away")
-                    console.log("Hi")
                 }, delay)
                 delay += 60 / 128 * 8 * 1000;
             })
@@ -117,7 +116,16 @@ function startEggs(id) {
             }, 70179)
 
             setTimeout(function () {
-                setBackground("song/mopemope/rrrrr3.png")
+                var delay = 600;
+                var i = 0;
+                $(".beatmapCard .thumbnail").each(function () {
+                    let obj = this;
+                    setTimeout(function () {
+                        if (++i < 31)
+                            setBackground($(obj)[0].src)
+                    }, delay)
+                    delay += 600;
+                })
             }, 79779)
 
             setTimeout(function () {
