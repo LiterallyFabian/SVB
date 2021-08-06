@@ -79,6 +79,10 @@ function startEggs(id) {
     } else if (id == 1513428) {
         $("#nav-catch").text("just!monika");
 
+    } else if (id == 1006821) {
+        playVideo('song/assets/world.execute(me).webm');
+
+
         //mopemope
         //MAKE IT STOP
     } else if (id == 2533406) {
@@ -147,4 +151,32 @@ function setCatcher(catcher, from = "lynn") {
     $(".catch-catcher").each(function () {
         $(this).attr("src", $(this).attr("src").replace(from, catcher));
     });
+}
+
+function playVideo(path) {
+    var videoObj = $('<video />', {
+        id: 'beatmap_video',
+        src: path,
+        type: 'video/webm',
+        controls: true,
+        class: "hide"
+    });
+    videoObj.appendTo($('.song_gallery'));
+
+    var canvas = document.getElementById("catchField");
+    var ctx = canvas.getContext("2d");
+    var video = document.getElementById('beatmap_video')
+
+    video.muted = true;
+    setTimeout(function () {
+        video.play();
+        video.addEventListener('play', () => {
+            function step() {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+                requestAnimationFrame(step)
+                ctx.globalCompositeOperation = 'destination-over';
+            }
+            requestAnimationFrame(step);
+        });
+    }, 955);
 }
