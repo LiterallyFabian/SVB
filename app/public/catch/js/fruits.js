@@ -35,7 +35,7 @@ function fruit(x, size, hitsound, hyper = false) {
     context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
 
     this.updatePos = function (relativeSpeedMultiplier) {
-        this.y += this.speedY * scaleModifier * relativeSpeedMultiplier;
+        this.y += this.speedY * scaleModifier * relativeSpeedMultiplier * arModifier;
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
 

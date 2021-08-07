@@ -18,7 +18,7 @@ function startEggs(id) {
             $(catcher).animate({
                 width: catcher.width * 2.5
             }, 1500);
-        }, 955);
+        }, fruitDropTime);
 
         //my love / new beginnings
         //changes catcher to Yuzu
@@ -143,7 +143,7 @@ function startEggs(id) {
                 setCatcher("nnyl");
                 $("#catchField").css("animation", "rotation 1s cubic-bezier(0, 0, 1, -0.36)");
             }, 109404)
-        }, 955);
+        }, fruitDropTime);
     }
 }
 
@@ -178,5 +178,5 @@ function playVideo(path) {
             }
             requestAnimationFrame(step);
         });
-    }, 955);
+    }, fruitDropTime);
 }

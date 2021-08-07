@@ -18,6 +18,8 @@ var currentStartTime;
 var thumbPath;
 var songLength;
 var musicRange;
+var arModifier;
+var fruitDropTime = 955;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
 
 function loadDebug() {
@@ -82,8 +84,10 @@ function processMap() {
 
     //Sets background
     setBackground(`../${thumbPath}`);
+    arModifier = beatmapData.approachrate / 6.5;
+    fruitDropTime = 955 / arModifier
     startEggs(beatmapData.id);
-    
+
     //Set volume & play music
     hitsounds = beatmap.hitsounds;
     setTimeout(function () {
@@ -93,7 +97,7 @@ function processMap() {
         hitsoundCombobreak.volume = effectsRange.value / 100;
         music.volume = musicRange.value / 100;
         music.play();
-    }, 955)
+    }, fruitDropTime)
 
     //get all fruits
     var fruits = parseFruits(beatmap);
