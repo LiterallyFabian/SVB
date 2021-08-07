@@ -8,7 +8,7 @@ stats_bananasCatched = 0;
 
 function fruit(x, size, hitsound, hyper = false) {
     this.x = scaleModifier * x * 2.5;
-    this.y = -100 * scaleModifier;
+    this.y = -100 * scaleModifier / csModifier;
     this.catched = false;
     this.speedY = 5;
     this.hitsound = -1;
@@ -17,21 +17,29 @@ function fruit(x, size, hitsound, hyper = false) {
     this.hyper = hyper;
     if (size == 0) { //normal fruit
         this.sprite = hyper ? hyperImage : fruitImages[Math.floor(Math.random() * fruitImages.length)];
-        this.width = 80 * scaleModifier;
-        this.height = 80 * scaleModifier;
+        this.width = 80;
+        this.height = 80;
         this.hitsound = hitsound;
         this.score = 300;
     } else if (size == 1) { //droplet
         this.sprite = dropletImage;
-        this.width = 41 * scaleModifier;
-        this.height = 51 * scaleModifier;
+        this.width = 41;
+        this.height = 51;
         this.score = 50;
     } else if (size == 2) { //banana
         this.sprite = bananaImage;
-        this.width = 70 * scaleModifier;
-        this.height = 70 * scaleModifier;
+        this.width = 70;
+        this.height = 70;
         this.score = 1000;
     }
+
+    this.width /= csModifier;
+    this.height /= csModifier;
+
+    this.width *= scaleModifier;
+    this.height *= scaleModifier;
+
+
     context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
 
     this.updatePos = function (relativeSpeedMultiplier) {

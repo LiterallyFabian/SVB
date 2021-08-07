@@ -18,6 +18,7 @@ var currentStartTime;
 var thumbPath;
 var songLength;
 var musicRange;
+var csModifier;
 var arModifier;
 var fruitDropTime = 955;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
@@ -86,6 +87,10 @@ function processMap() {
     setBackground(`../${thumbPath}`);
     arModifier = beatmapData.approachrate / 6.5;
     fruitDropTime = 955 / arModifier
+
+    csModifier = beatmapData.circlesize / (beatmapData.circlesize <= 3 ? 3 : 4.5);
+    catcher.width /= csModifier;
+    catcher.height /= csModifier;
     startEggs(beatmapData.id);
 
     //Set volume & play music
