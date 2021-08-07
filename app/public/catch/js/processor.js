@@ -89,8 +89,8 @@ function processMap() {
     fruitDropTime = 955 / arModifier
 
     csModifier = beatmapData.circlesize / (beatmapData.circlesize <= 3 ? 3 : 4.5);
-    catcher.width /= csModifier;
-    catcher.height /= csModifier;
+    catcher.width = catcher.originalWidth / csModifier;
+    catcher.height = catcher.originalHeight / csModifier;
     startEggs(beatmapData.id);
 
     //Set volume & play music

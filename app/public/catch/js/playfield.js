@@ -43,8 +43,12 @@ $(document).ready(function () {
     catcher = {
         x: scaleModifier * 400, //middle of playfield
         y: canvas.height * 0.768, //makes catcher's feet touch the ground
-        width: (516 / 2.5) * scaleModifier,
-        height: (609 / 2.5) * scaleModifier,
+        originalWidth: (516 / 2.5) * scaleModifier,
+        originalHeight: (609 / 2.5) * scaleModifier,
+
+        //using cached to not mess with CS
+        width: this.originalHeight,
+        height: this.originalHeight,
 
         //velocity
         dy: 0
@@ -241,7 +245,7 @@ function fire(particleRatio, opts, side) {
     }));
 }
 
-function setBackground(path){
+function setBackground(path) {
     document.getElementById('catchField').style.background = `linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('${path}')`;
     document.getElementById('catchField').style.backgroundSize = `cover`;
     document.getElementById('catchField').style.backgroundRepeat = `no-repeat`;
