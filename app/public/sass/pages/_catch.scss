@@ -14,6 +14,10 @@
 
         .catch-mod {
             width: 10%;
+            transition: 0.2s linear;
+        }
+        .catch-mod:hover{
+            transform: scale(1.05);
         }
 
         .catch-mod-active {
@@ -109,7 +113,8 @@ canvas {
 #catchbody {
     cursor: url('/catch/img/cursor-normal.png'), default;
 
-    a {
+    a,
+    .catch-mod {
         cursor: url('/catch/img/cursor-hover.png'), pointer;
     }
 }

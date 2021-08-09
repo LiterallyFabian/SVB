@@ -80,7 +80,7 @@ axios.all([
         FillFeed();
         document.getElementById('no-map-alert').style.display = "none";
         $(function () {
-            $(".beatmapCard").hover(
+            $(".beatmapCard,.catch-mod").hover(
                 function () {
                     if (hoverAudio.paused) hoverAudio.play();
                     else hoverAudio.currentTime = 0
