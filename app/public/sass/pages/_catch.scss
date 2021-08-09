@@ -11,7 +11,6 @@
         font-size: 25px;
         width: 98%;
         padding: 1%;
-        margin: 3% 0;
 
         @include theme() {
             color: theme-get('text');
@@ -39,7 +38,6 @@
 
     .sortbar {
         width: 100%;
-        margin-top: 20px;
         border-radius: 10px;
 
         @include theme() {
@@ -77,6 +75,10 @@
         .fa-chevron-down {
             padding-left: 7px;
         }
+    }
+
+    .catch-option {
+        margin: 1% 0;
     }
 }
 
