@@ -7,7 +7,7 @@ stats_bananasSeen = 0;
 stats_bananasCatched = 0;
 
 function fruit(x, size, hitsound, hyper = false) {
-    this.x = scaleModifier * x * 2.5;
+    this.x = scaleModifier * x * 1.7 + 512 * (scaleModifier / 2);
     this.y = -100 * scaleModifier / csModifier;
     this.catched = false;
     this.speedY = 5;
