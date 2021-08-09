@@ -268,6 +268,7 @@ String.prototype.hashCode = function () {
     return hash;
 }
 
+/*
 router.get('/updateall', (req, res) => {
     connection.query(`SELECT id,catchScores FROM users`, function (err, result) {
         if (err) throw err;
@@ -321,6 +322,7 @@ router.get("/fixranks", (req, res) => {
     });
     res.send("done")
 })
+*/
 
 module.exports = router;
 module.exports.getMaps = getMaps;
