@@ -85,10 +85,13 @@ function processMap() {
 
     //Sets background
     setBackground(`../${thumbPath}`);
-    arModifier = beatmapData.approachrate / 6.5;
+    ar = beatmapData.approachrate * (activeMods.includes("hr") ? 1.5 : 1);
+    if (ar > 12) ar = 12;
+    arModifier = ar / 6.5;
     fruitDropTime = 955 / arModifier
 
-    csModifier = beatmapData.circlesize / (beatmapData.circlesize <= 3 ? 3 : 4.5);
+    cs = beatmapData.circlesize * (activeMods.includes("hr") ? 1.3 : 1);
+    csModifier = cs / (cs <= 3 ? 3 : 4.5);
     catcher.width = catcher.originalWidth / csModifier;
     catcher.height = catcher.originalHeight / csModifier;
     startEggs(beatmapData.id);
