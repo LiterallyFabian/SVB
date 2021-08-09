@@ -42,12 +42,12 @@ router.post("/updatecatch", (req, res) => {
                 data.ss++;
                 break;
             case 'ssx':
-                if (data.ssx) //to prevent messing with legacy profiles
+                if (typeof data.ssx == "number") //to prevent messing with legacy profiles
                     data.ssx++;
                 else data.ssx = 1;
                 break;
             case 'sx':
-                if (data.sx)
+                if (typeof data.sx == "number")
                     data.sx++;
                 else data.sx = 1;
                 break;

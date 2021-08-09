@@ -54,8 +54,16 @@
                     <ul id="rank-list">
                         <h2>Ranks achieved</h2>
                         <li>
+                            <img src="/img/ranking-SSX.png" alt="SS Icon" />
+                            <p>{{ catch_ranks_SSX }}</p>
+                        </li>
+                        <li>
                             <img src="/img/ranking-SS.png" alt="SS Icon" />
                             <p>{{ catch_ranks_SS }}</p>
+                        </li>
+                        <li>
+                            <img src="/img/ranking-SX.png" alt="SS Icon" />
+                            <p>{{ catch_ranks_SX }}</p>
                         </li>
                         <li>
                             <img src="/img/ranking-S.png" alt="S Icon" />
@@ -141,7 +149,9 @@
                 // svb!catch stats
                 //
                 catch_scores: "",
+                catch_ranks_SSX: 0,
                 catch_ranks_SS: 0,
+                catch_ranks_SX: 0,
                 catch_ranks_S: 0,
                 catch_ranks_A: 0,
                 catch_ranks_B: 0,
@@ -278,7 +288,9 @@
             vue.scoreList.sort((a, b) => (a.pp > b.pp) ? -1 : 1)
         }
 
+        vue.catch_ranks_SSX = scores.ssx ?? 0;
         vue.catch_ranks_SS = scores.ss;
+        vue.catch_ranks_SX = scores.sx ?? 0;
         vue.catch_ranks_S = scores.s;
         vue.catch_ranks_A = scores.a;
         vue.catch_ranks_B = scores.b;
