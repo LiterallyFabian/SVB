@@ -32,7 +32,7 @@ function toggleKiai(kiaiOn, delay, timestamp) {
         if (kiaiOn) {
             if (!kiaiBefore) confettiSides();
         }
-    }, parseInt(delay) + 955); //the music is delayed by 955ms as it takes the fruits that long to drop
+    }, parseInt(delay) + fruitDropTime); //the music is delayed by 955ms as it takes the fruits that long to drop
 }
 
 //Queues a statupdate 3 seconds after game is finished
