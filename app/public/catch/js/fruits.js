@@ -44,13 +44,8 @@ function fruit(x, size, hitsound, hyper = false) {
 
     this.updatePos = function (relativeSpeedMultiplier) {
         this.y += this.speedY * scaleModifier * relativeSpeedMultiplier * arModifier;
-        if (activeMods.includes("hd")) {
-            let startFade = 200 * scaleModifier;
-            let endFade = 300 * scaleModifier;
-            let opacity = this.y > startFade ? (endFade - this.y) / (endFade - startFade) : 1;
-            if (opacity < 0) opacity = 0;
-            context.globalAlpha = opacity
-        }
+        if (activeMods.includes("hd")) context.globalAlpha = getFade(200, 300, this.y);
+        else if (activeMods.includes("fi")) context.globalAlpha = getFade(100, -200, this.y);
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
         context.globalAlpha = 1;
     }
@@ -159,4 +154,14 @@ function playHitsound(id) {
         hitsounds[0].currentTime = 0;
         hitsounds[0].play();
     }
+}
+
+function getFade(start, end, pos) {
+    let startFade = start * scaleModifier;
+    let endFade = end * scaleModifier;
+    let opacity = pos > startFade ? (endFade - pos) / (endFade - startFade) : 1;
+    if (opacity < 0) opacity = 0;
+
+    if (end < 0) opacity--;
+    return opacity;
 }
