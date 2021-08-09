@@ -44,7 +44,15 @@ function fruit(x, size, hitsound, hyper = false) {
 
     this.updatePos = function (relativeSpeedMultiplier) {
         this.y += this.speedY * scaleModifier * relativeSpeedMultiplier * arModifier;
+        /*if (activeMods.includes("hd")) {
+            let startFade = 200 * scaleModifier;
+            let endFade = 600 * scaleModifier;
+            let opacity = this.y > startFade ? 1 - (endFade - this.y) / (endFade - startFade) : 1;
+            if (opacity < 0) opacity = 0;
+            context.globalAlpha = opacity
+        }*/
         context.drawImage(this.sprite, this.x, this.y, this.width, this.height);
+        context.globalAlpha = 1;
     }
 
     this.checkCollision = function () {
