@@ -20,7 +20,7 @@ var songLength;
 var musicRange;
 var csModifier;
 var arModifier;
-var dtModifier;
+var dtModifier = 1;
 var delayModifier;
 var fruitDropTime = 955;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
@@ -88,14 +88,19 @@ function processMap() {
 
     //set delay modifiers, AR & CS 
     delayModifier = activeMods.includes("dt") ? (2 / 3) : 1;
-    dtModifier = activeMods.includes("dt") ? 1.5 : 1;
+    if (activeMods.includes("dt")) dtModifier = 1.5;
 
-    ar = beatmapData.approachrate * (activeMods.includes("hr") ? 1.5 : 1) * dtModifier;
+    ar = beatmapData.approachrate * dtModifier;
+    if (activeMods.includes("hr")) ar *= 1.5;
+    else if (activeMods.includes("ez")) ar *= 0.7;
     if (ar > 12) ar = 12;
     arModifier = ar / 6.5;
     fruitDropTime = 955 / arModifier
 
-    cs = beatmapData.circlesize * (activeMods.includes("hr") ? 1.3 : 1);
+    cs = beatmapData.circlesize;
+    if (activeMods.includes("hr")) cs *= 1.3;
+    else if (activeMods.includes("ez")) cs *= 0.7;
+
     csModifier = cs / (cs <= 3 ? 3 : 4.5);
     catcher.width = catcher.originalWidth / csModifier;
     catcher.height = catcher.originalHeight / csModifier;
