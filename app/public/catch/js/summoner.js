@@ -22,17 +22,6 @@ window.setInterval(function () {
         }
 }, 60);
 
-deg = 0.1;
-//Rotates the catch field
-window.setInterval(function () {
-    if (typeof bananaShower != "undefined")
-        if (score > 0) {
-            deg += 0.5;
-            var degrees = document.getElementById("rotationSettings").value.split(' ');
-            $('#catchField').css('transform', `rotateY(${deg * degrees[0]}deg) rotateZ(${deg * degrees[1]}deg) rotateX(${deg * degrees[2]}deg)`)
-        }
-}, 10);
-
 //Queues a kiai-toggle
 function toggleKiai(kiaiOn, delay, timestamp) {
     //stop confetti slightly before kiai stops
