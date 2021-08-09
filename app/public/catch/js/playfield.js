@@ -99,9 +99,9 @@ $(document).ready(function () {
         }
         //dash catcher
         if (keyState[16] || keyState[220]) { //shift | §
-            catcherSpeed = 10 * scaleModifier * relativeSpeedMultiplier * hyperSpeedModifier;
+            catcherSpeed = 10 * scaleModifier * relativeSpeedMultiplier * hyperSpeedModifier * dtModifier;
         } else {
-            catcherSpeed = 5 * scaleModifier * relativeSpeedMultiplier * hyperSpeedModifier;
+            catcherSpeed = 5 * scaleModifier * relativeSpeedMultiplier * hyperSpeedModifier * dtModifier;
         }
 
         //update catcher expression based on kiai/fail

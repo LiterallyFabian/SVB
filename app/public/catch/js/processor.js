@@ -20,6 +20,8 @@ var songLength;
 var musicRange;
 var csModifier;
 var arModifier;
+var dtModifier;
+var delayModifier;
 var fruitDropTime = 955;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
 
@@ -80,12 +82,15 @@ function processMap() {
     resetGame();
     var songTime = new Date();
     currentStartTime = songTime;
-    beatmap = parseBeatmap(beatmap);
-
 
     //Sets background
     setBackground(`../${thumbPath}`);
-    ar = beatmapData.approachrate * (activeMods.includes("hr") ? 1.5 : 1);
+
+    //set delay modifiers, AR & CS 
+    delayModifier = activeMods.includes("dt") ? (2 / 3) : 1;
+    dtModifier = activeMods.includes("dt") ? 1.5 : 1;
+
+    ar = beatmapData.approachrate * (activeMods.includes("hr") ? 1.5 : 1) * dtModifier;
     if (ar > 12) ar = 12;
     arModifier = ar / 6.5;
     fruitDropTime = 955 / arModifier
@@ -94,7 +99,9 @@ function processMap() {
     csModifier = cs / (cs <= 3 ? 3 : 4.5);
     catcher.width = catcher.originalWidth / csModifier;
     catcher.height = catcher.originalHeight / csModifier;
+
     startEggs(beatmapData.id);
+    beatmap = parseBeatmap(beatmap);
 
     //Set volume & play music
     hitsounds = beatmap.hitsounds;
@@ -104,6 +111,7 @@ function processMap() {
         });
         hitsoundCombobreak.volume = effectsRange.value / 100;
         music.volume = musicRange.value / 100;
+        if (activeMods.includes("dt")) music.playbackRate = 1.5;
         music.play();
     }, fruitDropTime)
 
@@ -224,7 +232,7 @@ function parseTiming(timingLines) {
     var defaultBeatLength = -1;
     timingLines.forEach(line => {
         var data = line.split(",");
-        var time = data[0] - 5;
+        var time = (parseInt(data[0]) - 1) * delayModifier;
         var beatLength = parseInt(data[1]);
         var meter = data[2];
         var sampleSet = data[3];
@@ -272,7 +280,7 @@ function parseFruits(beatmap) {
     beatmap.fruitLines.forEach(line => {
         line = line.split(",");
         var pos = parseInt(line[0]); //x
-        var delay = parseInt(line[2]);
+        var delay = parseInt(line[2]) * delayModifier;
         var defaultHitsound = parseInt(line[4]);
 
         if (!fruitHasSpawned) {
@@ -310,7 +318,7 @@ function parseFruits(beatmap) {
             var sliderLength = line[7] / (sliderMultiplier * 100) * beatLength * repeats; //How long the slider is in milliseconds
             var dropletsPerRepeat = line[7] / 20;
             var droplets = dropletsPerRepeat * repeats; //amount of droplets slider contains
-            var dropletDelay = sliderLength / droplets;
+            var dropletDelay = sliderLength / droplets * delayModifier;
             var diff = (pos - sliderEndPos) / droplets; //difference in x each droplet should have
 
             var currentDrop = 0;
@@ -360,7 +368,7 @@ function parseFruits(beatmap) {
             })
         } else {
             //Summons a spinner
-            summonSpinner(delay, parseFloat(line[5]))
+            summonSpinner(delay, parseFloat(line[5]) * delayModifier)
         }
         //Sets song length to current line
         if (line.length > 1) songLength = parseInt(line[2]);
