@@ -20,7 +20,7 @@ var songLength;
 var musicRange;
 var csModifier;
 var arModifier;
-var dtModifier = 1;
+var dtModifier;
 var delayModifier;
 var fruitDropTime = 955;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
@@ -87,13 +87,20 @@ function processMap() {
     setBackground(`../${thumbPath}`);
 
     //set delay modifiers, AR & CS 
-    delayModifier = activeMods.includes("dt") ? (2 / 3) : 1;
+    delayModifier = 1;
+    if (activeMods.includes("dt")) delayModifier = 2 / 3;
+    else if (activeMods.includes("ht")) delayModifier = 4 / 3;
+
+    dtModifier = 1;
     if (activeMods.includes("dt")) dtModifier = 1.5;
+    else if (activeMods.includes("ht")) dtModifier = 0.75;
+
 
     ar = beatmapData.approachrate * dtModifier;
     if (activeMods.includes("hr")) ar *= 1.5;
     else if (activeMods.includes("ez")) ar *= 0.7;
     if (ar > 12) ar = 12;
+
     arModifier = ar / 6.5;
     fruitDropTime = 955 / arModifier
 
@@ -117,6 +124,7 @@ function processMap() {
         hitsoundCombobreak.volume = effectsRange.value / 100;
         music.volume = musicRange.value / 100;
         if (activeMods.includes("dt")) music.playbackRate = 1.5;
+        else if (activeMods.includes("ht")) music.playbackRate = 0.75;
         music.play();
     }, fruitDropTime)
 
