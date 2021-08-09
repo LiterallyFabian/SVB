@@ -7,6 +7,23 @@
         color: theme-get('text');
     }
 
+    .catch-mods {
+        display: flex;
+        justify-content: space-around;
+        transition: 0.2s linear;
+
+        .catch-mod {
+            width: 10%;
+        }
+
+        .catch-mod-active {
+            @include theme() {
+                box-shadow: 0 0 30px theme-get('blue');
+                transform: scale(1.05) rotate(5deg);
+            }
+        }
+    }
+
     .catch-searchbar {
         font-size: 25px;
         width: 98%;
