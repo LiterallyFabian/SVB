@@ -54,6 +54,12 @@ $(document).ready(function () {
         dy: 0
     };
 
+    flashlight = {
+        y: catcher.y * 0.5 - context.canvas.height,
+        width: context.canvas.width * 2,
+        height: (context.canvas.width * 2) / (16 / 9)
+    }
+
     // Calculates the factor by which something moved in a time sensitive manner
     // Scaled relative to 144hz
     function calculateRelativeSpeed(msLast, msNow) {
@@ -81,6 +87,8 @@ $(document).ready(function () {
         }
 
         //draw catcher
+        if (activeMods.includes("fl"))
+            context.drawImage(flashlightImage, catcher.x - context.canvas.width + catcher.width * 0.5, flashlight.y, flashlight.width, flashlight.height);
         context.drawImage(catcherImage, catcher.x, catcher.y, catcher.width, catcher.height);
 
         //move catcher
@@ -182,6 +190,7 @@ function component(width, height, color, x, y, type, align) {
 }
 
 function loadAssets() {
+    flashlightImage = document.getElementById('catcher-flashlight');
     catcherImage_idleL = document.getElementById('catcher-idleL');
     catcherImage_kiaiL = document.getElementById('catcher-kiaiL');
     catcherImage_failL = document.getElementById('catcher-failL');
