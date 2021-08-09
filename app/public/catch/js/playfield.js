@@ -87,6 +87,7 @@ $(document).ready(function () {
         }
 
         //draw catcher
+        context.globalAlpha = 1;
         if (activeMods.includes("fl"))
             context.drawImage(flashlightImage, catcher.x - context.canvas.width + catcher.width * 0.5, flashlight.y, flashlight.width, flashlight.height);
         context.drawImage(catcherImage, catcher.x, catcher.y, catcher.width, catcher.height);
