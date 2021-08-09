@@ -114,6 +114,7 @@ function smoothAcc(addedscore, isMiss) {
 
 function addScore(addedscore) {
     var i = 0;
+    addedscore *= scoreMultiplier;
 
     function Loop() {
         setTimeout(function () {

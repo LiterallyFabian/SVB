@@ -20,6 +20,7 @@ var songLength;
 var musicRange;
 var csModifier;
 var arModifier;
+var scoreMultiplier = 1;
 var dtModifier;
 var delayModifier;
 var fruitDropTime = 955;
@@ -111,6 +112,10 @@ function processMap() {
     csModifier = cs / (cs <= 3 ? 3 : 4.5);
     catcher.width = catcher.originalWidth / csModifier;
     catcher.height = catcher.originalHeight / csModifier;
+
+    activeMods.forEach(mod => {
+        scoreMultiplier *= mods[mod].score;
+    })
 
     startEggs(beatmapData.id);
     beatmap = parseBeatmap(beatmap);
