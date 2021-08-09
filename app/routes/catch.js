@@ -193,7 +193,7 @@ function calculateDifficulty(hitobjects) {
     return stars / hitobjects.length * 13;
 }
 
-function calculatePerformance(combo, acc, catches, misses, id) {
+function calculatePerformance(combo, acc, catches, misses, id, multiplier, mods) {
 
     if (!beatmaplist[id]) {
         console.log("Beatmap ID " + id + " not found");
@@ -238,20 +238,21 @@ function calculatePerformance(combo, acc, catches, misses, id) {
         arbonus += 0.025 * (8.0 - ar);
     final *= arbonus;
 
-    /*// Hidden bonus
+    // Hidden bonus
     hiddenbonus = 1;
     if (ar > 10)
         hiddenbonus = 1.01 + 0.04 * (11 - Math.min(11, ar));
     else
         hiddenbonus = 1.05 + 0.075 * (10 - ar);
-    */
+
 
     // Acc Penalty
     final *= Math.pow(acc / 100, 5.5);
     final = Math.round(100 * final) / 100;
 
-    console.log(final)
-    return final;
+    if (mods.includes("hd") || mods.includes("fi")) final *= hiddenbonus;
+    if (mods.includes("fl")) mods *= 1.35;
+    return final * multiplier;
 }
 
 //gets an unique int-hash from a string. just to give all maps a consistent ID even if they don't have one included

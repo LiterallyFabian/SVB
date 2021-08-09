@@ -11,7 +11,9 @@ function setMedal(rank, score, highestCombo) {
     medal.style.display = "block";
     medalImg.src = `/img/ranking-${rank.toUpperCase()}.png`;
     var messages = {
+        "ssx": "Super perfect!",
         "ss": "Perfect!",
+        "sx": "Super!",
         "s": "Awesome!",
         "a": "Well played!",
         "b": "Great!",

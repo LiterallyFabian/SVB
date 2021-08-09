@@ -16,6 +16,8 @@ router.post("/updatecatch", (req, res) => {
     var score = req.body.score;
     var highestCombo = req.body.highestCombo;
     var title = req.body.title;
+    var scoreMultiplier = req.body.scoreMultiplier;
+    var mods = req.body.mods;
 
     var userid = req.body.userid;
     var mapid = req.body.mapid.toString();
@@ -39,6 +41,16 @@ router.post("/updatecatch", (req, res) => {
             case 'ss':
                 data.ss++;
                 break;
+            case 'ssx':
+                if (data.ssx) //to prevent messing with legacy profiles
+                    data.ssx++;
+                else data.ssx = 1;
+                break;
+            case 'sx':
+                if (data.sx)
+                    data.sx++;
+                else data.sx = 1;
+                break;
             case 's':
                 data.s++;
                 break;
@@ -57,7 +69,7 @@ router.post("/updatecatch", (req, res) => {
         }
         //add rank badge (always highest badge)
         var found = false;
-        ['ss', 's', 'a', 'b', 'c', 'd'].forEach(r => {
+        ['ssx', 'ss', 'sx', 's', 'a', 'b', 'c', 'd'].forEach(r => {
 
             if (r == ranks[mapid].rank) found = true;
             if (r == rank && !found) {
@@ -76,9 +88,10 @@ router.post("/updatecatch", (req, res) => {
             ranks[mapid].misses = missedFruits;
             ranks[mapid].catches = catchedFruits;
             ranks[mapid].accuracy = missedScore = 0 ? 100 : catchedScore / (catchedScore + missedScore) * 100;
-            ranks[mapid].pp = svtcatch.calculatePerformance(ranks[mapid].combo, ranks[mapid].accuracy, ranks[mapid].catches, ranks[mapid].misses, mapid);
+            ranks[mapid].pp = svtcatch.calculatePerformance(ranks[mapid].combo, ranks[mapid].accuracy, ranks[mapid].catches, ranks[mapid].misses, mapid, scoreMultiplier, JSON.parse(mods));
             ranks[mapid].time = Date.now();
             ranks[mapid].id = mapid;
+            ranks[mapid].mods = mods;
         }
 
         data.ranks = ranks;

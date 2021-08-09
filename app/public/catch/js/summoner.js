@@ -40,17 +40,19 @@ function finishGame(delay, timestamp) {
     setTimeout(function () {
         if (currentStartTime != timestamp) return;
         var rank;
+        var silver = activeMods.includes("fl") || activeMods.includes("hd") || activeMods.includes("fi");
         var acc = missedFruits == 0 ? 100 : catchedFruits / (catchedFruits + missedFruits) * 100;
-        if (missedScore == 0) rank = 'ss';
+        if (missedScore == 0 && silver) rank = 'ssx';
+        else if (missedScore == 0) rank = 'ss';
+        else if (acc > 98 && silver) rank = 'sx';
         else if (acc > 98) rank = 's';
         else if (acc > 94) rank = 'a';
         else if (acc > 90) rank = 'b';
         else if (acc > 85) rank = 'c';
         else rank = 'd'
         gameStarted = false;
-        confetti.stop();
         setMedal(rank, score, highestCombo);
-
+        scoreMultiplier = 1;
         //check if logged in
         this.usercookie = getCookie("auth")
         if (this.usercookie.length > 0) {
@@ -60,6 +62,8 @@ function finishGame(delay, timestamp) {
 
         axios.post('/user/updatecatch', {
             rank: rank,
+            mods: JSON.stringify(activeMods),
+            scoreMultiplier: scoreMultiplier,
             bananasCatched: stats_bananasCatched,
             bananasSeen: stats_bananasSeen,
             missedFruits: missedFruits,
