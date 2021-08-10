@@ -20,6 +20,11 @@ function toggleMod(id, forceAdd = false) {
     if (!activeMods.includes(id) || forceAdd) {
         $(`#${id}`).addClass("catch-mod-active");
         if (!forceAdd) activeMods.push(id);
+
+        mods[id].incompatible.forEach(incompMod => {
+            if (activeMods.includes(incompMod)) toggleMod(incompMod);
+        })
+        
     } else {
         $(`#${id}`).removeClass("catch-mod-active");
         activeMods.splice(activeMods.indexOf(id), 1);
@@ -44,36 +49,43 @@ var mods = {
     ez: {
         id: "ez",
         name: "Easy",
-        score: 0.5
+        score: 0.5,
+        incompatible: ["hr"]
     },
     ht: {
         id: "ht",
         name: "Half Time",
-        score: 0.3
+        score: 0.3,
+        incompatible: ["dt"]
     },
     hr: {
         id: "hr",
         name: "Hard Rock",
-        score: 1.12
+        score: 1.12,
+        incompatible: ["ez"]
     },
     dt: {
         id: "dt",
         name: "Double Time",
-        score: 1.12
+        score: 1.12,
+        incompatible: ["ht"]
     },
     hd: {
         id: "hd",
         name: "Hidden",
-        score: 1.06
+        score: 1.06,
+        incompatible: []
     },
     fi: {
         id: "fi",
         name: "Fade in",
-        score: 1.06
+        score: 1.06,
+        incompatible: ["fl"]
     },
     fl: {
         id: "fl",
         name: "Flashlight",
-        score: 1.12
+        score: 1.12,
+        incompatible: ["fi"]
     }
 }
