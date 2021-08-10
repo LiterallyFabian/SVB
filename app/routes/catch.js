@@ -251,7 +251,7 @@ function calculatePerformance(combo, acc, catches, misses, id, multiplier, mods)
     final = Math.round(100 * final) / 100;
 
     if (mods.includes("hd") || mods.includes("fi")) final *= hiddenbonus;
-    if (mods.includes("fl")) mods *= 1.35;
+    if (mods.includes("fl")) final *= 1.35;
     return final * multiplier;
 }
 
