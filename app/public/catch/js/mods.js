@@ -4,7 +4,8 @@ $(document).ready(function () {
     //detect clicks
     $(".catch-mod").on('click', function (event) {
         var id = event.target.id;
-        toggleMod(id);
+        if (!gameStarted)
+            toggleMod(id);
     });
 
     //add from cookies
@@ -25,6 +26,18 @@ function toggleMod(id, forceAdd = false) {
     }
 
     setCookie("mods", JSON.stringify(activeMods), 100000);
+}
+
+function lockMods(lock = true) {
+    $(".catch-mod,.catch-mod-locked").each(function () {
+        if (lock && !activeMods.includes($(this).attr("id"))) {
+            $(this).addClass("catch-mod-locked");
+            $(this).removeClass("catch-mod");
+        } else if (!lock) {
+            $(this).addClass("catch-mod")
+            $(this).removeClass("catch-mod-locked");
+        }
+    });
 }
 
 var mods = {

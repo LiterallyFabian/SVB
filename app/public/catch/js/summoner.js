@@ -39,6 +39,7 @@ function toggleKiai(kiaiOn, delay, timestamp) {
 function finishGame(delay, timestamp) {
     setTimeout(function () {
         if (currentStartTime != timestamp) return;
+        lockMods(false);
         var rank;
         var silver = activeMods.includes("fl") || activeMods.includes("hd") || activeMods.includes("fi");
         var acc = missedFruits == 0 ? 100 : catchedFruits / (catchedFruits + missedFruits) * 100;

@@ -81,6 +81,7 @@ function waitForLoad() {
 
 function processMap() {
     resetGame();
+    lockMods();
     var songTime = new Date();
     currentStartTime = songTime;
 

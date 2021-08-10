@@ -12,11 +12,13 @@
         justify-content: space-around;
         transition: 0.2s linear;
 
+        .catch-mod-locked,
         .catch-mod {
             width: 10%;
             transition: 0.2s linear;
         }
-        .catch-mod:hover{
+
+        .catch-mod:hover {
             transform: scale(1.05);
         }
 
@@ -25,6 +27,11 @@
                 box-shadow: 0 0 30px theme-get('blue');
                 transform: scale(1.05) rotate(5deg);
             }
+        }
+
+        .catch-mod-locked {
+            opacity: 0.5;
+            filter: grayscale(0.4);
         }
     }
 
