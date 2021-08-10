@@ -317,6 +317,11 @@
             }
             var score = vue.scoreList[i];
             var beatmap = beatmapDatabase[score.id];
+            var modsHtml = "";
+            if (score.mods) JSON.parse(score.mods).forEach(mod => {
+                mod = mod.toUpperCase();
+                modsHtml += `<img src="/catch/img/mods/${mod}.png" alt="${mod}" title="This score was set with the ${mod} mod.">`;
+            })
             if (typeof score.accuracy == "undefined") score.accuracy = NaN;
             if (beatmap) {
                 $("#scorelist").append(`
@@ -326,6 +331,9 @@
                     <img src="/img/ranking-${score.rank.toUpperCase()}.png" alt="${score.rank.toUpperCase()}" class="scorelist__picture">
                     <span class="scorelist__name">${score.title}<br>
                         <div class="scorelist__info">by ${beatmap.artist}</div>
+                    </span>
+                    <span class="scorelist__mods">
+                        ${modsHtml}
                     </span>
                     <span class="scorelist__value">${score.pp.toFixed(0)}<span>pp<br>${score.accuracy.toFixed(2)}%</span></span>
                 </article>
