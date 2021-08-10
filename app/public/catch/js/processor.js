@@ -101,7 +101,7 @@ function processMap() {
     ar = beatmapData.approachrate * dtModifier;
     if (activeMods.includes("hr")) ar *= 1.5;
     else if (activeMods.includes("ez")) ar *= 0.7;
-    if (ar > 12) ar = 12;
+    ar = Math.max(ar, 12);
 
     arModifier = ar / 6.5;
     fruitDropTime = 955 / arModifier
