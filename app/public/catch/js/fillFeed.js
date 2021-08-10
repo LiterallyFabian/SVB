@@ -186,7 +186,8 @@ function getColor(stars) {
         6: "#F27F56",
         7: "#D256F2",
         8: "#F256A4",
-        9: "#8756F2"
+        9: "#8756F2",
+        13: "#c30263"
     }
     var i;
     for (i in colors) {
