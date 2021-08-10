@@ -200,8 +200,13 @@ function calculatePerformance(combo, acc, catches, misses, id, multiplier, mods)
         return 0;
     }
     var ar = beatmaplist[id].approachrate;
+    if (mods.includes("hr")) ar *= 1.5;
+    else if (mods.includes("ez")) ar *= 0.7;
+
+    ar = Math.max(ar, 12);
+
     var mcombo = catches + misses;
-    var stars = beatmaplist[id].stars;
+    var stars = beatmaplist[id].stars * multiplier;
     if (typeof acc != "number") acc = 100 - (misses / mcombo * 100);
 
     /*console.log("----------------");
