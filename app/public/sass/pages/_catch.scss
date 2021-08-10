@@ -24,7 +24,7 @@
 
         .catch-mod-active {
             @include theme() {
-                box-shadow: 0 0 30px theme-get('blue');
+                filter: drop-shadow(0px 0px 20px theme-get('blue'));
                 transform: scale(1.05) rotate(5deg);
             }
         }
