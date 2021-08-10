@@ -154,7 +154,7 @@ function processMap() {
     }
 
     //Finish game 
-    console.log(fruits[fruits.length - 2])
+    songLength = fruits[fruits.length - 2].delay;
     finishGame(fruits[fruits.length - 2].delay, currentStartTime);
 }
 
@@ -392,8 +392,6 @@ function parseFruits(beatmap) {
                 stats_bananasSeen++;
             }
         }
-        //Sets song length to current line
-        if (line.length > 1) songLength = parseInt(line[2]);
     })
 
     return allFruits;

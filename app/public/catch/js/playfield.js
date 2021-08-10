@@ -51,7 +51,7 @@ $(document).ready(function () {
     };
 
     //using cached values to not mess with CS
-    catcher.width= catcher.originalWidth;
+    catcher.width = catcher.originalWidth;
     catcher.height = catcher.originalHeight;
 
     flashlight = {
@@ -86,7 +86,7 @@ $(document).ready(function () {
             catcher.x = canvas.width - grid - catcher.width;
         }
 
-        
+
         //draw catcher
         context.globalAlpha = 1;
         if (activeMods.includes("fl"))
@@ -125,7 +125,14 @@ $(document).ready(function () {
         //draw walls
         context.fillStyle = '#0000003D';
         context.fillRect(0, 0, canvas.width, grid);
-        context.fillRect(0, canvas.height - grid, canvas.width, canvas.height);
+
+        if (gameStarted) {
+            context.fillStyle = '#CFF9FA80';
+            context.fillRect(0, canvas.height - 10, canvas.width * ((Date.now() - currentStartTime) / (songLength + fruitDropTime)), canvas.height);
+            context.fillStyle = '#CFF9FA33';
+            context.fillRect(0, canvas.height - 10, canvas.width, canvas.height);
+        }
+
 
         //update scores
         accText.text = `${missedScore == 0 ? "100%" : `${(catchedScore/(catchedScore+missedScore)*100).toFixed(2)}%`}`;
