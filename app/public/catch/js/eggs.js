@@ -17,7 +17,7 @@ function startEggs(id) {
         setTimeout(function () {
             $(catcher).animate({
                 width: catcher.width * 2.5
-            }, 1500);
+            }, 1500 * delayModifier);
         }, fruitDropTime);
 
         //my love / new beginnings
@@ -42,9 +42,9 @@ function startEggs(id) {
                 setTimeout(function () {
                     $(obj).addClass("fall-away")
                 }, delay)
-                delay += 60 / 128 * 8 * 1000;
+                delay += 60 / 128 * 8 * 1000 * delayModifier;
             })
-        }, 60106);
+        }, 60106 * delayModifier);
 
         //Dango Dango Drum and Bass / Dango Daikazoku
         //adds a dango to the fruit pool
@@ -90,37 +90,37 @@ function startEggs(id) {
             setTimeout(function () {
                 setCatcher("nnyl");
                 setBackground("song/assets/rrrrr1.jpg")
-            }, 45579)
+            }, 45579 * delayModifier)
 
             setTimeout(function () {
                 setCatcher("lynn", "nnyl");
                 setBackground("song/assets/glitch.png")
-            }, 50979)
+            }, 50979 * delayModifier)
 
             setTimeout(function () {
                 setCatcher("nnyl");
                 setBackground("song/assets/invert.png")
                 $("#catchField").animate({
                     opacity: 0.7
-                }, 20000);
-            }, 56379)
+                }, 20000 * delayModifier);
+            }, 56379 * delayModifier)
 
             setTimeout(function () {
                 setCatcher("kanna", "nnyl")
                 setBackground("song/assets/oooooooooowhite.png")
-            }, 62979)
+            }, 62979 * delayModifier)
 
             setTimeout(function () {
                 setCatcher("nnyl", "kanna");
-            }, 64979)
+            }, 64979 * delayModifier)
 
             setTimeout(function () {
                 $("#catchField").css("z-index", "999");
                 $("#topnav").addClass("fall-away");
-            }, 70179)
+            }, 70179 * delayModifier)
 
             setTimeout(function () {
-                var delay = 600;
+                var delay = 600 * delayModifier;
                 var i = 0;
                 $(".beatmapCard .thumbnail").each(function () {
                     let obj = this;
@@ -128,21 +128,21 @@ function startEggs(id) {
                         if (++i < 31)
                             setBackground($(obj)[0].src)
                     }, delay)
-                    delay += 600;
+                    delay += 600 * delayModifier;
                 })
-            }, 79779)
+            }, 79779 * delayModifier)
 
             setTimeout(function () {
                 setBackground("song/assets/glitch.png")
                 $("#catchField").css("opacity", "1");
                 setCatcher("lynn", "nnyl");
-            }, 98979)
+            }, 98979 * delayModifier)
 
             setTimeout(function () {
                 setBackground("song/assets/rrrrr2.png")
                 setCatcher("nnyl");
-                $("#catchField").css("animation", "rotation 1s cubic-bezier(0, 0, 1, -0.36)");
-            }, 109404)
+                $("#catchField").css("animation", `rotation ${delayModifier}s cubic-bezier(0, 0, 1, -0.36)`);
+            }, 109404 * delayModifier)
         }, fruitDropTime);
     }
 }
@@ -165,7 +165,8 @@ function playVideo(path) {
 
     var canvas = document.getElementById("catchField");
     var ctx = canvas.getContext("2d");
-    var video = document.getElementById('beatmap_video')
+    var video = document.getElementById('beatmap_video');
+    video.playbackRate = dtModifier;
 
     video.muted = true;
     setTimeout(function () {

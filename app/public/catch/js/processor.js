@@ -21,8 +21,8 @@ var musicRange;
 var csModifier;
 var arModifier;
 var scoreMultiplier = 1;
-var dtModifier = 1;
-var delayModifier;
+var dtModifier = 1; //Modifier on SPEED, for example catcher moves 2x faster
+var delayModifier; //Modifier on DELAY, for example object drops 2/3x faster
 var fruitDropTime = 955;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
 
