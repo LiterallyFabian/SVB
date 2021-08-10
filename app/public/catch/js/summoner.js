@@ -1,26 +1,6 @@
 /*
     Handles summoning of objects
 */
-var bananaShower = false; //whether a banana shower is active
-
-//Queues a banana shower
-function summonSpinner(start, stop) {
-    setTimeout(function () {
-        bananaShower = true;
-        setTimeout(function () {
-            bananaShower = false;
-        }, parseInt(stop - start));
-    }, parseInt(start));
-}
-
-//Summons a banana every 60ms if a banana shower is active
-window.setInterval(function () {
-    if (typeof bananaShower != "undefined")
-        if (bananaShower) {
-            summonedFruits.push(new fruit(Math.floor(Math.random() * 512), 2));
-            stats_bananasSeen++;
-        }
-}, 60);
 
 //Queues a kiai-toggle
 function toggleKiai(kiaiOn, delay, timestamp) {

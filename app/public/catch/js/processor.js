@@ -154,6 +154,7 @@ function processMap() {
     }
 
     //Finish game 
+    console.log(fruits[fruits.length - 2])
     finishGame(fruits[fruits.length - 2].delay, currentStartTime);
 }
 
@@ -379,7 +380,17 @@ function parseFruits(beatmap) {
             })
         } else {
             //Summons a spinner
-            summonSpinner(delay, parseFloat(line[5]) * delayModifier)
+            for (let i = delay; i < parseFloat(line[5]) * delayModifier; i += 60) {
+                allFruits.push({
+                    delay: i,
+                    fruit: {
+                        x: Math.floor(Math.random() * 512),
+                        size: 2,
+                        hitsound: -1
+                    }
+                });
+                stats_bananasSeen++;
+            }
         }
         //Sets song length to current line
         if (line.length > 1) songLength = parseInt(line[2]);
