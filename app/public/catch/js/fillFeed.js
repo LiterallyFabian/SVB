@@ -35,7 +35,7 @@ class bmap {
                     <p style="padding-bottom:2px"><b>${fixedTitle}</b></p>
                     <p>${this.beatmap.artist}</p>
                     <br>
-                    <div class="starContainer">${this.beatmap.stars.toFixed(2)} ${stars}</div>
+                    <div class="starContainer" title="★ ${this.beatmap.stars}">${this.beatmap.stars.toFixed(2)} ${stars}</div>
                     
                 </figcaption> 
             </figure>
