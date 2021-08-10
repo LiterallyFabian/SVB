@@ -77,7 +77,15 @@ function finishGame(delay, timestamp) {
             title: currentSong,
             mapid: beatmapData.id
         })
-    }, delay);
+    }, delay + 2000);
+
+    //play win audio 
+    setTimeout(function () {
+        if (currentStartTime == timestamp) {
+            winAudio.volume = document.getElementById("musicRange").value / 100;
+            winAudio.play();
+        }
+    }, delay + 1000)
 }
 
 function confettiSides() {

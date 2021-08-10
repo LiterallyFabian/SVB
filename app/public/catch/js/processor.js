@@ -153,16 +153,8 @@ function processMap() {
         }, fruits[i].delay)
     }
 
-    //Finish game 3 seconds after last object.
-    finishGame(fruits[fruits.length - 2].delay + 3000, currentStartTime);
-
-    //play win audio
-    setTimeout(function () {
-        if (currentStartTime == songTime) {
-            winAudio.volume = document.getElementById("musicRange").value / 100;
-            winAudio.play();
-        }
-    }, fruits[fruits.length - 2].delay + 2000)
+    //Finish game 
+    finishGame(fruits[fruits.length - 2].delay, currentStartTime);
 }
 
 //Save settings
