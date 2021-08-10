@@ -46,13 +46,13 @@ $(document).ready(function () {
         originalWidth: (516 / 2.5) * scaleModifier,
         originalHeight: (609 / 2.5) * scaleModifier,
 
-        //using cached to not mess with CS
-        width: this.originalHeight,
-        height: this.originalHeight,
-
         //velocity
         dy: 0
     };
+
+    //using cached values to not mess with CS
+    catcher.width= catcher.originalWidth;
+    catcher.height = catcher.originalHeight;
 
     flashlight = {
         y: catcher.y * 0.5 - context.canvas.height,
@@ -86,6 +86,7 @@ $(document).ready(function () {
             catcher.x = canvas.width - grid - catcher.width;
         }
 
+        
         //draw catcher
         context.globalAlpha = 1;
         if (activeMods.includes("fl"))
