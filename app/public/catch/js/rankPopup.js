@@ -38,7 +38,7 @@ function summonFireworks() {
         startVelocity: 30,
         spread: 360,
         ticks: 60,
-        zIndex: 0
+        zIndex: 1000
     };
 
     var interval = setInterval(function () {
