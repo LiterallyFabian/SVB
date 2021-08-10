@@ -21,7 +21,7 @@ var musicRange;
 var csModifier;
 var arModifier;
 var scoreMultiplier = 1;
-var dtModifier;
+var dtModifier = 1;
 var delayModifier;
 var fruitDropTime = 955;
 var startAudio = new Audio('/catch/audio/confirm-selection.mp3');
