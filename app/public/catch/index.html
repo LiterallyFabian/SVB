@@ -38,7 +38,7 @@
     <meta name="og:type" content="website">
 </head>
 
-<body id="catchbody">
+<body id="osubody">
     <!--Navigation bar-->
     <div id="nav-placeholder"></div>
 
@@ -96,7 +96,7 @@
             <!--Game settings-->
             <div class="gamesettings">
                 <!--Options bar-->
-                <div class="catch-option">
+                <div class="osu-option">
                     <p>Music</p>
                     <input type="range" min="0" max="100" value="50" class="slider" id="musicRange">
 
@@ -105,21 +105,21 @@
                 </div>
 
                 <!--Mods-->
-                <div class="catch-mods catch-option">
-                    <img class="catch-mod" id="ez" src="img/mods/EZ.png">
-                    <img class="catch-mod" id="ht" src="img/mods/HT.png">
-                    <img class="catch-mod" id="hr" src="img/mods/HR.png">
-                    <img class="catch-mod" id="dt" src="img/mods/DT.png">
-                    <img class="catch-mod" id="hd" src="img/mods/HD.png">
-                    <img class="catch-mod" id="fi" src="img/mods/FI.png">
-                    <img class="catch-mod" id="fl" src="img/mods/FL.png">
+                <div class="osu-mods osu-option">
+                    <img class="osu-mod" id="ez" src="/img/mods/EZ.png">
+                    <img class="osu-mod" id="ht" src="/img/mods/HT.png">
+                    <img class="osu-mod" id="hr" src="/img/mods/HR.png">
+                    <img class="osu-mod" id="dt" src="/img/mods/DT.png">
+                    <img class="osu-mod" id="hd" src="/img/mods/HD.png">
+                    <img class="osu-mod" id="fi" src="/img/mods/FI.png">
+                    <img class="osu-mod" id="fl" src="/img/mods/FL.png">
                 </div>
 
                 <!--Search bar-->
-                <input type="text" class="catch-searchbar catch-option" id="search" placeholder="type in keywords..." autocomplete="off">
+                <input type="text" class="osu-searchbar osu-option" id="search" placeholder="type in keywords..." autocomplete="off">
 
                 <!--Sorting bar-->
-                <div class="catch-sortbar catch-option">
+                <div class="osu-sortbar osu-option">
                     <h1>Sort by...</h1>
                     <p><a onClick="SetSort('title');">Title</a><i id="sort-title" class="fas"></i></p>
                     <p><a onClick="SetSort('artist');">Artist</a><i id="sort-artist" class="fas"></i></p>
