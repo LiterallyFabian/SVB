@@ -71,8 +71,6 @@ function finishGame(delay, timestamp) {
 function confettiSides() {
     var end = Date.now() + (1000);
 
-    var colors = JSON.parse(beatmapData.colors);
-
     (function frame() {
         confettiCannon({
             particleCount: 2,
@@ -82,7 +80,7 @@ function confettiSides() {
                 x: 0,
                 y: 1
             },
-            colors: colors
+            colors: beatmapData.colors
         });
         confettiCannon({
             particleCount: 2,
@@ -92,7 +90,7 @@ function confettiSides() {
                 x: 1,
                 y: 1
             },
-            colors: colors
+            colors: beatmapData.colors
         });
 
         if (Date.now() < end) {

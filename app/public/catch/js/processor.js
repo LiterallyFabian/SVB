@@ -34,6 +34,7 @@ function loadDebug() {
 function loadID(beatmapID) {
     var map = beatmapDatabase[beatmapID.toString()];
     beatmapData = map;
+    beatmapData.colors = JSON.parse(beatmapData.colors);
     loadGame(map.path, map.title)
 }
 
