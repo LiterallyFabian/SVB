@@ -41,7 +41,6 @@ function loadID(beatmapID) {
 function loadGame(path, title) {
     startAudio.volume = document.getElementById("musicRange").value / 100;
     startAudio.play();
-    $('#catchField').css('transform', `rotateX(0deg) rotateY(0deg) rotateZ(0deg)`)
     document.getElementById('catchField').style.cursor = 'none';
     currentSong = title;
     gameStarted = true;
