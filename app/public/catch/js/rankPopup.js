@@ -21,7 +21,7 @@ function setMedal(rank, score, highestCombo) {
         "d": "Meh."
     }
 
-    if (rank.trim() == "ss") summonFireworks();
+    if (rank == "ss" || rank == "ssx") summonFireworks();
 
     captionText.innerHTML = `${messages[rank]} Your highest combo was ${cleanNumber(highestCombo)} and you got ${cleanNumber(Math.floor(score))} points. ${isLoggedIn() ? "<br><br>Your score is saved on your profile!" : "<br><br>Log in to save these scores."}`;
 }
