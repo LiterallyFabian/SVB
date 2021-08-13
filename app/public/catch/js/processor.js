@@ -257,15 +257,16 @@ function parseTiming(timingLines) {
         var sampleIndex = data[4];
         var volume = data[5];
         var uninherited = data[6] == 1;
-        var effects = data[7];
+        var kiai = data[7] == 1;
 
-        toggleKiai(effects == 1, time, currentStartTime);
+        toggleKiai(kiai, time, currentStartTime);
 
         //set beatlengths
         if (uninherited) {
             timingPoints.push({
                 value: beatLength,
-                delay: time - 1
+                delay: time - 1,
+                kiai: kiai
             });
             lastBeatLength = beatLength
             if (defaultBeatLength == -1) {
@@ -276,7 +277,8 @@ function parseTiming(timingLines) {
         } else {
             timingPoints.push({
                 value: lastBeatLength / (-100 / beatLength),
-                delay: time - 1
+                delay: time - 1,
+                kiai: kiai
             });
         }
     });
