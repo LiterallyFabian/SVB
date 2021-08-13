@@ -2,7 +2,7 @@ var activeMods = [];
 
 $(document).ready(function () {
     //detect clicks
-    $(".catch-mod").on('click', function (event) {
+    $(".osu-mod").on('click', function (event) {
         var id = event.target.id;
         if (!gameStarted)
             toggleMod(id);
@@ -18,7 +18,7 @@ $(document).ready(function () {
 
 function toggleMod(id, forceAdd = false) {
     if (!activeMods.includes(id) || forceAdd) {
-        $(`#${id}`).addClass("catch-mod-active");
+        $(`#${id}`).addClass("osu-mod-active");
         if (!forceAdd) activeMods.push(id);
 
         mods[id].incompatible.forEach(incompMod => {
@@ -26,7 +26,7 @@ function toggleMod(id, forceAdd = false) {
         })
         
     } else {
-        $(`#${id}`).removeClass("catch-mod-active");
+        $(`#${id}`).removeClass("osu-mod-active");
         activeMods.splice(activeMods.indexOf(id), 1);
     }
 
@@ -34,13 +34,13 @@ function toggleMod(id, forceAdd = false) {
 }
 
 function lockMods(lock = true) {
-    $(".catch-mod,.catch-mod-locked").each(function () {
+    $(".osu-mod,.osu-mod-locked").each(function () {
         if (lock && !activeMods.includes($(this).attr("id"))) {
-            $(this).addClass("catch-mod-locked");
-            $(this).removeClass("catch-mod");
+            $(this).addClass("osu-mod-locked");
+            $(this).removeClass("osu-mod");
         } else if (!lock) {
-            $(this).addClass("catch-mod")
-            $(this).removeClass("catch-mod-locked");
+            $(this).addClass("osu-mod")
+            $(this).removeClass("osu-mod-locked");
         }
     });
 }
