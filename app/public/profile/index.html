@@ -320,7 +320,7 @@
             var modsHtml = "";
             if (score.mods) JSON.parse(score.mods).forEach(mod => {
                 mod = mod.toUpperCase();
-                modsHtml += `<img src="/catch/img/mods/${mod}.png" alt="${mod}" title="This score was set with the ${mod} mod.">`;
+                modsHtml += `<img src="/img/mods/${mod}.png" alt="${mod}" title="This score was set with the ${mod} mod.">`;
             })
             if (typeof score.accuracy == "undefined") score.accuracy = NaN;
             if (beatmap) {
