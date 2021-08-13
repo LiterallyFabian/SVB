@@ -119,10 +119,17 @@ $(document).ready(function () {
         context.fillRect(0, 0, canvas.width, grid);
 
         if (gameStarted) {
-            context.fillStyle = '#CFF9FA80';
-            context.fillRect(0, canvas.height - 10, canvas.width * ((Date.now() - currentStartTime) / (songLength + fruitDropTime)), canvas.height);
-            context.fillStyle = '#CFF9FA33';
-            context.fillRect(0, canvas.height - 10, canvas.width, canvas.height);
+            for (let i = 0; i < beatmap.timingPoints.length; i++) {
+                context.shadowColor = "rgba(0, 0, 0, 0)";
+                var color = beatmap.timingPoints[i].kiai ? '#cc807e' : '#7ecacc'
+                var start = i == 0 ? 0 : (beatmap.timingPoints[i].delay + fruitDropTime) / songLength;
+                var stop = beatmap.timingPoints[i + 1] ? (beatmap.timingPoints[i + 1].delay + fruitDropTime) / songLength : 1;
+                context.fillStyle = `${color}`;
+                context.fillRect(start * canvas.width, canvas.height - 10, canvas.width * stop, canvas.height);
+                context.fillStyle = `#00000080`;
+                context.fillRect(0, canvas.height - 10, canvas.width * ((Date.now() - currentStartTime) / (songLength + fruitDropTime)), canvas.height);
+            }
+
         }
 
 
@@ -178,11 +185,11 @@ function component(width, height, color, x, y, type, align) {
             context.font = `${width*scaleModifier}px Verdana`;
             context.textAlign = align;
             context.fillStyle = color;
-            context.fillText(this.text, this.x, this.y);
             context.shadowOffsetX = 5;
             context.shadowOffsetY = 3;
             context.shadowBlur = 2;
             context.shadowColor = "rgba(0, 0, 0, 0.5)";
+            context.fillText(this.text, this.x, this.y);
         } else {
             context.fillStyle = color;
             context.fillRect(this.x, this.y, this.width, this.height);
