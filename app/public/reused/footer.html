@@ -4,7 +4,12 @@
             <div class="footerlogo center" alt="LOGO"></div>
         </a>
         <p>lindgrenfabian@gmail.com</p>
-        <p><u><a href="https://github.com/LiterallyFabian/SVB">Source</a></u> | <u><a href="https://github.com/LiterallyFabian/SVB/issues">Issues</a></u></p>
+        <p id="footer-text" width="50%"><u><a href="https://github.com/LiterallyFabian/SVB">Source</a></u> | <u><a href="https://github.com/LiterallyFabian/SVB/issues">Issues</a></u></p>
+        <p>
+            <script>
+                if (window.location.pathname.startsWith("/catch")) document.getElementById("footer-text").innerHTML+="<br><br>Some game assets on this page are copyright ppy Pty Ltd. Please read their license <u><a href='https://osu.ppy.sh/community/forums/topics/129191'>here</a></u>."
+            </script>
+        </p>
         <div class="tools" style="display: inline;">
             <div class="tooltip">
                 <a onClick="setTheme('theme_light')"><i class="tool far fas fa-sun">
