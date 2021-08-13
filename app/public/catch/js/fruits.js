@@ -3,8 +3,17 @@
 */
 lastMiss = false;
 
-stats_bananasSeen = 0;
-stats_bananasCatched = 0;
+var stats = {
+    bananasSeen: 0,
+    bananasCatched: 0,
+    catchedFruits: 0,
+    missedFruits: 0,
+    catchedScore: 0,
+    missedScore: 0,
+    score: 0,
+    combo: 0,
+    highestCombo: 0
+}
 
 function fruit(x, size, hitsound, hyper = false) {
     this.x = scaleModifier * x * 1.7 + 512 * (scaleModifier / 2);
@@ -60,17 +69,17 @@ function fruit(x, size, hitsound, hyper = false) {
             //Add score
             if (this.size != 2) {
                 smoothAcc(this.score, false);
-                addScore(this.score + (this.score * ((combo - (combo != 0 ? 0 : combo - 1)) / 25)));
+                addScore(this.score + (this.score * ((stats.combo - (stats.combo != 0 ? 0 : stats.combo - 1)) / 25)));
             }
             if (this.size == 0) {
-                combo++;
-                catchedFruits++;
-                if (combo > highestCombo) highestCombo = combo;
+                stats.combo++;
+                stats.catchedFruits++;
+                if (stats.combo > stats.highestCombo) stats.highestCombo = stats.combo;
                 hyperSpeedModifier = this.hyper ? 1.25 : 1;
             }
             if (this.size == 2) {
                 addScore(this.score);
-                stats_bananasCatched++;
+                stats.bananasCatched++;
             }
 
             playHitsound(this.hitsound)
@@ -86,9 +95,9 @@ function fruit(x, size, hitsound, hyper = false) {
                 lastMiss = true;
             }
             if (this.size == 0) {
-                if (combo > 15) hitsoundCombobreak.play();
-                combo = 0;
-                missedFruits++;
+                if (stats.combo > 15) hitsoundCombobreak.play();
+                stats.combo = 0;
+                stats.missedFruits++;
             }
         }
 
@@ -100,8 +109,8 @@ function smoothAcc(addedscore, isMiss) {
 
     function Loop() {
         setTimeout(function () {
-            if (isMiss) missedScore += addedscore / 25;
-            else catchedScore += addedscore / 25;
+            if (isMiss) stats.missedScore += addedscore / 25;
+            else stats.catchedScore += addedscore / 25;
             i++;
             if (i < 25) {
                 Loop();
@@ -118,7 +127,7 @@ function addScore(addedscore) {
 
     function Loop() {
         setTimeout(function () {
-            score += addedscore / 25;
+            stats.score += addedscore / 25;
             i++;
             if (i < 25) {
                 Loop();

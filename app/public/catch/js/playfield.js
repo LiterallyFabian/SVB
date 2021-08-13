@@ -23,17 +23,9 @@ $(document).ready(function () {
     allFruits = [];
     summonedFruits = []; //containing all fruits on playfield
     var scoreText;
-    score = 0; //total score catched, affected by combo
-    missedScore = 0; //missed score (not affected by combo, to get acc)
-    catchedScore = 0; //catched score (not affected by combo, to get acc)
-    missedFruits = 0;
-    catchedFruits = 0;
     kiai = false; //whether kiai mode is active or not (makes catcher happy)
-    combo = 0; //current user combo
-    highestCombo = 0;
     hasMoved = false;
     gameStarted = false;
-    smile = false; //whether the catcher should smile (for the intro)
 
     touching = false; //whether the user is touching the screen or not (for mobile controls)
     touching_x = 0; //where the user is touching
@@ -118,7 +110,7 @@ $(document).ready(function () {
         if (lastMiss) {
             catcherImage = catcherImage_fail;
         } else {
-            if (kiai || smile) catcherImage = catcherImage_kiai;
+            if (kiai) catcherImage = catcherImage_kiai;
             else catcherImage = catcherImage_idle;
         }
 
@@ -135,9 +127,9 @@ $(document).ready(function () {
 
 
         //update scores
-        accText.text = `${missedScore == 0 ? "100%" : `${(catchedScore/(catchedScore+missedScore)*100).toFixed(2)}%`}`;
-        scoreText.text = pad(Math.round(score), 7);
-        comboText.text = `x${cleanNumber(combo)}`;
+        accText.text = `${stats.missedScore == 0 ? "100%" : `${(stats.catchedScore/(stats.catchedScore+stats.missedScore)*100).toFixed(2)}%`}`;
+        scoreText.text = pad(Math.round(stats.score), 7);
+        comboText.text = `x${cleanNumber(stats.combo)}`;
 
         accText.update()
         scoreText.update()

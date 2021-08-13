@@ -4,7 +4,7 @@ Summons a medal on the page after game finish, containing play stats.
 medal = null;
 fireworks = false;
 
-function setMedal(rank, score, highestCombo) {
+function setMedal(rank) {
     medal = document.getElementById("rankMedal");
     var medalImg = document.getElementById("rankImg");
     var captionText = document.getElementById("message");
@@ -23,7 +23,7 @@ function setMedal(rank, score, highestCombo) {
 
     if (rank == "ss" || rank == "ssx") summonFireworks();
 
-    captionText.innerHTML = `${messages[rank]} Your highest combo was ${cleanNumber(highestCombo)} and you got ${cleanNumber(Math.floor(score))} points. ${isLoggedIn() ? "<br><br>Your score is saved on your profile!" : "<br><br>Log in to save these scores."}`;
+    captionText.innerHTML = `${messages[rank]} Your highest combo was ${cleanNumber(stats.highestCombo)} and you got ${cleanNumber(Math.floor(stats.score))} points. ${isLoggedIn() ? "<br><br>Your score is saved on your profile!" : "<br><br>Log in to save these scores."}`;
 }
 
 function closeMedal() {

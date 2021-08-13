@@ -32,9 +32,11 @@ function loadDebug() {
 
 //start beatmap from ID
 function loadID(beatmapID) {
+    resetGame();
     var map = beatmapDatabase[beatmapID.toString()];
     beatmapData = map;
-    beatmapData.colors = JSON.parse(beatmapData.colors);
+    if (typeof beatmapData.colors != "object")
+        beatmapData.colors = JSON.parse(beatmapData.colors);
     loadGame(map.path, map.title)
 }
 
@@ -44,7 +46,6 @@ function loadGame(path, title) {
     startAudio.play();
     document.getElementById('catchField').style.cursor = 'none';
     currentSong = title;
-    gameStarted = true;
     winAudio = new Audio('/catch/audio/rankpass.mp3');
 
     stopPreview();
@@ -80,8 +81,9 @@ function waitForLoad() {
 
 
 function processMap() {
-    resetGame();
     lockMods();
+
+    gameStarted = true;
     var songTime = new Date();
     currentStartTime = songTime;
 
@@ -184,22 +186,26 @@ $(document).ready(function () {
 })
 
 function resetGame() {
-    fruitHasSpawned = false;
     allFruits = [];
     summonedFruits = [];
     fruitLines = [];
     timingLines = [];
-    score = 0;
-    misses = 0;
-    catches = 0;
     kiai = false;
-    combo = 0;
-    highestCombo = 0;
     bananaShower = false;
-    missedFruits = 0;
-    catchedFruits = 0;
-    missedScore = 0;
-    catchedScore = 0;
+    gameStarted = false;
+    scoreMultiplier = 1;
+
+    stats = {
+        bananasSeen: 0,
+        bananasCatched: 0,
+        catchedFruits: 0,
+        missedFruits: 0,
+        catchedScore: 0,
+        missedScore: 0,
+        score: 0,
+        combo: 0,
+        highestCombo: 0
+    }
 }
 
 function parseBeatmap(beatmap) {
@@ -295,12 +301,6 @@ function parseFruits(beatmap) {
         var delay = parseInt(line[2]) * delayModifier;
         var defaultHitsound = parseInt(line[4]);
 
-        if (!fruitHasSpawned) {
-            fruitHasSpawned = true;
-            resetGame();
-        }
-
-
         //this line is a SLIDER
         if (line.length > 7) {
             var overrideHitsounds = line.length > 8;
@@ -389,7 +389,7 @@ function parseFruits(beatmap) {
                         hitsound: -1
                     }
                 });
-                stats_bananasSeen++;
+                stats.bananasSeen++;
             }
         }
     })
