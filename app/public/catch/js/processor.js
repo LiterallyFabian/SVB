@@ -67,6 +67,8 @@ function loadGame(path, title) {
     music.onloadeddata = waitForLoad();
 }
 
+var intervalsLoaded = 0;
+
 function waitForLoad() {
     if (typeof music !== "undefined" &&
         typeof beatmap !== "undefined" &&
@@ -75,6 +77,14 @@ function waitForLoad() {
         processMap()
     } else {
         setTimeout(waitForLoad, 500);
+
+        if (intervalsLoaded++ > 2) {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000)
+        }
     }
 }
 
