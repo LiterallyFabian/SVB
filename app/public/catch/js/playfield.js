@@ -132,6 +132,17 @@ $(document).ready(function () {
 
         }
 
+        if (music && music.buffered.length>0) {
+            var offset = music.buffered.end(0) - music.currentTime - 1;
+            if (offset < 0) {
+                console.error(`Can not load music fast enough. ${music.buffered.end(0)}s loaded, but current playback is at ${music.currentTime}s.`);
+
+                $("#snackbar").css("background-color", "#8a1616");
+                $("#snackbar").text("The music could not be loaded in time. The game will likely be desynced.");
+                $("#snackbar").addClass("show");
+            }
+        }
+
 
         //update scores
         accText.text = `${stats.missedScore == 0 ? "100%" : `${(stats.catchedScore/(stats.catchedScore+stats.missedScore)*100).toFixed(2)}%`}`;
