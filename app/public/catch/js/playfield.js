@@ -132,9 +132,9 @@ $(document).ready(function () {
 
         }
 
-        if (music && music.buffered.length>0) {
+        if (music && music.buffered.length > 0) {
             var offset = music.buffered.end(0) - music.currentTime - 1;
-            if (offset < 0) {
+            if (offset < 0 && music.duration - music.buffered.end(0) > 3) {
                 console.error(`Can not load music fast enough. ${music.buffered.end(0)}s loaded, but current playback is at ${music.currentTime}s.`);
 
                 $("#snackbar").css("background-color", "#8a1616");
