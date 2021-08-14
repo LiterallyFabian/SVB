@@ -203,10 +203,16 @@ function calculatePerformance(combo, acc, catches, misses, id, multiplier, mods)
     if (mods.includes("hr")) ar *= 1.5;
     else if (mods.includes("ez")) ar *= 0.7;
 
-    ar = Math.max(ar, 12);
+    ar = Math.max(ar, 10);
 
     var mcombo = catches + misses;
-    var stars = beatmaplist[id].stars * multiplier;
+    var stars = beatmaplist[id].stars;
+
+    if (mods.includes("dt")) stars *= 1.1;
+    if (mods.includes("hr")) stars *= 1.05;
+    if (mods.includes("ez")) stars *= 0.7;
+    if (mods.includes("ht")) stars *= 0.5;
+
     if (typeof acc != "number") acc = 100 - (misses / mcombo * 100);
 
     /*console.log("----------------");
