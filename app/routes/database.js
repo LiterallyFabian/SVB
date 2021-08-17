@@ -43,6 +43,7 @@ module.exports.createTables = function createTables() {
         stars FLOAT NOT NULL DEFAULT 0,
         tags TEXT,
         colors TEXT,
+        mode ENUM('catch', 'taiko'),
         PRIMARY KEY(id)
     )
     `);
@@ -67,7 +68,7 @@ module.exports.createTables = function createTables() {
         date DATETIME
     )
     `);
-    
+
     connection.query(`
     CREATE TABLE IF NOT EXISTS saltbot_servers (
         servers INT,

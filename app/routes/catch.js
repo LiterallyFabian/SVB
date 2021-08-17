@@ -9,18 +9,7 @@ var beatmaplist = {};
 
 //Gets all beatmaps
 router.post('/getmaps', (req, res) => {
-    connection.query("SELECT * FROM beatmaps ORDER BY stars", function (err, result) {
-        if (err) throw err;
-        else {
-            res.send(result);
-        }
-    });
-});
-
-//Gets a beatmap from ID
-router.post('/getmap', (req, res) => {
-    var ID = req.body.ID;
-    connection.query(`SELECT * FROM posts WHERE id = '${ID}'`, function (err, result) {
+    connection.query("SELECT * FROM beatmaps WHERE mode = 'catch' ORDER BY stars", function (err, result) {
         if (err) throw err;
         else {
             res.send(result);
@@ -123,6 +112,7 @@ function addBeatmaps() {
                 beatmapData.stars = calculateDifficulty(hitobjects);
                 beatmapData.colors = JSON.stringify(beatmapData.colors);
                 beatmapData.path = cleanPath;
+                beatmapData.mode = 'catch';
                 console.log(beatmapData);
                 connection.query(`INSERT INTO beatmaps SET ?`, beatmapData, function (err, result) {
                     if (err) throw err;
