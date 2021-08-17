@@ -1,6 +1,11 @@
 /*
 Creates cards for all beatmaps in database and post them to the front page on load.
 */
+
+var isCatch = window.location.pathname.toLowerCase().includes("catch");
+var mode = isCatch ? "catch" : "taiko";
+var sortCookie = `${mode}Sort`;
+
 class bmap {
     constructor(beatmap) {
         this.beatmap = beatmap;
@@ -9,13 +14,17 @@ class bmap {
     generatePost() {
         //set rank overlay
         var rankOverlay = ``;
-        var score = catchScores[this.beatmap.id];
+        var starContainer = ``;
+        var score = scores[this.beatmap.id];
         if (score) rankOverlay = `<img class="rankOverlay" src="/img/ranking-${score.rank.toUpperCase()}.png">`;
 
         //fill star container
-        var color = getColor(this.beatmap.stars);
-        var stars = `<i class="fas fa-star star" style="color:${color}"></i>`;
-        for (var i = 0; i < Math.round(this.beatmap.stars) - 1; i++) stars += `<i class="fas fa-star star" style="color:${color}"></i>`;
+        if (mode == "catch") {
+            var color = getColor(this.beatmap.stars);
+            var stars = `<i class="fas fa-star star" style="color:${color}"></i>`;
+            for (var i = 0; i < Math.round(this.beatmap.stars) - 1; i++) stars += `<i class="fas fa-star star" style="color:${color}"></i>`;
+            starContainer = `<div class="starContainer" title="★ ${this.beatmap.stars}">${this.beatmap.stars.toFixed(2)} ${stars}</div>`;
+        }
 
         //remove stuff from title
         var fixedTitle = this.beatmap.title.replace(/(?<!^)((\[.+\]$)|(\(.+\)$)|(\-.+\-$)|(\~.+\~$)|((feat|ft| ver ).+)|(\/|\-.+remix))$/ig, '');
@@ -35,8 +44,7 @@ class bmap {
                     <p style="padding-bottom:2px"><b>${fixedTitle}</b></p>
                     <p>${this.beatmap.artist}</p>
                     <br>
-                    <div class="starContainer" title="★ ${this.beatmap.stars}">${this.beatmap.stars.toFixed(2)} ${stars}</div>
-                    
+                    ${starContainer}
                 </figcaption> 
             </figure>
         </a>
@@ -47,30 +55,38 @@ class bmap {
 
 beatmapDatabase = {};
 allBeatmaps = [];
-catchScores = {};
+scores = {};
 includedIDs = [];
 
-var sort = getAloneCookie("sort");
+var sort = getAloneCookie(sortCookie);
 //set default if no sorting is saved
 if (typeof sort == "object") {
     sort = {
         sort: "difficulty",
         reverse: false
     };
-    setCookie("sort", JSON.stringify(sort), 100000);
+    setCookie(sortCookie, JSON.stringify(sort), 100000);
 } else {
     sort = JSON.parse(sort);
 }
 
 axios.all([
-        axios.post("/catch/getmaps"),
+        axios.post(`/${mode}/getmaps`),
         axios.post("/auth/getuser", {
             auth: getCookie("auth").length > 0 ? JSON.stringify(getAuth()) : -1
         })
     ])
     .then(axios.spread((maps, user) => {
-        if (user.data) catchScores = JSON.parse(user.data[0].catchScores).ranks;
-        if (typeof catchScores == 'undefined') catchScores = {};
+
+        //set scores dependent on mode
+        if (mode == "catch") {
+            if (user.data) scores = JSON.parse(user.data[0].catchScores).ranks;
+            if (typeof scores == 'undefined') scores = {};
+        } else if (mode == "taiko") {
+            if (user.data) scores = JSON.parse(user.data[0].taikoScores).ranks;
+            if (typeof scores == 'undefined') scores = {};
+        }
+
         $.each(maps.data, function (i, map) {
             beatmapDatabase[map.id.toString()] = map;
             map.tags += ` ${map.title} ${map.creator} ${map.difficulty} ${map.artist}`;
@@ -78,17 +94,9 @@ axios.all([
         });
         matches = allBeatmaps;
         FillFeed();
-        document.getElementById('no-map-alert').style.display = "none";
-        $(function () {
-            $(".beatmapCard,.osu-mod").hover(
-                function () {
-                    if (hoverAudio.paused) hoverAudio.play();
-                    else hoverAudio.currentTime = 0
-                },
-                function () {
 
-                });
-        });
+        //disable no map alert when maps are loaded
+        document.getElementById('no-map-alert').style.display = "none";
     }));
 
 //card hovering audio
@@ -109,7 +117,20 @@ $(document).ready(function () {
         clearTimeout(typingTimer);
     });
 
+    //add arrow to current sort
     $(`#sort-${sort.sort}`).addClass(sort.reverse ? "fa-chevron-down" : "fa-chevron-up")
+
+    //trigger hover audio
+    $(function () {
+        $(".beatmapCard,.osu-mod").hover(
+            function () {
+                if (hoverAudio.paused) hoverAudio.play();
+                else hoverAudio.currentTime = 0
+            },
+            function () {
+
+            });
+    });
 });
 
 
@@ -170,7 +191,7 @@ function SetSort(newSort) {
         sort.sort = newSort;
         sort.reverse = false;
     }
-    setCookie("sort", JSON.stringify(sort), 100000);
+    setCookie(sortCookie, JSON.stringify(sort), 100000);
     $(`#sort-${newSort}`).addClass(sort.reverse ? "fa-chevron-down" : "fa-chevron-up")
     FillFeed();
 }

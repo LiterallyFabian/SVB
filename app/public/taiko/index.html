@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html class="theme_light" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="utf-8" />
+    <!--Scripts-->
+    <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="/js/svt.js"></script>
+    <script src="/catch/js/audioPreview.js"></script>
+    <script src="/catch/js/fillFeed.js"></script>
+    <script src="/catch/js/rankPopup.js"></script>
+    <script src="/js/confetti.js"></script>
+    <!--Styling-->
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <!--Meta-->
+    <title>svb!taiko</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta name="description" content="osu!taiko, but entirely in JavaScript. You're welcome Laith.">
+    <meta name="image" content="/img/banner.jpg">
+    <meta itemprop="name" content="svb!taiko">
+    <meta itemprop="description" content="osu!taiko, but entirely in JavaScript. You're welcome Laith.">
+    <meta itemprop="image" content="/img/banner.jpg">
+    <meta name="og:title" content="svb!taiko">
+    <meta name="og:description" content="osu!taiko, but entirely in JavaScript. You're welcome Laith.">
+    <meta name="og:image" content="/img/banner.jpg">
+    <meta name="og:site_name" content="SVB">
+    <meta name="og:locale" content="sv_SE">
+    <meta name="og:type" content="website">
+</head>
+
+<body id="osubody">
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
+    <!-- Catch field -->
+    <canvas id="catchField" width="1400" height="855"></canvas>
+
+    <!--Ranks-->
+    <img class="hide" id="rank-ss" src="/img/ranking-SS.png">
+    <img class="hide" id="rank-s" src="/img/ranking-S.png">
+    <img class="hide" id="rank-a" src="/img/ranking-A.png">
+    <img class="hide" id="rank-b" src="/img/ranking-B.png">
+    <img class="hide" id="rank-c" src="/img/ranking-C.png">
+    <img class="hide" id="rank-d" src="/img/ranking-D.png">
+
+    <!--Invisible popup for medals-->
+    <div id="rankMedal" class="medal">
+        <span id="close" onclick="closeMedal();">&times;</span>
+        <img class="medal-content" id="rankImg">
+        <div id="message"></div>
+    </div>
+
+    <!--Gallery with beatmaps-->
+    <section class="song_gallery">
+
+        <div class="gallery_container">
+
+            <!--Game settings-->
+            <div class="gamesettings">
+                <!--Options bar-->
+                <div class="osu-option">
+                    <p>Music</p>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="musicRange">
+
+                    <p>Effects</p>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="effectsRange">
+                </div>
+
+                <!--Mods
+                <div class="osu-mods osu-option">
+                    <img class="osu-mod" id="ez" src="/img/mods/EZ.png" title="Play with slower and larger fruits!">
+                    <img class="osu-mod" id="ht" src="/img/mods/HT.png" title="Play with 75% speed!">
+                    <img class="osu-mod" id="hr" src="/img/mods/HR.png" title="Fruits are faster!">
+                    <img class="osu-mod" id="dt" src="/img/mods/DT.png" title="Play with 150% speed!">
+                    <img class="osu-mod" id="hd" src="/img/mods/HD.png" title="The fruits will fade out">
+                    <img class="osu-mod" id="fi" src="/img/mods/FI.png" title="The fruits will fade in">
+                    <img class="osu-mod" id="fl" src="/img/mods/FL.png" title="Play with restricted viewing area">
+                </div>-->
+
+                <!--Search bar-->
+                <input type="text" class="osu-searchbar osu-option" id="search" placeholder="type in keywords..." autocomplete="off">
+
+                <!--Sorting bar-->
+                <div class="osu-sortbar osu-option">
+                    <h1>Sort by...</h1>
+                    <p><a onClick="SetSort('title');">Title</a><i id="sort-title" class="fas"></i></p>
+                    <p><a onClick="SetSort('artist');">Artist</a><i id="sort-artist" class="fas"></i></p>
+                    <!--<p><a onClick="SetSort('difficulty');">Difficulty</a><i id="sort-difficulty" class="fas"></i></p>-->
+                    <p><a onClick="SetSort('length');">Length</a><i id="sort-length" class="fas"></i></p>
+                    <p><a onClick="SetSort('bpm');">BPM</a><i id="sort-bpm" class="fas"></i></p>
+                </div>
+            </div>
+            <!--end of Game settings-->
+
+            <ol class="image-list grid-view">
+                <p id="no-map-alert" class="gamesettings">Loading beatmaps...</p>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Toast -->
+    <div id="snackbar">Audio still loading...</div>
+
+    <!-- Page footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#footer-placeholder").load("/reused/footer.html");
+        });
+    </script>
+    <!--end of Page footer -->
+</body>
+
+</html>
