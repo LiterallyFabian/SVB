@@ -22,7 +22,7 @@ class article {
 
         return `
         <li class="article_post">
-        <a href="/articles/${this.url}.html" class="inner">
+        <a href="/articles/${this.url}" class="inner">
             <figure> 
                 <img class="thumbnail" src="${this.thumbnailPath}" alt="thumbnail">
                 <figcaption>

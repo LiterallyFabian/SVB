@@ -32,14 +32,16 @@ connection.connect(function (e) {
     }
 
     console.log('\nConnected to the MySQL server\n');
-    
+
     require('./routes/database.js').createTables();
     route_post.createPosts();
     route_catch.getMaps();
 });
 
 app.use(express.json());
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public", {
+    extensions: ['html']
+}));
 app.use(bodyParser.urlencoded({
     extended: false
 }))
