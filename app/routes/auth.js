@@ -126,7 +126,7 @@ router.post("/getuser", (req, res) => {
         if (typeof auth == "string") auth = JSON.parse(auth);
         id = auth.id;
     }
-    connection.query(`SELECT name, discriminator, avatar, id, bio, banner, catchScores, royaleScores, roles FROM users WHERE id = '${id}'`, function (err2, result) {
+    connection.query(`SELECT name, avatar, id, bio, banner, catchScores, royaleScores, roles FROM users WHERE id = '${id}'`, function (err2, result) {
         if (err2) throw err2;
         if (result.length > 0) {
             result[0].perms = perms; //add copy of perm system
