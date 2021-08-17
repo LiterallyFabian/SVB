@@ -1,12 +1,11 @@
 console.log(`Welcome to SVT!`)
 const http = require('http');
 const express = require('express');
-const bodyParser = require('body-parser');
 const mysql2 = require('mysql2');
 const path = require('path');
 const fs = require('fs');
+const root = path.join(__dirname, '/public');
 const app = express();
-const fetch = require('node-fetch');
 var route_user = require('./routes/user.js');
 var route_post = require('./routes/post.js');
 var route_catch = require('./routes/catch.js');
@@ -16,6 +15,7 @@ var route_royale = require('./routes/royale.js');
 var route_saltbot = require('./routes/saltbot.js');
 require('dotenv').config();
 
+app.set('strict routing', true)
 app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname, '')));
 
@@ -39,12 +39,18 @@ connection.connect(function (e) {
 });
 
 app.use(express.json());
-app.use(express.static("public", {
-    extensions: ['html']
+app.use(express.static(path.join(__dirname, '/public'), {
+    extensions: ['html', 'htm']
 }));
-app.use(bodyParser.urlencoded({
-    extended: false
-}))
+
+app.use((req, res, next) => {
+    const file = req.url.replace(/\/$/g, "") + ".html";
+    fs.exists(path.join(root, file), (exists) =>
+        exists ? res.sendFile(file, {
+            root
+        }) : next()
+    );
+});
 
 app.use('/user', route_user);
 app.use('/post', route_post);
