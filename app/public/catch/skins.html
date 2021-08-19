@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="theme_light" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="utf-8" />
+    <!--Scripts-->
+    <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="/js/svt.js"></script>
+    <!--Styling-->
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <!--Meta-->
+    <title>svb!catch | Skin</title>
+</head>
+
+<body>
+    <!--Navigation bar-->
+    <div id="nav-placeholder"></div>
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/reused/nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
+    <!-- Skin section -->
+    <div id="gallery" class="center">
+        <div class="skin-container">
+            <div>
+                <input type="radio" class="skin-selector" id="default" name="skin" value="default" checked>
+                <label for="default">Default (osu!)</label>
+            </div>
+        </div>
+    </div>
+    <!-- end of Article section -->
+
+    <!-- Page footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        $(function () {
+            $("#footer-placeholder").load("/reused/footer.html");
+        });
+    </script>
+    <!--end of Page footer -->
+
+</body>
+
+</html>
