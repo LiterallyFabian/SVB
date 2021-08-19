@@ -163,8 +163,6 @@ function playVideo(path) {
     });
     videoObj.appendTo($('.song_gallery'));
 
-    var canvas = document.getElementById("catchField");
-    var ctx = canvas.getContext("2d");
     var video = document.getElementById('beatmap_video');
     video.playbackRate = dtModifier;
 
@@ -173,9 +171,9 @@ function playVideo(path) {
         video.play();
         video.addEventListener('play', () => {
             function step() {
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+                context.drawImage(video, 0, 0, canvas.width, canvas.height)
                 requestAnimationFrame(step)
-                ctx.globalCompositeOperation = 'destination-over';
+                context.globalCompositeOperation = 'destination-over';
             }
             requestAnimationFrame(step);
         });
