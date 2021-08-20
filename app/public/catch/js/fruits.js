@@ -33,7 +33,7 @@ function fruit(x, size, hitsound, hyper = false) {
     } else if (size == 1) { //droplet
         this.sprite = dropletImage;
         this.width = 41;
-        this.height = 51;
+        this.height = 41 * (this.sprite.height / this.sprite.width);
         this.score = 50;
     } else if (size == 2) { //banana
         this.sprite = bananaImage;

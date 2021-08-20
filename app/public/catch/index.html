@@ -15,6 +15,7 @@
     <script src="js/audioPreview.js"></script>
     <script src="js/summoner.js"></script>
     <script src="js/mods.js"></script>
+    <script src="js/skins.js"></script>
     <script src="js/fillFeed.js"></script>
     <script src="js/rankPopup.js"></script>
     <script src="js/processor.js"></script>
@@ -66,19 +67,24 @@
 
     <!--Fruits-->
     <script>
-        var skin = getAloneCookie("catchSkin");
-        if (typeof skin != "string") skin = "osu";
+        var skinID = getAloneCookie("catchSkin");
+        if (typeof skinID != "string") skinID = "osu";
+
+        var skinData = skins.filter(obj => {
+            return obj.id === skinID
+        });
 
         $('#osubody').prepend(`
-            <img class="hide catch-fruit" id="fruit1" src="img//hitobjects/${skin}-1.png">
-            <img class="hide catch-fruit" id="fruit2" src="img//hitobjects/${skin}-2.png">
-            <img class="hide catch-fruit" id="fruit3" src="img//hitobjects/${skin}-3.png">
-            <img class="hide catch-fruit" id="fruit4" src="img//hitobjects/${skin}-4.png">
+            <img class="hide catch-fruit" id="fruit1" src="img/hitobjects/${skinID}-1.png">
+            <img class="hide catch-fruit" id="fruit2" src="img/hitobjects/${skinID}-2.png">
+            <img class="hide catch-fruit" id="fruit3" src="img/hitobjects/${skinID}-3.png">
+            <img class="hide catch-fruit" id="fruit4" src="img/hitobjects/${skinID}-4.png">
             <img class="hide catch-fruit" id="dango" src="img/dango.png">
             <img class="hide catch-fruit" id="hyper" src="img/hyper.png">
-            <img class="hide catch-fruit" id="banana" src="img/hitobjects/${skin}-shower.png">
-            <img class="hide catch-fruit" id="droplet" src="img/droplet.png">`);
+            <img class="hide catch-fruit" id="banana" src="img/hitobjects/${skinID}-shower.png">
+            <img class="hide catch-fruit" id="droplet" src="${skinData.hasDrop ? `img/droplet.png` : `img/hitobjects/${skinID}-drop.png`}"">`);
     </script>
+
     <!--Ranks-->
     <img class="hide" id="rank-ss" src="/img/ranking-SS.png">
     <img class="hide" id="rank-s" src="/img/ranking-S.png">
