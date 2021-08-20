@@ -10,6 +10,10 @@
 
         .skin-label {
             padding-bottom: 10px;
+
+            @include theme() {
+                color: theme-get('text');
+            }
         }
 
         img {
