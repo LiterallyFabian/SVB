@@ -1,23 +1,33 @@
 var skins = [{
     name: "Default (osu!)",
     id: "osu",
-    status: "checked"
+    status: "checked",
+    hasDrop: false
 }, {
     name: "American",
     id: "american",
-    status: ""
+    status: "",
+    hasDrop: false
 }, {
     name: "Flowers",
     id: "flower",
-    status: ""
+    status: "",
+    hasDrop: false
 }, {
     name: "Hunie",
     id: "hunie",
-    status: ""
+    status: "",
+    hasDrop: false
 }, {
     name: "Sarah",
     id: "sarah",
-    status: ""
+    status: "",
+    hasDrop: false
+}, {
+    name: "Kanna Kamui'",
+    id: "kanna",
+    status: "",
+    hasDrop: true
 }]
 
 $(document).ready(function () {
@@ -26,7 +36,7 @@ $(document).ready(function () {
     //try set selection
     var currentSkin = getAloneCookie("catchSkin");
     if (typeof currentSkin == "string") $(`#${currentSkin}`).prop("checked", true);
-    
+
     //listen for skin changes
     $('input:radio[name=skin]').change(function () {
         setCookie("catchSkin", this.value, 100000);
