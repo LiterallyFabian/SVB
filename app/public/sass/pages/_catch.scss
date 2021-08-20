@@ -107,6 +107,12 @@
 
     .osu-option {
         margin: 1% 0;
+
+        button {
+            @include theme() {
+                color: theme-get('text');
+            }
+        }
     }
 }
 

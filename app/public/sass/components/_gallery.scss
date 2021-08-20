@@ -10,10 +10,6 @@
 
         .skin-label {
             padding-bottom: 10px;
-
-            @include theme() {
-                color: theme-get('text');
-            }
         }
 
         img {
@@ -74,7 +70,6 @@ a {
     li {
         @include theme() {
             background: theme-get('foreground');
-            color: theme-get('text');
         }
 
         border-radius: 15px;
