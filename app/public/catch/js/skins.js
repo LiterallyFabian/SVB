@@ -22,6 +22,15 @@ var skins = [{
 
 $(document).ready(function () {
     fillSkins();
+
+    //try set selection
+    var currentSkin = getAloneCookie("catchSkin");
+    if (typeof currentSkin == "string") $(`#${currentSkin}`).prop("checked", true);
+    
+    //listen for skin changes
+    $('input:radio[name=skin]').change(function () {
+        setCookie("catchSkin", this.value, 100000);
+    });
 })
 
 function fillSkins() {
