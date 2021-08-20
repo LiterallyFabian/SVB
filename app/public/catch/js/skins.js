@@ -1,8 +1,18 @@
 var skins = [{
-    name: "Default (osu!)",
+    name: "Default (osu!catch)",
     id: "osu",
     status: "checked",
     hasDrop: false
+}, {
+    name: "osu!",
+    id: "circle",
+    status: "",
+    hasDrop: false
+}, {
+    name: "Kanna Kamui'",
+    id: "kanna",
+    status: "",
+    hasDrop: true
 }, {
     name: "American",
     id: "american",
@@ -23,11 +33,6 @@ var skins = [{
     id: "sarah",
     status: "",
     hasDrop: false
-}, {
-    name: "Kanna Kamui'",
-    id: "kanna",
-    status: "",
-    hasDrop: true
 }]
 
 $(document).ready(function () {
