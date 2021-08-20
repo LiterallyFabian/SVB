@@ -72,7 +72,7 @@
 
         var skinData = skins.filter(obj => {
             return obj.id === skinID
-        });
+        })[0];
 
         $('#osubody').prepend(`
             <img class="hide catch-fruit" id="fruit1" src="img/hitobjects/${skinID}-1.png">
@@ -82,7 +82,7 @@
             <img class="hide catch-fruit" id="dango" src="img/dango.png">
             <img class="hide catch-fruit" id="hyper" src="img/hyper.png">
             <img class="hide catch-fruit" id="banana" src="img/hitobjects/${skinID}-shower.png">
-            <img class="hide catch-fruit" id="droplet" src="${skinData.hasDrop ? `img/droplet.png` : `img/hitobjects/${skinID}-drop.png`}"">`);
+            <img class="hide catch-fruit" id="droplet" src="${skinData.hasDrop ?  `img/hitobjects/${skinID}-drop.png`:`img/droplet.png`}">`);
     </script>
 
     <!--Ranks-->
