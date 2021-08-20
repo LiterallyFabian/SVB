@@ -1,6 +1,24 @@
 #gallery {
     width: 70%;
     max-width: 1400px;
+
+    .skin-container {
+        display: inline-block;
+        width: 520px;
+        max-width: 100%;
+        padding: 40px;
+
+        .skin-label {
+            padding-bottom: 10px;
+        }
+
+        img {
+            width: 90px;
+            max-width: 18%;
+            height: auto;
+            padding: 0 5px;
+        }
+    }
 }
 
 button {
