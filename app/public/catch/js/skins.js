@@ -9,6 +9,11 @@ var skins = [{
     status: "",
     hasDrop: false
 }, {
+    name: "Flowers",
+    id: "flower",
+    status: "",
+    hasDrop: false
+}, {
     name: "Kanna Kamui'",
     id: "kanna",
     status: "",
@@ -16,11 +21,6 @@ var skins = [{
 }, {
     name: "American",
     id: "american",
-    status: "",
-    hasDrop: false
-}, {
-    name: "Flowers",
-    id: "flower",
     status: "",
     hasDrop: false
 }, {
