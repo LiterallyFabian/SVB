@@ -63,16 +63,22 @@
     <img class="hide catch-catcher" id="catcher-kiaiR" src="img/catchers/lynn/catcher-kiai-R.png">
     <img class="hide" id="catcher-flashlight" src="img/flashlight.png">
 
-    <!--Fruits-->
-    <img class="hide catch-fruit" id="fruit1" src="img/orange.png">
-    <img class="hide catch-fruit" id="fruit2" src="img/apple.png">
-    <img class="hide catch-fruit" id="fruit3" src="img/grape.png">
-    <img class="hide catch-fruit" id="fruit4" src="img/pear.png">
-    <img class="hide catch-fruit" id="dango" src="img/dango.png">
-    <img class="hide catch-fruit" id="hyper" src="img/hyper.png">
-    <img class="hide catch-fruit" id="banana" src="img/banana.png">
-    <img class="hide catch-fruit" id="droplet" src="img/droplet.png">
 
+    <!--Fruits-->
+    <script>
+        var skin = getAloneCookie("catchSkin");
+        if (typeof skin != "string") skin = "osu";
+
+        $('#osubody').prepend(`
+            <img class="hide catch-fruit" id="fruit1" src="img//hitobjects/${skin}-1.png">
+            <img class="hide catch-fruit" id="fruit2" src="img//hitobjects/${skin}-2.png">
+            <img class="hide catch-fruit" id="fruit3" src="img//hitobjects/${skin}-3.png">
+            <img class="hide catch-fruit" id="fruit4" src="img//hitobjects/${skin}-4.png">
+            <img class="hide catch-fruit" id="dango" src="img/dango.png">
+            <img class="hide catch-fruit" id="hyper" src="img/hyper.png">
+            <img class="hide catch-fruit" id="banana" src="img/hitobjects/${skin}-shower.png">
+            <img class="hide catch-fruit" id="droplet" src="img/droplet.png">`);
+    </script>
     <!--Ranks-->
     <img class="hide" id="rank-ss" src="/img/ranking-SS.png">
     <img class="hide" id="rank-s" src="/img/ranking-S.png">

@@ -27,7 +27,7 @@ function fruit(x, size, hitsound, hyper = false) {
     if (size == 0) { //normal fruit
         this.sprite = hyper ? hyperImage : fruitImages[Math.floor(Math.random() * fruitImages.length)];
         this.width = 80;
-        this.height = 80;
+        this.height = 80 * (this.sprite.height / this.sprite.width);
         this.hitsound = hitsound;
         this.score = 300;
     } else if (size == 1) { //droplet
