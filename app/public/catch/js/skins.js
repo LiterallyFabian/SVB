@@ -21,6 +21,10 @@ var skins = [{
 }]
 
 $(document).ready(function () {
+    fillSkins();
+})
+
+function fillSkins() {
     skins.forEach(skin => {
         $("#gallery").append(`
         <div class="skin-container">
@@ -36,4 +40,4 @@ $(document).ready(function () {
         </div>
         `)
     })
-})
+}
