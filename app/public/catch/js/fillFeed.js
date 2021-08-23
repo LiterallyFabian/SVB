@@ -29,6 +29,9 @@ class bmap {
         //remove stuff from title
         var fixedTitle = this.beatmap.title.replace(/(?<!^)((\[.+\]$)|(\(.+\)$)|(\-.+\-$)|(\~.+\~$)|((feat|ft| ver ).+)|(\/|\-.+remix))$/ig, '');
 
+        //set description
+        var description = `${this.beatmap.artist} - ${this.beatmap.title} [${this.beatmap.difficulty}]\nMapped by ${this.beatmap.creator}.\n\nApproach Rate: ${this.beatmap.approachrate}\nCircle Size: ${this.beatmap.circlesize}\nBPM: ${this.beatmap.bpm}\nSampleSet: ${this.beatmap.sampleset}`;
+
         //generate card
         return `
         <li class="beatmapCard" id="card-${this.beatmap.id}">
@@ -41,7 +44,7 @@ class bmap {
                 <img class="thumbnail" src="/${this.beatmap.path.replace("song/", "song/icon/")}.jpg" alt="thumbnail">
                 </div>
                 <figcaption>
-                    <p style="padding-bottom:2px"><b>${fixedTitle}</b></p>
+                    <p style="padding-bottom:2px" title="${description}"><b>${fixedTitle}</b></p>
                     <p>${this.beatmap.artist}</p>
                     <br>
                     ${starContainer}
