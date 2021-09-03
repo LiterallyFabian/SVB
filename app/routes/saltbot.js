@@ -9,10 +9,10 @@ router.post("/update", (req, res) => {
     if (token == process.env.salttoken) {
         connection.query(`INSERT INTO saltbot (id,command,date) VALUES (${id},${connection.escape(command)},NOW());`, function (err, result) {
             if (err) throw err;
-            return res.status(200)
+            return res.status(200).send("OK");
         });
     } else {
-        return res.status(403);
+        return res.status(403).send("Invalid token");
     }
 });
 
@@ -25,10 +25,10 @@ router.post("/server", (req, res) => {
     if (token == process.env.salttoken) {
         connection.query(`INSERT INTO saltbot_servers (members,servers,date) VALUES (${members},${servers},${time ? `"${time}"` : "NOW()"});`, function (err, result) {
             if (err) throw err;
-            return res.status(200)
+            return res.status(200).send("OK");
         });
     } else {
-        return res.status(403);
+        return res.status(403).send("Invalid token");
     }
 });
 
@@ -45,7 +45,7 @@ router.get("/get/:token/:mode", (req, res) => {
             return res.status(200).send(result);
         });
     } else {
-        return res.status(403);
+        return res.status(403).send("Invalid token");;
     }
 });
 
