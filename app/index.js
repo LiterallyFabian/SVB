@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const mysql2 = require('mysql2');
 const path = require('path');
+const cors = require('cors')
 const fs = require('fs');
 const root = path.join(__dirname, '/public');
 const app = express();
@@ -52,7 +53,7 @@ app.use((req, res, next) => {
     );
 });
 
-app.use((req, res, next) => {
+app.use(cors(), (req, res, next) => {
     const file = req.url.replace(/\/$/g, "") + ".osu";
     fs.exists(path.join(root, file), (exists) =>
         exists ? res.sendFile(file, {
