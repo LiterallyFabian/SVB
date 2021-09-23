@@ -39,6 +39,7 @@ connection.connect(function (e) {
     route_catch.getMaps();
 });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public'), {
     extensions: ['html', 'htm', "osu"]
@@ -51,20 +52,6 @@ app.use((req, res, next) => {
             root
         }) : next()
     );
-});
-
-app.use(cors(), (req, res, next) => {
-    const file = req.url.replace(/\/$/g, "") + ".osu";
-    fs.exists(path.join(root, file), (exists) => {
-        if (exists) {
-            res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
-            res.sendFile(file, {
-                root
-            })
-        } else {
-            next()
-        }
-    });
 });
 
 app.use('/user', route_user);
