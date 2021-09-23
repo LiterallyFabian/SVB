@@ -40,11 +40,20 @@ connection.connect(function (e) {
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public'), {
-    extensions: ['html', 'htm']
+    extensions: ['html', 'htm', "osu"]
 }));
 
 app.use((req, res, next) => {
     const file = req.url.replace(/\/$/g, "") + ".html";
+    fs.exists(path.join(root, file), (exists) =>
+        exists ? res.sendFile(file, {
+            root
+        }) : next()
+    );
+});
+
+app.use((req, res, next) => {
+    const file = req.url.replace(/\/$/g, "") + ".osu";
     fs.exists(path.join(root, file), (exists) =>
         exists ? res.sendFile(file, {
             root
