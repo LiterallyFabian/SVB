@@ -12,7 +12,7 @@ router.post('/getmaps', (req, res) => {
     connection.query("SELECT * FROM beatmaps WHERE mode = 'catch' ORDER BY stars", function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });

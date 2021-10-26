@@ -32,10 +32,10 @@ router.post("/update", (req, res) => {
             connection.query(`UPDATE users SET royaleScores = '${JSON.stringify(data)}' WHERE id = '${id}'`, function (err2, result) {
                 if (err2) throw err2;
                 console.log(`Added SajberRoyale data to user ${id}`);
-                res.send(true);
+                return res.send(true);
             });
         } else {
-            res.send(false);
+            return res.send(false);
         }
     });
 });

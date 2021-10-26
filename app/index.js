@@ -45,14 +45,6 @@ app.use(express.static(path.join(__dirname, '/public'), {
     extensions: ['html', 'htm', "osu"]
 }));
 
-app.use((req, res, next) => {
-    const file = req.url.replace(/\/$/g, "") + ".html";
-    fs.exists(path.join(root, file), (exists) =>
-        exists ? res.sendFile(file, {
-            root
-        }) : next()
-    );
-});
 
 app.use('/user', route_user);
 app.use('/post', route_post);
@@ -63,7 +55,23 @@ app.use('/royale', route_royale);
 app.use('/saltbot', route_saltbot);
 
 app.get('/', (req, res) => {
-    res.sendFile('/index.html')
+    return res.sendFile('/index.html')
+});
+
+app.get('/mudae/', (req, res) => {
+    return res.sendFile(__dirname + '/public/mudae.html')
+});
+
+app.get('/members/', (req, res) => {
+    return res.sendFile(__dirname + '/public/members.html')
+});
+
+app.get('/post/', (req, res) => {
+    return res.sendFile(__dirname + '/public/post.html')
+});
+
+app.get('/sajberroyale/', (req, res) => {
+    return res.sendFile(__dirname + '/public/sajberroyale.html')
 });
 
 const hostname = '192.168.56.101';

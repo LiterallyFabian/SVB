@@ -15,7 +15,7 @@ router.post('/claimkakera', (req, res) => {
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 60, 100, "${date}", 100) ON DUPLICATE KEY UPDATE reactPower = reactPower - reactCost, username = "${username}", avatar = "${avatar}", lastAction = "${date}";`, function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
@@ -33,7 +33,7 @@ router.post('/claimcharacter', (req, res) => {
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", false, 100, 100, "${date}", 100) ON DUPLICATE KEY UPDATE hasClaim = false, username = "${username}", avatar = "${avatar}", lastAction = "${date}";`, function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
@@ -49,7 +49,7 @@ router.post('/resetclaim', (req, res) => {
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}", 100) ON DUPLICATE KEY UPDATE hasClaim = true, username = "${username}", avatar = "${avatar}";`, function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
@@ -65,7 +65,7 @@ router.post('/dailykakera', (req, res) => {
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", true, 100, 100, "${date}", 100) ON DUPLICATE KEY UPDATE reactPower = reactCap, reactCap = GREATEST(reactPower, reactCap), username = "${username}", avatar = "${avatar}";`, function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
@@ -84,11 +84,12 @@ router.post('/updatetu', (req, res) => {
     connection.query(`INSERT INTO mudae VALUES (${id}, "${username}", "${avatar}", ${hasClaim}, ${reactPower}, ${reactCost}, "${date}", 100) ON DUPLICATE KEY UPDATE username = "${username}", avatar = "${avatar}", hasClaim = ${hasClaim}, reactCost = ${reactCost}, reactPower = ${reactPower};`, function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
 
+/*
 //Reset claim for everyone at xx:20
 var j = schedule.scheduleJob('0 20 * * * *', function () {
 
@@ -101,18 +102,19 @@ var j = schedule.scheduleJob('0 20 * * * *', function () {
 });
 
 //Add 1 react power to everyone every 3 min
-var j = schedule.scheduleJob('*/3 * * * *', function () {
+var j = schedule.scheduleJob('*\/3 * * * *', function () {
     connection.query(`UPDATE mudae SET reactPower = reactPower + 1 WHERE reactPower < reactCap;`, function (err, result) {
         if (err) throw err;
     });
 });
+*/
 
 //Gets all users
 router.post('/users', (req, res) => {
     connection.query("SELECT * FROM mudae", function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });

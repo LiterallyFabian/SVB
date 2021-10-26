@@ -20,14 +20,14 @@ router.post('/createpost', (req, res) => {
                     console.log(`Creating news article ${title}, by ${author}`);
                     connection.query(`INSERT INTO posts VALUES ('${title}', '${author}', '${text}', '${thumbnail}', '${url}', '${date}', '${auth.id}')`, function (err2, result) {
                         if (err2) throw err2;
-                        res.send(result);
+                        return res.send(result);
                         console.log("Post created!");
                         createPosts();
                     });
                 } else {
                     connection.query(`UPDATE posts SET title = '${title}', text = '${text}', thumbnailPath = '${thumbnail}', date = '${date}' WHERE url = '${url}'`, function (err2, result) {
                         if (err2) throw err2;
-                        res.send(result);
+                        return res.send(result);
                         console.log("Post Updated!");
                         createPosts();
                     });
@@ -44,7 +44,7 @@ router.post('/getposts', (req, res) => {
     connection.query("SELECT * FROM posts", function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
@@ -55,7 +55,7 @@ router.post('/getarticle', (req, res) => {
     connection.query(`SELECT * FROM posts WHERE url = '${url}'`, function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
@@ -69,12 +69,12 @@ router.post('/deletearticle', (req, res) => {
             connection.query(`DELETE FROM posts WHERE url = '${url}'`, function (err, result) {
                 if (err) throw err;
                 else {
-                    res.send(result);
+                    return res.send(result);
                     console.log(`Deleted article ${url}`)
                 }
             });
         } else {
-            res.send(false);
+            return res.send(false);
         }
     })
 

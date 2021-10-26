@@ -99,7 +99,7 @@ router.post("/verify", (req, res) => {
                                     verifyPermission(auth, "modify_articles").then(granted => {
                                         if (granted) resultmain[0]["canPost"] = true;
                                         else resultmain[0]["canPost"] = false;
-                                        res.send(resultmain);
+                                        return res.send(resultmain);
                                     });
                                 });
                             }
@@ -112,7 +112,7 @@ router.post("/verify", (req, res) => {
             if (err) throw err;
             else if (result.length == 0) res.send(false);
             else {
-                res.send(result);
+                return res.send(result);
             }
         });
     }
@@ -136,10 +136,10 @@ router.post("/getuser", (req, res) => {
             verifyPermission(auth, "assign_roles").then(granted => {
                 if (granted) result[0]["canAssignRoles"] = true;
                 else result[0]["canAssignRoles"] = false;
-                res.send(result);
+                return res.send(result);
             });
         } else {
-            res.send(false);
+            return res.send(false);
         }
     });
 });
@@ -159,8 +159,7 @@ router.post("/updateuser", (req, res) => {
             connection.query(`UPDATE users SET ? WHERE id = '${id}'`, data, function (err2, result) {
                 if (err2) throw err2;
                 console.log(`User ${id} updated by admin ${auth.id}!`);
-                res.send(true);
-                return;
+                return res.send(true);
             });
         } else {
             verifyPermission(auth, "update_ownProfile").then(granted => { //user got permission to edit their profile
@@ -170,13 +169,13 @@ router.post("/updateuser", (req, res) => {
                             connection.query(`UPDATE users SET ? WHERE id = '${id}'`, data, function (err2, result) {
                                 if (err2) throw err2;
                                 console.log(`User profile ${id} updated by themselves!`);
-                                res.send(true);
-                                return;
+                                return res.send(true);
+
                             });
                         }
                     });
                 } else {
-                    res.send(false);
+                    return res.send(false);
                 }
             });
         }
@@ -219,7 +218,7 @@ function signUpOrInUser(data, user, res, fromSajberRoyale) {
             });
             connection.query(`INSERT INTO users SET ?`, sqldata, function (err2, result2) {
                 if (err2) throw err2;
-                res.redirect((fromSajberRoyale ? "/profile/auth?user=" : "/profile/edit?id=" + user.id))
+                return res.redirect((fromSajberRoyale ? "/profile/auth?user=" : "/profile/edit?id=" + user.id))
             });
         } else {
 
@@ -234,7 +233,7 @@ function signUpOrInUser(data, user, res, fromSajberRoyale) {
             //update discord access token
             connection.query(`UPDATE users SET avatar = 'https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png', access_token = '${data.access_token}' WHERE id = '${user.id}'`, function (err2, result) {
                 if (err2) throw err2;
-                res.redirect((fromSajberRoyale ? "/profile/auth" : "/profile/?user=" + user.id))
+                return res.redirect((fromSajberRoyale ? "/profile/auth" : "/profile/?user=" + user.id))
             });
         }
 
@@ -268,7 +267,7 @@ router.post('/getusers', (req, res) => {
         if (err) throw err;
         else {
             result[0].perms = perms;
-            res.send(result);
+            return res.send(result);
         }
     });
 });
@@ -278,7 +277,7 @@ router.post('/getroyale', (req, res) => {
     connection.query("SELECT name,avatar,id,royaleScores FROM users", function (err, result) {
         if (err) throw err;
         else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
