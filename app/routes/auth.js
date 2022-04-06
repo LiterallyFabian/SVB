@@ -208,7 +208,6 @@ function signUpOrInUser(data, user, res, fromSajberRoyale) {
                 bio: "Hello world!",
                 banner: "https://i.imgur.com/svmBcCG.png",
                 catchScores: '{"ss":0,"ssx":0,"sx":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0, "score":0, "highestCombo":0}',
-                taikoScores: '{"ss":0,"ssx":0,"sx":0,"s":0,"a":0,"b":0,"c":0,"d":0, "score":0, "highestCombo":0}',
                 royaleScores: '{"gamesPlayed":0, "gamesWon":0,"kills":0,"deaths":0,"damageDone":0,"damageTaken":0,"healthRegenerated":0,"shotsFired":0,"shotsHit":0, "emotesEmoted":0, "itemsPickedup":0, "lockersOpened":0}',
                 authToken: Math.floor(Math.random() * Math.floor(999999)),
                 roles: '["krönikör"]'
