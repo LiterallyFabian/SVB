@@ -11,18 +11,9 @@ You've been warned.
 
 function startEggs(id) {
 
-    //putin walk
-    //makes catcher wide
-    if (id == 2517397) {
-        setTimeout(function () {
-            $(catcher).animate({
-                width: catcher.width * 2.5
-            }, 1500 * delayModifier);
-        }, fruitDropTime);
-
-        //my love / new beginnings
-        //changes catcher to Yuzu
-    } else if (id == 397535 || id == 2116202) {
+    //my love / new beginnings
+    //changes catcher to Yuzu
+    if (id == 397535 || id == 2116202) {
         setCatcher("yuzu");
 
         //padoru / cinderella cage / carol of circles
@@ -175,6 +166,7 @@ function playVideo(path) {
                 requestAnimationFrame(step)
                 context.globalCompositeOperation = 'destination-over';
             }
+
             requestAnimationFrame(step);
         });
     }, fruitDropTime);
