@@ -6,6 +6,7 @@ const glob = require('glob');
 const url = require('url');
 const fetch = require('node-fetch');
 const permissions = require("./permission.js");
+const connection = require("express");
 const perms = permissions.permissions;
 
 //log-in users through the main page
@@ -23,7 +24,7 @@ router.get('/royale', (req, res) => {
 //Gets users access token from auth, and then tries to log in or create account
 //redirectNew = where to direct new members
 function processToken(req, res, fromSajberRoyale) {
-    var t_info;
+    let t_info;
     const urlObj = url.parse(req.url, true);
 
     if (urlObj.query.code) {
@@ -196,7 +197,7 @@ function signUpOrInUser(data, user, res, fromSajberRoyale) {
     //console.log(data);
     //console.log(user);
     connection.query(`SELECT * FROM users WHERE id = '${user.id}'`, function (err, result) {
-        if (result.length == 0) {
+        if (result.length === 0) {
             console.log(`Creating user for ${user.username}#${user.discriminator}`);
             var sqldata = {
                 name: user.username,
@@ -208,7 +209,6 @@ function signUpOrInUser(data, user, res, fromSajberRoyale) {
                 bio: "Hello world!",
                 banner: "https://i.imgur.com/svmBcCG.png",
                 catchScores: '{"ss":0,"ssx":0,"sx":0,"s":0,"a":0,"b":0,"c":0,"d":0,"bananasSeen":0,"bananasCatched":0, "score":0, "highestCombo":0}',
-                taikoScores: '{"ss":0,"ssx":0,"sx":0,"s":0,"a":0,"b":0,"c":0,"d":0, "score":0, "highestCombo":0}',
                 royaleScores: '{"gamesPlayed":0, "gamesWon":0,"kills":0,"deaths":0,"damageDone":0,"damageTaken":0,"healthRegenerated":0,"shotsFired":0,"shotsHit":0, "emotesEmoted":0, "itemsPickedup":0, "lockersOpened":0}',
                 authToken: Math.floor(Math.random() * Math.floor(999999)),
                 roles: '["krönikör"]'
