@@ -7,3 +7,4 @@ app/public/catch/song/DEBUG_*
 .vs*
 *.code-workspace
 cmd.txt
+.idea/
