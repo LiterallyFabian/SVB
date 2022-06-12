@@ -74,6 +74,13 @@ app.get('/sajberroyale/', (req, res) => {
     return res.sendFile(__dirname + '/public/sajberroyale.html')
 });
 
+app.get('/articles/:article', (req, res) => {
+    if (fs.existsSync(__dirname + '/public/articles/' + req.params.article + '.html')) {
+        return res.sendFile(__dirname + '/public/articles/' + req.params.article + '.html')
+    }
+    return res.sendFile(__dirname + '/public/404.html')
+});
+
 const hostname = '192.168.56.101';
 const port = 3000;
 

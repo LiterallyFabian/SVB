@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="theme_light">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Scripts-->
+    <script src="https://kit.fontawesome.com/2db49cb13f.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.js"></script>
+    <script src="https://unpkg.com/vue@3.0.5"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/article.js"></script>
+    <script src="js/svt.js"></script>
+    <!--Styling-->
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+    <!--Meta-->
+    <title>SVB</title>
+    <meta name="description" content="SVB Nyheter with some fruits.">
+    <meta name="image" content="/img/banner.jpg">
+    <meta itemprop="name" content="SVB Nyheter">
+    <meta itemprop="description" content="SVB Nyheter with some fruits.">
+    <meta itemprop="image" content="/img/banner.jpg">
+    <meta name="og:title" content="SVB Nyheter">
+    <meta name="og:description" content="SVB Nyheter with some fruits.">
+    <meta name="og:image" content="/img/banner.jpg">
+    <meta name="og:url" content="https://svt.sajber.me">
+    <meta name="og:site_name" content="SVB">
+    <meta name="og:locale" content="sv_SE">
+    <meta name="og:type" content="website">
+</head>
+
+<body>
+<!--Navigation bar-->
+<div id="nav-placeholder"></div>
+
+<script>
+    $(function () {
+        $("#nav-placeholder").load("/reused/nav.html");
+    });
+</script>
+<!--end of Navigation bar-->
+
+<!-- Article section -->
+<div class="container">
+    <h1>404</h1>
+    <p>The page you are looking for does not exist.</p>
+</div>
+<!-- end of Article section -->
+
+<!-- Page footer -->
+<div id="footer-placeholder"></div>
+
+<script>
+    $(function () {
+        $("#footer-placeholder").load("/reused/footer.html");
+    });
+</script>
+<!--end of Page footer -->
+
+</body>
+
+</html>
